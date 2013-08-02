@@ -13,8 +13,8 @@ jar:
 	cp -R $(REOBF)/com/qzx/au/$(MOD)/*.class $(FILES) com/qzx/au/$(MOD)/
 	mkdir -p com/qzx/au/util
 	cp -R $(REOBF)/com/qzx/au/util/*.class com/qzx/au/util/
-	zip -r au_$(MOD).zip mcmod.info com
+	zip -r au_$(MOD)-$(VER).zip mcmod.info com
 
 clean:
-	rm -f au_$(MOD).zip *.class
+	rm -f au_$(MOD)-*.zip *.class
 	rm -rf com
