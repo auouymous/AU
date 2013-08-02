@@ -17,8 +17,8 @@ import com.qzx.au.hud.GuiHandler;
 
 //NetworkMod(clientSideRequired = true, serverSideRequired = true, channels = { "AUHudRandom" }, packetHandler = PacketHandler.class)
 
-@Mod(modid="AUHud", name="Altered Unification HUD", version="1aug2013-r1")
-@NetworkMod(clientSideRequired = true, serverSideRequired = true)
+@Mod(modid="AUHud", name="Altered Unification HUD", version="2aug2013-r1")
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class AUHud {
 	@Instance("AUHud")
 	public static AUHud instance;

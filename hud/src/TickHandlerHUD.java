@@ -368,11 +368,11 @@ public class TickHandlerHUD implements ITickHandler {
 									}
 
 									// brightness, hardness, resistance
-									float brightness = block.getBlockBrightness(world, mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
+									int brightness = block.getLightValue(world, mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
 									float hardness = block.getBlockHardness(world, mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
 									float resistance = block.getExplosionResistance(null);
 									this.ui.drawString("   b: ", 0xaaaaaa);
-									this.ui.drawString(String.format("%d", (int)MathHelper.floor_float(brightness*15.0F)), 0xffffff);
+									this.ui.drawString((brightness > 0 ? String.format("%d", brightness) : "_"), 0xffffff);
 									this.ui.drawString(" h: ", 0xaaaaaa);
 									this.ui.drawString((hardness == -1 ? "unbreakable" : String.format("%.1f", hardness)), 0xffffff);
 									this.ui.drawString(" r: ", 0xaaaaaa);

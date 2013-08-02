@@ -3,9 +3,6 @@ The days and nights are longer than normal and the sun doesn't rise and set at n
 If possible, the time should should scale to match the age's day/night cycles.
 And if the age lacks day or night, the time should indicate such and not change.
 
-Many blocks have a brightness value but don't give off light.
-I'm looking into this...
-
 -----
 
 Some blocks don't show drops or show incorrect drops because the drops vary or they use custom handlers.
