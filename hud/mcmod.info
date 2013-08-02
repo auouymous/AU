@@ -1,0 +1,22 @@
+[
+{
+  "modid": "AUHud",
+  "name": "Altered Unification HUD",
+  "description": "",
+  "version": "1aug2013-r1",
+  "mcversion": "1.4.7",
+  "url": "http://au.qzx.com",
+  "updateUrl": "",
+  "authors": [ "auouymous" ],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [ ],
+  "parent": "",
+  "requiredMods": [
+    "Forge",
+    "FML"
+  ],
+  "dependencies": [ ],
+  "useDependencyInformation": "true"
+}
+]
