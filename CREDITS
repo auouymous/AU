@@ -1,0 +1,18 @@
+Blaueseichoern
+	http://www.minecraftforum.net/topic/1412300-147forgeblaueseichoerns-gui-tutorial/
+	- GuiHandler and GuiScreen howto
+
+bspkrs
+	https://github.com/bspkrs/IngameInfo/
+	- mctime, rain and block/enntity name methods for HUD
+
+MachineMuse
+	https://github.com/MachineMuse/MachineMusePowersuits
+	- TickHandler and KeyHandler howto
+
+Minecraft source
+	- F3 debug methods for HUD
+	- howto everything!
+
+Mystcraft source
+	- mctime for HUD, works different in ages
