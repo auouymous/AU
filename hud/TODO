@@ -1,0 +1,20 @@
+OPTION MENU
+	- fine grained control over info HUD elements
+		- move elements to different lines and different positions within each line
+		- charge the pre and post text for elements
+		- allow block and entity inspectors to be configured
+
+	- position of info HUD can be changed in config file but should also be configurable in the menu
+
+	- configure position of GraviSuite HUD (restart required)
+	- configure position of bspkr's StatusEffectHUD, ArmorStatusHUD and DirectionHUD (restart required)
+
+INFO HUD
+	- display number of mobs agressing player, if possible
+	- display memory usage
+	- display list of recent items picked up, remove items from list after 15(?) seconds
+		- option to prevent cobble, dirt or gravel from entering player's inventory
+
+ARMOR HUD
+	- support AU, vanilla and IC2 armors
+	- bspkr's ArmorStatusHUD doesn't support MPS, is it not possible?

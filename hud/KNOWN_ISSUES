@@ -1,0 +1,19 @@
+The time is incorrect for the age I live in.
+The days and nights are longer than normal and the sun doesn't rise and set at normal times.
+If possible, the time should should scale to match the age's day/night cycles.
+And if the age lacks day or night, the time should indicate such and not change.
+
+Many blocks have a brightness value but don't give off light.
+I'm looking into this...
+
+-----
+
+Some blocks don't show drops or show incorrect drops because the drops vary or they use custom handlers.
+Grass and Thaumcraft Infused Stone are two such blocks.
+Gregtech returns a message about non-legit blocks.
+
+Redpower microblocks and items that support microblocks on them (tubes, wires, logic) don't return the correct names.
+They also don't return the correct items when picked in creative mode.
+Factorization barrel, craftpacket stamper and craftpacket maker do something weird with metadata and return incorrect names.
+IC2 MVT, HVT, compress, extractor, macerator and glass fiber return incorrect names.
+Induction furnace returns incorrect name.
