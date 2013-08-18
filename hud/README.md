@@ -3,7 +3,7 @@ AU HUD
 
 Display game information in upper left corner.
 
-[Downloads](http://au.qzx.com)
+[Minecraft Forum post](http://www.minecraftforum.net/topic/1945197-)
 
 Required: -
 

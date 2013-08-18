@@ -6,7 +6,7 @@ Smelt rotten flesh to cooked flesh and eggs to fried eggs.
 Craft 4 cooked flesh to 1 leather.
 All recipes are configurable.
 
-[Downloads](http://au.qzx.com)
+[Minecraft Forum post](http://www.minecraftforum.net/topic/1945197-)
 
 Required: -
 
