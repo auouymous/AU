@@ -52,5 +52,9 @@ Potion Effects HUD
 Direction HUD
 * use [bspkr's DirectionHUD](http://bspk.rs/MC/index.html)
 
+Mob/Player Damage HUD
+* use [rich1051414's Damage Indicators](http://www.minecraftforum.net/topic/1536685-)
+* must be installed on client and server to work (pre-1.6)
+
 Minimap and Waypoints
 * use [REI's minimap](http://www.minecraftforum.net/topic/482147-)
