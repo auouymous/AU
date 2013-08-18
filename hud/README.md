@@ -43,6 +43,8 @@ Block Inspector
 * n:normal, o:opaque, s:solid
 * e:has tile entity, r:random ticks, t:tick rate
 
+***
+
 Armor HUD
 * use [bspkr's ArmorStatusHUD](http://bspk.rs/MC/index.html)
 
