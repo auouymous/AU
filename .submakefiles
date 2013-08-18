@@ -1,0 +1,15 @@
+include ../.makefiles
+
+all:
+	@echo "Syntax: make <test|prepare|jar|clean>"
+
+test:
+	$(JC) $(JFLAGS) $(wildcard src/*.java)
+
+prepare:
+	@mkdir $(SRC)/com/qzx/au/$(MOD)
+	@(cd src; for j in *.java; do cpp -E -P -DMC$(VER) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done)
+
+clean:
+	rm -f au_$(MOD)-*.zip *.class
+	rm -rf com mods

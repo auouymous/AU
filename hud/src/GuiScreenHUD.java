@@ -1,5 +1,8 @@
 package com.qzx.au.hud;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
@@ -7,15 +10,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.opengl.GL11;
 
 import com.qzx.au.util.UI;
-import com.qzx.au.hud.AUHud;
-import com.qzx.au.hud.Cfg;
-import com.qzx.au.hud.ClientProxy;
 
+@SideOnly(Side.CLIENT)
 public class GuiScreenHUD extends GuiScreen {
 	private static int CONFIG_WINDOW_WIDTH = 230;
 	private static String HUD_INFO_NAME = "Info HUD";
 
 	private UI ui;
+	private int window_height = 0;
 
 	public GuiScreenHUD(EntityPlayer player){
 		this.ui = new UI();
@@ -23,7 +25,7 @@ public class GuiScreenHUD extends GuiScreen {
 	}
 
 	private void drawTitle(){
-		ui.setCursor((this.width - CONFIG_WINDOW_WIDTH)/2, 2);
+		ui.setCursor((this.width - CONFIG_WINDOW_WIDTH)/2, (this.window_height == 0 ? 2 : (this.height - this.window_height)/2));
 		this.ui.drawStringCentered("AU HUD Options", 0xffffff, CONFIG_WINDOW_WIDTH);
 		this.ui.lineBreak(10);
 	}
@@ -140,6 +142,12 @@ public class GuiScreenHUD extends GuiScreen {
 
 		this.ui.lineBreak(7);
 		this.addButtonCentered(ButtonID.BUTTON_DONE, "Done", 100, 20);
+
+		if(this.window_height == 0){
+			this.ui.lineBreak();
+			this.window_height = this.ui.y;
+			this.initGui();
+		}
 	}
 
 	private void updateButton(GuiButton button, boolean value){
@@ -220,6 +228,6 @@ public class GuiScreenHUD extends GuiScreen {
 
 	@Override
 	public boolean doesGuiPauseGame(){
-		return false;
+		return true;
 	}
 }

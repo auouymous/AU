@@ -5,24 +5,25 @@ import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemStack;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
-//import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.EnumMovingObjectType;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.IShearable;
 
@@ -33,8 +34,6 @@ import java.util.List;
 import org.lwjgl.opengl.GL11;
 
 import com.qzx.au.util.UI;
-import com.qzx.au.hud.AUHud;
-import com.qzx.au.hud.Cfg;
 
 @SideOnly(Side.CLIENT)
 public class TickHandlerHUD implements ITickHandler {
@@ -92,116 +91,127 @@ public class TickHandlerHUD implements ITickHandler {
 		int feet_y = MathHelper.floor_double(mc.thePlayer.boundingBox.minY);
 
 		World world = mc.isIntegratedServerRunning() ? mc.getIntegratedServer().worldServerForDimension(mc.thePlayer.dimension) : mc.theWorld;
-		Chunk chunk = mc.theWorld.getChunkFromBlockCoords(pos_x, pos_z);
+		if(world == null) return;
+
+		Chunk chunk = world.getChunkFromBlockCoords(pos_x, pos_z);
+		if(chunk == null) return;
 
 		this.ui.setCursor(Cfg.info_hud_x, Cfg.info_hud_y);
 
-		// world
-		// biome
-		if(Cfg.show_world || Cfg.show_biome){
-			if(Cfg.show_world)
-				this.ui.drawString(world.provider.getDimensionName(), 0xffffff);
-			if(Cfg.show_biome){
-				BiomeGenBase biome = chunk.getBiomeGenForWorldCoords(pos_x & 15, pos_z & 15, world.getWorldChunkManager());
-				if(Cfg.show_world) this.ui.drawString(" (", 0xaaaaaa);
-				this.ui.drawString(biome.biomeName, 0x22aa22);
-				if(Cfg.show_world) this.ui.drawString(")", 0xaaaaaa);
-			}
-			this.ui.lineBreak();
-		}
+		try {
 
-		// player position
-		if(Cfg.show_position){
-			this.ui.drawString(String.format("%+.1f", mc.thePlayer.posX), 0xffffff);
-			this.ui.drawString(", ", 0xaaaaaa);
-			this.ui.drawString(String.format("%+.1f", mc.thePlayer.posZ), 0xffffff);
-			this.ui.drawString(" f: ", 0xaaaaaa);
-			this.ui.drawString(String.format("%.1f", mc.thePlayer.boundingBox.minY), 0xffffff);
-			if(Cfg.show_position_eyes){
-				this.ui.drawString(" e: ", 0xaaaaaa);
-				this.ui.drawString(String.format("%.1f", mc.thePlayer.posY), 0xffffff);
-			}
-			this.ui.lineBreak();
-		}
-
-		// light levels -- 0-6 red, 7-8 yellow, 9-15 green
-		// time
-		// raining
-		if(Cfg.show_light || Cfg.show_time || Cfg.show_weather){
-			if(Cfg.show_light){
-				int light = chunk.getSavedLightValue(EnumSkyBlock.Block, pos_x & 15, feet_y, pos_z & 15);
-				this.ui.drawString("light ", 0xaaaaaa);
-				this.ui.drawString(String.format("%d ", light), (light < 7 ? 0xff6666 : (light < 9 ? 0xffff66 : 0x66ff66)));
-			}
-
-			if(Cfg.show_time){
-				this.ui.drawString("time ", 0xaaaaaa);
-				long time = world.getWorldTime();
-				int hours = (int) (((time / 1000L) + 6) % 24L);
-				int minutes = (int) (time % 1000L / 1000.0D * 60.0D);
-				this.ui.drawString((hours < 10 ? "0" : "") + String.valueOf(hours) + ":" + (minutes < 10 ? "0" : "") + String.valueOf(minutes) + " ",
-					(world.calculateSkylightSubtracted(1.0F) < 4 ? 0xffff66 : 0x666666));
-			}
-			boolean is_raining = false;
-			if(Cfg.show_weather){
-				is_raining = world.isRaining();
-				if(is_raining){
-					if(Cfg.show_light || Cfg.show_time) this.ui.drawString("(", 0xaaaaaa);
-					this.ui.drawString("raining/snowing", 0x6666ff);
-					if(Cfg.show_light || Cfg.show_time) this.ui.drawString(")", 0xaaaaaa);
+			// world
+			// biome
+			if(Cfg.show_world || Cfg.show_biome){
+				if(Cfg.show_world)
+					this.ui.drawString(world.provider.getDimensionName(), 0xffffff);
+				if(Cfg.show_biome){
+					BiomeGenBase biome = chunk.getBiomeGenForWorldCoords(pos_x & 15, pos_z & 15, world.getWorldChunkManager());
+					if(Cfg.show_world) this.ui.drawString(" (", 0xaaaaaa);
+					this.ui.drawString(biome.biomeName, 0x22aa22);
+					if(Cfg.show_world) this.ui.drawString(")", 0xaaaaaa);
 				}
-			}
-			if(Cfg.show_light || Cfg.show_time || (Cfg.show_weather && is_raining))
 				this.ui.lineBreak();
-		}
+			}
 
-		// player inventory
-		if(Cfg.show_used_inventory){
-			String invText = "used inventory slots: ";
-			ItemStack[] mainInventory = player.inventory.mainInventory;
-			int nr_items = 0;
-			for(int i = 0; i < 36; i++) if(mainInventory[i] != null) nr_items++;
-			if(nr_items == 36){
-				if(this.invItemCount != 36)
-					this.invItemX = screen.getScaledWidth()/2 - mc.fontRenderer.getStringWidth(invText+"100%")/2;
-			} else
-				this.invItemX = this.ui.base_x;
-			this.ui.x = this.invItemX;
-			if(this.invItemX > this.ui.base_x) this.invItemX--;
-			invItemCount = nr_items;
-			this.ui.drawString(invText, 0xaaaaaa);
-			this.ui.drawString(String.format("%d", nr_items*100/36), (nr_items == 36 ? 0xff6666 : (nr_items >= 27 ? 0xffff66 : 0x66ff66)));
-			this.ui.drawString("%", 0xaaaaaa);
-			this.ui.lineBreak();
-		}
+			// player position
+			if(Cfg.show_position){
+				this.ui.drawString(String.format("%+.1f", mc.thePlayer.posX), 0xffffff);
+				this.ui.drawString(", ", 0xaaaaaa);
+				this.ui.drawString(String.format("%+.1f", mc.thePlayer.posZ), 0xffffff);
+				this.ui.drawString(" f: ", 0xaaaaaa);
+				this.ui.drawString(String.format("%.1f", mc.thePlayer.boundingBox.minY), 0xffffff);
+				if(Cfg.show_position_eyes){
+					this.ui.drawString(" e: ", 0xaaaaaa);
+					this.ui.drawString(String.format("%.1f", mc.thePlayer.posY), 0xffffff);
+				}
+				this.ui.lineBreak();
+			}
 
-		// fps and chunk updates
-		if(Cfg.show_fps || Cfg.show_chunk_updates){
-			if(Cfg.show_fps){
-				this.ui.drawString(mc.debug.substring(0, mc.debug.indexOf(" fps")), 0xffffff);
-				this.ui.drawString(" FPS ", 0xaaaaaa);
-			}
-			if(Cfg.show_chunk_updates){
-				this.ui.drawString(mc.debug.substring(mc.debug.indexOf(" fps, ")+6, mc.debug.indexOf(" chunk")), 0xffffff);
-				this.ui.drawString(" chunk updates", 0xaaaaaa);
-			}
-			this.ui.lineBreak();
-		}
+			// light levels -- 0-6 red, 7-8 yellow, 9-15 green
+			// time
+			// raining
+			if(Cfg.show_light || Cfg.show_time || Cfg.show_weather){
+				if(Cfg.show_light){
+					int light = chunk.getSavedLightValue(EnumSkyBlock.Block, pos_x & 15, feet_y, pos_z & 15);
+					this.ui.drawString("light ", 0xaaaaaa);
+					this.ui.drawString(String.format("%d ", light), (light < 7 ? 0xff6666 : (light < 9 ? 0xffff66 : 0x66ff66)));
+				}
 
-		// particles, rendered entities, total entities
-		if(Cfg.show_entities || Cfg.show_particles){
-			if(Cfg.show_entities){
-				String entities = mc.getEntityDebug();
-				this.ui.drawString(entities.substring(entities.indexOf(' ') + 1, entities.indexOf('/')), 0xffffff);
-				this.ui.drawString("/", 0xaaaaaa);
-				this.ui.drawString(entities.substring(entities.indexOf('/') + 1, entities.indexOf('.')), 0xffffff);
-				this.ui.drawString(" entities ", 0xaaaaaa);
+				if(Cfg.show_time){
+					this.ui.drawString("time ", 0xaaaaaa);
+					long time = world.getWorldTime();
+					int hours = (int) (((time / 1000L) + 6) % 24L);
+					int minutes = (int) (time % 1000L / 1000.0D * 60.0D);
+					this.ui.drawString((hours < 10 ? "0" : "") + String.valueOf(hours) + ":" + (minutes < 10 ? "0" : "") + String.valueOf(minutes) + " ",
+						(world.calculateSkylightSubtracted(1.0F) < 4 ? 0xffff66 : 0x666666));
+				}
+				boolean is_raining = false;
+				if(Cfg.show_weather){
+					is_raining = world.isRaining();
+					if(is_raining){
+						if(Cfg.show_light || Cfg.show_time) this.ui.drawString("(", 0xaaaaaa);
+						this.ui.drawString("raining/snowing", 0x6666ff);
+						if(Cfg.show_light || Cfg.show_time) this.ui.drawString(")", 0xaaaaaa);
+					}
+				}
+				if(Cfg.show_light || Cfg.show_time || (Cfg.show_weather && is_raining))
+					this.ui.lineBreak();
 			}
-			if(Cfg.show_particles){
-				this.ui.drawString(mc.effectRenderer.getStatistics(), 0xffffff);
-				this.ui.drawString(" particles", 0xaaaaaa);
+
+			// player inventory
+			if(Cfg.show_used_inventory){
+				String invText = "used inventory slots: ";
+				ItemStack[] mainInventory = player.inventory.mainInventory;
+				int nr_items = 0;
+				for(int i = 0; i < 36; i++) if(mainInventory[i] != null) nr_items++;
+				if(nr_items == 36){
+					if(this.invItemCount != 36)
+						this.invItemX = screen.getScaledWidth()/2 - mc.fontRenderer.getStringWidth(invText+"100%")/2;
+				} else
+					this.invItemX = this.ui.base_x;
+				this.ui.x = this.invItemX;
+				if(this.invItemX > this.ui.base_x) this.invItemX--;
+				invItemCount = nr_items;
+				this.ui.drawString(invText, 0xaaaaaa);
+				this.ui.drawString(String.format("%d", nr_items*100/36), (nr_items == 36 ? 0xff6666 : (nr_items >= 27 ? 0xffff66 : 0x66ff66)));
+				this.ui.drawString("%", 0xaaaaaa);
+				this.ui.lineBreak();
 			}
-			this.ui.lineBreak();
+
+			// fps and chunk updates
+			if(Cfg.show_fps || Cfg.show_chunk_updates){
+				if(Cfg.show_fps){
+					this.ui.drawString(mc.debug.substring(0, mc.debug.indexOf(" fps")), 0xffffff);
+					this.ui.drawString(" FPS ", 0xaaaaaa);
+				}
+				if(Cfg.show_chunk_updates){
+					String chunk_updates = mc.debug.substring(mc.debug.indexOf(" fps, ")+6, mc.debug.indexOf(" chunk"));
+					int length = chunk_updates.length();
+					this.ui.drawString(chunk_updates, (length < 3 ? 0xffffff : chunk_updates.charAt(0) == '1' && length == 3 ? 0xffff66 : 0xff6666));
+					this.ui.drawString(" chunk updates", 0xaaaaaa);
+				}
+				this.ui.lineBreak();
+			}
+
+			// particles, rendered entities, total entities
+			if(Cfg.show_entities || Cfg.show_particles){
+				if(Cfg.show_entities){
+					String entities = mc.getEntityDebug();
+					this.ui.drawString(entities.substring(entities.indexOf(' ') + 1, entities.indexOf('/')), 0xffffff);
+					this.ui.drawString("/", 0xaaaaaa);
+					this.ui.drawString(entities.substring(entities.indexOf('/') + 1, entities.indexOf('.')), 0xffffff);
+					this.ui.drawString(" entities ", 0xaaaaaa);
+				}
+				if(Cfg.show_particles){
+					this.ui.drawString(mc.effectRenderer.getStatistics(), 0xffffff);
+					this.ui.drawString(" particles", 0xaaaaaa);
+				}
+				this.ui.lineBreak();
+			}
+
+		} catch(Exception e){
+//			System.out.println("AU HUD: caught exception in elements");
 		}
 
 		// block at cursor
@@ -243,7 +253,7 @@ public class TickHandlerHUD implements ITickHandler {
 							showItemName("hand", entity.getHeldItem());
 						}
 					} catch(Exception e){
-						System.out.println("AU HUD: caught exception in entity inspector");
+//						System.out.println("AU HUD: caught exception in entity inspector");
 					}
 				} else if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.TILE){
 					int blockID = world.getBlockId(mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
@@ -381,18 +391,24 @@ public class TickHandlerHUD implements ITickHandler {
 
 									// has tile entity, tick rate, random ticks
 									boolean hasTileEntity = block.hasTileEntity(blockMetadata);
+									TileEntity tileEntity = (hasTileEntity ? world.getBlockTileEntity(mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ) : null);
 									boolean tickRandomly = block.getTickRandomly();
-									#ifdef MC147
-									int tickRate = block.tickRate();
-									#else
-									int tickRate = block.tickRate(world);
-									#endif
+									int tickRate = 0;
+									if(tileEntity != null){
+										if(tileEntity.canUpdate()){
+											#ifdef MC147
+											tickRate = block.tickRate();
+											#else
+											tickRate = block.tickRate(world);
+											#endif
+										}
+									}
 									this.ui.drawString("   e: ", 0xaaaaaa);
 									this.ui.drawString((hasTileEntity ? "x" : "_"), 0xffffff);
 									this.ui.drawString(" r: ", 0xaaaaaa);
 									this.ui.drawString((tickRandomly ? "x" : "_"), 0xffffff);
 									this.ui.drawString(" t: ", 0xaaaaaa);
-									this.ui.drawString(String.format("%d", tickRate), 0xffffff);
+									this.ui.drawString((tickRate > 0 ? String.format("%d", tickRate) : "_"), 0xffffff);
 									this.ui.lineBreak();
 
 									// normal, opaque, solid

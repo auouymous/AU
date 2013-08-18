@@ -10,8 +10,13 @@ OPTION MENU
 	- configure position of bspkr's StatusEffectHUD, ArmorStatusHUD and DirectionHUD (restart required)
 
 INFO HUD
+	- add server side support
+		- add API for other mods to publish info elements
+			- protection mod can show worldguard region status
+				- show owner and town info, if player position is protected by protection mod
+	- display direction, default to off
 	- display number of mobs agressing player, if possible
-	- display memory usage
+	- display memory usage, default to off
 	- display list of recent items picked up, remove items from list after 15(?) seconds
 		- option to prevent cobble, dirt or gravel from entering player's inventory
 

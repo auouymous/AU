@@ -13,3 +13,11 @@ MachineMuse
 Blaueseichoern
 	http://www.minecraftforum.net/topic/1412300-147forgeblaueseichoerns-gui-tutorial/
 	- GuiHandler and GuiScreen howto
+
+cpw
+	https://github.com/cpw/ironchest/
+	- tile entity and inventory howto
+
+powercrystals
+	https://github.com/powercrystals/
+	- Container and GuiContainer howto

@@ -5,16 +5,11 @@ import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.settings.KeyBinding;
 
 import java.util.EnumSet;
-
-import com.qzx.au.hud.AUHud;
-import com.qzx.au.hud.Cfg;
-import com.qzx.au.hud.ClientProxy;
 
 @SideOnly(Side.CLIENT)
 public class KeyHandlerHUD extends KeyHandler {

@@ -1,11 +1,6 @@
-include ../.makefiles
+MOD = util
 
-prepare:
-	@mkdir $(SRC)/com/qzx/au/util
-	@(cd src; for j in *.java; do cpp -E -P -DMC$(VER) -o $(SRC)/com/qzx/au/util/$$j $$j; done)
+include ../.submakefiles
 
 jar:
 	@echo "Nothing to package"
-
-clean:
-	@echo "Nothing to clean"

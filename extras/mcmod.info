@@ -1,0 +1,22 @@
+[
+{
+  "modid": "AUExtras",
+  "name": "Altered Unification EXTRAS",
+  "description": "",
+  "version": "20130817-r1",
+  "mcversion": "1.5.2",
+  "url": "http://au.qzx.com",
+  "updateUrl": "",
+  "authors": [ "auouymous" ],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [ ],
+  "parent": "",
+  "requiredMods": [
+    "Forge",
+    "FML"
+  ],
+  "dependencies": [ ],
+  "useDependencyInformation": "true"
+}
+]

@@ -5,4 +5,4 @@ This collection of mods requires Minecraft Forge.
 Drop the HUD mod into the mods folder on client only.
 Drop the others mods into the mods folder on client and server.
 
-[Downloads and Screenshots](http://au.qzx.com)
+[Downloads](http://au.qzx.com)

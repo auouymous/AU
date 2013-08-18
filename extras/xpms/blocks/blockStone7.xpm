@@ -1,0 +1,28 @@
+/* XPM */
+static char *blockStone7[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1 ",
+"  c #A0A0A0",
+". c #999999",
+"X c #AAAAAA",
+"o c #929292",
+"O c #A1A1A1",
+"+ c gray81",
+/* pixels */
+" .... XXoX .... ",
+"  XXXX...XXXo  .",
+" o..o...X.   X  ",
+" X   o X  ..... ",
+" XX.......XXXXXo",
+"..   ... o  ..o ",
+"XX O .XX    XXXo",
+"   ......o....  ",
+" XXoX.   XXXXXXX",
+" ...... o  ...X ",
+"  X..XX.o.XXX   ",
+"o   .   XX   XXo",
+" .......XX..... ",
+" XXXXX ...o.  XX",
+"   .....  XX .. ",
+"....oXX    ...  "
+};

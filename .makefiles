@@ -1,10 +1,11 @@
-#VER = 147
-VER = 152
-
-ifeq ($(VER),147)
+ifeq ($(v),147)
+	VER = 147
 	BASE = /home/mcdev/forge-1.4.7/mcp
-else
+else ifeq ($(v),152)
+	VER = 152
 	BASE = /home/mcdev/forge-1.5.2/mcp
+else
+$(error No version specified, call with v=147|152)
 endif
 
 SRC = $(BASE)/src/minecraft
@@ -24,10 +25,3 @@ P = $(PWD)
 
 JC = javac -encoding UTF-8
 JFLAGS = -Xlint:deprecation
-
-all:
-	@echo "Syntax: make <test|prepare|jar|clean>"
-
-test:
-	$(JC) $(JFLAGS) $(wildcard src/*.java)
-

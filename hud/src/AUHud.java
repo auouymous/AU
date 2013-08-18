@@ -10,14 +10,8 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkRegistry;
 
-import com.qzx.au.hud.Cfg;
-import com.qzx.au.hud.GuiHandler;
-
-//NetworkMod(clientSideRequired = true, serverSideRequired = true, channels = { "AUHudRandom" }, packetHandler = PacketHandler.class)
-
-@Mod(modid="AUHud", name="Altered Unification HUD", version="2aug2013-r1")
+@Mod(modid="AUHud", name="Altered Unification HUD", version="20130817-r1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class AUHud {
 	@Instance("AUHud")
@@ -35,7 +29,6 @@ public class AUHud {
 	public void load(FMLInitializationEvent event){
 		proxy.registerRenderers();
 		proxy.registerHandlers();
-		NetworkRegistry.instance().registerGuiHandler(this, new GuiHandler());
 	}
 
 	@PostInit

@@ -1,9 +1,11 @@
 AU HUD
 ==========
 
-Display game information in upper left corner. Other AU mods are not required.
+Display game information in upper left corner.
 
-[Downloads and Screenshots](http://au.qzx.com)
+[Downloads](http://au.qzx.com)
+
+Required: -
 
 ***
 
