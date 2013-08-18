@@ -1,1 +1,1 @@
-Utility classes shared by Core and HUD.
+Utility classes shared by Core, Extras and HUD.
