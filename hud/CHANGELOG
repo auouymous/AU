@@ -1,3 +1,7 @@
+	- moved GuiHandler into CommonProxy
+	- display number of loaded tile entities near player
+	- display number of loaded tile entities in a block
+
 17aug2013-r1
 	- code cleaning
 	- prevent crash when falling through the world (lag)

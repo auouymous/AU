@@ -27,9 +27,10 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.IShearable;
 
-import java.util.Random;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
@@ -409,6 +410,18 @@ public class TickHandlerHUD implements ITickHandler {
 									this.ui.drawString((tickRandomly ? "x" : "_"), 0xffffff);
 									this.ui.drawString(" t: ", 0xaaaaaa);
 									this.ui.drawString((tickRate > 0 ? String.format("%d", tickRate) : "_"), 0xffffff);
+									ArrayList tileEntityList = (ArrayList)world.loadedTileEntityList;
+									int nr_tileEntities = tileEntityList.size();
+									int nr_tileEntitiesAtPos = 0;
+									for(int t = 0; t < nr_tileEntities; t++){
+										TileEntity te = (TileEntity)tileEntityList.get(t);
+										if(te.xCoord == mc.objectMouseOver.blockX && te.yCoord == mc.objectMouseOver.blockY && te.zCoord == mc.objectMouseOver.blockZ)
+											nr_tileEntitiesAtPos++;
+									}
+									this.ui.drawString(" b: ", 0xaaaaaa);
+									this.ui.drawString((nr_tileEntitiesAtPos > 0 ? String.format("%d", nr_tileEntitiesAtPos) : "_"), 0xffffff);
+									this.ui.drawString(" a: ", 0xaaaaaa);
+									this.ui.drawString((nr_tileEntities > 0 ? String.format("%d", nr_tileEntities) : "_"), 0xffffff);
 									this.ui.lineBreak();
 
 									// normal, opaque, solid
