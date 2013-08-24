@@ -50,7 +50,7 @@ public class KeyHandlerHUD extends KeyHandler {
 			// open HUD configuration
 			this.keyCodeHUD = kb.keyCode;
 			if(mc.inGameHasFocus && this.ignoreHudKey == false)
-				mc.thePlayer.openGui(AUHud.instance, 0, mc.theWorld, 0, 0, 0);
+				mc.thePlayer.openGui(AUHud.instance, Guis.HUD_OPTIONS, mc.theWorld, 0, 0, 0);
 			this.ignoreHudKey = false;
 		}
 	}

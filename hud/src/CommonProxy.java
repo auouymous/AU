@@ -24,8 +24,8 @@ public class CommonProxy implements IGuiHandler {
 
 	@Override
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z){
-		if(id == 0)
-			return new GuiScreenHUD(player);
+		if(id == Guis.HUD_OPTIONS)
+			return new GuiOptions(player);
 		return null;
 	}
 }

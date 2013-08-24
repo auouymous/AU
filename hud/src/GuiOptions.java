@@ -12,14 +12,14 @@ import org.lwjgl.opengl.GL11;
 import com.qzx.au.util.UI;
 
 @SideOnly(Side.CLIENT)
-public class GuiScreenHUD extends GuiScreen {
+public class GuiOptions extends GuiScreen {
 	private static int CONFIG_WINDOW_WIDTH = 230;
 	private static String HUD_INFO_NAME = "Info HUD";
 
 	private UI ui;
 	private int window_height = 0;
 
-	public GuiScreenHUD(EntityPlayer player){
+	public GuiOptions(EntityPlayer player){
 		this.ui = new UI();
 		this.ui.setLineHeight(23);
 	}
