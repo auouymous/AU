@@ -3,7 +3,9 @@ AU ID Map
 
 Map out available block and item IDs when installing conflicting mods.
 
-[Minecraft Forum post](http://www.minecraftforum.net/topic/1945197-)
+[Minecraft Forum](http://www.minecraftforum.net/topic/1945197-)
+
+Required: -
 
 ***
 
