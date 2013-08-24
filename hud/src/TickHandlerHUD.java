@@ -29,7 +29,6 @@ import net.minecraftforge.common.IShearable;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
-import java.util.List;
 import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
@@ -64,6 +63,28 @@ public class TickHandlerHUD implements ITickHandler {
 
 	private int invItemX = 0;
 	private int invItemCount = 0;
+
+	private int lastBlockID = 0;
+	private int lastBlockMetadata = 0;
+	private class LastDrop {
+		public int id;
+		public int metadata;
+		public String name;
+		public LastDrop(int droppedID, int droppedMetadata, String droppedName){
+			this.id = droppedID;
+			this.metadata = droppedMetadata;
+			this.name = droppedName;
+		}
+		@Override
+		public boolean equals(Object obj){
+			if(obj instanceof LastDrop){
+				LastDrop drop = (LastDrop)obj;
+				if(drop.id == this.id && drop.metadata == this.metadata) return true;
+			}
+			return false;
+		}
+	}
+	private ArrayList<LastDrop> lastDrops = new ArrayList<LastDrop>();
 
 	@Override
     public void tickStart(EnumSet<TickType> type, Object... tickData){
@@ -260,14 +281,24 @@ public class TickHandlerHUD implements ITickHandler {
 					int blockID = world.getBlockId(mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
 					if(blockID > 0){
 						Block block = Block.blocksList[blockID];
+						int inspectX = mc.objectMouseOver.blockX;
+						int inspectY = mc.objectMouseOver.blockY;
+						int inspectZ = mc.objectMouseOver.blockZ;
 						if(block != null){
 							try {
-								int blockMetadata = world.getBlockMetadata(mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
+								int blockMetadata = world.getBlockMetadata(inspectX, inspectY, inspectZ);
+
+								if(blockID != lastBlockID || blockMetadata != lastBlockMetadata){
+									// reset drops
+									lastBlockID = blockID;
+									lastBlockMetadata = blockMetadata;
+									lastDrops.clear();
+								}
 
 								// name and ID if block is picked
-								int pickedID = block.idPicked(world, mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
+								int pickedID = block.idPicked(world, inspectX, inspectY, inspectZ);
 								if(pickedID > 0){
-									int pickedMetadata = block.getDamageValue(world, mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
+									int pickedMetadata = block.getDamageValue(world, inspectX, inspectY, inspectZ);
 									ItemStack stackPicked = new ItemStack(pickedID, 1, pickedMetadata);
 									String pickedName = null;
 									try {
@@ -352,35 +383,47 @@ public class TickHandlerHUD implements ITickHandler {
 										} catch(Exception e){
 //											System.out.println("AU HUD: caught exception in block inspector, droppedName");
 										}
-										if(droppedName != null){
-											boolean silkable = block.canSilkHarvest(world, player,
-												mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ,
-												blockMetadata);
-											if(droppedID == 0){
-												this.ui.drawString("   no drops", 0xaaaaaa);
-												if(silkable)
-													this.ui.drawString(" silkable", 0xb25bfd);
-												this.ui.lineBreak();
-											} else if(!(droppedID == blockID && droppedMetadata == blockMetadata)){
-												// drops something other than what is placed
-												this.ui.drawString("   drops ", 0xaaaaaa);
-												this.ui.drawString(droppedName, 0xffffff);
-												this.ui.drawString(" (", 0xaaaaaa);
-												this.ui.drawString(String.format("%d:%d", droppedID, droppedMetadata), 0xffffff);
-												this.ui.drawString(")", 0xaaaaaa);
-												if(silkable)
-													this.ui.drawString(" silkable", 0xb25bfd);
-												this.ui.lineBreak();
-											} else if(silkable){
-												this.ui.drawString("   silkable", 0xb25bfd);
-												this.ui.lineBreak();
+										if(droppedID == 0 || droppedName != null){
+											// add to drops list, if not already
+											LastDrop thisDrop = new LastDrop(droppedID, droppedMetadata, droppedName);
+											if(!lastDrops.contains(thisDrop))
+												lastDrops.add(thisDrop);
+										}
+										int nr_drops = lastDrops.size();
+										boolean dropSelf = true;
+										for(int i = 0; i < nr_drops; i++){
+											LastDrop drop = lastDrops.get(i);
+											if(drop.id == 0){
+												this.ui.drawString("   no drop", 0xaaaaaa);
+												dropSelf = false;
+											} else {
+												if(drop.id == blockID && drop.metadata == blockMetadata){
+													// drops itself
+													this.ui.drawString("   drops as is", 0xaaaaaa);
+												} else {
+													// drops something other than self
+													this.ui.drawString("   drops ", 0xaaaaaa);
+													this.ui.drawString((drop.name == null ? "<Unknown>" : drop.name), 0xffffff);
+													this.ui.drawString(" (", 0xaaaaaa);
+													this.ui.drawString(String.format("%d:%d", drop.id, drop.metadata), 0xffffff);
+													this.ui.drawString(")", 0xaaaaaa);
+													dropSelf = false;
+												}
 											}
+											this.ui.lineBreak();
+										}
+
+										// silkable
+										boolean silkable = block.canSilkHarvest(world, player, inspectX, inspectY, inspectZ, blockMetadata);
+										if(silkable && !dropSelf){
+											this.ui.drawString("   silkable", 0xb25bfd);
+											this.ui.lineBreak();
 										}
 									}
 
 									// brightness, hardness, resistance
-									int brightness = block.getLightValue(world, mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
-									float hardness = block.getBlockHardness(world, mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
+									int brightness = block.getLightValue(world, inspectX, inspectY, inspectZ);
+									float hardness = block.getBlockHardness(world, inspectX, inspectY, inspectZ);
 									float resistance = block.getExplosionResistance(null);
 									this.ui.drawString("   b: ", 0xaaaaaa);
 									this.ui.drawString((brightness > 0 ? String.format("%d", brightness) : "_"), 0xffffff);
@@ -392,7 +435,7 @@ public class TickHandlerHUD implements ITickHandler {
 
 									// has tile entity, tick rate, random ticks
 									boolean hasTileEntity = block.hasTileEntity(blockMetadata);
-									TileEntity tileEntity = (hasTileEntity ? world.getBlockTileEntity(mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ) : null);
+									TileEntity tileEntity = (hasTileEntity ? world.getBlockTileEntity(inspectX, inspectY, inspectZ) : null);
 									boolean tickRandomly = block.getTickRandomly();
 									int tickRate = 0;
 									if(tileEntity != null){
@@ -415,7 +458,7 @@ public class TickHandlerHUD implements ITickHandler {
 									int nr_tileEntitiesAtPos = 0;
 									for(int t = 0; t < nr_tileEntities; t++){
 										TileEntity te = (TileEntity)tileEntityList.get(t);
-										if(te.xCoord == mc.objectMouseOver.blockX && te.yCoord == mc.objectMouseOver.blockY && te.zCoord == mc.objectMouseOver.blockZ)
+										if(te.xCoord == inspectX && te.yCoord == inspectY && te.zCoord == inspectZ)
 											nr_tileEntitiesAtPos++;
 									}
 									this.ui.drawString(" b: ", 0xaaaaaa);
@@ -425,9 +468,7 @@ public class TickHandlerHUD implements ITickHandler {
 									this.ui.lineBreak();
 
 									// normal, opaque, solid
-									boolean solid = block.isBlockSolid(world,
-										mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ,
-										mc.objectMouseOver.sideHit);
+									boolean solid = block.isBlockSolid(world, inspectX, inspectY, inspectZ, mc.objectMouseOver.sideHit);
 									this.ui.drawString("   n: ", 0xaaaaaa);
 									this.ui.drawString((block.isNormalCube(blockID) ? "x" : "_"), 0xffffff);
 									this.ui.drawString(" o: ", 0xaaaaaa);

@@ -1,3 +1,6 @@
+	- support blocks that have multiple drops (gravel)
+	- added Guis to enumerate HUD options ID
+	- renamed GuiScreenHUD to GuiOptions
 	- moved GuiHandler into CommonProxy
 	- display number of loaded tile entities near player
 	- display number of loaded tile entities in a block
