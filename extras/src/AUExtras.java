@@ -136,7 +136,6 @@ public class AUExtras {
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
 				.setCreativeTab(CreativeTabs.tabBlock);
-			MinecraftForge.setBlockHarvestLevel(this.blockGlass, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredGlass = new ItemStack(this.blockGlass);
 
 			// CRAFT 8 glass + dye -> 8 <colored> glass
