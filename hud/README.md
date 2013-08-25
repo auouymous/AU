@@ -10,7 +10,7 @@ Required: -
 ***
 
 'H' key opens HUD options menu.
-'I' key toggles block/entity inspector.
+'I' key toggles inspector.
 Both keys are configurable in the Controls menu.
 
 Info HUD elements
@@ -41,7 +41,10 @@ Block Inspector
 * silkable
 * b:brightness, h:hardness, r:explosion resistnace
 * n:normal, o:opaque, s:solid
-* e:has tile entity, r:random ticks, t:tick rate
+* e:has tile entity, r:random ticks, t:tick rate, b:tile entities in block, a:all loaded tile entities
+
+Food Inspector
+* f:food level percentage, s:saturation percentage
 
 ***
 
