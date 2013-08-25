@@ -16,9 +16,10 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumMovingObjectType;
+import net.minecraft.util.FoodStats;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -485,6 +486,16 @@ public class TickHandlerHUD implements ITickHandler {
 					}
 				}
 			}
+		}
+
+		// food inspector
+		if(Cfg.show_inspector && !mc.thePlayer.capabilities.isCreativeMode){
+			FoodStats food = mc.thePlayer.getFoodStats();
+			this.ui.setCursor(mc.displayWidth/4 + 10, mc.displayHeight/2 - 50);
+			this.ui.drawString("f: ", 0xaaaaaa);
+			this.ui.drawString(String.format("%d%%", 100*food.getFoodLevel()/20), 0xffffff);
+			this.ui.drawString("  s: ", 0xaaaaaa);
+			this.ui.drawString(String.format("%d%%", (int)Math.round(100*food.getSaturationLevel()/20)), 0xffffff);
 		}
 
 // TODO: memory
