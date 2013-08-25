@@ -2,6 +2,8 @@ package com.qzx.au.hud;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
+import net.minecraft.client.Minecraft;
+
 import com.qzx.au.util.Config;
 
 public class Cfg extends Config {
@@ -9,7 +11,21 @@ public class Cfg extends Config {
 	public static int info_hud_x;
 	public static int info_hud_y;
 
+	public static boolean enable_armor_hud;
+	public static int armor_hud_x;
+	public static int armor_hud_y;
+	public static int armor_hud_corner;
+
+	public static boolean enable_potion_hud;
+	public static int potion_hud_x;
+	public static int potion_hud_y;
+	public static int potion_hud_corner;
+
+	public static boolean show_inspector = false; // always default to off
+
 	private static final String CATEGORY_ELEMENTS = "show-elements";
+
+	// info hud
 	public static boolean show_world;
 	public static boolean show_biome;
 	public static boolean show_position;
@@ -23,7 +39,6 @@ public class Cfg extends Config {
 	public static boolean show_entities;
 	public static boolean show_particles;
 	public static boolean show_block_name;
-	public static boolean show_block_inspector = false; // always default to off
 
 	public static void init(FMLPreInitializationEvent event){
 		Cfg.loadConfig(event);
@@ -32,6 +47,17 @@ public class Cfg extends Config {
 		Cfg.info_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "info-hud-x", 2, null);
 		Cfg.info_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "info-hud-y", 32, null);
 
+		Cfg.enable_armor_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-armor-hud", true, null);
+		Cfg.armor_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "armor-hud-x", 2, null);
+		Cfg.armor_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "armor-hud-y", 35, null);
+		Cfg.armor_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "armor-hud-corner", "BottomRight", null));
+
+		Cfg.enable_potion_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-potion-hud", true, null);
+		Cfg.potion_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "potion-hud-x", 100, null);
+		Cfg.potion_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "potion-hud-y", 35, null);
+		Cfg.potion_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "potion-hud-corner", "BottomRight", null));
+
+		// info hud
 		Cfg.show_world = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "world", true, null);
 		Cfg.show_biome = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "biome", true, null);
 		Cfg.show_position = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "position", true, null);
@@ -50,14 +76,29 @@ public class Cfg extends Config {
 		if(Cfg.show_position == false && Cfg.show_position_eyes == true)
 			Cfg.show_position_eyes = false;
 
+		Cfg.clipPositions();
+
 		Cfg.saveConfig();
 	}
 
 	public static void save(){
+		Cfg.clipPositions();
+
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-info-hud", Cfg.enable_info_hud);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "info-hud-x", Cfg.info_hud_x);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "info-hud-y", Cfg.info_hud_y);
 
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-armor-hud", Cfg.enable_armor_hud);
+		Cfg.setInt(Cfg.CATEGORY_GENERAL, "armor-hud-x", Cfg.armor_hud_x);
+		Cfg.setInt(Cfg.CATEGORY_GENERAL, "armor-hud-y", Cfg.armor_hud_y);
+		Cfg.setString(Cfg.CATEGORY_GENERAL, "armor-hud-corner", Cfg.getCornerName(Cfg.armor_hud_corner));
+
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-potion-hud", Cfg.enable_potion_hud);
+		Cfg.setInt(Cfg.CATEGORY_GENERAL, "potion-hud-x", Cfg.potion_hud_x);
+		Cfg.setInt(Cfg.CATEGORY_GENERAL, "potion-hud-y", Cfg.potion_hud_y);
+		Cfg.setString(Cfg.CATEGORY_GENERAL, "potion-hud-corner", Cfg.getCornerName(Cfg.potion_hud_corner));
+
+		// info hud
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "world", Cfg.show_world);
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "biome", Cfg.show_biome);
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "position", Cfg.show_position);
@@ -73,5 +114,38 @@ public class Cfg extends Config {
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "block-name", Cfg.show_block_name);
 
 		Cfg.saveConfig();
+	}
+
+	public static String[] corners = { "TopLeft", "TopRight", "BottomRight", "BottomLeft" };
+	public static int HUD_CORNER_TOPLEFT = 0;
+	public static int HUD_CORNER_TOPRIGHT = 1;
+	public static int HUD_CORNER_BOTTOMRIGHT = 2;
+	public static int HUD_CORNER_BOTTOMLEFT = 3;
+	public static int getCornerID(String s){
+		if(s == Cfg.corners[Cfg.HUD_CORNER_TOPLEFT]) return Cfg.HUD_CORNER_TOPLEFT;
+		if(s == Cfg.corners[Cfg.HUD_CORNER_TOPRIGHT]) return Cfg.HUD_CORNER_TOPRIGHT;
+		if(s == Cfg.corners[Cfg.HUD_CORNER_BOTTOMRIGHT]) return Cfg.HUD_CORNER_BOTTOMRIGHT;
+		if(s == Cfg.corners[Cfg.HUD_CORNER_BOTTOMLEFT]) return Cfg.HUD_CORNER_BOTTOMLEFT;
+		return Cfg.HUD_CORNER_TOPLEFT;
+	}
+	public static String getCornerName(int corner){
+		if(corner < Cfg.corners.length) return Cfg.corners[corner];
+		return Cfg.corners[0];
+	}
+
+	private static void clipPositions(){
+		Minecraft mc = Minecraft.getMinecraft();
+		if(Cfg.info_hud_x < 0) Cfg.info_hud_x = 0;
+		if(Cfg.info_hud_x > mc.displayWidth/2) Cfg.info_hud_x = mc.displayWidth/2;
+		if(Cfg.info_hud_y < 0) Cfg.info_hud_y = 0;
+		if(Cfg.info_hud_y > mc.displayHeight/2) Cfg.info_hud_y = mc.displayHeight/2;
+		if(Cfg.armor_hud_x < 0) Cfg.armor_hud_x = 0;
+		if(Cfg.armor_hud_x > mc.displayWidth/2) Cfg.armor_hud_x = mc.displayWidth/2;
+		if(Cfg.armor_hud_y < 0) Cfg.armor_hud_y = 0;
+		if(Cfg.armor_hud_y > mc.displayHeight/2) Cfg.armor_hud_y = mc.displayHeight/2;
+		if(Cfg.potion_hud_x < 0) Cfg.potion_hud_x = 0;
+		if(Cfg.potion_hud_x > mc.displayWidth/2) Cfg.potion_hud_x = mc.displayWidth/2;
+		if(Cfg.potion_hud_y < 0) Cfg.potion_hud_y = 0;
+		if(Cfg.potion_hud_y > mc.displayHeight/2) Cfg.potion_hud_y = mc.displayHeight/2;
 	}
 }

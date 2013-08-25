@@ -237,20 +237,20 @@ public class TickHandlerHUD implements ITickHandler {
 		}
 
 		// block at cursor
-		if(Cfg.show_block_name){
+		if(Cfg.show_block_name || Cfg.show_inspector){
 			if(mc.objectMouseOver != null){
 				if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY){
 					try {
 						// name and ID of entity
 						this.ui.drawString(mc.objectMouseOver.entityHit.getEntityName(), 0xffffff);
-						if(Cfg.show_block_inspector){
+						if(Cfg.show_inspector){
 							this.ui.drawString(" (", 0xaaaaaa);
 							this.ui.drawString(String.format("%d", mc.objectMouseOver.entityHit.entityId), 0xffffff);
 							this.ui.drawString(")", 0xaaaaaa);
 						}
 						this.ui.lineBreak();
 
-						if(Cfg.show_block_inspector && mc.objectMouseOver.entityHit instanceof EntityLiving){
+						if(Cfg.show_inspector && mc.objectMouseOver.entityHit instanceof EntityLiving){
 							EntityLiving entity = (EntityLiving)mc.objectMouseOver.entityHit;
 
 							// health, armor and xp
@@ -313,7 +313,7 @@ public class TickHandlerHUD implements ITickHandler {
 									else
 										this.ui.drawString(pickedName, 0xffffff);
 
-									if(Cfg.show_block_inspector){
+									if(Cfg.show_inspector){
 										if(blockID == pickedID && blockMetadata == pickedMetadata){
 											// ID of placed block
 											this.ui.drawString(" (", 0xaaaaaa);
@@ -330,7 +330,7 @@ public class TickHandlerHUD implements ITickHandler {
 											this.ui.drawString(")", 0xaaaaaa);
 										}
 									}
-								} else if(Cfg.show_block_inspector){
+								} else if(Cfg.show_inspector){
 									this.ui.drawString("<Unknown Block>", 0xffffff);
 
 									// ID of placed block
@@ -340,7 +340,7 @@ public class TickHandlerHUD implements ITickHandler {
 								}
 								this.ui.lineBreak();
 
-								if(Cfg.show_block_inspector){
+								if(Cfg.show_inspector){
 
 									// creative tab name
 									CreativeTabs tab = block.getCreativeTabToDisplayOn();

@@ -2,6 +2,7 @@ package com.qzx.au.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
 
 public class UI {
 	private Minecraft mc = Minecraft.getMinecraft();
@@ -13,7 +14,6 @@ public class UI {
 	public UI(){}
 
 	public void setCursor(int x, int y){
-		this.mc = mc;
 		this.base_x = x;
 		this.x = x;
 		this.y = y;
@@ -36,6 +36,8 @@ public class UI {
 		this.x += width;
 	}
 
+	//////////
+
 	public void drawString(String s, int color){
 		if(s == null) return;
 
@@ -43,14 +45,17 @@ public class UI {
 		this.x += this.mc.fontRenderer.getStringWidth(s);
 	}
 
-	public void drawStringCentered(String s, int color, int box_width){
-		if(s == null) return;
+	public int drawStringCentered(String s, int color, int box_width){
+		if(s == null) return this.x;
 
-		int sw = this.mc.fontRenderer.getStringWidth(s);
-		this.x = this.base_x + (box_width/2 - sw/2);
-		this.mc.fontRenderer.drawStringWithShadow(s, this.x, this.y, color);
-		this.x += sw;
+		int x = this.x + (box_width/2 - this.mc.fontRenderer.getStringWidth(s)/2);
+		this.mc.fontRenderer.drawStringWithShadow(s, x, this.y, color);
+		this.x += box_width;
+
+		return x;
 	}
+
+	//////////
 
 	public GuiButton newButton(int id, String s, int width, int height){
 		GuiButton b = new GuiButton(id, this.x, this.y, width, height, s);
@@ -65,5 +70,16 @@ public class UI {
 
 	public GuiButton newStateButton(int id, String s, int width, int height, boolean value, String state0, String state1){
 		return this.newButton(id, s + (value ? ": "+state1 : ": "+state0), width, height);
+	}
+
+	//////////
+
+	public GuiTextField newTextField(String s, int max_length, int width, int height, boolean draw_background){
+		GuiTextField t = new GuiTextField(this.mc.fontRenderer, this.x, this.y, width, height);
+		t.setText(s);
+		t.setMaxStringLength(max_length);
+		t.setEnableBackgroundDrawing(draw_background);
+		this.x += width;
+		return t;
 	}
 }

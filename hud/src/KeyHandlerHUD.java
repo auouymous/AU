@@ -42,10 +42,8 @@ public class KeyHandlerHUD extends KeyHandler {
 			return;
 
 		if(kb.keyDescription.equals(ClientProxy.keyI)){
-			// toggle block inspector, only if block name is enabled
-			if(Cfg.show_block_name)
-				Cfg.show_block_inspector
-					= (Cfg.show_block_inspector ? false : true);
+			// toggle inspector
+			Cfg.show_inspector = (Cfg.show_inspector ? false : true);
 		} else if(kb.keyDescription.equals(ClientProxy.keyH)){
 			// open HUD configuration
 			this.keyCodeHUD = kb.keyCode;
