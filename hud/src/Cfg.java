@@ -3,6 +3,7 @@ package com.qzx.au.hud;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 
 import com.qzx.au.util.Config;
 
@@ -53,7 +54,7 @@ public class Cfg extends Config {
 		Cfg.armor_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "armor-hud-corner", "BottomRight", null));
 
 		Cfg.enable_potion_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-potion-hud", true, null);
-		Cfg.potion_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "potion-hud-x", 100, null);
+		Cfg.potion_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "potion-hud-x", 60, null);
 		Cfg.potion_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "potion-hud-y", 35, null);
 		Cfg.potion_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "potion-hud-corner", "BottomRight", null));
 
@@ -116,16 +117,15 @@ public class Cfg extends Config {
 		Cfg.saveConfig();
 	}
 
-	public static String[] corners = { "TopLeft", "TopRight", "BottomRight", "BottomLeft" };
+	public static String[] corners = { "TopLeft", "TopRight", "BottomLeft", "BottomRight" };
 	public static int HUD_CORNER_TOPLEFT = 0;
 	public static int HUD_CORNER_TOPRIGHT = 1;
-	public static int HUD_CORNER_BOTTOMRIGHT = 2;
-	public static int HUD_CORNER_BOTTOMLEFT = 3;
+	public static int HUD_CORNER_BOTTOMLEFT = 2;
+	public static int HUD_CORNER_BOTTOMRIGHT = 3;
 	public static int getCornerID(String s){
-		if(s == Cfg.corners[Cfg.HUD_CORNER_TOPLEFT]) return Cfg.HUD_CORNER_TOPLEFT;
-		if(s == Cfg.corners[Cfg.HUD_CORNER_TOPRIGHT]) return Cfg.HUD_CORNER_TOPRIGHT;
-		if(s == Cfg.corners[Cfg.HUD_CORNER_BOTTOMRIGHT]) return Cfg.HUD_CORNER_BOTTOMRIGHT;
-		if(s == Cfg.corners[Cfg.HUD_CORNER_BOTTOMLEFT]) return Cfg.HUD_CORNER_BOTTOMLEFT;
+		if(s.equals(Cfg.corners[Cfg.HUD_CORNER_TOPRIGHT])) return Cfg.HUD_CORNER_TOPRIGHT;
+		if(s.equals(Cfg.corners[Cfg.HUD_CORNER_BOTTOMLEFT])) return Cfg.HUD_CORNER_BOTTOMLEFT;
+		if(s.equals(Cfg.corners[Cfg.HUD_CORNER_BOTTOMRIGHT])) return Cfg.HUD_CORNER_BOTTOMRIGHT;
 		return Cfg.HUD_CORNER_TOPLEFT;
 	}
 	public static String getCornerName(int corner){
@@ -135,17 +135,21 @@ public class Cfg extends Config {
 
 	private static void clipPositions(){
 		Minecraft mc = Minecraft.getMinecraft();
+		ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+		int width = screen.getScaledWidth();
+		int height = screen.getScaledHeight();
+
 		if(Cfg.info_hud_x < 0) Cfg.info_hud_x = 0;
-		if(Cfg.info_hud_x > mc.displayWidth/2) Cfg.info_hud_x = mc.displayWidth/2;
+		if(Cfg.info_hud_x > width) Cfg.info_hud_x = width;
 		if(Cfg.info_hud_y < 0) Cfg.info_hud_y = 0;
-		if(Cfg.info_hud_y > mc.displayHeight/2) Cfg.info_hud_y = mc.displayHeight/2;
+		if(Cfg.info_hud_y > height) Cfg.info_hud_y = height;
 		if(Cfg.armor_hud_x < 0) Cfg.armor_hud_x = 0;
-		if(Cfg.armor_hud_x > mc.displayWidth/2) Cfg.armor_hud_x = mc.displayWidth/2;
+		if(Cfg.armor_hud_x > width) Cfg.armor_hud_x = width;
 		if(Cfg.armor_hud_y < 0) Cfg.armor_hud_y = 0;
-		if(Cfg.armor_hud_y > mc.displayHeight/2) Cfg.armor_hud_y = mc.displayHeight/2;
+		if(Cfg.armor_hud_y > height) Cfg.armor_hud_y = height;
 		if(Cfg.potion_hud_x < 0) Cfg.potion_hud_x = 0;
-		if(Cfg.potion_hud_x > mc.displayWidth/2) Cfg.potion_hud_x = mc.displayWidth/2;
+		if(Cfg.potion_hud_x > width) Cfg.potion_hud_x = width;
 		if(Cfg.potion_hud_y < 0) Cfg.potion_hud_y = 0;
-		if(Cfg.potion_hud_y > mc.displayHeight/2) Cfg.potion_hud_y = mc.displayHeight/2;
+		if(Cfg.potion_hud_y > height) Cfg.potion_hud_y = height;
 	}
 }

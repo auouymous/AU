@@ -131,7 +131,7 @@ public class GuiArmorOptions extends GuiScreen {
 	}
 
 	@Override
-    public void actionPerformed(GuiButton button){
+	public void actionPerformed(GuiButton button){
 		boolean s = false, update = true;
 
 		// toggle config state

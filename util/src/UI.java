@@ -3,6 +3,7 @@ package com.qzx.au.util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.renderer.Tessellator;
 
 public class UI {
 	private Minecraft mc = Minecraft.getMinecraft();
@@ -10,6 +11,7 @@ public class UI {
 	private int line_height = 10;
 	public int x = 0;
 	public int y = 0;
+	public float zLevel = 0.0F;
 
 	public UI(){}
 
@@ -81,5 +83,19 @@ public class UI {
 		t.setEnableBackgroundDrawing(draw_background);
 		this.x += width;
 		return t;
+	}
+
+	//////////
+
+	public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height){
+		float f = 0.00390625F;
+		float f1 = 0.00390625F;
+		Tessellator tessellator = Tessellator.instance;
+		tessellator.startDrawingQuads();
+		tessellator.addVertexWithUV(x + 0,		y + height,	this.zLevel, f * (textureX + 0),	 f1 * (textureY + height));
+		tessellator.addVertexWithUV(x + width,	y + height,	this.zLevel, f * (textureX + width), f1 * (textureY + height));
+		tessellator.addVertexWithUV(x + width,	y + 0,		this.zLevel, f * (textureX + width), f1 * (textureY + 0));
+		tessellator.addVertexWithUV(x + 0,		y + 0,		this.zLevel, f * (textureX + 0),	 f1 * (textureY + 0));
+		tessellator.draw();
 	}
 }

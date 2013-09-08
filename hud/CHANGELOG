@@ -1,3 +1,9 @@
+	- potion HUD
+	- armor HUD
+
+	- options to position armor and potion HUDs
+	- food level and saturation inspector
+	- new layout for options UI, now sets info HUD position
 	- support blocks that have multiple drops (gravel)
 	- added Guis to enumerate HUD options ID
 	- renamed GuiScreenHUD to GuiOptions
