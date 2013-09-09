@@ -13,11 +13,13 @@ public class Cfg extends Config {
 	public static int info_hud_y;
 
 	public static boolean enable_armor_hud;
+	public static boolean always_show_armor_hud;
 	public static int armor_hud_x;
 	public static int armor_hud_y;
 	public static int armor_hud_corner;
 
 	public static boolean enable_potion_hud;
+	public static boolean always_show_potion_hud;
 	public static int potion_hud_x;
 	public static int potion_hud_y;
 	public static int potion_hud_corner;
@@ -49,14 +51,16 @@ public class Cfg extends Config {
 		Cfg.info_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "info-hud-y", 32, null);
 
 		Cfg.enable_armor_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-armor-hud", true, null);
+		Cfg.always_show_armor_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "always-show-armor-hud", false, null);
 		Cfg.armor_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "armor-hud-x", 2, null);
-		Cfg.armor_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "armor-hud-y", 35, null);
+		Cfg.armor_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "armor-hud-y", 2, null);
 		Cfg.armor_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "armor-hud-corner", "BottomRight", null));
 
 		Cfg.enable_potion_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-potion-hud", true, null);
-		Cfg.potion_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "potion-hud-x", 60, null);
-		Cfg.potion_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "potion-hud-y", 35, null);
-		Cfg.potion_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "potion-hud-corner", "BottomRight", null));
+		Cfg.always_show_potion_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "always-show-potion-hud", false, null);
+		Cfg.potion_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "potion-hud-x", 2, null);
+		Cfg.potion_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "potion-hud-y", 2, null);
+		Cfg.potion_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "potion-hud-corner", "BottomLeft", null));
 
 		// info hud
 		Cfg.show_world = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "world", true, null);
@@ -90,11 +94,13 @@ public class Cfg extends Config {
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "info-hud-y", Cfg.info_hud_y);
 
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-armor-hud", Cfg.enable_armor_hud);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "always-show-armor-hud", Cfg.always_show_armor_hud);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "armor-hud-x", Cfg.armor_hud_x);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "armor-hud-y", Cfg.armor_hud_y);
 		Cfg.setString(Cfg.CATEGORY_GENERAL, "armor-hud-corner", Cfg.getCornerName(Cfg.armor_hud_corner));
 
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-potion-hud", Cfg.enable_potion_hud);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "always-show-potion-hud", Cfg.always_show_potion_hud);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "potion-hud-x", Cfg.potion_hud_x);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "potion-hud-y", Cfg.potion_hud_y);
 		Cfg.setString(Cfg.CATEGORY_GENERAL, "potion-hud-corner", Cfg.getCornerName(Cfg.potion_hud_corner));
@@ -115,6 +121,10 @@ public class Cfg extends Config {
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "block-name", Cfg.show_block_name);
 
 		Cfg.saveConfig();
+	}
+
+	public static String getAlwaysShowName(boolean always_show){
+		return (always_show ? "Hide when chat open" : "Show when chat open");
 	}
 
 	public static String[] corners = { "TopLeft", "TopRight", "BottomLeft", "BottomRight" };

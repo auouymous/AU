@@ -33,8 +33,8 @@ public class PotionHUD {
 
 		int width = screen.getScaledWidth();
 		int height = screen.getScaledHeight();
-		int x = ((Cfg.potion_hud_corner&1) == 0 ? Cfg.potion_hud_x :  width-16-Cfg.potion_hud_x);
-		int y = ((Cfg.potion_hud_corner&2) == 0 ? Cfg.potion_hud_y : height-16-Cfg.potion_hud_y);
+		int x = ((Cfg.potion_hud_corner&1) == 0 ? Cfg.potion_hud_x :  width-18-Cfg.potion_hud_x);
+		int y = ((Cfg.potion_hud_corner&2) == 0 ? Cfg.potion_hud_y : height-18-Cfg.potion_hud_y);
 
 		GL11.glPushMatrix();
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

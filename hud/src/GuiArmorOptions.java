@@ -67,7 +67,7 @@ public class GuiArmorOptions extends GuiScreen {
 	public enum ButtonID {
 		BUTTON_X_DN, BUTTON_X_UP, BUTTON_Y_DN, BUTTON_Y_UP,
 
-		BUTTON_CORNER,
+		BUTTON_CORNER, BUTTON_ALWAYS_SHOW,
 
 		BUTTON_DONE
 	}
@@ -119,6 +119,9 @@ public class GuiArmorOptions extends GuiScreen {
 		this.addButtonCentered(ButtonID.BUTTON_CORNER, Cfg.getCornerName(Cfg.armor_hud_corner), 182, 20);
 		this.ui.lineBreak();
 
+		this.addButtonCentered(ButtonID.BUTTON_ALWAYS_SHOW, Cfg.getAlwaysShowName(Cfg.always_show_armor_hud), 182, 20);
+		this.ui.lineBreak();
+
 		this.ui.lineBreak(7);
 		this.addButtonCentered(ButtonID.BUTTON_DONE, "Done", 100, 20);
 
@@ -144,6 +147,11 @@ public class GuiArmorOptions extends GuiScreen {
 		case BUTTON_CORNER:
 			Cfg.armor_hud_corner = (Cfg.armor_hud_corner < Cfg.corners.length-1 ? Cfg.armor_hud_corner+1 : 0);
 			button.displayString = Cfg.getCornerName(Cfg.armor_hud_corner);
+			break;
+
+		case BUTTON_ALWAYS_SHOW:
+			Cfg.always_show_armor_hud = (Cfg.always_show_armor_hud ? false : true);
+			button.displayString = Cfg.getAlwaysShowName(Cfg.always_show_armor_hud);
 			break;
 
 		default:

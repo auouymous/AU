@@ -33,8 +33,8 @@ public class TickHandlerHUD implements ITickHandler {
 			ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
 
 			if(Cfg.enable_info_hud) this.infoHUD.draw(mc, screen, mc.thePlayer);
-			if(Cfg.enable_armor_hud) this.armorHUD.draw(mc, screen, mc.thePlayer);
-			if(Cfg.enable_potion_hud) this.potionHUD.draw(mc, screen, mc.thePlayer);
+			if(Cfg.enable_armor_hud && (!(mc.currentScreen instanceof GuiChat) || Cfg.always_show_armor_hud)) this.armorHUD.draw(mc, screen, mc.thePlayer);
+			if(Cfg.enable_potion_hud && (!(mc.currentScreen instanceof GuiChat) || Cfg.always_show_potion_hud)) this.potionHUD.draw(mc, screen, mc.thePlayer);
 		}
 	}
 

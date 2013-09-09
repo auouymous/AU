@@ -1,10 +1,10 @@
 OPTION MENU
 	- fine grained control over info HUD elements
 		- move elements to different lines and different positions within each line
-		- charge the pre and post text for elements
+		- change the pre and post text for elements
 		- allow block and entity inspectors to be configured
 
-	- position of info HUD can be changed in config file but should also be configurable in the menu
+	- shift clicking position buttons to increment/decrement by 10
 
 	- configure position of GraviSuite HUD (restart required)
 	- configure position of bspkr's StatusEffectHUD, ArmorStatusHUD and DirectionHUD (restart required)
@@ -14,12 +14,27 @@ INFO HUD
 		- add API for other mods to publish info elements
 			- protection mod can show worldguard region status
 				- show owner and town info, if player position is protected by protection mod
-	- display direction, default to off
+	- display player direction, default to off
 	- display number of mobs agressing player, if possible
 	- display memory usage, default to off
-	- display list of recent items picked up, remove items from list after 15(?) seconds
+	- display list of recent items picked up (as small icons), remove items from list after 15(?) seconds
 		- option to prevent cobble, dirt or gravel from entering player's inventory
 
 ARMOR HUD
+	- options to change text colors (armor durability and number of held items)
+	- horizontal and vertical layouts
+
 	- support AU, vanilla and IC2 armors
 	- bspkr's ArmorStatusHUD doesn't support MPS, is it not possible?
+
+	~ show armor value of self
+
+	- show durability for held item, apply enchants such as unbreaking
+		- inspector must be on
+	- shows stats for held item if ItemFood (healAmount, saturationModifier, alwaysEdible, itemUseDuration)
+		- potionId, potionDuration, potionAmplifier, potionEffectProbability
+		- inspector must be on
+
+POTION HUD
+	- options to change text colors (potion name and duration)
+	- horizontal and vertical layouts
