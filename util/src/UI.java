@@ -57,6 +57,15 @@ public class UI {
 		return x;
 	}
 
+	public int drawStringRight(String s, int color){
+		if(s == null) return this.x;
+
+		this.x -= this.mc.fontRenderer.getStringWidth(s);
+		this.mc.fontRenderer.drawStringWithShadow(s, this.x, this.y, color);
+
+		return this.x;
+	}
+
 	//////////
 
 	public GuiButton newButton(int id, String s, int width, int height){

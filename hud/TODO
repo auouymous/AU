@@ -14,9 +14,11 @@ INFO HUD
 		- add API for other mods to publish info elements
 			- protection mod can show worldguard region status
 				- show owner and town info, if player position is protected by protection mod
+
 	- display player direction, default to off
 	- display number of mobs agressing player, if possible
 	- display memory usage, default to off
+
 	- display list of recent items picked up (as small icons), remove items from list after 15(?) seconds
 		- option to prevent cobble, dirt or gravel from entering player's inventory
 
@@ -24,13 +26,14 @@ ARMOR HUD
 	- options to change text colors (armor durability and number of held items)
 	- horizontal and vertical layouts
 
-	- support AU, vanilla and IC2 armors
-	- bspkr's ArmorStatusHUD doesn't support MPS, is it not possible?
+	- support IC2 armors
+	- support GraviSuite armors
+	- support MPS armors
+	- support AU armors
 
-	~ show armor value of self
+	- support BoP dart gun and darts
+	- support XenoReliquary handgun and bullets
 
-	- show durability for held item, apply enchants such as unbreaking
-		- inspector must be on
 	- shows stats for held item if ItemFood (healAmount, saturationModifier, alwaysEdible, itemUseDuration)
 		- potionId, potionDuration, potionAmplifier, potionEffectProbability
 		- inspector must be on
@@ -38,3 +41,6 @@ ARMOR HUD
 POTION HUD
 	- options to change text colors (potion name and duration)
 	- horizontal and vertical layouts
+
+MISC
+	- allow player to bind commands to keys?

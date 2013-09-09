@@ -17,6 +17,7 @@ public class Cfg extends Config {
 	public static int armor_hud_x;
 	public static int armor_hud_y;
 	public static int armor_hud_corner;
+	public static int armor_hud_durability;
 
 	public static boolean enable_potion_hud;
 	public static boolean always_show_potion_hud;
@@ -55,6 +56,7 @@ public class Cfg extends Config {
 		Cfg.armor_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "armor-hud-x", 2, null);
 		Cfg.armor_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "armor-hud-y", 2, null);
 		Cfg.armor_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "armor-hud-corner", "BottomRight", null));
+		Cfg.armor_hud_durability = Cfg.clipDurabilityID(Cfg.getInt(Cfg.CATEGORY_GENERAL, "armor-hud-durability", Cfg.HUD_DURABILITY_PERCENT, null));
 
 		Cfg.enable_potion_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-potion-hud", true, null);
 		Cfg.always_show_potion_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "always-show-potion-hud", false, null);
@@ -98,6 +100,7 @@ public class Cfg extends Config {
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "armor-hud-x", Cfg.armor_hud_x);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "armor-hud-y", Cfg.armor_hud_y);
 		Cfg.setString(Cfg.CATEGORY_GENERAL, "armor-hud-corner", Cfg.getCornerName(Cfg.armor_hud_corner));
+		Cfg.setInt(Cfg.CATEGORY_GENERAL, "armor-hud-durability", Cfg.armor_hud_durability);
 
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-potion-hud", Cfg.enable_potion_hud);
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "always-show-potion-hud", Cfg.always_show_potion_hud);
@@ -123,9 +126,13 @@ public class Cfg extends Config {
 		Cfg.saveConfig();
 	}
 
+	//////////
+
 	public static String getAlwaysShowName(boolean always_show){
-		return (always_show ? "Hide when chat open" : "Show when chat open");
+		return (always_show ? "Show when chat open" : "Hide when chat open");
 	}
+
+	//////////
 
 	public static String[] corners = { "TopLeft", "TopRight", "BottomLeft", "BottomRight" };
 	public static int HUD_CORNER_TOPLEFT = 0;
@@ -162,4 +169,21 @@ public class Cfg extends Config {
 		if(Cfg.potion_hud_y < 0) Cfg.potion_hud_y = 0;
 		if(Cfg.potion_hud_y > height) Cfg.potion_hud_y = height;
 	}
+
+	//////////
+
+	public static String[] durability_values = { "Durability Bar", "Durability / Max", "Durability %" };
+	public static int HUD_DURABILITY_BAR = 0;
+	public static int HUD_DURABILITY_VALUE = 1;
+	public static int HUD_DURABILITY_PERCENT = 2;
+
+	public static int clipDurabilityID(int value){
+		if(value >= 0 && value < Cfg.durability_values.length) return value;
+		return Cfg.HUD_DURABILITY_BAR;
+	}
+	public static String getDurabilityName(int value){
+		if(value < Cfg.durability_values.length) return Cfg.durability_values[value];
+		return Cfg.durability_values[0];
+	}
+
 }
