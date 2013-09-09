@@ -478,7 +478,17 @@ public class InfoHUD {
 			}
 		}
 
-		// food inspector
+		// SELF: armor value inspector
+		if(Cfg.show_inspector && !mc.thePlayer.capabilities.isCreativeMode){
+			int armorValue = player.getTotalArmorValue();
+			if(armorValue > 0){
+				this.ui.setCursor(screen.getScaledWidth()/2 - 95, screen.getScaledHeight() - 60);
+				this.ui.drawString(" armor: ", 0xaaaaaa);
+				this.ui.drawString(String.format("%d", armorValue), 0xffffff);
+			}
+		}
+
+		// SELF: food inspector
 		if(Cfg.show_inspector && !mc.thePlayer.capabilities.isCreativeMode){
 			FoodStats food = mc.thePlayer.getFoodStats();
 			this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - 50);
