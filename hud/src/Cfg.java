@@ -38,6 +38,7 @@ public class Cfg extends Config {
 	public static boolean show_time;
 	public static boolean show_weather;
 	public static boolean show_used_inventory;
+	public static boolean animate_used_inventory;
 	public static boolean show_fps;
 	public static boolean show_chunk_updates;
 	public static boolean show_entities;
@@ -73,6 +74,7 @@ public class Cfg extends Config {
 		Cfg.show_time = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "time", true, null);
 		Cfg.show_weather = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "weather", true, null);
 		Cfg.show_used_inventory = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "used-inventory", true, null);
+		Cfg.animate_used_inventory = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "animate-used-inventory", true, null);
 		Cfg.show_fps = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "fps", true, null);
 		Cfg.show_chunk_updates = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "chunk-updates", true, null);
 		Cfg.show_entities = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "entities", true, null);
@@ -117,6 +119,7 @@ public class Cfg extends Config {
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "time", Cfg.show_time);
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "weather", Cfg.show_weather);
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "used-inventory", Cfg.show_used_inventory);
+		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "animate-used-inventory", Cfg.animate_used_inventory);
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "fps", Cfg.show_fps);
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "chunk-updates", Cfg.show_chunk_updates);
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "entities", Cfg.show_entities);

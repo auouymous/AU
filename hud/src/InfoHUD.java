@@ -178,7 +178,7 @@ public class InfoHUD {
 				ItemStack[] mainInventory = player.inventory.mainInventory;
 				int nr_items = 0;
 				for(int i = 0; i < 36; i++) if(mainInventory[i] != null) nr_items++;
-				if(nr_items == 36){
+				if(nr_items == 36 && Cfg.animate_used_inventory){
 					if(this.invItemCount != 36)
 						this.invItemX = screen.getScaledWidth()/2 - mc.fontRenderer.getStringWidth(invText+"100%")/2;
 				} else

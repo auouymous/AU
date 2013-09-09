@@ -70,7 +70,7 @@ public class GuiInfoOptions extends GuiScreen {
 		BUTTON_WORLD, BUTTON_BIOME,
 		BUTTON_POSITION, BUTTON_POSITION_EYES,
 		BUTTON_LIGHT, BUTTON_TIME, BUTTON_WEATHER,
-		BUTTON_USED_INVENTORY,
+		BUTTON_USED_INVENTORY, BUTTON_ANIMATE_USED_INVENTORY,
 		BUTTON_FPS, BUTTON_CHUNK_UPDATES,
 		BUTTON_ENTITIES, BUTTON_PARTICLES,
 		BUTTON_BLOCK_NAME,
@@ -153,7 +153,9 @@ public class GuiInfoOptions extends GuiScreen {
 		this.addStateButton(ButtonID.BUTTON_WEATHER, "Weather", Cfg.show_weather, 70, 20);
 		this.ui.lineBreak();
 
-		this.addStateButton(ButtonID.BUTTON_USED_INVENTORY, "Used Inventory", Cfg.show_used_inventory, 230, 20);
+		this.addStateButton(ButtonID.BUTTON_USED_INVENTORY, "Used Inventory", Cfg.show_used_inventory, 150, 20);
+		this.ui.drawSpace(10);
+		this.addStateButton(ButtonID.BUTTON_ANIMATE_USED_INVENTORY, "Animate", Cfg.animate_used_inventory, 70, 20);
 		this.ui.lineBreak();
 
 		this.addStateButton(ButtonID.BUTTON_FPS, "FPS", Cfg.show_fps, 110, 20);
@@ -196,19 +198,21 @@ public class GuiInfoOptions extends GuiScreen {
 		case BUTTON_Y_DN:				Cfg.info_hud_y -= 1;	update = false;		break;
 		case BUTTON_Y_UP:				Cfg.info_hud_y += 1;	update = false;		break;
 
-		case BUTTON_WORLD:				s = Cfg.show_world			= (Cfg.show_world			? false : true);	break;
-		case BUTTON_BIOME:				s = Cfg.show_biome			= (Cfg.show_biome			? false : true);	break;
-		case BUTTON_POSITION:			s = Cfg.show_position		= (Cfg.show_position		? false : true);	break;
-		case BUTTON_POSITION_EYES:		s = Cfg.show_position_eyes	= (Cfg.show_position_eyes	? false : true);	break;
-		case BUTTON_LIGHT:				s = Cfg.show_light			= (Cfg.show_light			? false : true);	break;
-		case BUTTON_TIME:				s = Cfg.show_time			= (Cfg.show_time			? false : true);	break;
-		case BUTTON_WEATHER:			s = Cfg.show_weather		= (Cfg.show_weather			? false : true);	break;
-		case BUTTON_USED_INVENTORY:		s = Cfg.show_used_inventory	= (Cfg.show_used_inventory	? false : true);	break;
-		case BUTTON_FPS:				s = Cfg.show_fps			= (Cfg.show_fps				? false : true);	break;
-		case BUTTON_CHUNK_UPDATES:		s = Cfg.show_chunk_updates	= (Cfg.show_chunk_updates	? false : true);	break;
-		case BUTTON_ENTITIES:			s = Cfg.show_entities		= (Cfg.show_entities		? false : true);	break;
-		case BUTTON_PARTICLES:			s = Cfg.show_particles		= (Cfg.show_particles		? false : true);	break;
-		case BUTTON_BLOCK_NAME:			s = Cfg.show_block_name		= (Cfg.show_block_name		? false : true);	break;
+		case BUTTON_WORLD:						s = Cfg.show_world				= (Cfg.show_world				? false : true);	break;
+		case BUTTON_BIOME:						s = Cfg.show_biome				= (Cfg.show_biome				? false : true);	break;
+		case BUTTON_POSITION:					s = Cfg.show_position			= (Cfg.show_position			? false : true);	break;
+		case BUTTON_POSITION_EYES:				s = Cfg.show_position_eyes		= (Cfg.show_position_eyes		? false : true);	break;
+		case BUTTON_LIGHT:						s = Cfg.show_light				= (Cfg.show_light				? false : true);	break;
+		case BUTTON_TIME:						s = Cfg.show_time				= (Cfg.show_time				? false : true);	break;
+		case BUTTON_WEATHER:					s = Cfg.show_weather			= (Cfg.show_weather				? false : true);	break;
+		case BUTTON_USED_INVENTORY:				s = Cfg.show_used_inventory		= (Cfg.show_used_inventory		? false : true);	break;
+		case BUTTON_ANIMATE_USED_INVENTORY:		s = Cfg.animate_used_inventory	= (Cfg.animate_used_inventory	? false : true);	break;
+		case BUTTON_FPS:						s = Cfg.show_fps				= (Cfg.show_fps					? false : true);	break;
+		case BUTTON_CHUNK_UPDATES:				s = Cfg.show_chunk_updates		= (Cfg.show_chunk_updates		? false : true);	break;
+		case BUTTON_ENTITIES:					s = Cfg.show_entities			= (Cfg.show_entities			? false : true);	break;
+		case BUTTON_PARTICLES:					s = Cfg.show_particles			= (Cfg.show_particles			? false : true);	break;
+		case BUTTON_BLOCK_NAME:					s = Cfg.show_block_name			= (Cfg.show_block_name			? false : true);	break;
+
 		default:
 			// 'done' button
 			this.mc.thePlayer.closeScreen();

@@ -4,10 +4,12 @@ OPTION MENU
 		- change the pre and post text for elements
 		- allow block and entity inspectors to be configured
 
-	- shift clicking position buttons to increment/decrement by 10
+	- shift or right clicking position buttons to increment/decrement by 10
 
 	- configure position of GraviSuite HUD (restart required)
 	- configure position of bspkr's StatusEffectHUD, ArmorStatusHUD and DirectionHUD (restart required)
+
+	- allow player to bind commands to keys?
 
 INFO HUD
 	- add server side support
@@ -41,6 +43,3 @@ ARMOR HUD
 POTION HUD
 	- options to change text colors (potion name and duration)
 	- horizontal and vertical layouts
-
-MISC
-	- allow player to bind commands to keys?
