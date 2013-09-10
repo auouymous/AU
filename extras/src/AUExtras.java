@@ -70,7 +70,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableCobble){
-			this.blockCobble = new BlockColored("au_extras", Cfg.blockCobble, "au.blockCobble", " Cobblestone", ItemBlockCobble.class, Material.rock)
+			this.blockCobble = new BlockColored("au_extras", Cfg.blockCobble, "au.colorCobble", " Cobblestone", ItemBlockCobble.class, Material.rock)
 				.setHardness(2.0F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -94,7 +94,7 @@ public class AUExtras {
 			// stairs
 			if(Cfg.enableCobbleStairs)
 				for(int c = 0; c < 16; c++)
-					this.blockCobbleStairs[c] = new BlockStairsColored(Cfg.blockCobbleStairs+c, "au.blockCobbleStairs."+Color.colors[c],
+					this.blockCobbleStairs[c] = new BlockStairsColored(Cfg.blockCobbleStairs+c, "au.colorCobbleStairs."+Color.colors[c],
 															Color.readableColors[c]+" Cobblestone Stairs",
 															this.blockCobble, c);
 		}
@@ -102,7 +102,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableStone){
-			this.blockStone = new BlockColored("au_extras", Cfg.blockStone, "au.blockStone", " Stone", ItemBlockStone.class, Material.rock)
+			this.blockStone = new BlockColored("au_extras", Cfg.blockStone, "au.colorStone", " Stone", ItemBlockStone.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -126,7 +126,7 @@ public class AUExtras {
 			// stairs
 			if(Cfg.enableStoneStairs)
 				for(int c = 0; c < 16; c++)
-					this.blockStoneStairs[c] = new BlockStairsColored(Cfg.blockStoneStairs+c, "au.blockStoneStairs."+Color.colors[c],
+					this.blockStoneStairs[c] = new BlockStairsColored(Cfg.blockStoneStairs+c, "au.colorStoneStairs."+Color.colors[c],
 															Color.readableColors[c]+" Stone Stairs",
 															this.blockStone, c);
 		}
@@ -134,7 +134,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableStoneBrick){
-			this.blockStoneBrick = new BlockColored("au_extras", Cfg.blockStoneBrick, "au.blockStoneBrick", " Stone Brick", ItemBlockStoneBrick.class, Material.rock)
+			this.blockStoneBrick = new BlockColored("au_extras", Cfg.blockStoneBrick, "au.colorStoneBrick", " Stone Brick", ItemBlockStoneBrick.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -158,7 +158,7 @@ public class AUExtras {
 			// stairs
 			if(Cfg.enableStoneBrickStairs)
 				for(int c = 0; c < 16; c++)
-					this.blockStoneBrickStairs[c] = new BlockStairsColored(Cfg.blockStoneBrickStairs+c, "au.blockStoneBrickStairs."+Color.colors[c],
+					this.blockStoneBrickStairs[c] = new BlockStairsColored(Cfg.blockStoneBrickStairs+c, "au.colorStoneBrickStairs."+Color.colors[c],
 															Color.readableColors[c]+" Stone Brick Stairs",
 															this.blockStoneBrick, c);
 		}
@@ -166,7 +166,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableChiseledBrick){
-			this.blockChiseledBrick = new BlockColored("au_extras", Cfg.blockChiseledBrick, "au.blockChiseledBrick", " Chiseled Brick", ItemBlockChiseledBrick.class, Material.rock)
+			this.blockChiseledBrick = new BlockColored("au_extras", Cfg.blockChiseledBrick, "au.colorChiseledBrick", " Chiseled Brick", ItemBlockChiseledBrick.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -196,7 +196,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableSmoothBrick){
-			this.blockSmoothBrick = new BlockColored("au_extras", Cfg.blockSmoothBrick, "au.blockSmoothBrick", " Smooth Brick", ItemBlockSmoothBrick.class, Material.rock)
+			this.blockSmoothBrick = new BlockColored("au_extras", Cfg.blockSmoothBrick, "au.colorSmoothBrick", " Smooth Brick", ItemBlockSmoothBrick.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -220,7 +220,7 @@ public class AUExtras {
 			// stairs
 			if(Cfg.enableSmoothBrickStairs)
 				for(int c = 0; c < 16; c++)
-					this.blockSmoothBrickStairs[c] = new BlockStairsColored(Cfg.blockSmoothBrickStairs+c, "au.blockSmoothBrickStairs."+Color.colors[c],
+					this.blockSmoothBrickStairs[c] = new BlockStairsColored(Cfg.blockSmoothBrickStairs+c, "au.colorSmoothBrickStairs."+Color.colors[c],
 															Color.readableColors[c]+" Smooth Brick Stairs",
 															this.blockSmoothBrick, c);
 		}
@@ -228,7 +228,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableGlass){
-			this.blockGlass = new BlockGlass(Cfg.blockGlass, "au.blockGlass", " Glass")
+			this.blockGlass = new BlockGlass(Cfg.blockGlass, "au.colorGlass", " Glass")
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)

@@ -27,13 +27,13 @@ function colorize_blocks(){
 #convert -colors 64 rf_composite.xpm items/cookedFlesh.xpm
 
 # blocks
-rm -f block/blockCobble*
-rm -f block/blockStone*
-rm -f block/blockStoneBrick*
-rm -f block/blockChiseledBrick*
-rm -f block/blockSmoothBrick*
-colorize_blocks cobblestone.png blockCobble
-colorize_blocks stone.png blockStone
-colorize_blocks stonebrick.png blockStoneBrick
-colorize_blocks chiseledbrick.png blockChiseledBrick
-colorize_blocks smoothbrick.png blockSmoothBrick
+rm -f block/colorCobble*
+rm -f block/colorStone*
+rm -f block/colorStoneBrick*
+rm -f block/colorChiseledBrick*
+rm -f block/colorSmoothBrick*
+colorize_blocks cobblestone.png colorCobble
+colorize_blocks stone.png colorStone
+colorize_blocks stonebrick.png colorStoneBrick
+colorize_blocks chiseledbrick.png colorChiseledBrick
+colorize_blocks smoothbrick.png colorSmoothBrick

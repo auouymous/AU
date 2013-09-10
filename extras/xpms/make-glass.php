@@ -50,7 +50,7 @@ function drawCT($c, $ct, $t, $r, $b, $l, $tl, $tr, $br, $bl){
 	if($b && $l) imagesetpixel($image, 1,14, $color);
 	if($t && $l) imagesetpixel($image, 1,1, $color);
 
-	imagepng($image, $path.'blockGlass'.$c.'-'.$ct.'.png');
+	imagepng($image, $path.'colorGlass'.$c.'-'.$ct.'.png');
 	imagedestroy($image);
 
 	if($c == 0){

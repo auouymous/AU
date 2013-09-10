@@ -1,0 +1,28 @@
+/* XPM */
+static char *colorStone10[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 6 1 ",
+"  c #329E28",
+". c #309827",
+"X c #35A82B",
+"o c #2E9125",
+"O c #329F28",
+"+ c #41CD34",
+/* pixels */
+" .... XXoX .... ",
+"  XXXX...XXXo  .",
+" o..o...X.   X  ",
+" X   o X  ..... ",
+" XX.......XXXXXo",
+"..   ... o  ..o ",
+"XX O .XX    XXXo",
+"   ......o....  ",
+" XXoX.   XXXXXXX",
+" ...... o  ...X ",
+"  X..XX.o.XXX   ",
+"o   .   XX   XXo",
+" .......XX..... ",
+" XXXXX ...o.  XX",
+"   .....  XX .. ",
+"....oXX    ...  "
+};
