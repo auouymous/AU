@@ -49,7 +49,7 @@ public class ArmorHUD {
 			if(itemstack.isItemStackDamageable()){
 				if(force_quantity || quantity > 1) this.ui.y -= 4;
 
-				int max_durability = itemstack.getMaxDamage() + 1;
+				int max_durability = itemstack.getMaxDamage();
 				int durability = max_durability - itemstack.getItemDamage();
 				int percent = (int)Math.round(100.0 * (float)durability / (float)max_durability);
 				int color = (percent > 50 ? 0xaaaaaa : (percent < 25 ? 0xff6666 : 0xffff66));
