@@ -18,9 +18,11 @@ public class GuiInfoOptions extends GuiScreen {
 	private UI ui;
 	private int window_height = 0;
 
-	public GuiInfoOptions(EntityPlayer player){
+	private GuiScreen parentScreen;
+	public GuiInfoOptions(EntityPlayer player, GuiScreen parent){
 		this.ui = new UI();
 		this.ui.setLineHeight(23);
+		this.parentScreen = parent;
 	}
 
 	private void drawTitle(){
@@ -215,8 +217,7 @@ public class GuiInfoOptions extends GuiScreen {
 
 		default:
 			// 'done' button
-			this.mc.thePlayer.closeScreen();
-			this.mc.thePlayer.openGui(AUHud.instance, Guis.HUD_OPTIONS, this.mc.theWorld, 0, 0, 0);
+			this.mc.displayGuiScreen(this.parentScreen);
 			return;
 		}
 
@@ -244,12 +245,10 @@ public class GuiInfoOptions extends GuiScreen {
 	protected void keyTyped(char key, int keyCode){
 		// close when ESC, inventory or "AU HUD" key are pressed
 		if(keyCode == 1 || keyCode == this.mc.gameSettings.keyBindInventory.keyCode){
-			this.mc.thePlayer.closeScreen();
-			this.mc.thePlayer.openGui(AUHud.instance, Guis.HUD_OPTIONS, this.mc.theWorld, 0, 0, 0);
+			this.mc.displayGuiScreen(this.parentScreen);
 		} else if(keyCode == ClientProxy.keyHandler.keyCodeHUD){
 			ClientProxy.keyHandler.ignoreHudKey = true;
-			this.mc.thePlayer.closeScreen();
-			this.mc.thePlayer.openGui(AUHud.instance, Guis.HUD_OPTIONS, this.mc.theWorld, 0, 0, 0);
+			this.mc.displayGuiScreen(this.parentScreen);
 		}
 	}
 

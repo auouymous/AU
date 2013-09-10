@@ -1,17 +1,29 @@
 OPTION MENU
+	~ shift or right clicking position buttons to increment/decrement by 10
+
 	- fine grained control over info HUD elements
 		- move elements to different lines and different positions within each line
 		- change the pre and post text for elements
 		- allow block and entity inspectors to be configured
 
-	- shift or right clicking position buttons to increment/decrement by 10
-
 	- configure position of GraviSuite HUD (restart required)
-	- configure position of bspkr's StatusEffectHUD, ArmorStatusHUD and DirectionHUD (restart required)
 
 	- allow player to bind commands to keys?
 
+	- add a few useful settings from OptiFine for those who don't use it
+		- fog: on/off
+		- depth fog: on/off
+		- rain & snow: on/off
+		- void particles: on/off
+		- portal particles: on/off
+		- more render distance options
+		- SP day only
+		- SP no weather
+		- connected textures for glass and glass panes (unlikely)
+
 INFO HUD
+	~ FIX: used-inventory animation is too fast on SP
+
 	- add server side support
 		- add API for other mods to publish info elements
 			- protection mod can show worldguard region status

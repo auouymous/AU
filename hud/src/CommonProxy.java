@@ -26,12 +26,6 @@ public class CommonProxy implements IGuiHandler {
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z){
 		if(id == Guis.HUD_OPTIONS)
 			return new GuiOptions(player);
-		if(id == Guis.HUD_OPTIONS_INFO)
-			return new GuiInfoOptions(player);
-		if(id == Guis.HUD_OPTIONS_ARMOR)
-			return new GuiArmorOptions(player);
-		if(id == Guis.HUD_OPTIONS_POTION)
-			return new GuiPotionOptions(player);
 		return null;
 	}
 }

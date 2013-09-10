@@ -21,6 +21,7 @@ public class GuiOptions extends GuiScreen {
 	private UI ui;
 	private int window_height = 0;
 
+	private EntityPlayer player;
 	public GuiOptions(EntityPlayer player){
 		this.ui = new UI();
 		this.ui.setLineHeight(23);
@@ -152,18 +153,15 @@ public class GuiOptions extends GuiScreen {
 		case BUTTON_INSPECTOR:		s = Cfg.show_inspector		= (Cfg.show_inspector		? false : true);	break;
 		case BUTTON_INFO_HUD_OPTIONS:
 			// option info options
-			this.mc.thePlayer.closeScreen();
-			this.mc.thePlayer.openGui(AUHud.instance, Guis.HUD_OPTIONS_INFO, this.mc.theWorld, 0, 0, 0);
+			this.mc.displayGuiScreen(new GuiInfoOptions(this.player, this));
 			return;
 		case BUTTON_ARMOR_HUD_OPTIONS:
 			// open armor options
-			this.mc.thePlayer.closeScreen();
-			this.mc.thePlayer.openGui(AUHud.instance, Guis.HUD_OPTIONS_ARMOR, this.mc.theWorld, 0, 0, 0);
+			this.mc.displayGuiScreen(new GuiArmorOptions(this.player, this));
 			return;
 		case BUTTON_POTION_HUD_OPTIONS:
 			// open potion options
-			this.mc.thePlayer.closeScreen();
-			this.mc.thePlayer.openGui(AUHud.instance, Guis.HUD_OPTIONS_POTION, this.mc.theWorld, 0, 0, 0);
+			this.mc.displayGuiScreen(new GuiPotionOptions(this.player, this));
 			return;
 		default:
 			// 'done' button
