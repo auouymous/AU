@@ -1,10 +1,3 @@
-Connected textures on glass are missing a pixel in corners
-    https://github.com/Shukaro/Artifice/tree/master/shukaro/artifice
-    https://bitbucket.org/prupe/mcpatcher/src/a4c613524f6c/src/com/pclewis/mcpatcher/mod?at=2.4.5_01
-
-Connected textures on glass are missing inside edges when connecting diagonally with
-same color glass or any other block
-
 Not an issue, but glass should always display its frame on all six sides and not just
 the 1-3 sides the player can see. Connected textures between same color glass should
 the only thing that eliminates some sides of the frame.
