@@ -11,6 +11,8 @@ OPTION MENU
 	- allow player to bind commands to keys?
 
 	- add a few useful settings from OptiFine for those who don't use it
+		- redo zoom to be more like optifine
+			https://github.com/Hurricaaane/MC-Client/blob/master/mc-src/net/minecraft/src/MinapticsHaddon.java
 		- fog: on/off
 		- depth fog: on/off
 		- rain & snow: on/off
@@ -40,10 +42,9 @@ ARMOR HUD
 	- options to change text colors (armor durability and number of held items)
 	- horizontal and vertical layouts
 
-	- support IC2 armors
-	- support GraviSuite armors
-	- support MPS armors
-	- support AU armors
+	- support IC2/GraviSuite armor/tools
+	- support MPS armor and power tool
+	- support AU armor and tools
 
 	- support BoP dart gun and darts
 	- support XenoReliquary handgun and bullets

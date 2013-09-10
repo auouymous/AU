@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumMovingObjectType;
@@ -482,10 +483,20 @@ public class InfoHUD {
 		if(Cfg.show_inspector && !mc.thePlayer.capabilities.isCreativeMode){
 			int armorValue = player.getTotalArmorValue();
 			if(armorValue > 0){
-				this.ui.setCursor(screen.getScaledWidth()/2 - 95, screen.getScaledHeight() - 60);
+				this.ui.setCursor(screen.getScaledWidth()/2 - 95, screen.getScaledHeight() - 70);
 				this.ui.drawString(" armor: ", 0xaaaaaa);
 				this.ui.drawString(String.format("%d", armorValue), 0xffffff);
 			}
+		}
+
+		// SELF: daamge inspector
+		if(Cfg.show_inspector && !mc.thePlayer.capabilities.isCreativeMode){
+			ItemStack hand = mc.thePlayer.getHeldItem();
+			Item item = (hand != null ? Item.itemsList[hand.itemID] : null);
+			int damage = (item != null ? item.getDamageVsEntity(null) : 1);
+			this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - 70);
+			this.ui.drawString("damage: ", 0xaaaaaa);
+			this.ui.drawString(String.format("%d", damage), 0xffffff);
 		}
 
 		// SELF: food inspector
