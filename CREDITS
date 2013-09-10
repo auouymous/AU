@@ -2,13 +2,17 @@ Minecraft source
 	- F3 debug methods for HUD
 	- howto everything!
 
+Forge Wiki
+	http://www.minecraftforge.net/wiki/
+	- tutorials
+
 bspkrs
 	https://github.com/bspkrs/IngameInfo/
 	- mctime, rain and block/enntity name methods for HUD
 
 MachineMuse
 	https://github.com/MachineMuse/MachineMusePowersuits
-	- TickHandler and KeyHandler howto
+	- TickHandler, KeyHandler and zoom howto
 
 Blaueseichoern
 	http://www.minecraftforum.net/topic/1412300-147forgeblaueseichoerns-gui-tutorial/
@@ -21,3 +25,7 @@ cpw
 powercrystals
 	https://github.com/powercrystals/
 	- Container and GuiContainer howto
+
+SpaceToad
+	https://github.com/BuildCraft/BuildCraft/blob/master/common/buildcraft/core/gui/BuildCraftContainer.java
+	- phantom slots

@@ -11,15 +11,33 @@ import net.minecraft.client.settings.KeyBinding;
 
 import java.util.EnumSet;
 
+import org.lwjgl.input.Keyboard;
+
 @SideOnly(Side.CLIENT)
 public class KeyHandlerHUD extends KeyHandler {
 	public int keyCodeHUD;
 	public boolean ignoreHudKey = false;
 
+	public static KeyBinding keyOptions = new KeyBinding("AU HUD Options", Keyboard.KEY_H);
+	public static KeyBinding keyInspector = new KeyBinding("AU HUD Inspector", Keyboard.KEY_I);
+	public static KeyBinding keyZoom = new KeyBinding("AU HUD Zoom", Keyboard.CHAR_NONE);
+	private static KeyBinding[] keys = {
+		keyOptions,
+		keyInspector,
+		keyZoom
+	};
+	private static boolean[] repeats = {
+		false,
+		false,
+		false
+	};
+
+	//////////
+
 	private EnumSet tickTypes = EnumSet.of(TickType.CLIENT);
 
-	public KeyHandlerHUD(KeyBinding[] keyBindings, boolean[] repeatings){
-		super(keyBindings, repeatings);
+	public KeyHandlerHUD(){
+		super(KeyHandlerHUD.keys, KeyHandlerHUD.repeats);
 	}
 
 	@Override
@@ -41,10 +59,10 @@ public class KeyHandlerHUD extends KeyHandler {
 		if(mc.gameSettings.showDebugInfo || !(mc.inGameHasFocus || mc.currentScreen == null) || mc.thePlayer == null)
 			return;
 
-		if(kb.keyDescription.equals(ClientProxy.keyI)){
+		if(kb == KeyHandlerHUD.keyInspector){
 			// toggle inspector
 			Cfg.show_inspector = (Cfg.show_inspector ? false : true);
-		} else if(kb.keyDescription.equals(ClientProxy.keyH)){
+		} else if(kb == KeyHandlerHUD.keyOptions){
 			// open HUD configuration
 			this.keyCodeHUD = kb.keyCode;
 			if(mc.inGameHasFocus && this.ignoreHudKey == false)
