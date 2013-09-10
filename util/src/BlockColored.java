@@ -42,7 +42,7 @@ public class BlockColored extends Block {
 	public void registerIcons(IconRegister iconRegister){
 		this.blockIcons = new Icon[16];
 		for(int c = 0; c < 16; c++)
-			this.blockIcons[c] = iconRegister.registerIcon(this.modPath+this.getUnlocalizedName().replace("tile.", "")+c);
+			this.blockIcons[c] = iconRegister.registerIcon(this.modPath+this.getUnlocalizedName().replace("tile.au.", "")+c);
 	}
 
 	@SideOnly(Side.CLIENT)

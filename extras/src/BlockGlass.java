@@ -33,7 +33,7 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		this.blockIcons = new Icon[16][IConnectedTexture.ctm_icons];
 		for(int c = 0; c < 16; c++)
 			for(int t = 0; t < 47; t++)
-				this.blockIcons[c][IConnectedTexture.ctm[t]] = iconRegister.registerIcon(this.modPath+this.getUnlocalizedName().replace("tile.", "")+c+"-"+t);
+				this.blockIcons[c][IConnectedTexture.ctm[t]] = iconRegister.registerIcon(this.modPath+this.getUnlocalizedName().replace("tile.au.", "")+c+"-"+t);
 	}
 
 	@Override

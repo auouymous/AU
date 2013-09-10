@@ -59,7 +59,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableCobble){
-			this.blockCobble = new BlockColored("au_extras", Cfg.blockCobble, "blockCobble", " Cobblestone", ItemBlockCobble.class, Material.rock)
+			this.blockCobble = new BlockColored("au_extras", Cfg.blockCobble, "au.blockCobble", " Cobblestone", ItemBlockCobble.class, Material.rock)
 				.setHardness(2.0F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -83,7 +83,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableStone){
-			this.blockStone = new BlockColored("au_extras", Cfg.blockStone, "blockStone", " Stone", ItemBlockStone.class, Material.rock)
+			this.blockStone = new BlockColored("au_extras", Cfg.blockStone, "au.blockStone", " Stone", ItemBlockStone.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -107,7 +107,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableStoneBrick){
-			this.blockStoneBrick = new BlockColored("au_extras", Cfg.blockStoneBrick, "blockStoneBrick", " Stone Brick", ItemBlockStoneBrick.class, Material.rock)
+			this.blockStoneBrick = new BlockColored("au_extras", Cfg.blockStoneBrick, "au.blockStoneBrick", " Stone Brick", ItemBlockStoneBrick.class, Material.rock)
 				.setHardness(2.0F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -131,7 +131,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableGlass){
-			this.blockGlass = new BlockGlass(Cfg.blockGlass, "blockGlass", " Glass")
+			this.blockGlass = new BlockGlass(Cfg.blockGlass, "au.blockGlass", " Glass")
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -153,14 +153,14 @@ public class AUExtras {
 
 		// SMELT egg -> fried egg
 		if(Cfg.enableFriedEgg){
-			this.itemFriedEgg = (new ItemFoodGeneric(Cfg.itemFriedEgg, 64, "friedEgg", "Fried Egg", 2, 0.4F, false));
+			this.itemFriedEgg = (new ItemFoodGeneric(Cfg.itemFriedEgg, 64, "au.friedEgg", "Fried Egg", 2, 0.4F, false));
 			GameRegistry.addSmelting(Item.egg.itemID, new ItemStack(this.itemFriedEgg), 1.0f);
 		}
 
 		// SMELT rotten flesh -> cooked flesh
 		ItemStack cookedFlesh = null;
 		if(Cfg.enableCookedFlesh){
-			this.itemCookedFlesh = (new ItemFoodGeneric(Cfg.itemCookedFlesh, 64, "cookedFlesh", "Cooked Flesh", 2, 0.2F, false));
+			this.itemCookedFlesh = (new ItemFoodGeneric(Cfg.itemCookedFlesh, 64, "au.cookedFlesh", "Cooked Flesh", 2, 0.2F, false));
 			cookedFlesh = new ItemStack(this.itemCookedFlesh, 1);
 			GameRegistry.addSmelting(Item.rottenFlesh.itemID, cookedFlesh, 1.0f);
 		}
