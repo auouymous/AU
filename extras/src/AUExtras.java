@@ -35,6 +35,7 @@ public class AUExtras {
 	public static Block blockCobble;
 	public static Block blockStone;
 	public static Block blockStoneBrick;
+	public static Block blockChiseledBrick;
 	public static Block blockGlass;
 	public static Item itemFriedEgg;
 	public static Item itemCookedFlesh;
@@ -52,6 +53,7 @@ public class AUExtras {
 		ItemStack cobblestone = new ItemStack(Block.cobblestone);
 		ItemStack stone = new ItemStack(Block.stone);
 		ItemStack stoneBrick = new ItemStack(Block.stoneBrick);
+		ItemStack chiseledBrick = new ItemStack(Block.stoneBrick, 1, 3);
 		ItemStack glass = new ItemStack(Block.glass);
 //		ItemStack redstoneDust = new ItemStack(Item.redstone);
 //		ItemStack glowstoneDust = new ItemStack(Item.lightStoneDust);
@@ -126,6 +128,30 @@ public class AUExtras {
 			}
 			// SMELT <colored> stoneBrick -> stoneBrick
 			GameRegistry.addSmelting(coloredStoneBrick.itemID, stoneBrick, 1.0f);
+		}
+
+		//////////
+
+		if(Cfg.enableChiseledBrick){
+			this.blockChiseledBrick = new BlockColored("au_extras", Cfg.blockChiseledBrick, "au.blockChiseledBrick", " Chiseled Brick", ItemBlockChiseledBrick.class, Material.rock)
+				.setHardness(2.0F)
+				.setResistance(10.0F)
+				.setStepSound(Block.soundStoneFootstep)
+				.setCreativeTab(CreativeTabs.tabBlock);
+			MinecraftForge.setBlockHarvestLevel(this.blockChiseledBrick, "pickaxe", 0); // wooden pickaxe
+			ItemStack coloredChiseledBrick = new ItemStack(this.blockChiseledBrick);
+
+			// CRAFT chiseledBrick + dye -> <colored> chiseledBrick
+			for(int c = 0; c < 16; c++)
+				GameRegistry.addShapelessRecipe(new ItemStack(this.blockChiseledBrick, 1, c), chiseledBrick, new ItemStack(Item.dyePowder, 1, c));
+			// CRAFT <colored> chiseledBrick + dye -> <colored> chiseledBrick
+			for(int g = 0; g < 16; g++){
+				ItemStack anyChiseledBrick = new ItemStack(this.blockChiseledBrick, 1, g);
+				for(int c = 0; c < 16; c++)
+					GameRegistry.addShapelessRecipe(new ItemStack(this.blockChiseledBrick, 1, c), anyChiseledBrick, new ItemStack(Item.dyePowder, 1, c));
+			}
+			// SMELT <colored> chiseledBrick -> chiseledBrick
+			GameRegistry.addSmelting(coloredChiseledBrick.itemID, chiseledBrick, 1.0f);
 		}
 
 		//////////

@@ -30,6 +30,8 @@ function colorize_blocks(){
 rm -f block/blockCobble*
 rm -f block/blockStone*
 rm -f block/blockStoneBrick*
+rm -f block/blockChiseledBrick*
 colorize_blocks cobblestone.png blockCobble
 colorize_blocks stone.png blockStone
 colorize_blocks stonebrick.png blockStoneBrick
+colorize_blocks chiseledbrick.png blockChiseledBrick
