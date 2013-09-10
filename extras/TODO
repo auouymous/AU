@@ -1,23 +1,17 @@
-- render all 6 sides of glass, option to disable
-- allow torches to be placed on glass
+~ render all 6 sides of glass, option to disable
+~ allow torches to be placed on glass
 
 - grated floor
 	- frame around outside edge, connected textures
 	- near top of block, similar to trapdoors
 
-- colored cobblestone stairs
-- colored stone stairs
-- colored stone brick stairs
-- colored chiseled stone brick stairs
-- colored stone pavel stairs
-
-- forge multipart support
+~ forge multipart support
 	- OR
 	- colored cobblestone slab
 	- colored stone slab
 	- colored stone brick slab
-	- colored chiseled stone brick slab
-	- colored stone pavel slab
+	- colored chiseled brick slab
+	- colored smooth brick slab
 
 - key or item to feign death
 	- lay down as if on a bed

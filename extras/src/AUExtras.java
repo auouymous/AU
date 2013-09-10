@@ -22,6 +22,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.qzx.au.util.BlockColored;
+import com.qzx.au.util.Color;
 
 @Mod(modid="AUExtras", name="Altered Unification EXTRAS", version="20130817-r1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
@@ -38,6 +39,10 @@ public class AUExtras {
 	public static Block blockChiseledBrick;
 	public static Block blockSmoothBrick;
 	public static Block blockGlass;
+	public static Block[] blockCobbleStairs = new BlockStairsColored[16];
+	public static Block[] blockStoneStairs = new BlockStairsColored[16];
+	public static Block[] blockStoneBrickStairs = new BlockStairsColored[16];
+	public static Block[] blockSmoothBrickStairs = new BlockStairsColored[16];
 	public static Item itemFriedEgg;
 	public static Item itemCookedFlesh;
 
@@ -85,6 +90,13 @@ public class AUExtras {
 			}
 			// SMELT <colored> cobble -> cobblestone
 			GameRegistry.addSmelting(coloredCobble.itemID, cobblestone, 1.0f);
+
+			// stairs
+			if(Cfg.enableCobbleStairs)
+				for(int c = 0; c < 16; c++)
+					this.blockCobbleStairs[c] = new BlockStairsColored(Cfg.blockCobbleStairs+c, "au.blockCobbleStairs."+Color.colors[c],
+															Color.readableColors[c]+" Cobblestone Stairs",
+															this.blockCobble, c);
 		}
 
 		//////////
@@ -110,13 +122,20 @@ public class AUExtras {
 			}
 			// SMELT <colored> stone -> stone
 			GameRegistry.addSmelting(coloredStone.itemID, stone, 1.0f);
+
+			// stairs
+			if(Cfg.enableStoneStairs)
+				for(int c = 0; c < 16; c++)
+					this.blockStoneStairs[c] = new BlockStairsColored(Cfg.blockStoneStairs+c, "au.blockStoneStairs."+Color.colors[c],
+															Color.readableColors[c]+" Stone Stairs",
+															this.blockStone, c);
 		}
 
 		//////////
 
 		if(Cfg.enableStoneBrick){
 			this.blockStoneBrick = new BlockColored("au_extras", Cfg.blockStoneBrick, "au.blockStoneBrick", " Stone Brick", ItemBlockStoneBrick.class, Material.rock)
-				.setHardness(2.0F)
+				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
 				.setCreativeTab(CreativeTabs.tabBlock);
@@ -135,13 +154,20 @@ public class AUExtras {
 			}
 			// SMELT <colored> stoneBrick -> stoneBrick
 			GameRegistry.addSmelting(coloredStoneBrick.itemID, stoneBrick, 1.0f);
+
+			// stairs
+			if(Cfg.enableStoneBrickStairs)
+				for(int c = 0; c < 16; c++)
+					this.blockStoneBrickStairs[c] = new BlockStairsColored(Cfg.blockStoneBrickStairs+c, "au.blockStoneBrickStairs."+Color.colors[c],
+															Color.readableColors[c]+" Stone Brick Stairs",
+															this.blockStoneBrick, c);
 		}
 
 		//////////
 
 		if(Cfg.enableChiseledBrick){
 			this.blockChiseledBrick = new BlockColored("au_extras", Cfg.blockChiseledBrick, "au.blockChiseledBrick", " Chiseled Brick", ItemBlockChiseledBrick.class, Material.rock)
-				.setHardness(2.0F)
+				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
 				.setCreativeTab(CreativeTabs.tabBlock);
@@ -163,13 +189,15 @@ public class AUExtras {
 			}
 			// SMELT <colored> chiseledBrick -> chiseledBrick
 			GameRegistry.addSmelting(coloredChiseledBrick.itemID, chiseledBrick, 1.0f);
+
+			// no stairs
 		}
 
 		//////////
 
 		if(Cfg.enableSmoothBrick){
 			this.blockSmoothBrick = new BlockColored("au_extras", Cfg.blockSmoothBrick, "au.blockSmoothBrick", " Smooth Brick", ItemBlockSmoothBrick.class, Material.rock)
-				.setHardness(2.0F)
+				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
 				.setCreativeTab(CreativeTabs.tabBlock);
@@ -188,6 +216,13 @@ public class AUExtras {
 			}
 			// SMELT <colored> smoothBrick -> stone
 			GameRegistry.addSmelting(coloredSmoothBrick.itemID, stone, 1.0f);
+
+			// stairs
+			if(Cfg.enableSmoothBrickStairs)
+				for(int c = 0; c < 16; c++)
+					this.blockSmoothBrickStairs[c] = new BlockStairsColored(Cfg.blockSmoothBrickStairs+c, "au.blockSmoothBrickStairs."+Color.colors[c],
+															Color.readableColors[c]+" Smooth Brick Stairs",
+															this.blockSmoothBrick, c);
 		}
 
 		//////////

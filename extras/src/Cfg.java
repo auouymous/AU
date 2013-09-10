@@ -12,6 +12,11 @@ public class Cfg extends Config {
 	public static boolean enableSmoothBrick;
 	public static boolean enableGlass;
 
+	public static boolean enableCobbleStairs;
+	public static boolean enableStoneStairs;
+	public static boolean enableStoneBrickStairs;
+	public static boolean enableSmoothBrickStairs;
+
 	public static boolean enableFriedEgg;
 	public static boolean enableCookedFlesh;
 
@@ -24,6 +29,12 @@ public class Cfg extends Config {
 	public static int blockChiseledBrick;
 	public static int blockSmoothBrick;
 	public static int blockGlass;
+
+	public static int blockCobbleStairs;
+	public static int blockStoneStairs;
+	public static int blockStoneBrickStairs;
+	public static int blockSmoothBrickStairs;
+
 	public static int itemFriedEgg;
 	public static int itemCookedFlesh;
 
@@ -37,12 +48,18 @@ public class Cfg extends Config {
 		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrick", true, null);
 		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlass", true, null);
 
+		Cfg.enableCobbleStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCobbleStairs", true, null);
+		Cfg.enableStoneStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneStairs", true, null);
+		Cfg.enableStoneBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneBrickStairs", true, null);
+		Cfg.enableSmoothBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrickStairs", true, null);
+
 		Cfg.enableFriedEgg = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableFriedEgg", true, null);
 		Cfg.enableCookedFlesh = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCookedFlesh", true, null);
 
 		Cfg.enableCookedFleshToLeather = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCookedFleshToLeather", true, null);
 		Cfg.nrCookedFleshToLeather = Cfg.getInt(Cfg.CATEGORY_GENERAL, "nrCookedFleshToLeather", 4, "number of cooked flesh per leather (1-9)");
 
+		// IDs
 		int startBlockID = 3800, startItemID = 31000;
 		Cfg.blockCobble = Cfg.getBlock("blockCobble", startBlockID, null);
 		Cfg.blockStone = Cfg.getBlock("blockStone", startBlockID+1, null);
@@ -50,6 +67,12 @@ public class Cfg extends Config {
 		Cfg.blockGlass = Cfg.getBlock("blockGlass", startBlockID+3, null);
 		Cfg.blockChiseledBrick = Cfg.getBlock("blockChiseledBrick", startBlockID+4, null);
 		Cfg.blockSmoothBrick = Cfg.getBlock("blockSmoothBrick", startBlockID+5, null);
+
+		Cfg.blockCobbleStairs = Cfg.getBlock("blockCobbleStairs", startBlockID+6, "First of 16 IDs for these stairs");
+		Cfg.blockStoneStairs = Cfg.getBlock("blockStoneStairs", startBlockID+6+16, "First of 16 IDs for these stairs");
+		Cfg.blockStoneBrickStairs = Cfg.getBlock("blockStoneBrickStairs", startBlockID+6+32, "First of 16 IDs for these stairs");
+		Cfg.blockSmoothBrickStairs = Cfg.getBlock("blockSmoothBrickStairs", startBlockID+6+48, "First of 16 IDs for these stairs");
+
 		Cfg.itemFriedEgg = Cfg.getItem("itemFriedEgg", startItemID, null);
 		Cfg.itemCookedFlesh = Cfg.getItem("itemCookedFlesh", startItemID+1, null);
 
