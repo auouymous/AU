@@ -1,4 +1,7 @@
+	- changed recipes from 1 dye per block to 1 dye per 8 blocks
+	- added colored smooth bricks
 	- added colored chiseled bricks
+	- added recipe to craft chiseled stone bricks
 	- added "au." prefix to block and item unlocalized names
 	- removed pickaxe on glass
 

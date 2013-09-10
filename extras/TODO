@@ -5,13 +5,19 @@
 	- frame around outside edge, connected textures
 	- near top of block, similar to trapdoors
 
-- colored cobblestone slabs
-- colored stone slabs
-- colored stone brick slabs
+- colored cobblestone stairs
+- colored stone stairs
+- colored stone brick stairs
+- colored chiseled stone brick stairs
+- colored stone pavel stairs
 
-- colored cobblestone stairs ?
-- colored stone stairs ?
-- colored stone brick stairs ?
+- forge multipart support
+	- OR
+	- colored cobblestone slab
+	- colored stone slab
+	- colored stone brick slab
+	- colored chiseled stone brick slab
+	- colored stone pavel slab
 
 - key or item to feign death
 	- lay down as if on a bed

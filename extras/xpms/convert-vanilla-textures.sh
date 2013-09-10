@@ -31,7 +31,9 @@ rm -f block/blockCobble*
 rm -f block/blockStone*
 rm -f block/blockStoneBrick*
 rm -f block/blockChiseledBrick*
+rm -f block/blockSmoothBrick*
 colorize_blocks cobblestone.png blockCobble
 colorize_blocks stone.png blockStone
 colorize_blocks stonebrick.png blockStoneBrick
 colorize_blocks chiseledbrick.png blockChiseledBrick
+colorize_blocks smoothbrick.png blockSmoothBrick

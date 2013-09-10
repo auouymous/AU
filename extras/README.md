@@ -12,19 +12,26 @@ Required: -
 
 ***
 
-* cobblestone + dye TO [colored] cobblestone
-* stone + dye TO [colored] stone
-* stone brick + dye TO [colored] stone brick
+* 8 cobblestone + dye TO 8 [colored] cobblestone
+* 8 stone + dye TO 8 [colored] stone
+* 8 stone brick + dye TO 8 [colored] stone brick
+* 4 stone brick TO 4 chiseled stone bricks
+* 8 chiseled brick + dye TO 8 [colored] chiseled brick
+* 4 stone brick + 4 stone + dye TO 8 [colored] smooth brick
 * 8 glass + dye TO 8 [colored] glass
 * 
-* [colored] cobblestone + dye TO [colored] cobblestone
-* [colored] stone + dye TO [colored] stone
-* [colored] stone brick + dye TO [colored] stone brick
-* [colored] glass + dye TO [colored] glass
+* 8 [colored] cobblestone + dye TO 8 [colored] cobblestone
+* 8 [colored] stone + dye TO 8 [colored] stone
+* 8 [colored] stone brick + dye TO 8 [colored] stone brick
+* 8 [colored] chiseled brick + dye TO 8 [colored] chiseled brick
+* 8 [colored] smooth brick + dye TO 8 [colored] smooth brick
+* 8 [colored] glass + dye TO 8 [colored] glass
 * 
 * SMELT [colored] cobblestone TO cobblestone
 * SMELT [colored] stone TO stone
 * SMELT [colored] stone brick TO stone brick
+* SMELT [colored] chiseled brick TO chiseled brick
+* SMELT [colored] smooth brick TO stone
 * 
 * SMELT egg TO fried egg
 * SMELT rotten flesh TO cooked flesh

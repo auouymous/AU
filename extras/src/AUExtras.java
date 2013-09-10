@@ -36,6 +36,7 @@ public class AUExtras {
 	public static Block blockStone;
 	public static Block blockStoneBrick;
 	public static Block blockChiseledBrick;
+	public static Block blockSmoothBrick;
 	public static Block blockGlass;
 	public static Item itemFriedEgg;
 	public static Item itemCookedFlesh;
@@ -57,6 +58,9 @@ public class AUExtras {
 		ItemStack glass = new ItemStack(Block.glass);
 //		ItemStack redstoneDust = new ItemStack(Item.redstone);
 //		ItemStack glowstoneDust = new ItemStack(Item.lightStoneDust);
+		ItemStack[] dyes = new ItemStack[16];
+		for(int c = 0; c < 16; c++)
+			dyes[c] = new ItemStack(Item.dyePowder, 1, c);
 
 		//////////
 
@@ -69,14 +73,15 @@ public class AUExtras {
 			MinecraftForge.setBlockHarvestLevel(this.blockCobble, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredCobble = new ItemStack(this.blockCobble);
 
-			// CRAFT cobblestone + dye -> <colored> cobble
+			// CRAFT 8 cobblestone + dye -> 8 <colored> cobble
 			for(int c = 0; c < 16; c++)
-				GameRegistry.addShapelessRecipe(new ItemStack(this.blockCobble, 1, c), cobblestone, new ItemStack(Item.dyePowder, 1, c));
-			// CRAFT <colored> cobble + dye -> <colored> cobble
+				GameRegistry.addRecipe(new ItemStack(this.blockCobble, 8, c), "sss", "s-s", "sss", 's', cobblestone, '-', dyes[c]);
+			// CRAFT 8 <colored> cobble + dye -> 8 <colored> cobble
 			for(int g = 0; g < 16; g++){
 				ItemStack anyCobble = new ItemStack(this.blockCobble, 1, g);
 				for(int c = 0; c < 16; c++)
-					GameRegistry.addShapelessRecipe(new ItemStack(this.blockCobble, 1, c), anyCobble, new ItemStack(Item.dyePowder, 1, c));
+					if(g != c)
+						GameRegistry.addRecipe(new ItemStack(this.blockCobble, 8, c), "sss", "s-s", "sss", 's', anyCobble, '-', dyes[c]);
 			}
 			// SMELT <colored> cobble -> cobblestone
 			GameRegistry.addSmelting(coloredCobble.itemID, cobblestone, 1.0f);
@@ -93,14 +98,15 @@ public class AUExtras {
 			MinecraftForge.setBlockHarvestLevel(this.blockStone, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredStone = new ItemStack(this.blockStone);
 
-			// CRAFT stone + dye -> <colored> stone
+			// CRAFT 8 stone + dye -> 8 <colored> stone
 			for(int c = 0; c < 16; c++)
-				GameRegistry.addShapelessRecipe(new ItemStack(this.blockStone, 1, c), stone, new ItemStack(Item.dyePowder, 1, c));
-			// CRAFT <colored> stone + dye -> <colored> stone
+				GameRegistry.addRecipe(new ItemStack(this.blockStone, 8, c), "sss", "s-s", "sss", 's', stone, '-', dyes[c]);
+			// CRAFT 8 <colored> stone + dye -> 8 <colored> stone
 			for(int g = 0; g < 16; g++){
 				ItemStack anyStone = new ItemStack(this.blockStone, 1, g);
 				for(int c = 0; c < 16; c++)
-					GameRegistry.addShapelessRecipe(new ItemStack(this.blockStone, 1, c), anyStone, new ItemStack(Item.dyePowder, 1, c));
+					if(g != c)
+						GameRegistry.addRecipe(new ItemStack(this.blockStone, 8, c), "sss", "s-s", "sss", 's', anyStone, '-', dyes[c]);
 			}
 			// SMELT <colored> stone -> stone
 			GameRegistry.addSmelting(coloredStone.itemID, stone, 1.0f);
@@ -117,14 +123,15 @@ public class AUExtras {
 			MinecraftForge.setBlockHarvestLevel(this.blockStoneBrick, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredStoneBrick = new ItemStack(this.blockStoneBrick);
 
-			// CRAFT stoneBrick + dye -> <colored> stoneBrick
+			// CRAFT 8 stoneBrick + dye -> 8 <colored> stoneBrick
 			for(int c = 0; c < 16; c++)
-				GameRegistry.addShapelessRecipe(new ItemStack(this.blockStoneBrick, 1, c), stoneBrick, new ItemStack(Item.dyePowder, 1, c));
-			// CRAFT <colored> stoneBrick + dye -> <colored> stoneBrick
+				GameRegistry.addRecipe(new ItemStack(this.blockStoneBrick, 8, c), "bbb", "b-b", "bbb", 'b', stoneBrick, '-', dyes[c]);
+			// CRAFT 8 <colored> stoneBrick + dye -> 8 <colored> stoneBrick
 			for(int g = 0; g < 16; g++){
 				ItemStack anyStoneBrick = new ItemStack(this.blockStoneBrick, 1, g);
 				for(int c = 0; c < 16; c++)
-					GameRegistry.addShapelessRecipe(new ItemStack(this.blockStoneBrick, 1, c), anyStoneBrick, new ItemStack(Item.dyePowder, 1, c));
+					if(g != c)
+						GameRegistry.addRecipe(new ItemStack(this.blockStoneBrick, 8, c), "bbb", "b-b", "bbb", 'b', anyStoneBrick, '-', dyes[c]);
 			}
 			// SMELT <colored> stoneBrick -> stoneBrick
 			GameRegistry.addSmelting(coloredStoneBrick.itemID, stoneBrick, 1.0f);
@@ -141,17 +148,46 @@ public class AUExtras {
 			MinecraftForge.setBlockHarvestLevel(this.blockChiseledBrick, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredChiseledBrick = new ItemStack(this.blockChiseledBrick);
 
-			// CRAFT chiseledBrick + dye -> <colored> chiseledBrick
+			// CRAFT 4 stoneBrick -> 4 chiseledBrick
+			GameRegistry.addRecipe(new ItemStack(Block.stoneBrick, 4, 3), "bb ", "bb ", "   ", 'b', stoneBrick);
+
+			// CRAFT 8 chiseledBrick + dye -> 8 <colored> chiseledBrick
 			for(int c = 0; c < 16; c++)
-				GameRegistry.addShapelessRecipe(new ItemStack(this.blockChiseledBrick, 1, c), chiseledBrick, new ItemStack(Item.dyePowder, 1, c));
-			// CRAFT <colored> chiseledBrick + dye -> <colored> chiseledBrick
+				GameRegistry.addRecipe(new ItemStack(this.blockChiseledBrick, 8, c), "bbb", "b-b", "bbb", 'b', chiseledBrick, '-', dyes[c]);
+			// CRAFT 8 <colored> chiseledBrick + dye -> 8 <colored> chiseledBrick
 			for(int g = 0; g < 16; g++){
 				ItemStack anyChiseledBrick = new ItemStack(this.blockChiseledBrick, 1, g);
 				for(int c = 0; c < 16; c++)
-					GameRegistry.addShapelessRecipe(new ItemStack(this.blockChiseledBrick, 1, c), anyChiseledBrick, new ItemStack(Item.dyePowder, 1, c));
+					if(g != c)
+						GameRegistry.addRecipe(new ItemStack(this.blockChiseledBrick, 8, c), "bbb", "b-b", "bbb", 'b', anyChiseledBrick, '-', dyes[c]);
 			}
 			// SMELT <colored> chiseledBrick -> chiseledBrick
 			GameRegistry.addSmelting(coloredChiseledBrick.itemID, chiseledBrick, 1.0f);
+		}
+
+		//////////
+
+		if(Cfg.enableSmoothBrick){
+			this.blockSmoothBrick = new BlockColored("au_extras", Cfg.blockSmoothBrick, "au.blockSmoothBrick", " Smooth Brick", ItemBlockSmoothBrick.class, Material.rock)
+				.setHardness(2.0F)
+				.setResistance(10.0F)
+				.setStepSound(Block.soundStoneFootstep)
+				.setCreativeTab(CreativeTabs.tabBlock);
+			MinecraftForge.setBlockHarvestLevel(this.blockSmoothBrick, "pickaxe", 0); // wooden pickaxe
+			ItemStack coloredSmoothBrick = new ItemStack(this.blockSmoothBrick);
+
+			// CRAFT 4 stoneBrick + 4 stone + dye -> 8 <colored> smoothBrick
+			for(int c = 0; c < 16; c++)
+				GameRegistry.addRecipe(new ItemStack(this.blockSmoothBrick, 8, c), "bsb", "s-s", "bsb", 'b', stoneBrick, 's', stone, '-', dyes[c]);
+			// CRAFT 8 <colored> smoothBrick + dye -> 8 <colored> smoothBrick
+			for(int g = 0; g < 16; g++){
+				ItemStack anySmoothBrick = new ItemStack(this.blockSmoothBrick, 1, g);
+				for(int c = 0; c < 16; c++)
+					if(g != c)
+						GameRegistry.addRecipe(new ItemStack(this.blockSmoothBrick, 8, c), "bbb", "b-b", "bbb", 'b', anySmoothBrick, '-', dyes[c]);
+			}
+			// SMELT <colored> smoothBrick -> stone
+			GameRegistry.addSmelting(coloredSmoothBrick.itemID, stone, 1.0f);
 		}
 
 		//////////
@@ -166,12 +202,13 @@ public class AUExtras {
 
 			// CRAFT 8 glass + dye -> 8 <colored> glass
 			for(int c = 0; c < 16; c++)
-				GameRegistry.addRecipe(new ItemStack(this.blockGlass, 8, c), "ggg", "gdg", "ggg", 'g', glass, 'd', new ItemStack(Item.dyePowder, 1, c));
-			// CRAFT <colored> glass + dye -> <colored> glass
+				GameRegistry.addRecipe(new ItemStack(this.blockGlass, 8, c), "ggg", "g-g", "ggg", 'g', glass, '-', dyes[c]);
+			// CRAFT 8 <colored> glass + dye -> 8 <colored> glass
 			for(int g = 0; g < 16; g++){
 				ItemStack anyGlass = new ItemStack(this.blockGlass, 1, g);
 				for(int c = 0; c < 16; c++)
-					GameRegistry.addShapelessRecipe(new ItemStack(this.blockGlass, 1, c), anyGlass, new ItemStack(Item.dyePowder, 1, c));
+					if(g != c)
+						GameRegistry.addRecipe(new ItemStack(this.blockGlass, 8, c), "ggg", "g-g", "ggg", 'g', anyGlass, '-', dyes[c]);
 			}
 		}
 

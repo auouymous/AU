@@ -9,6 +9,7 @@ public class Cfg extends Config {
 	public static boolean enableStone;
 	public static boolean enableStoneBrick;
 	public static boolean enableChiseledBrick;
+	public static boolean enableSmoothBrick;
 	public static boolean enableGlass;
 
 	public static boolean enableFriedEgg;
@@ -21,6 +22,7 @@ public class Cfg extends Config {
 	public static int blockStone;
 	public static int blockStoneBrick;
 	public static int blockChiseledBrick;
+	public static int blockSmoothBrick;
 	public static int blockGlass;
 	public static int itemFriedEgg;
 	public static int itemCookedFlesh;
@@ -32,6 +34,7 @@ public class Cfg extends Config {
 		Cfg.enableStone = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStone", true, null);
 		Cfg.enableStoneBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneBrick", true, null);
 		Cfg.enableChiseledBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrick", true, null);
+		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrick", true, null);
 		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlass", true, null);
 
 		Cfg.enableFriedEgg = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableFriedEgg", true, null);
@@ -46,6 +49,7 @@ public class Cfg extends Config {
 		Cfg.blockStoneBrick = Cfg.getBlock("blockStoneBrick", startBlockID+2, null);
 		Cfg.blockGlass = Cfg.getBlock("blockGlass", startBlockID+3, null);
 		Cfg.blockChiseledBrick = Cfg.getBlock("blockChiseledBrick", startBlockID+4, null);
+		Cfg.blockSmoothBrick = Cfg.getBlock("blockSmoothBrick", startBlockID+5, null);
 		Cfg.itemFriedEgg = Cfg.getItem("itemFriedEgg", startItemID, null);
 		Cfg.itemCookedFlesh = Cfg.getItem("itemCookedFlesh", startItemID+1, null);
 
