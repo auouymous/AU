@@ -23,6 +23,9 @@ class BlockStairsColored extends BlockStairs {
 		GameRegistry.registerBlock(this, name);
 		LanguageRegistry.addName(this, readableName);
 
+		// hack to fix lighting glitch
+		this.setLightValue(0.07F);
+
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 0); // wooden pickaxe
 
 		GameRegistry.addRecipe(new ItemStack(this, 4), "b  ", "bb ", "bbb", 'b', new ItemStack(block, 1, blockMeta));
