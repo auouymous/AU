@@ -21,7 +21,6 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 
 import net.minecraftforge.common.MinecraftForge;
 
-import com.qzx.au.util.BlockColored;
 import com.qzx.au.util.Color;
 
 @Mod(modid="AUExtras", name="Altered Unification EXTRAS", version="20130817-r1")

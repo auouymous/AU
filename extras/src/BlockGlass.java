@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 
 import net.minecraftforge.common.ForgeDirection;
 
-import com.qzx.au.util.BlockColored;
 import com.qzx.au.util.BlockCoord;
 import com.qzx.au.util.IConnectedTexture;
 

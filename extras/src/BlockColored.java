@@ -1,7 +1,4 @@
-package com.qzx.au.util;
-
-// no support for 147
-#ifndef MC147
+package com.qzx.au.extras;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
@@ -19,6 +16,8 @@ import net.minecraft.util.Icon;
 import net.minecraftforge.common.MinecraftForge;
 
 import java.util.List;
+
+import com.qzx.au.util.Color;
 
 public class BlockColored extends Block {
 	@SideOnly(Side.CLIENT)
@@ -68,6 +67,3 @@ public class BlockColored extends Block {
 		return ~color & 15;
 	}
 }
-
-#endif
-// no support for 147

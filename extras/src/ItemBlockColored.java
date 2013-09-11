@@ -1,10 +1,9 @@
-package com.qzx.au.util;
-
-// no support for 147
-#ifndef MC147
+package com.qzx.au.extras;
 
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+
+import com.qzx.au.util.Color;
 
 public class ItemBlockColored extends ItemBlock {
 	public ItemBlockColored(int id){
@@ -23,6 +22,3 @@ public class ItemBlockColored extends ItemBlock {
 		return this.getUnlocalizedName() + "." + Color.colors[itemstack.getItemDamage()];
 	}
 }
-
-#endif
-// no support for 147
