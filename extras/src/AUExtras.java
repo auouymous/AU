@@ -38,6 +38,8 @@ public class AUExtras {
 	public static Block blockChiseledBrick;
 	public static Block blockSmoothBrick;
 	public static Block blockGlass;
+	public static Block blockLamp;
+	public static Block blockInvertedLamp;
 	public static Block[] blockCobbleStairs = new BlockStairsColored[16];
 	public static Block[] blockStoneStairs = new BlockStairsColored[16];
 	public static Block[] blockStoneBrickStairs = new BlockStairsColored[16];
@@ -60,8 +62,10 @@ public class AUExtras {
 		ItemStack stoneBrick = new ItemStack(Block.stoneBrick);
 		ItemStack chiseledBrick = new ItemStack(Block.stoneBrick, 1, 3);
 		ItemStack glass = new ItemStack(Block.glass);
-//		ItemStack redstoneDust = new ItemStack(Item.redstone);
-//		ItemStack glowstoneDust = new ItemStack(Item.lightStoneDust);
+		ItemStack glassPane = new ItemStack(Block.thinGlass);
+		ItemStack redstoneTorch = new ItemStack(Block.torchRedstoneActive);
+		ItemStack redstoneDust = new ItemStack(Item.redstone);
+		ItemStack glowstoneDust = new ItemStack(Item.lightStoneDust);
 		ItemStack[] dyes = new ItemStack[16];
 		for(int c = 0; c < 16; c++)
 			dyes[c] = new ItemStack(Item.dyePowder, 1, c);
@@ -189,7 +193,7 @@ public class AUExtras {
 			// SMELT <colored> chiseledBrick -> chiseledBrick
 			GameRegistry.addSmelting(coloredChiseledBrick.itemID, chiseledBrick, 1.0f);
 
-			// no stairs
+			// no stairs -- texture doesn't align correctly
 		}
 
 		//////////
@@ -243,6 +247,51 @@ public class AUExtras {
 				for(int c = 0; c < 16; c++)
 					if(g != c)
 						GameRegistry.addRecipe(new ItemStack(this.blockGlass, 8, c), "ggg", "g-g", "ggg", 'g', anyGlass, '-', dyes[c]);
+			}
+		}
+
+		//////////
+
+		if(Cfg.enableLamp){
+			this.blockLamp = new BlockLamp(Cfg.blockLamp, "au.colorLamp", " Lamp")
+				.setHardness(1.5F)
+				.setResistance(10.0F)
+				.setStepSound(Block.soundGlassFootstep)
+.setLightValue(1.0F)
+				.setCreativeTab(CreativeTabs.tabBlock);
+			ItemStack coloredLamp = new ItemStack(this.blockLamp);
+
+			// CRAFT 6 glass panes + dye + glowstone + redstone -> <colored> lamp
+			for(int c = 0; c < 16; c++)
+				GameRegistry.addRecipe(new ItemStack(this.blockLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstoneDust, '-', dyes[c], 'r', redstoneDust);
+			// CRAFT <colored> lamp + dye -> <colored> lamp
+			for(int g = 0; g < 16; g++){
+				ItemStack anyLamp = new ItemStack(this.blockLamp, 1, g);
+				for(int c = 0; c < 16; c++)
+					if(g != c)
+						GameRegistry.addShapelessRecipe(new ItemStack(this.blockLamp, 1, c), anyLamp, dyes[c]);
+			}
+		}
+
+		//////////
+
+		if(Cfg.enableInvertedLamp){
+			this.blockInvertedLamp = new BlockInvertedLamp(Cfg.blockInvertedLamp, "au.colorInvertedLamp", " Inverted Lamp")
+				.setHardness(1.5F)
+				.setResistance(10.0F)
+				.setStepSound(Block.soundGlassFootstep)
+				.setCreativeTab(CreativeTabs.tabBlock);
+			ItemStack coloredInvertedLamp = new ItemStack(this.blockInvertedLamp);
+
+			// CRAFT 6 glass panes + dye + glowstone + redstone torch -> <colored> inverted lamp
+			for(int c = 0; c < 16; c++)
+				GameRegistry.addRecipe(new ItemStack(this.blockInvertedLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstoneDust, '-', dyes[c], 'r', redstoneTorch);
+			// CRAFT <colored> inverted lamp + dye -> <colored> inverted lamp
+			for(int g = 0; g < 16; g++){
+				ItemStack anyInvertedLamp = new ItemStack(this.blockInvertedLamp, 1, g);
+				for(int c = 0; c < 16; c++)
+					if(g != c)
+						GameRegistry.addShapelessRecipe(new ItemStack(this.blockInvertedLamp, 1, c), anyInvertedLamp, dyes[c]);
 			}
 		}
 

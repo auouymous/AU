@@ -11,6 +11,8 @@ public class Cfg extends Config {
 	public static boolean enableChiseledBrick;
 	public static boolean enableSmoothBrick;
 	public static boolean enableGlass;
+	public static boolean enableLamp;
+	public static boolean enableInvertedLamp;
 
 	public static boolean enableCobbleStairs;
 	public static boolean enableStoneStairs;
@@ -29,6 +31,8 @@ public class Cfg extends Config {
 	public static int blockChiseledBrick;
 	public static int blockSmoothBrick;
 	public static int blockGlass;
+	public static int blockLamp;
+	public static int blockInvertedLamp;
 
 	public static int blockCobbleStairs;
 	public static int blockStoneStairs;
@@ -47,6 +51,8 @@ public class Cfg extends Config {
 		Cfg.enableChiseledBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrick", true, null);
 		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrick", true, null);
 		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlass", true, null);
+		Cfg.enableLamp = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLamp", true, null);
+		Cfg.enableInvertedLamp = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableInvertedLamp", true, null);
 
 		Cfg.enableCobbleStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCobbleStairs", true, null);
 		Cfg.enableStoneStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneStairs", true, null);
@@ -72,6 +78,9 @@ public class Cfg extends Config {
 		Cfg.blockStoneStairs = Cfg.getBlock("blockStoneStairs", startBlockID+6+16, "First of 16 IDs for these stairs");
 		Cfg.blockStoneBrickStairs = Cfg.getBlock("blockStoneBrickStairs", startBlockID+6+32, "First of 16 IDs for these stairs");
 		Cfg.blockSmoothBrickStairs = Cfg.getBlock("blockSmoothBrickStairs", startBlockID+6+48, "First of 16 IDs for these stairs");
+
+		Cfg.blockLamp = Cfg.getBlock("blockLamp", startBlockID+6+64, null);
+		Cfg.blockInvertedLamp = Cfg.getBlock("blockInvertedLamp", startBlockID+7+64, null);
 
 		Cfg.itemFriedEgg = Cfg.getItem("itemFriedEgg", startItemID, null);
 		Cfg.itemCookedFlesh = Cfg.getItem("itemCookedFlesh", startItemID+1, null);
