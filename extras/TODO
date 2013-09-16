@@ -1,6 +1,11 @@
-~ allow torches to be placed on glass
+~ allow torches to be placed on glass and lamps
 
-~ lamp on state texturing sucks
+~ lamp on-state texturing sucks
+
+~ FIX: stairs and slabs absorb other light sources and emit that light when the sources are removed
+	- the lighting hack causes this
+
+~ FIX: prevent powered lamps from appearing in NEI
 
 ~ forge multipart support
 	- OR

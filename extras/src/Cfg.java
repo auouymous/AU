@@ -18,6 +18,8 @@ public class Cfg extends Config {
 	public static boolean enableStoneBrickStairs;
 	public static boolean enableSmoothBrickStairs;
 
+	public static boolean enableLightingHack;
+
 	public static boolean enableFriedEgg;
 	public static boolean enableCookedFlesh;
 
@@ -58,6 +60,8 @@ public class Cfg extends Config {
 		Cfg.enableStoneStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneStairs", true, null);
 		Cfg.enableStoneBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneBrickStairs", true, null);
 		Cfg.enableSmoothBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrickStairs", true, null);
+
+		Cfg.enableLightingHack = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLightingHack", true, "adds minimal light to vanilla stairs and slabs to prevent dark spots");
 
 		Cfg.enableFriedEgg = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableFriedEgg", true, null);
 		Cfg.enableCookedFlesh = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCookedFlesh", true, null);

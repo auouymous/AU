@@ -16,6 +16,8 @@ import net.minecraft.item.ItemStack;
 
 import net.minecraftforge.common.MinecraftForge;
 
+import com.qzx.au.util.Light;
+
 class BlockStairsColored extends BlockStairs {
 	public BlockStairsColored(int id, String name, String readableName, Block block, int blockMeta){
 		super(id, block, blockMeta);
@@ -24,7 +26,8 @@ class BlockStairsColored extends BlockStairs {
 		LanguageRegistry.addName(this, readableName);
 
 		// hack to fix lighting glitch
-		this.setLightValue(0.07F);
+		if(Cfg.enableLightingHack)
+			this.setLightValue(Light.level[1]);
 
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 0); // wooden pickaxe
 

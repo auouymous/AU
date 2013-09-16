@@ -16,6 +16,7 @@ import java.util.Random;
 
 import com.qzx.au.util.BlockCoord;
 import com.qzx.au.util.IConnectedTexture;
+import com.qzx.au.util.Light;
 
 public class BlockLamp extends BlockColored implements IConnectedTexture {
 	@SideOnly(Side.CLIENT)
@@ -29,7 +30,7 @@ public class BlockLamp extends BlockColored implements IConnectedTexture {
 	public BlockLamp(int id, String name, String readableName, boolean inverted, boolean powered){
 		super(id, name, readableName, (powered ? null : (inverted ? ItemBlockInvertedLamp.class : ItemBlockLamp.class)), Material.glass);
 		if(inverted != powered)
-			this.setLightValue(1.0F);
+			this.setLightValue(Light.level[15]);
 		this.inverted = inverted;
 		this.powered = powered;
 	}

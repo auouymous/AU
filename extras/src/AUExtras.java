@@ -22,6 +22,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.MinecraftForge;
 
 import com.qzx.au.util.Color;
+import com.qzx.au.util.Light;
 
 @Mod(modid="AUExtras", name="Altered Unification EXTRAS", version="20130817-r1")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
@@ -311,6 +312,25 @@ public class AUExtras {
 				GameRegistry.addShapelessRecipe(anyInvertedLamp, anyLamp, redstoneTorch);
 				GameRegistry.addShapelessRecipe(anyLamp, anyInvertedLamp, redstoneDust);
 			}
+		}
+
+		//////////
+
+		if(Cfg.enableLightingHack){
+			// stairs
+			Block.stairsWoodOak.setLightValue(Light.level[1]);
+			Block.stairsCobblestone.setLightValue(Light.level[1]);
+			Block.stairsBrick.setLightValue(Light.level[1]);
+			Block.stairsStoneBrick.setLightValue(Light.level[1]);
+			Block.stairsNetherBrick.setLightValue(Light.level[1]);
+			Block.stairsSandStone.setLightValue(Light.level[1]);
+			Block.stairsWoodSpruce.setLightValue(Light.level[1]);
+			Block.stairsWoodBirch.setLightValue(Light.level[1]);
+			Block.stairsWoodJungle.setLightValue(Light.level[1]);
+			Block.stairsNetherQuartz.setLightValue(Light.level[1]);
+			// slabs
+			Block.stoneSingleSlab.setLightValue(Light.level[1]);
+			Block.woodSingleSlab.setLightValue(Light.level[1]);
 		}
 
 		//////////
