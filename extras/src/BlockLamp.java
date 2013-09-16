@@ -4,6 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.material.Material;
+//import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.util.Icon;
@@ -209,9 +210,13 @@ public class BlockLamp extends BlockColored implements IConnectedTexture {
 	}
 
 	public void updateTick(World world, int x, int y, int z, Random random){
+		if(world.isRemote) return;
+
 		// change to unpowered state
-		if(!world.isRemote && this.powered && !world.isBlockIndirectlyGettingPowered(x, y, z))
+		if(this.powered && !world.isBlockIndirectlyGettingPowered(x, y, z))
 			world.setBlock(x, y, z, (this.inverted ? AUExtras.blockInvertedLamp.blockID : AUExtras.blockLamp.blockID), world.getBlockMetadata(x, y, z), 2);
+//		else
+//			Minecraft.getMinecraft().renderGlobal.markBlockForRenderUpdate(x, y, z);
 	}
 
 	public int idDropped(int par1, Random par2Random, int par3){

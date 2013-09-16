@@ -11,6 +11,8 @@ import net.minecraft.src.FMLRenderAccessLibrary;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 
+//import java.util.Random;
+
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
@@ -63,9 +65,10 @@ public class RendererLamp implements ISimpleBlockRenderingHandler {
 		boolean isOn = ((BlockLamp)block).isOn();
 
 		if(ClientProxy.renderPass == 1){
-			if(isOn)
-				renderer.setRenderBounds(-0.02F, -0.02F, -0.02F, 1.02F, 1.02F, 1.02F);
-			else
+			if(isOn){
+				float size = 0.02F; //(new Random()).nextInt(20) / 1000.0F;
+				renderer.setRenderBounds(0.0F-size, 0.0F-size, 0.0F-size, 1.0F+size, 1.0F+size, 1.0F+size);
+			} else
 				renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 			renderer.renderStandardBlock(block, x, y, z);
 			return true;
