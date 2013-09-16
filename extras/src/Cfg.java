@@ -11,8 +11,7 @@ public class Cfg extends Config {
 	public static boolean enableChiseledBrick;
 	public static boolean enableSmoothBrick;
 	public static boolean enableGlass;
-	public static boolean enableLamp;
-	public static boolean enableInvertedLamp;
+	public static boolean enableLamps;
 
 	public static boolean enableCobbleStairs;
 	public static boolean enableStoneStairs;
@@ -33,6 +32,8 @@ public class Cfg extends Config {
 	public static int blockGlass;
 	public static int blockLamp;
 	public static int blockInvertedLamp;
+	public static int blockLampPowered;
+	public static int blockInvertedLampPowered;
 
 	public static int blockCobbleStairs;
 	public static int blockStoneStairs;
@@ -51,8 +52,7 @@ public class Cfg extends Config {
 		Cfg.enableChiseledBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrick", true, null);
 		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrick", true, null);
 		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlass", true, null);
-		Cfg.enableLamp = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLamp", true, null);
-		Cfg.enableInvertedLamp = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableInvertedLamp", true, null);
+		Cfg.enableLamps = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLamps", true, null);
 
 		Cfg.enableCobbleStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCobbleStairs", true, null);
 		Cfg.enableStoneStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneStairs", true, null);
@@ -81,6 +81,8 @@ public class Cfg extends Config {
 
 		Cfg.blockLamp = Cfg.getBlock("blockLamp", startBlockID+6+64, null);
 		Cfg.blockInvertedLamp = Cfg.getBlock("blockInvertedLamp", startBlockID+7+64, null);
+		Cfg.blockLampPowered = Cfg.getBlock("blockLampPowered", startBlockID+8+64, null);
+		Cfg.blockInvertedLampPowered = Cfg.getBlock("blockInvertedLampPowered", startBlockID+9+64, null);
 
 		Cfg.itemFriedEgg = Cfg.getItem("itemFriedEgg", startItemID, null);
 		Cfg.itemCookedFlesh = Cfg.getItem("itemCookedFlesh", startItemID+1, null);

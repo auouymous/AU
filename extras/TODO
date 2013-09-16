@@ -1,9 +1,6 @@
-~ render all 6 sides of glass, option to disable
 ~ allow torches to be placed on glass
 
-- grated floor
-	- frame around outside edge, connected textures
-	- near top of block, similar to trapdoors
+~ lamp on state texturing sucks
 
 ~ forge multipart support
 	- OR
@@ -12,6 +9,13 @@
 	- colored stone brick slab
 	- colored chiseled brick slab
 	- colored smooth brick slab
+
+- render all 6 sides of glass, option to disable
+	- causes flickering from a distance and minor gaps between interior textures
+
+- grated floor
+	- frame around outside edge, connected textures
+	- near top of block, similar to trapdoors
 
 - key or item to feign death
 	- lay down as if on a bed

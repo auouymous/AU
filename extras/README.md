@@ -33,6 +33,18 @@ Required: -
 * SMELT [colored] chiseled brick TO chiseled brick
 * SMELT [colored] smooth brick TO stone
 * 
+* 6 [colored] cobblestone TO 4 [colored] cobblestone stairs
+* 6 [colored] stone TO 4 [colored] stone stairs
+* 6 [colored] stone brick TO 4 [colored] stone brick stairs
+* 6 [colored] smooth brick TO 4 [colored] smooth brick stairs
+* 
+* [colored] glass + dye + glowstone dust + redstone dust TO [colored] lamp
+* [colored] glass + dye + glowstone dust + redstone torch TO [colored] inverted lamp
+* [colored] lamp + dye TO [colored] lamp
+* [colored] inverted lamp + dye TO [colored] inverted lamp
+* [colored] lamp + redstone torch TO [colored] inverted lamp
+* [colored] inverted lamp + redstone dust TO [colored] lamp
+* 
 * SMELT egg TO fried egg
 * SMELT rotten flesh TO cooked flesh
 * CRAFT 4 cooked flesh TO leather

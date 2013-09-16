@@ -11,6 +11,7 @@ public interface IConnectedTexture {
 	public boolean shouldSideBeRendered(IBlockAccess access, int x, int y, int z, int side);
 
 	public boolean canConnectTextures(int id, int meta, int side, BlockCoord neighbor);
+	public boolean canConnectCornerTextures(int id, int meta, BlockCoord diagonal);
 
 	public Icon getBlockTexture(IBlockAccess access, int x, int y, int z, int side);
 
@@ -22,6 +23,7 @@ public interface IConnectedTexture {
 	};
 	public static int ctm_icons = 171;
 	public static int ctm_default = 85;
+	public static int ctm_borderless = 0;
 }
 
 #endif

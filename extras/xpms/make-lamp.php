@@ -20,11 +20,11 @@ function get_color($image, $color, $alpha){
 }
 
 function drawCT($c, $ct, $t, $r, $b, $l, $tl, $tr, $br, $bl){
-	global $path, $max_ctm;
+	global $path, $max_ctm, $item;
 
 	$image = imagecreatetruecolor(16, 16);
 	imagealphablending($image, true);
-	imagefill($image, 0,0, get_color($image, $c, 0.25)); // 25% transparent
+	imagefill($image, 0,0, $item ? imagecolorallocatealpha($image, 0,0,0, 127) : get_color($image, $c, 0.5)); // 50% transparent
 	imagesavealpha($image, true);
 	$color = get_color($image, $c, 0);
 	$gray = imagecolorallocate($image, 68, 68, 68); // #444444
@@ -53,7 +53,14 @@ function drawCT($c, $ct, $t, $r, $b, $l, $tl, $tr, $br, $bl){
 	if($b && $l) imagesetpixel($image, 1,14, $color);
 	if($t && $l) imagesetpixel($image, 1,1, $color);
 
-	imagepng($image, $path.'colorLamp'.$c.'-'.$ct.'.png');
+	// item side texture
+	if($item){
+		imagefilledrectangle($image, 3,3, 12,12, imagecolorallocate($image, 68,68,68));
+		imagefilledrectangle($image, 4,4, 11,11, $item == 2 ? imagecolorallocate($image, 102,102,102) : imagecolorallocate($image, 51,51,51));
+		imagefilledrectangle($image, 5,5, 10,10, $item == 2 ? imagecolorallocate($image, 153,153,153) : imagecolorallocate($image, 38,38,38));
+	}
+
+	imagepng($image, $path.'colorLamp'.$c.'-'.($item == 0 ? $ct : ($item == 1 ? 'unlit' : 'lit')).'.png');
 	imagedestroy($image);
 
 	if($c == 0){
@@ -78,6 +85,7 @@ echo "\n";
 for($c = 0; $c < 16; $c++){
 	// corners are implicit when sides are rendered
 
+	$item = 0;
 	drawCT($c, 0,	1,1,1,1, 0,0,0,0); // TRBL
 	drawCT($c, 1,	1,1,0,1, 0,0,0,0); // TR-L
 	drawCT($c, 2,	1,1,1,0, 0,0,0,0); // TRB-
@@ -125,6 +133,11 @@ for($c = 0; $c < 16; $c++){
 	drawCT($c,44,	0,0,0,0, 0,1,0,0); // ----		-- tr -- --
 	drawCT($c,45,	0,0,0,0, 0,0,1,0); // ----		-- -- br --
 	drawCT($c,46,	0,0,0,0, 0,0,0,1); // ----		-- -- -- bl
+
+	$item = 1;
+	drawCT($c, 0,	1,1,1,1, 0,0,0,0); // TRBL		non-inverted item texture
+	$item = 2;
+	drawCT($c, 0,	1,1,1,1, 0,0,0,0); // TRBL		inverted item texture
 }
 
 echo "\nctm_icons = ".($max_ctm+1)."\n";

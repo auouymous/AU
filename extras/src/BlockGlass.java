@@ -20,10 +20,8 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 	private Icon[][] blockIcons;
 
 	public BlockGlass(int id, String name, String readableName){
-		super("au_extras", id, name, readableName, ItemBlockGlass.class, Material.glass);
-//		this.setBlockBounds(0.001F, 0.001F, 0.001F, 0.999F, 0.999F, 0.999F);
-// TODO: causes gaps between connected textures
-// TODO: use ISimpleBlockRenderHandler to render all 6 sides
+		super(id, name, readableName, ItemBlockGlass.class, Material.glass);
+//		this.setLightValue(0.03F); // prevent interior frame from darkening, when rendering all 6 sides
 	}
 
 	@Override
@@ -32,7 +30,7 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		this.blockIcons = new Icon[16][IConnectedTexture.ctm_icons];
 		for(int c = 0; c < 16; c++)
 			for(int t = 0; t < 47; t++)
-				this.blockIcons[c][IConnectedTexture.ctm[t]] = iconRegister.registerIcon(this.modPath+this.getUnlocalizedName().replace("tile.au.", "")+c+"-"+t);
+				this.blockIcons[c][IConnectedTexture.ctm[t]] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c+"-"+t);
 	}
 
 	@Override
@@ -50,9 +48,16 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 	}
 
 /*
+	// render all 6 sides, causes flickering from a distance and minor gaps between interior textures
 	public int getRenderBlockPass(){
 		return 1;
-// TODO: this fades frame color
+	}
+	public boolean canRenderInPass(int pass){
+		if(pass == 0)
+			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+		else
+			this.setBlockBounds(0.001F, 0.001F, 0.001F, 0.999F, 0.999F, 0.999F);
+		return true;
 	}
 */
 
@@ -68,15 +73,45 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 	}
 
 	public boolean canConnectTextures(int id, int meta, int side, BlockCoord neighbor){
-		// must be same color of glass to connect
-		if(neighbor.getBlockID() != id) return false;
-		if(neighbor.getBlockMetadata() != meta) return false;
+		int neighbor_id = neighbor.getBlockID();
 
-		// must not have same color of glass on this side (to render inner frames)
+		// connect to all lamps that are on (side)
+		if(Cfg.enableLamps)
+			if(neighbor_id == AUExtras.blockInvertedLamp.blockID || neighbor_id == AUExtras.blockLampPowered.blockID) return true;
+		// connect to same color of glass on sides
+		if(neighbor_id != id || neighbor.getBlockMetadata() != meta) return false;
+
+		//////////
+
+		/*
+			A
+			BC
+
+			- when rendering the top of C on the side that connects to B
+			- diagonal is block is A
+		*/
+
 		BlockCoord diagonal = (new BlockCoord(neighbor)).translateToSide(side);
-		if(diagonal.getBlockID() == id && diagonal.getBlockMetadata() == meta) return false;
+		int diagonal_id = diagonal.getBlockID();
+
+		// connect to all lamps that are on (diagonals)
+		if(Cfg.enableLamps)
+			if(diagonal_id == AUExtras.blockInvertedLamp.blockID || diagonal_id == AUExtras.blockLampPowered.blockID) return true;
+		// must not have same color of glass on this side (to render inner frames)
+		if(diagonal_id == id && diagonal.getBlockMetadata() == meta) return false;
 
 		return true;
+	}
+
+	public boolean canConnectCornerTextures(int id, int meta, BlockCoord diagonal){
+		int diagonal_id = diagonal.getBlockID();
+
+		// connect to all lamps that are on (corners)
+		if(Cfg.enableLamps)
+			if(diagonal_id == AUExtras.blockInvertedLamp.blockID || diagonal_id == AUExtras.blockLampPowered.blockID) return true;
+
+		// connect to same color glass (corners)
+		return (diagonal_id == id && diagonal.getBlockMetadata() == meta);
 	}
 
 	@Override
@@ -96,10 +131,10 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		boolean connect_r = this.canConnectTextures(blockID, blockColor, side, r);
 		boolean connect_b = this.canConnectTextures(blockID, blockColor, side, d);
 		boolean connect_l = this.canConnectTextures(blockID, blockColor, side, l);
-		boolean connect_tl = ul.getBlockID() == blockID && ul.getBlockMetadata() == blockColor;
-		boolean connect_tr = ur.getBlockID() == blockID && ur.getBlockMetadata() == blockColor;
-		boolean connect_bl = dl.getBlockID() == blockID && dl.getBlockMetadata() == blockColor;
-		boolean connect_br = dr.getBlockID() == blockID && dr.getBlockMetadata() == blockColor;
+		boolean connect_tl = this.canConnectCornerTextures(blockID, blockColor, ul);
+		boolean connect_tr = this.canConnectCornerTextures(blockID, blockColor, ur);
+		boolean connect_bl = this.canConnectCornerTextures(blockID, blockColor, dl);
+		boolean connect_br = this.canConnectCornerTextures(blockID, blockColor, dr);
 
 		int texture = 0;
 		if(!connect_t) texture |= 1<<0;							// T
