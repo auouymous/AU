@@ -47,6 +47,10 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		return false;
 	}
 
+	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side){
+		return true;
+	}
+
 /*
 	// render all 6 sides, causes flickering from a distance and minor gaps between interior textures
 	public int getRenderBlockPass(){

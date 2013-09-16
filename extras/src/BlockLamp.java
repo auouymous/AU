@@ -70,6 +70,10 @@ public class BlockLamp extends BlockColored implements IConnectedTexture {
 		return false;
 	}
 
+	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side){
+		return true;
+	}
+
 	@Override
 	public int getRenderType(){
 		return ClientProxy.lampRenderType;
