@@ -4,10 +4,12 @@ all:
 	@echo "Syntax: make <test|prepare|jar|clean>"
 
 test:
-	$(JC) $(JFLAGS) $(wildcard src/*.java)
+	@(make clean v=$(VER))
+	@(make prepare v=$(VER))
+	(cd $(SRC)/com/qzx/au/$(MOD) ; export CLASSPATH=$(CPCOMMON):$(CP) ; $(JC) $(JFLAGS) *.java)
 
 prepare:
-	@mkdir $(SRC)/com/qzx/au/$(MOD)
+	@mkdir -p $(SRC)/com/qzx/au/$(MOD)
 	@(cd src; for j in *.java; do cpp -E -P -DMC$(VER) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done)
 
 clean:

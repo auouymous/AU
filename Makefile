@@ -4,7 +4,6 @@ all:
 	make clean v=$(VER)
 
 	@# prepare MCP links
-	@mkdir -p $(SRC)/com/qzx/au
 	@(cd util ; make prepare v=$(VER))
 	@(cd hud ; make prepare v=$(VER))
 ifneq ($(VER),147)
