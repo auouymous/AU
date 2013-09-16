@@ -1,11 +1,9 @@
-~ allow torches to be placed on glass and lamps
-
-~ lamp on-state texturing sucks
-
 ~ FIX: stairs and slabs absorb other light sources and emit that light when the sources are removed
 	- the lighting hack causes this
 
 ~ FIX: prevent powered lamps from appearing in NEI
+
+~ FIX: lamp on-state texturing sucks
 
 ~ forge multipart support
 	- OR
@@ -14,6 +12,8 @@
 	- colored stone brick slab
 	- colored chiseled brick slab
 	- colored smooth brick slab
+
+- config option to add additional block IDs that should receive the lighting hack (stairs and slabs from other mods)
 
 - render all 6 sides of glass, option to disable
 	- causes flickering from a distance and minor gaps between interior textures

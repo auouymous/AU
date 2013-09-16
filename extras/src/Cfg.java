@@ -48,29 +48,35 @@ public class Cfg extends Config {
 	public static void init(FMLPreInitializationEvent event){
 		Cfg.loadConfig(event);
 
-		Cfg.enableCobble = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCobble", true, null);
-		Cfg.enableStone = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStone", true, null);
-		Cfg.enableStoneBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneBrick", true, null);
-		Cfg.enableChiseledBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrick", true, null);
-		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrick", true, null);
-		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlass", true, null);
-		Cfg.enableLamps = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLamps", true, null);
+		//////////
 
-		Cfg.enableCobbleStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCobbleStairs", true, null);
-		Cfg.enableStoneStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneStairs", true, null);
-		Cfg.enableStoneBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneBrickStairs", true, null);
-		Cfg.enableSmoothBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrickStairs", true, null);
+		Cfg.enableCobble = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCobble", true, "enable colored cobblestone (uses 1 block ID)");
+		Cfg.enableStone = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStone", true, "enable colored stone (uses 1 block ID)");
+		Cfg.enableStoneBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneBrick", true, "enable colored stone brick (uses 1 block ID)");
+		Cfg.enableChiseledBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrick", true, "enable colored chiseled brick (uses 1 block ID)");
+		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrick", true, "enable colored smooth brick (uses 1 block ID)");
+		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlass", true, "enable colored glass (uses 1 block ID)");
+		Cfg.enableLamps = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLamps", true, "enable colored lamps (uses 4 block IDs)");
 
-		Cfg.enableLightingHack = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLightingHack", true, "adds minimal light to vanilla stairs and slabs to prevent dark spots");
+		Cfg.enableCobbleStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCobbleStairs", true, "enable colored cobblestone stairs (uses 16 block IDs)");
+		Cfg.enableStoneStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneStairs", true, "enable colored stone stairs (uses 16 block IDs)");
+		Cfg.enableStoneBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneBrickStairs", true, "enable colored stone brick stairs (uses 16 block IDs)");
+		Cfg.enableSmoothBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrickStairs", true, "enable colored smooth brick stairs (uses 16 block IDs)");
 
-		Cfg.enableFriedEgg = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableFriedEgg", true, null);
-		Cfg.enableCookedFlesh = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCookedFlesh", true, null);
+		Cfg.enableLightingHack = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLightingHack", true,
+								"add minimal light to vanilla stairs and slabs to prevent dark spots\nwill absorb and continue to emit external light sources, after sources are removed");
 
-		Cfg.enableCookedFleshToLeather = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCookedFleshToLeather", true, null);
+		Cfg.enableFriedEgg = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableFriedEgg", true, "enable smelting eggs to edible food");
+		Cfg.enableCookedFlesh = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCookedFlesh", true, "enable smelting rotten flesh to edible food");
+
+		Cfg.enableCookedFleshToLeather = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCookedFleshToLeather", true, "enable crafting cooked flesh to leather");
 		Cfg.nrCookedFleshToLeather = Cfg.getInt(Cfg.CATEGORY_GENERAL, "nrCookedFleshToLeather", 4, "number of cooked flesh per leather (1-9)");
+
+		//////////
 
 		// IDs
 		int startBlockID = 3800, startItemID = 31000;
+
 		Cfg.blockCobble = Cfg.getBlock("blockCobble", startBlockID, null);
 		Cfg.blockStone = Cfg.getBlock("blockStone", startBlockID+1, null);
 		Cfg.blockStoneBrick = Cfg.getBlock("blockStoneBrick", startBlockID+2, null);
@@ -78,10 +84,10 @@ public class Cfg extends Config {
 		Cfg.blockChiseledBrick = Cfg.getBlock("blockChiseledBrick", startBlockID+4, null);
 		Cfg.blockSmoothBrick = Cfg.getBlock("blockSmoothBrick", startBlockID+5, null);
 
-		Cfg.blockCobbleStairs = Cfg.getBlock("blockCobbleStairs", startBlockID+6, "First of 16 IDs for these stairs");
-		Cfg.blockStoneStairs = Cfg.getBlock("blockStoneStairs", startBlockID+6+16, "First of 16 IDs for these stairs");
-		Cfg.blockStoneBrickStairs = Cfg.getBlock("blockStoneBrickStairs", startBlockID+6+32, "First of 16 IDs for these stairs");
-		Cfg.blockSmoothBrickStairs = Cfg.getBlock("blockSmoothBrickStairs", startBlockID+6+48, "First of 16 IDs for these stairs");
+		Cfg.blockCobbleStairs = Cfg.getBlock("startCobbleStairs", startBlockID+6, "First of 16 IDs for these stairs");
+		Cfg.blockStoneStairs = Cfg.getBlock("startStoneStairs", startBlockID+6+16, "First of 16 IDs for these stairs");
+		Cfg.blockStoneBrickStairs = Cfg.getBlock("startStoneBrickStairs", startBlockID+6+32, "First of 16 IDs for these stairs");
+		Cfg.blockSmoothBrickStairs = Cfg.getBlock("startSmoothBrickStairs", startBlockID+6+48, "First of 16 IDs for these stairs");
 
 		Cfg.blockLamp = Cfg.getBlock("blockLamp", startBlockID+6+64, null);
 		Cfg.blockInvertedLamp = Cfg.getBlock("blockInvertedLamp", startBlockID+7+64, null);
@@ -90,6 +96,8 @@ public class Cfg extends Config {
 
 		Cfg.itemFriedEgg = Cfg.getItem("itemFriedEgg", startItemID, null);
 		Cfg.itemCookedFlesh = Cfg.getItem("itemCookedFlesh", startItemID+1, null);
+
+		//////////
 
 		Cfg.saveConfig();
 	}
