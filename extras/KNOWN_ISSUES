@@ -1,3 +1,3 @@
-Not an issue, but glass should always display its frame on all six sides and not just
-the 1-3 sides the player can see. Connected textures between same color glass should
-the only thing that eliminates some sides of the frame.
+Stairs and slabs absorb other light sources and emit that light when the sources are removed.
+This is caused by the lighting hack that prevents dark spots.
+
