@@ -23,13 +23,13 @@ public class BlockColored extends Block {
 	@SideOnly(Side.CLIENT)
 	private Icon[] blockIcons;
 
-	protected String modPath;
-
-	public BlockColored(String mod, int id, String name, String readableName, Class<? extends ItemBlock> itemclass, Material material){
+	public BlockColored(int id, String name, String readableName, Class<? extends ItemBlock> itemclass, Material material){
 		super(id, material);
-		this.modPath = mod+":";
 		this.setUnlocalizedName(name);
-		GameRegistry.registerBlock(this, itemclass, name);
+		if(itemclass != null)
+			GameRegistry.registerBlock(this, itemclass, name);
+		else
+			GameRegistry.registerBlock(this, name);
 		for(int c = 0; c < 16; c++){
 			ItemStack coloredStack = new ItemStack(this, 1, c);
 			LanguageRegistry.addName(coloredStack, Color.readableColors[c]+readableName);
@@ -41,7 +41,7 @@ public class BlockColored extends Block {
 	public void registerIcons(IconRegister iconRegister){
 		this.blockIcons = new Icon[16];
 		for(int c = 0; c < 16; c++)
-			this.blockIcons[c] = iconRegister.registerIcon(this.modPath+this.getUnlocalizedName().replace("tile.au.", "")+c);
+			this.blockIcons[c] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c);
 	}
 
 	@SideOnly(Side.CLIENT)
