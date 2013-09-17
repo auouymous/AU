@@ -31,9 +31,12 @@ INFO HUD
 			- protection mod can show worldguard region status
 				- show owner and town info, if player position is protected by protection mod
 
+	- display distance to block or entity behind crosshairs
+	- display hunger warning when food level is low and no food items in inventory
 	- display player direction, default to off
 	- display number of mobs agressing player, if possible
 	- display memory usage, default to off
+	- display memory warning when usage exceeds 90%
 
 	- display list of recent items picked up (as small icons), remove items from list after 15(?) seconds
 		- option to prevent cobble, dirt or gravel from entering player's inventory
