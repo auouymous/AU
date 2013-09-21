@@ -10,6 +10,7 @@ public class Config {
 	public static final String CATEGORY_GENERAL = "general";
 	public static final String CATEGORY_BLOCKS = "blocks";
 	public static final String CATEGORY_ITEMS = "items";
+	public static final String CATEGORY_IDMAP = "idmap";
 
 	// called from MOD preInit()
 	public static void loadConfig(FMLPreInitializationEvent event){

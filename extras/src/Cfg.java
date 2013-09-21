@@ -75,27 +75,30 @@ public class Cfg extends Config {
 		//////////
 
 		// IDs
-		int startBlockID = 3800, startItemID = 31000;
+		int startBlockID = Cfg.getInt(Cfg.CATEGORY_IDMAP, "startBlockID", 3800, "clear all block IDs and restart client to move all blocks, beginning here");
+		int startItemID = Cfg.getInt(Cfg.CATEGORY_IDMAP, "startItemID", 31000, "clear all item IDs and restart client to move all items, beginning here");
 
-		Cfg.blockCobble = Cfg.getBlock("blockCobble", startBlockID, null);
-		Cfg.blockStone = Cfg.getBlock("blockStone", startBlockID+1, null);
-		Cfg.blockStoneBrick = Cfg.getBlock("blockStoneBrick", startBlockID+2, null);
-		Cfg.blockGlass = Cfg.getBlock("blockGlass", startBlockID+3, null);
-		Cfg.blockChiseledBrick = Cfg.getBlock("blockChiseledBrick", startBlockID+4, null);
-		Cfg.blockSmoothBrick = Cfg.getBlock("blockSmoothBrick", startBlockID+5, null);
+		// BLOCKS
+		Cfg.blockCobble = Cfg.getBlock("blockCobble", startBlockID, null); startBlockID++;
+		Cfg.blockStone = Cfg.getBlock("blockStone", startBlockID, null); startBlockID++;
+		Cfg.blockStoneBrick = Cfg.getBlock("blockStoneBrick", startBlockID, null); startBlockID++;
+		Cfg.blockGlass = Cfg.getBlock("blockGlass", startBlockID, null); startBlockID++;
+		Cfg.blockChiseledBrick = Cfg.getBlock("blockChiseledBrick", startBlockID, null); startBlockID++;
+		Cfg.blockSmoothBrick = Cfg.getBlock("blockSmoothBrick", startBlockID, null); startBlockID++;
 
-		Cfg.blockCobbleStairs = Cfg.getBlock("startCobbleStairs", startBlockID+6, "First of 16 IDs for these stairs");
-		Cfg.blockStoneStairs = Cfg.getBlock("startStoneStairs", startBlockID+6+16, "First of 16 IDs for these stairs");
-		Cfg.blockStoneBrickStairs = Cfg.getBlock("startStoneBrickStairs", startBlockID+6+32, "First of 16 IDs for these stairs");
-		Cfg.blockSmoothBrickStairs = Cfg.getBlock("startSmoothBrickStairs", startBlockID+6+48, "First of 16 IDs for these stairs");
+		Cfg.blockCobbleStairs = Cfg.getBlock("startCobbleStairs", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
+		Cfg.blockStoneStairs = Cfg.getBlock("startStoneStairs", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
+		Cfg.blockStoneBrickStairs = Cfg.getBlock("startStoneBrickStairs", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
+		Cfg.blockSmoothBrickStairs = Cfg.getBlock("startSmoothBrickStairs", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
 
-		Cfg.blockLamp = Cfg.getBlock("blockLamp", startBlockID+6+64, null);
-		Cfg.blockInvertedLamp = Cfg.getBlock("blockInvertedLamp", startBlockID+7+64, null);
-		Cfg.blockLampPowered = Cfg.getBlock("blockLampPowered", startBlockID+8+64, null);
-		Cfg.blockInvertedLampPowered = Cfg.getBlock("blockInvertedLampPowered", startBlockID+9+64, null);
+		Cfg.blockLamp = Cfg.getBlock("blockLamp", startBlockID, null); startBlockID++;
+		Cfg.blockInvertedLamp = Cfg.getBlock("blockInvertedLamp", startBlockID, null); startBlockID++;
+		Cfg.blockLampPowered = Cfg.getBlock("blockLampPowered", startBlockID, null); startBlockID++;
+		Cfg.blockInvertedLampPowered = Cfg.getBlock("blockInvertedLampPowered", startBlockID, null); startBlockID++;
 
-		Cfg.itemFriedEgg = Cfg.getItem("itemFriedEgg", startItemID, null);
-		Cfg.itemCookedFlesh = Cfg.getItem("itemCookedFlesh", startItemID+1, null);
+		// ITEMS
+		Cfg.itemFriedEgg = Cfg.getItem("itemFriedEgg", startItemID, null); startItemID++;
+		Cfg.itemCookedFlesh = Cfg.getItem("itemCookedFlesh", startItemID, null); startItemID++;
 
 		//////////
 
