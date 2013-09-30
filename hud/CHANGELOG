@@ -1,3 +1,4 @@
+	- advanced inspector option hides some values when turned off (default: off)
 	- damage inspector
 	- fixed cursor resetting when moving in and out of sub-options
 	- added zoom key

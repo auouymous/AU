@@ -56,7 +56,7 @@ public class GuiOptions extends GuiScreen {
 		BUTTON_ARMOR_HUD, BUTTON_ARMOR_HUD_OPTIONS,
 		BUTTON_POTION_HUD, BUTTON_POTION_HUD_OPTIONS,
 
-		BUTTON_INSPECTOR,
+		BUTTON_INSPECTOR, BUTTON_ADVANCED_INSPECTOR,
 
 		BUTTON_DONE
 	}
@@ -122,7 +122,9 @@ public class GuiOptions extends GuiScreen {
 		this.ui.lineBreak();
 
 		this.ui.lineBreak(7);
-		this.addStateButton(ButtonID.BUTTON_INSPECTOR, "Inspector", Cfg.show_inspector, 230, 20);
+		this.addStateButton(ButtonID.BUTTON_INSPECTOR, "Inspector", Cfg.show_inspector, 110, 20);
+		this.ui.drawSpace(10);
+		this.addStateButton(ButtonID.BUTTON_ADVANCED_INSPECTOR, "Advanced", Cfg.enable_advanced_inspector, 110, 20);
 		this.ui.lineBreak();
 
 		this.ui.lineBreak(7);
@@ -147,10 +149,11 @@ public class GuiOptions extends GuiScreen {
 
 		// toggle config state
 		switch(ButtonID.values()[button.id]){
-		case BUTTON_INFO_HUD:		s = Cfg.enable_info_hud		= (Cfg.enable_info_hud		? false : true);	break;
-		case BUTTON_ARMOR_HUD:		s = Cfg.enable_armor_hud	= (Cfg.enable_armor_hud		? false : true);	break;
-		case BUTTON_POTION_HUD:		s = Cfg.enable_potion_hud	= (Cfg.enable_potion_hud	? false : true);	break;
-		case BUTTON_INSPECTOR:		s = Cfg.show_inspector		= (Cfg.show_inspector		? false : true);	break;
+		case BUTTON_INFO_HUD:				s = Cfg.enable_info_hud				= (Cfg.enable_info_hud				? false : true);	break;
+		case BUTTON_ARMOR_HUD:				s = Cfg.enable_armor_hud			= (Cfg.enable_armor_hud				? false : true);	break;
+		case BUTTON_POTION_HUD:				s = Cfg.enable_potion_hud			= (Cfg.enable_potion_hud			? false : true);	break;
+		case BUTTON_INSPECTOR:				s = Cfg.show_inspector				= (Cfg.show_inspector				? false : true);	break;
+		case BUTTON_ADVANCED_INSPECTOR:		s = Cfg.enable_advanced_inspector	= (Cfg.enable_advanced_inspector	? false : true);	break;
 		case BUTTON_INFO_HUD_OPTIONS:
 			// option info options
 			this.mc.displayGuiScreen(new GuiInfoOptions(this.player, this));

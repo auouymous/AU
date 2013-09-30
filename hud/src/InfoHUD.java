@@ -413,62 +413,67 @@ public class InfoHUD {
 										}
 									}
 
-									// brightness, hardness, resistance
-									int brightness = block.getLightValue(world, inspectX, inspectY, inspectZ);
-									float hardness = block.getBlockHardness(world, inspectX, inspectY, inspectZ);
-									float resistance = block.getExplosionResistance(null);
-									this.ui.drawString("   b: ", 0xaaaaaa);
-									this.ui.drawString((brightness > 0 ? String.format("%d", brightness) : "_"), 0xffffff);
-									this.ui.drawString(" h: ", 0xaaaaaa);
-									this.ui.drawString((hardness == -1 ? "unbreakable" : String.format("%.1f", hardness)), 0xffffff);
-									this.ui.drawString(" r: ", 0xaaaaaa);
-									this.ui.drawString(String.format("%.1f", resistance), 0xffffff);
-									this.ui.lineBreak();
+									if(Cfg.enable_advanced_inspector){
+										// brightness, hardness, resistance
+										int brightness = block.getLightValue(world, inspectX, inspectY, inspectZ);
+										float hardness = block.getBlockHardness(world, inspectX, inspectY, inspectZ);
+										float resistance = block.getExplosionResistance(null);
+										this.ui.drawString("   b: ", 0xaaaaaa);
+										this.ui.drawString((brightness > 0 ? String.format("%d", brightness) : "_"), 0xffffff);
+										this.ui.drawString(" h: ", 0xaaaaaa);
+										this.ui.drawString((hardness == -1 ? "unbreakable" : String.format("%.1f", hardness)), 0xffffff);
+										this.ui.drawString(" r: ", 0xaaaaaa);
+										this.ui.drawString(String.format("%.1f", resistance), 0xffffff);
+										this.ui.lineBreak();
+									}
 
-									// has tile entity, tick rate, random ticks
-									boolean hasTileEntity = block.hasTileEntity(blockMetadata);
-									TileEntity tileEntity = (hasTileEntity ? world.getBlockTileEntity(inspectX, inspectY, inspectZ) : null);
-									boolean tickRandomly = block.getTickRandomly();
-									int tickRate = 0;
-									if(tileEntity != null){
-										if(tileEntity.canUpdate()){
-											#ifdef MC147
-											tickRate = block.tickRate();
-											#else
-											tickRate = block.tickRate(world);
-											#endif
+									if(Cfg.enable_advanced_inspector){
+										// has tile entity, tick rate, random ticks
+										boolean hasTileEntity = block.hasTileEntity(blockMetadata);
+										TileEntity tileEntity = (hasTileEntity ? world.getBlockTileEntity(inspectX, inspectY, inspectZ) : null);
+										boolean tickRandomly = block.getTickRandomly();
+										int tickRate = 0;
+										if(tileEntity != null){
+											if(tileEntity.canUpdate()){
+												#ifdef MC147
+												tickRate = block.tickRate();
+												#else
+												tickRate = block.tickRate(world);
+												#endif
+											}
 										}
+										this.ui.drawString("   e: ", 0xaaaaaa);
+										this.ui.drawString((hasTileEntity ? "x" : "_"), 0xffffff);
+										this.ui.drawString(" r: ", 0xaaaaaa);
+										this.ui.drawString((tickRandomly ? "x" : "_"), 0xffffff);
+										this.ui.drawString(" t: ", 0xaaaaaa);
+										this.ui.drawString((tickRate > 0 ? String.format("%d", tickRate) : "_"), 0xffffff);
+										ArrayList tileEntityList = (ArrayList)world.loadedTileEntityList;
+										int nr_tileEntities = tileEntityList.size();
+										int nr_tileEntitiesAtPos = 0;
+										for(int t = 0; t < nr_tileEntities; t++){
+											TileEntity te = (TileEntity)tileEntityList.get(t);
+											if(te.xCoord == inspectX && te.yCoord == inspectY && te.zCoord == inspectZ)
+												nr_tileEntitiesAtPos++;
+										}
+										this.ui.drawString(" b: ", 0xaaaaaa);
+										this.ui.drawString((nr_tileEntitiesAtPos > 0 ? String.format("%d", nr_tileEntitiesAtPos) : "_"), 0xffffff);
+										this.ui.drawString(" a: ", 0xaaaaaa);
+										this.ui.drawString((nr_tileEntities > 0 ? String.format("%d", nr_tileEntities) : "_"), 0xffffff);
+										this.ui.lineBreak();
 									}
-									this.ui.drawString("   e: ", 0xaaaaaa);
-									this.ui.drawString((hasTileEntity ? "x" : "_"), 0xffffff);
-									this.ui.drawString(" r: ", 0xaaaaaa);
-									this.ui.drawString((tickRandomly ? "x" : "_"), 0xffffff);
-									this.ui.drawString(" t: ", 0xaaaaaa);
-									this.ui.drawString((tickRate > 0 ? String.format("%d", tickRate) : "_"), 0xffffff);
-									ArrayList tileEntityList = (ArrayList)world.loadedTileEntityList;
-									int nr_tileEntities = tileEntityList.size();
-									int nr_tileEntitiesAtPos = 0;
-									for(int t = 0; t < nr_tileEntities; t++){
-										TileEntity te = (TileEntity)tileEntityList.get(t);
-										if(te.xCoord == inspectX && te.yCoord == inspectY && te.zCoord == inspectZ)
-											nr_tileEntitiesAtPos++;
+
+									if(Cfg.enable_advanced_inspector){
+										// normal, opaque, solid
+										boolean solid = block.isBlockSolid(world, inspectX, inspectY, inspectZ, mc.objectMouseOver.sideHit);
+										this.ui.drawString("   n: ", 0xaaaaaa);
+										this.ui.drawString((block.isNormalCube(blockID) ? "x" : "_"), 0xffffff);
+										this.ui.drawString(" o: ", 0xaaaaaa);
+										this.ui.drawString((block.isOpaqueCube() ? "x" : "_"), 0xffffff);
+										this.ui.drawString(" s: ", 0xaaaaaa);
+										this.ui.drawString((solid ? "x" : "_"), 0xffffff);
+										this.ui.lineBreak();
 									}
-									this.ui.drawString(" b: ", 0xaaaaaa);
-									this.ui.drawString((nr_tileEntitiesAtPos > 0 ? String.format("%d", nr_tileEntitiesAtPos) : "_"), 0xffffff);
-									this.ui.drawString(" a: ", 0xaaaaaa);
-									this.ui.drawString((nr_tileEntities > 0 ? String.format("%d", nr_tileEntities) : "_"), 0xffffff);
-									this.ui.lineBreak();
-
-									// normal, opaque, solid
-									boolean solid = block.isBlockSolid(world, inspectX, inspectY, inspectZ, mc.objectMouseOver.sideHit);
-									this.ui.drawString("   n: ", 0xaaaaaa);
-									this.ui.drawString((block.isNormalCube(blockID) ? "x" : "_"), 0xffffff);
-									this.ui.drawString(" o: ", 0xaaaaaa);
-									this.ui.drawString((block.isOpaqueCube() ? "x" : "_"), 0xffffff);
-									this.ui.drawString(" s: ", 0xaaaaaa);
-									this.ui.drawString((solid ? "x" : "_"), 0xffffff);
-									this.ui.lineBreak();
-
 								}
 							} catch(Exception e){
 //								System.out.println("AU HUD: caught exception in block inspector");

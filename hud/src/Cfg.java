@@ -11,6 +11,7 @@ public class Cfg extends Config {
 	public static boolean enable_info_hud;
 	public static int info_hud_x;
 	public static int info_hud_y;
+	public static boolean enable_advanced_inspector;
 
 	public static boolean enable_armor_hud;
 	public static boolean always_show_armor_hud;
@@ -51,6 +52,7 @@ public class Cfg extends Config {
 		Cfg.enable_info_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-info-hud", true, null);
 		Cfg.info_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "info-hud-x", 2, null);
 		Cfg.info_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "info-hud-y", 32, null);
+		Cfg.enable_advanced_inspector = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-advanced-inspector", false, null);
 
 		Cfg.enable_armor_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-armor-hud", true, null);
 		Cfg.always_show_armor_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "always-show-armor-hud", false, null);
@@ -96,6 +98,7 @@ public class Cfg extends Config {
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-info-hud", Cfg.enable_info_hud);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "info-hud-x", Cfg.info_hud_x);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "info-hud-y", Cfg.info_hud_y);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-advanced-inspector", Cfg.enable_advanced_inspector);
 
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-armor-hud", Cfg.enable_armor_hud);
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "always-show-armor-hud", Cfg.always_show_armor_hud);
