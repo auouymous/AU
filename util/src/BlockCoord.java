@@ -3,6 +3,8 @@ package com.qzx.au.util;
 // no support for 147
 #ifndef MC147
 
+import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 
 import net.minecraftforge.common.ForgeDirection;
@@ -41,6 +43,18 @@ public class BlockCoord {
 
 	public int getBlockMetadata(){
 		return this.access.getBlockMetadata(this.x, this.y, this.z);
+	}
+
+	public TileEntity getBlockTileEntity(){
+		return this.access.getBlockTileEntity(this.x, this.y, this.z);
+	}
+
+	public Block getBlock(){
+		return Block.blocksList[this.getBlockID()];
+	}
+
+	public static Block getBlock(IBlockAccess access, int x, int y, int z){
+		return Block.blocksList[access.getBlockId(x, y, z)];
 	}
 
 	public static int UP	= 0;
