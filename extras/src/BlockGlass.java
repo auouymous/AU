@@ -107,7 +107,7 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		return false;
 	}
 
-	public boolean canConnectTextures(int id, int metadata, int side, BlockCoord neighbor){
+	public boolean canConnectSideTextures(int id, int metadata, int side, BlockCoord neighbor){
 		if(this.style == 2) return false; // no connected textures
 
 		int neighbor_id = neighbor.getBlockID();
@@ -124,7 +124,7 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 			BC
 
 			- when rendering the top of C on the side that connects to B
-			- diagonal is block is A
+			- diagonal block is A
 		*/
 
 		BlockCoord diagonal = (new BlockCoord(neighbor)).translateToSide(side);
@@ -138,12 +138,31 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		return true;
 	}
 
-	public boolean canConnectCornerTextures(int id, int metadata, BlockCoord diagonal){
+	public boolean canConnectCornerTextures(int id, int metadata, int side, BlockCoord diagonal){
 		if(this.style == 2) return false; // no connected textures
 
 		int diagonal_id = diagonal.getBlockID();
 		Block diagonal_block = diagonal.getBlock();
 		int diagonal_style = (diagonal_block instanceof BlockGlass ? ((BlockGlass)diagonal_block).style : -1);
+
+		//////////
+
+		/*
+			AB
+			CD
+			- when rendering the top/bottom of D on the corner that connects to A
+			- diagonal_diagonal block is above/below block A
+		*/
+
+		BlockCoord diagonal_diagonal = (new BlockCoord(diagonal)).translateToSide(side);
+		int diagonal_diagonal_id = diagonal_diagonal.getBlockID();
+		Block diagonal_diagonal_block = diagonal_diagonal.getBlock();
+		int diagonal_diagonal_style = (diagonal_diagonal_block instanceof BlockGlass ? ((BlockGlass)diagonal_diagonal_block).style : -1);
+
+		// must not have same color of glass on this corner (to render inner frames)
+		if(diagonal_diagonal_id == id && diagonal_diagonal.getBlockMetadata() == metadata && diagonal_diagonal_style == this.style) return false;
+
+		//////////
 
 		// connect to same color glass (corners)
 		return (diagonal_id == id && diagonal.getBlockMetadata() == metadata && diagonal_style == this.style);
@@ -165,14 +184,14 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		BlockCoord ur = (new BlockCoord(coord)).translateToDiagonalAtDirection(side, BlockCoord.UP, BlockCoord.RIGHT);
 		BlockCoord dl = (new BlockCoord(coord)).translateToDiagonalAtDirection(side, BlockCoord.DOWN, BlockCoord.LEFT);
 		BlockCoord dr = (new BlockCoord(coord)).translateToDiagonalAtDirection(side, BlockCoord.DOWN, BlockCoord.RIGHT);
-		boolean connect_t = this.canConnectTextures(blockID, blockColor, side, u);
-		boolean connect_r = this.canConnectTextures(blockID, blockColor, side, r);
-		boolean connect_b = this.canConnectTextures(blockID, blockColor, side, d);
-		boolean connect_l = this.canConnectTextures(blockID, blockColor, side, l);
-		boolean connect_tl = this.canConnectCornerTextures(blockID, blockColor, ul);
-		boolean connect_tr = this.canConnectCornerTextures(blockID, blockColor, ur);
-		boolean connect_bl = this.canConnectCornerTextures(blockID, blockColor, dl);
-		boolean connect_br = this.canConnectCornerTextures(blockID, blockColor, dr);
+		boolean connect_t = this.canConnectSideTextures(blockID, blockColor, side, u);
+		boolean connect_r = this.canConnectSideTextures(blockID, blockColor, side, r);
+		boolean connect_b = this.canConnectSideTextures(blockID, blockColor, side, d);
+		boolean connect_l = this.canConnectSideTextures(blockID, blockColor, side, l);
+		boolean connect_tl = this.canConnectCornerTextures(blockID, blockColor, side, ul);
+		boolean connect_tr = this.canConnectCornerTextures(blockID, blockColor, side, ur);
+		boolean connect_bl = this.canConnectCornerTextures(blockID, blockColor, side, dl);
+		boolean connect_br = this.canConnectCornerTextures(blockID, blockColor, side, dr);
 
 		int texture = 0;
 		if(!connect_t) texture |= 1<<0;							// T
