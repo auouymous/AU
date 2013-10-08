@@ -3,15 +3,10 @@
 
 ~ FIX: prevent powered lamps from appearing in NEI
 
-~ FIX: lamp on-state texturing sucks
-
 ~ forge multipart support
-	- OR
-	- colored cobblestone slab
-	- colored stone slab
-	- colored stone brick slab
-	- colored chiseled brick slab
-	- colored smooth brick slab
+	- OR colored slabs
+
+- lamp and inverted lamp that light up but don't emit light, use glowstone dust instead of glowstone block
 
 - config option to add additional block IDs that should receive the lighting hack (stairs and slabs from other mods)
 

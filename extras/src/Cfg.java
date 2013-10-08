@@ -11,6 +11,8 @@ public class Cfg extends Config {
 	public static boolean enableChiseledBrick;
 	public static boolean enableSmoothBrick;
 	public static boolean enableGlass;
+	public static boolean enableGlassTinted;
+	public static boolean enableGlassTintedNoFrame;
 	public static boolean enableLamps;
 
 	public static boolean enableCobbleStairs;
@@ -26,12 +28,15 @@ public class Cfg extends Config {
 	public static boolean enableCookedFleshToLeather;
 	public static int nrCookedFleshToLeather;
 
+	// IDs
 	public static int blockCobble;
 	public static int blockStone;
 	public static int blockStoneBrick;
 	public static int blockChiseledBrick;
 	public static int blockSmoothBrick;
 	public static int blockGlass;
+	public static int blockGlassTinted;
+	public static int blockGlassTintedNoFrame;
 	public static int blockLamp;
 	public static int blockInvertedLamp;
 	public static int blockLampPowered;
@@ -56,6 +61,8 @@ public class Cfg extends Config {
 		Cfg.enableChiseledBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrick", true, "enable colored chiseled brick (uses 1 block ID)");
 		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrick", true, "enable colored smooth brick (uses 1 block ID)");
 		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlass", true, "enable colored glass (uses 1 block ID)");
+		Cfg.enableGlassTinted = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlassTinted", true, "enable colored glass w/ tint (uses 1 block ID)");
+		Cfg.enableGlassTintedNoFrame = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlassTintedNoFrame", true, "enable frameless glass w/ tint (uses 1 block ID)");
 		Cfg.enableLamps = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLamps", true, "enable colored lamps (uses 4 block IDs)");
 
 		Cfg.enableCobbleStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCobbleStairs", true, "enable colored cobblestone stairs (uses 16 block IDs)");
@@ -95,6 +102,9 @@ public class Cfg extends Config {
 		Cfg.blockInvertedLamp = Cfg.getBlock("blockInvertedLamp", startBlockID, null); startBlockID++;
 		Cfg.blockLampPowered = Cfg.getBlock("blockLampPowered", startBlockID, null); startBlockID++;
 		Cfg.blockInvertedLampPowered = Cfg.getBlock("blockInvertedLampPowered", startBlockID, null); startBlockID++;
+
+		Cfg.blockGlassTinted = Cfg.getBlock("blockGlassTinted", startBlockID, null); startBlockID++;
+		Cfg.blockGlassTintedNoFrame = Cfg.getBlock("blockGlassTintedNoFrame", startBlockID, null); startBlockID++;
 
 		// ITEMS
 		Cfg.itemFriedEgg = Cfg.getItem("itemFriedEgg", startItemID, null); startItemID++;

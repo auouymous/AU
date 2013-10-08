@@ -18,14 +18,18 @@ Required: -
 * 4 stone brick TO 4 chiseled stone bricks
 * 8 chiseled brick + dye TO 8 [colored] chiseled brick
 * 4 stone brick + 4 stone + dye TO 8 [colored] smooth brick
-* 8 glass + dye TO 8 [colored] glass
+* 8 glass + 1 dye TO 8 [colored] glass
+* 6 glass + 3 dye TO 6 [colored tinted] glass
+* 7 glass + 2 dye TO 7 [tinted frameless] glass
 * 
 * 8 [colored] cobblestone + dye TO 8 [colored] cobblestone
 * 8 [colored] stone + dye TO 8 [colored] stone
 * 8 [colored] stone brick + dye TO 8 [colored] stone brick
 * 8 [colored] chiseled brick + dye TO 8 [colored] chiseled brick
 * 8 [colored] smooth brick + dye TO 8 [colored] smooth brick
-* 8 [colored] glass + dye TO 8 [colored] glass
+* 8 [colored] glass + 1 dye TO 8 [colored] glass
+* 6 [colored tinted] glass + 3 dye TO 6 [colored tinted] glass
+* 7 [tinted frameless] glass + 2 dye TO 7 [tinted frameless] glass
 * 
 * SMELT [colored] cobblestone TO cobblestone
 * SMELT [colored] stone TO stone
@@ -38,8 +42,8 @@ Required: -
 * 6 [colored] stone brick TO 4 [colored] stone brick stairs
 * 6 [colored] smooth brick TO 4 [colored] smooth brick stairs
 * 
-* [colored] glass + dye + glowstone dust + redstone dust TO [colored] lamp
-* [colored] glass + dye + glowstone dust + redstone torch TO [colored] inverted lamp
+* [colored] 6 glass panes + dye + glowstone block + redstone dust TO [colored] lamp
+* [colored] 6 glass panes + dye + glowstone block + redstone torch TO [colored] inverted lamp
 * [colored] lamp + dye TO [colored] lamp
 * [colored] inverted lamp + dye TO [colored] inverted lamp
 * [colored] lamp + redstone torch TO [colored] inverted lamp

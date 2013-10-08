@@ -3,12 +3,12 @@ package com.qzx.au.extras;
 import net.minecraft.block.Block;
 import net.minecraft.util.Icon;
 
-public class ItemBlockGlass extends ItemBlockColored {
+public class ItemBlockGlassTinted extends ItemBlockColored {
 	private int glassBlockID;
 
-	public ItemBlockGlass(int id){
+	public ItemBlockGlassTinted(int id){
 		super(id);
-		this.setUnlocalizedName("colorGlass");
+		this.setUnlocalizedName("colorGlassTinted");
 		this.glassBlockID = id + 256;
 	}
 

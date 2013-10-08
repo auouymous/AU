@@ -16,4 +16,6 @@ for b in blocks/*.xpm; do
 	convert -background transparent ${b} $TEXTURES/${b%.xpm}.png
 done
 php make-glass.php $TEXTURES/blocks/
+php make-glass-tinted.php $TEXTURES/blocks/
+php make-glass-tinted-noframe.php $TEXTURES/blocks/
 php make-lamp.php $TEXTURES/blocks/

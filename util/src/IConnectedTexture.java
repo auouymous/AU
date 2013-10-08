@@ -10,8 +10,8 @@ public interface IConnectedTexture {
 	// coordinates are the block at each side, not the block being rendered
 	public boolean shouldSideBeRendered(IBlockAccess access, int x, int y, int z, int side);
 
-	public boolean canConnectTextures(int id, int meta, int side, BlockCoord neighbor);
-	public boolean canConnectCornerTextures(int id, int meta, BlockCoord diagonal);
+	public boolean canConnectTextures(int id, int metadata, int side, BlockCoord neighbor);
+	public boolean canConnectCornerTextures(int id, int metadata, BlockCoord diagonal);
 
 	public Icon getBlockTexture(IBlockAccess access, int x, int y, int z, int side);
 

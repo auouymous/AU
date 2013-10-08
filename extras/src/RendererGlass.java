@@ -14,12 +14,12 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class RendererLamp implements ISimpleBlockRenderingHandler {
+public class RendererGlass implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer){
 		Tessellator tessellator = Tessellator.instance;
-		Icon icon = ((BlockLamp)block).getIcon(0, metadata);
+		Icon icon = ((BlockGlass)block).getItemIcon(metadata);
 
 		block.setBlockBoundsForItemRender();
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
@@ -52,14 +52,7 @@ public class RendererLamp implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer){
-		if(ClientProxy.renderPass == 1 && ((BlockLamp)block).isOn()){
-			float size = 0.02F;
-			renderer.setRenderBounds(0.0F-size, 0.0F-size, 0.0F-size, 1.0F+size, 1.0F+size, 1.0F+size);
-			renderer.setOverrideBlockTexture(((BlockLamp)block).getGlowIcon(world.getBlockMetadata(x, y, z)));
-			renderer.renderStandardBlock(block, x, y, z);
-			renderer.clearOverrideBlockTexture();
-			return true;
-		}
+		if(ClientProxy.renderPass != block.getRenderBlockPass()) return false;
 
 		renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		renderer.renderStandardBlock(block, x, y, z);
@@ -73,6 +66,6 @@ public class RendererLamp implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public int getRenderId(){
-		return ClientProxy.lampRenderType;
+		return ClientProxy.glassRenderType;
 	}
 }

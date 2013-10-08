@@ -3,9 +3,11 @@ package com.qzx.au.extras;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -18,25 +20,53 @@ import com.qzx.au.util.IConnectedTexture;
 public class BlockGlass extends BlockColored implements IConnectedTexture {
 	@SideOnly(Side.CLIENT)
 	private Icon[][] blockIcons;
+	private Icon[] itemIcons;
+	private int style;
 
-	public BlockGlass(int id, String name, String readableName){
-		super(id, name, readableName, ItemBlockGlass.class, Material.glass);
-//		this.setLightValue(0.03F); // prevent interior frame from darkening, when rendering all 6 sides
+	public BlockGlass(int id, String name, String readableName, Class<? extends ItemBlock> itemblockclass, int style){
+		super(id, name, readableName, itemblockclass, Material.glass);
+		this.style = style;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister){
-		this.blockIcons = new Icon[16][IConnectedTexture.ctm_icons];
-		for(int c = 0; c < 16; c++)
-			for(int t = 0; t < 47; t++)
-				this.blockIcons[c][IConnectedTexture.ctm[t]] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c+"-"+t);
+		switch(this.style){
+		case 0: // clear
+			this.blockIcons = new Icon[16][IConnectedTexture.ctm_icons];
+			for(int c = 0; c < 16; c++)
+				for(int t = 0; t < 47; t++)
+					this.blockIcons[c][IConnectedTexture.ctm[t]] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c+"-"+t);
+			break;
+		case 1: // tinted
+			this.blockIcons = new Icon[16][IConnectedTexture.ctm_icons];
+			this.itemIcons = new Icon[16];
+			for(int c = 0; c < 16; c++){
+				for(int t = 0; t < 47; t++)
+					this.blockIcons[c][IConnectedTexture.ctm[t]] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c+"-"+t);
+				this.itemIcons[c] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c+"-item");
+			}
+			break;
+		case 2: // tinted frameless
+			this.blockIcons = new Icon[16][1];
+			this.itemIcons = new Icon[16];
+			for(int c = 0; c < 16; c++){
+				this.blockIcons[c][0] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c);
+				this.itemIcons[c] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c+"-item");
+			}
+			break;
+		}
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int color){
-		return this.blockIcons[color][IConnectedTexture.ctm_default];
+		return this.blockIcons[color][this.style == 2 ? 0 : IConnectedTexture.ctm_default];
+	}
+
+	@SideOnly(Side.CLIENT)
+	public Icon getItemIcon(int color){
+		return (this.style == 0 ? this.blockIcons[color][IConnectedTexture.ctm_default] : this.itemIcons[color]);
 	}
 
 	public boolean isOpaqueCube(){
@@ -51,23 +81,24 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		return true;
 	}
 
-/*
-	// render all 6 sides, causes flickering from a distance and minor gaps between interior textures
+	@Override
+	public int getRenderType(){
+		return ClientProxy.glassRenderType;
+	}
+
 	public int getRenderBlockPass(){
-		return 1;
+		return (this.style == 0 ? 0 : 1);
 	}
 	public boolean canRenderInPass(int pass){
-		if(pass == 0)
-			this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-		else
-			this.setBlockBounds(0.001F, 0.001F, 0.001F, 0.999F, 0.999F, 0.999F);
+		ClientProxy.renderPass = pass;
 		return true;
 	}
-*/
 
 	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockAccess access, int x, int y, int z, int side){
 		// coordinates are the block at each side, not the block being rendered
+
+		if(this.style == 2) return super.shouldSideBeRendered(access, x, y, z, side); // no connected textures
 
 		BlockCoord neighbor = new BlockCoord(access, x, y, z);
 		BlockCoord coord = (new BlockCoord(neighbor)).translateToSide(ForgeDirection.OPPOSITES[side]);
@@ -76,14 +107,15 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		return false;
 	}
 
-	public boolean canConnectTextures(int id, int meta, int side, BlockCoord neighbor){
-		int neighbor_id = neighbor.getBlockID();
+	public boolean canConnectTextures(int id, int metadata, int side, BlockCoord neighbor){
+		if(this.style == 2) return false; // no connected textures
 
-		// connect to all lamps that are on (side)
-		if(Cfg.enableLamps)
-			if(neighbor_id == AUExtras.blockInvertedLamp.blockID || neighbor_id == AUExtras.blockLampPowered.blockID) return true;
+		int neighbor_id = neighbor.getBlockID();
+		Block neighbor_block = neighbor.getBlock();
+		int neighbor_style = (neighbor_block instanceof BlockGlass ? ((BlockGlass)neighbor_block).style : -1);
+
 		// connect to same color of glass on sides
-		if(neighbor_id != id || neighbor.getBlockMetadata() != meta) return false;
+		if(neighbor_id != id || neighbor.getBlockMetadata() != metadata && neighbor_style == this.style) return false;
 
 		//////////
 
@@ -97,25 +129,24 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 
 		BlockCoord diagonal = (new BlockCoord(neighbor)).translateToSide(side);
 		int diagonal_id = diagonal.getBlockID();
+		Block diagonal_block = diagonal.getBlock();
+		int diagonal_style = (diagonal_block instanceof BlockGlass ? ((BlockGlass)diagonal_block).style : -1);
 
-		// connect to all lamps that are on (diagonals)
-		if(Cfg.enableLamps)
-			if(diagonal_id == AUExtras.blockInvertedLamp.blockID || diagonal_id == AUExtras.blockLampPowered.blockID) return true;
 		// must not have same color of glass on this side (to render inner frames)
-		if(diagonal_id == id && diagonal.getBlockMetadata() == meta) return false;
+		if(diagonal_id == id && diagonal.getBlockMetadata() == metadata && diagonal_style == this.style) return false;
 
 		return true;
 	}
 
-	public boolean canConnectCornerTextures(int id, int meta, BlockCoord diagonal){
-		int diagonal_id = diagonal.getBlockID();
+	public boolean canConnectCornerTextures(int id, int metadata, BlockCoord diagonal){
+		if(this.style == 2) return false; // no connected textures
 
-		// connect to all lamps that are on (corners)
-		if(Cfg.enableLamps)
-			if(diagonal_id == AUExtras.blockInvertedLamp.blockID || diagonal_id == AUExtras.blockLampPowered.blockID) return true;
+		int diagonal_id = diagonal.getBlockID();
+		Block diagonal_block = diagonal.getBlock();
+		int diagonal_style = (diagonal_block instanceof BlockGlass ? ((BlockGlass)diagonal_block).style : -1);
 
 		// connect to same color glass (corners)
-		return (diagonal_id == id && diagonal.getBlockMetadata() == meta);
+		return (diagonal_id == id && diagonal.getBlockMetadata() == metadata && diagonal_style == this.style);
 	}
 
 	@Override
@@ -123,6 +154,9 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		BlockCoord coord = new BlockCoord(access, x, y, z);
 		int blockID = coord.getBlockID();
 		int blockColor = coord.getBlockMetadata();
+
+		if(this.style == 2) return this.blockIcons[blockColor][0]; // no connected textures
+
 		BlockCoord u = (new BlockCoord(coord)).translateToSideAtDirection(side, BlockCoord.UP);
 		BlockCoord d = (new BlockCoord(coord)).translateToSideAtDirection(side, BlockCoord.DOWN);
 		BlockCoord l = (new BlockCoord(coord)).translateToSideAtDirection(side, BlockCoord.LEFT);

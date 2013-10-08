@@ -9,21 +9,24 @@ if($path == ""){
 
 ////////////////////
 
-function get_color($image, $color){
+function get_color($image, $color, $alpha){
 	$colors = "1e1b1b b3312c 3b511a 51301a 253192 7b2fbe 287697 ababab 434343 d88198 41cd34 decf2a 6689d3 c354cd eb8844 f0f0f0";
 	$colors = explode(' ', $colors);
 	$color = $colors[$color];
-	return imagecolorallocate($image, hexdec(substr($color, 0, 2)), hexdec(substr($color, 2, 2)), hexdec(substr($color, 4, 2)));
+	if($alpha == 0)
+		return imagecolorallocate($image, hexdec(substr($color, 0, 2)), hexdec(substr($color, 2, 2)), hexdec(substr($color, 4, 2)));
+	else
+		return imagecolorallocatealpha($image, hexdec(substr($color, 0, 2)), hexdec(substr($color, 2, 2)), hexdec(substr($color, 4, 2)), $alpha*127);
 }
 
 function drawCT($c, $ct, $t, $r, $b, $l, $tl, $tr, $br, $bl){
-	global $path, $max_ctm;
+	global $path, $item_icon;
 
 	$image = imagecreatetruecolor(16, 16);
 	imagealphablending($image, true);
-	imagefill($image, 0,0, imagecolorallocatealpha($image, 0, 0, 0, 127)); // 100% transparent
+	imagefill($image, 0,0, get_color($image, $c, 0.5)); // 50% transparent
 	imagesavealpha($image, true);
-	$color = get_color($image, $c);
+	$color = get_color($image, $c, 0);
 	$gray = imagecolorallocate($image, 68, 68, 68); // #444444
 
 	// sides
@@ -50,31 +53,35 @@ function drawCT($c, $ct, $t, $r, $b, $l, $tl, $tr, $br, $bl){
 	if($b && $l) imagesetpixel($image, 1,14, $color);
 	if($t && $l) imagesetpixel($image, 1,1, $color);
 
-	imagepng($image, $path.'colorGlass'.$c.'-'.$ct.'.png');
-	imagedestroy($image);
+	if($item_icon){
+		$clear = imagecolorallocatealpha($image, 0, 0, 0, 127); // 100% transparent
+		imagealphablending($image, false);
+		for($x = 3; $x < 13; $x++)
+			for($y = 3; $y < 13; $y++)
+				if($x % 2 == $y % 2)
+					imagesetpixel($image, $x,$y, $clear);
 
-	if($c == 0){
-		$ctm = 0;
-		if($t) $ctm |= 1<<0;
-			else if($tl) $ctm |= 2<<0;
-		if($r) $ctm |= 1<<2;
-			else if($tr) $ctm |= 2<<2;
-		if($b) $ctm |= 1<<4;
-			else if($br) $ctm |= 2<<4;
-		if($l) $ctm |= 1<<6;
-			else if($bl) $ctm |= 2<<6;
-		echo "$ctm, ";
-		if($ctm > $max_ctm) $max_ctm = $ctm;
+		imageline($image, 2,1, 13,1, $clear);
+		imageline($image, 14,2, 14,13, $clear);
+		imageline($image, 2,14, 13,14, $clear);
+		imageline($image, 1,2, 1,13, $clear);
+
+		imageline($image, 2,2, 13,2, $clear);
+		imageline($image, 13,2, 13,13, $clear);
+		imageline($image, 2,13, 13,13, $clear);
+		imageline($image, 2,2, 2,13, $clear);
 	}
+
+	imagepng($image, $path.'colorGlassTinted'.$c.'-'.($item_icon ? 'item' : $ct).'.png');
+	imagedestroy($image);
 }
-$max_ctm = 0;
 
 ////////////////////
 
-echo "\n";
 for($c = 0; $c < 16; $c++){
 	// corners are implicit when sides are rendered
 
+	$item_icon = 0;
 	drawCT($c, 0,	1,1,1,1, 0,0,0,0); // TRBL
 	drawCT($c, 1,	1,1,0,1, 0,0,0,0); // TR-L
 	drawCT($c, 2,	1,1,1,0, 0,0,0,0); // TRB-
@@ -122,8 +129,9 @@ for($c = 0; $c < 16; $c++){
 	drawCT($c,44,	0,0,0,0, 0,1,0,0); // ----		-- tr -- --
 	drawCT($c,45,	0,0,0,0, 0,0,1,0); // ----		-- -- br --
 	drawCT($c,46,	0,0,0,0, 0,0,0,1); // ----		-- -- -- bl
-}
 
-echo "\nctm_icons = ".($max_ctm+1)."\n";
+	$item_icon = 1;
+	drawCT($c, 0,	1,1,1,1, 0,0,0,0); // TRBL
+}
 
 ?>
