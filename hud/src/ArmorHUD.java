@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
@@ -116,7 +117,7 @@ public class ArmorHUD {
 			nr_hand = (hand.getMaxStackSize() > 1 ? countItemsInInventory(player, hand.itemID, hand.getItemDamage()) : 1);
 
 			// bow ammo
-			if(hand.itemID == Item.bow.itemID){
+			if(hand.getItem() instanceof ItemBow){
 				nr_ammo = countItemsInInventory(player, Item.arrow.itemID, 0);
 				ammo = new ItemStack(Item.arrow);
 			}
