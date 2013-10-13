@@ -456,6 +456,8 @@ public class InfoHUD {
 											if(te.xCoord == inspectX && te.yCoord == inspectY && te.zCoord == inspectZ)
 												nr_tileEntitiesAtPos++;
 										}
+										if(nr_tileEntitiesAtPos == 0 && hasTileEntity)
+											nr_tileEntitiesAtPos = world.getBlockTileEntity(inspectX, inspectY, inspectZ) == null ? 0 : 1;
 										this.ui.drawString(" b: ", 0xaaaaaa);
 										this.ui.drawString((nr_tileEntitiesAtPos > 0 ? String.format("%d", nr_tileEntitiesAtPos) : "_"), 0xffffff);
 										this.ui.drawString(" a: ", 0xaaaaaa);
