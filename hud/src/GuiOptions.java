@@ -10,13 +10,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.opengl.GL11;
 
 import com.qzx.au.util.UI;
+import com.qzx.au.util.Button;
 
 @SideOnly(Side.CLIENT)
 public class GuiOptions extends GuiScreen {
 	private static int CONFIG_WINDOW_WIDTH = 230;
-	private static String HUD_NAME_INFO = "Info HUD";
-	private static String HUD_NAME_ARMOR = "Armor HUD";
-	private static String HUD_NAME_POTION = "Potion HUD";
 
 	private UI ui;
 	private int window_height = 0;
@@ -29,7 +27,7 @@ public class GuiOptions extends GuiScreen {
 
 	private void drawTitle(){
 		this.ui.setCursor((this.width - CONFIG_WINDOW_WIDTH)/2, (this.window_height == 0 ? 2 : (this.height - this.window_height)/2));
-		this.ui.drawStringCentered("AU HUD Options", 0xffffff, CONFIG_WINDOW_WIDTH);
+		this.ui.drawString(UI.ALIGN_CENTER, "AU HUD Options", 0xffffff, CONFIG_WINDOW_WIDTH);
 		this.ui.lineBreak(10);
 	}
 
@@ -61,8 +59,8 @@ public class GuiOptions extends GuiScreen {
 		BUTTON_DONE
 	}
 
-	private GuiButton addStateButton(ButtonID id, String s, boolean value, int width, int height){
-		GuiButton button = this.ui.newStateButton(id.ordinal(), s, width, height, value, "OFF", "ON");
+	private GuiButton addStateButton(int align, ButtonID id, String s, boolean active, int width, int height){
+		GuiButton button = this.ui.newButton(align, id.ordinal(), s, width, height, CONFIG_WINDOW_WIDTH).initState(active);
 		#ifdef MC147
 		this.controlList.add(button);
 		#else
@@ -70,27 +68,14 @@ public class GuiOptions extends GuiScreen {
 		#endif
 		return button;
 	}
-	private GuiButton addButton(ButtonID id, String s, int width, int height){
-		GuiButton button = this.ui.newButton(id.ordinal(), s, width, height);
+	private GuiButton addButton(int align, ButtonID id, String s, int width, int height){
+		GuiButton button = this.ui.newButton(align, id.ordinal(), s, width, height, CONFIG_WINDOW_WIDTH);
 		#ifdef MC147
 		this.controlList.add(button);
 		#else
 		this.buttonList.add(button);
 		#endif
 		return button;
-	}
-	private GuiButton addButtonCentered(ButtonID id, String s, int width, int height){
-		GuiButton button = this.ui.newButtonCentered(id.ordinal(), s, width, height, CONFIG_WINDOW_WIDTH);
-		#ifdef MC147
-		this.controlList.add(button);
-		#else
-		this.buttonList.add(button);
-		#endif
-		return button;
-	}
-
-	private String getEnableButtonName(String name, boolean value){
-		return String.format("%s %s", (value ? "Disable" : "Enable"), name);
 	}
 
 	@Override
@@ -104,31 +89,31 @@ public class GuiOptions extends GuiScreen {
 		this.drawTitle();
 
 		this.ui.lineBreak(7);
-		this.addButton(ButtonID.BUTTON_INFO_HUD, getEnableButtonName(HUD_NAME_INFO, Cfg.enable_info_hud), 180, 20);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_INFO_HUD, "Info HUD", Cfg.enable_info_hud, 180, 20);
 		this.ui.drawSpace(10);
-		this.addButton(ButtonID.BUTTON_INFO_HUD_OPTIONS, "...", 40, 20);
+		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_INFO_HUD_OPTIONS, "...", 40, 20);
 		this.ui.lineBreak();
 
 		this.ui.lineBreak(7);
-		this.addButton(ButtonID.BUTTON_ARMOR_HUD, getEnableButtonName(HUD_NAME_ARMOR, Cfg.enable_armor_hud), 180, 20);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_ARMOR_HUD, "Armor HUD", Cfg.enable_armor_hud, 180, 20);
 		this.ui.drawSpace(10);
-		this.addButton(ButtonID.BUTTON_ARMOR_HUD_OPTIONS, "...", 40, 20);
+		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_ARMOR_HUD_OPTIONS, "...", 40, 20);
 		this.ui.lineBreak();
 
 		this.ui.lineBreak(7);
-		this.addButton(ButtonID.BUTTON_POTION_HUD, getEnableButtonName(HUD_NAME_POTION, Cfg.enable_potion_hud), 180, 20);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_POTION_HUD, "Potion HUD", Cfg.enable_potion_hud, 180, 20);
 		this.ui.drawSpace(10);
-		this.addButton(ButtonID.BUTTON_POTION_HUD_OPTIONS, "...", 40, 20);
+		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_POTION_HUD_OPTIONS, "...", 40, 20);
 		this.ui.lineBreak();
 
 		this.ui.lineBreak(7);
-		this.addStateButton(ButtonID.BUTTON_INSPECTOR, "Inspector", Cfg.show_inspector, 110, 20);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_INSPECTOR, "Inspector", Cfg.show_inspector, 110, 20);
 		this.ui.drawSpace(10);
-		this.addStateButton(ButtonID.BUTTON_ADVANCED_INSPECTOR, "Advanced", Cfg.enable_advanced_inspector, 110, 20);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_ADVANCED_INSPECTOR, "Advanced", Cfg.enable_advanced_inspector, 110, 20);
 		this.ui.lineBreak();
 
 		this.ui.lineBreak(7);
-		this.addButtonCentered(ButtonID.BUTTON_DONE, "Done", 100, 20);
+		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_DONE, "Done", 100, 20);
 
 		if(this.window_height == 0){
 			// vertically center UI
@@ -138,22 +123,15 @@ public class GuiOptions extends GuiScreen {
 		}
 	}
 
-	private void updateButton(GuiButton button, boolean value){
-		String t = button.displayString;
-		button.displayString = t.substring(0, t.indexOf(":")) + (value ? ": ON" : ": OFF");
-	}
-
 	@Override
 	public void actionPerformed(GuiButton button){
-		boolean s = false;
-
 		// toggle config state
 		switch(ButtonID.values()[button.id]){
-		case BUTTON_INFO_HUD:				s = Cfg.enable_info_hud				= (Cfg.enable_info_hud				? false : true);	break;
-		case BUTTON_ARMOR_HUD:				s = Cfg.enable_armor_hud			= (Cfg.enable_armor_hud				? false : true);	break;
-		case BUTTON_POTION_HUD:				s = Cfg.enable_potion_hud			= (Cfg.enable_potion_hud			? false : true);	break;
-		case BUTTON_INSPECTOR:				s = Cfg.show_inspector				= (Cfg.show_inspector				? false : true);	break;
-		case BUTTON_ADVANCED_INSPECTOR:		s = Cfg.enable_advanced_inspector	= (Cfg.enable_advanced_inspector	? false : true);	break;
+		case BUTTON_INFO_HUD:				((Button)button).active =  Cfg.enable_info_hud				= (Cfg.enable_info_hud				? false : true);	break;
+		case BUTTON_ARMOR_HUD:				((Button)button).active =  Cfg.enable_armor_hud				= (Cfg.enable_armor_hud				? false : true);	break;
+		case BUTTON_POTION_HUD:				((Button)button).active =  Cfg.enable_potion_hud			= (Cfg.enable_potion_hud			? false : true);	break;
+		case BUTTON_INSPECTOR:				((Button)button).active =  Cfg.show_inspector				= (Cfg.show_inspector				? false : true);	break;
+		case BUTTON_ADVANCED_INSPECTOR:		((Button)button).active =  Cfg.enable_advanced_inspector	= (Cfg.enable_advanced_inspector	? false : true);	break;
 		case BUTTON_INFO_HUD_OPTIONS:
 			// option info options
 			this.mc.displayGuiScreen(new GuiInfoOptions(this.player, this));
@@ -171,16 +149,6 @@ public class GuiOptions extends GuiScreen {
 			this.mc.thePlayer.closeScreen();
 			return;
 		}
-
-		// update button state
-		if(button.id == ButtonID.BUTTON_INFO_HUD.ordinal())
-			button.displayString = getEnableButtonName(HUD_NAME_INFO, Cfg.enable_info_hud);
-		else if(button.id == ButtonID.BUTTON_ARMOR_HUD.ordinal())
-			button.displayString = getEnableButtonName(HUD_NAME_ARMOR, Cfg.enable_armor_hud);
-		else if(button.id == ButtonID.BUTTON_POTION_HUD.ordinal())
-			button.displayString = getEnableButtonName(HUD_NAME_POTION, Cfg.enable_potion_hud);
-		else
-			this.updateButton(button, s);
 
 		// save config
 		Cfg.save();

@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.opengl.GL11;
 
 import com.qzx.au.util.UI;
+import com.qzx.au.util.Button;
 
 @SideOnly(Side.CLIENT)
 public class GuiPotionOptions extends GuiScreen {
@@ -27,7 +28,7 @@ public class GuiPotionOptions extends GuiScreen {
 
 	private void drawTitle(){
 		this.ui.setCursor((this.width - CONFIG_WINDOW_WIDTH)/2, (this.window_height == 0 ? 2 : (this.height - this.window_height)/2));
-		this.ui.drawStringCentered("AU HUD Options (Potion)", 0xffffff, CONFIG_WINDOW_WIDTH);
+		this.ui.drawString(UI.ALIGN_CENTER, "AU HUD Options (Potion)", 0xffffff, CONFIG_WINDOW_WIDTH);
 		this.ui.lineBreak(10);
 	}
 
@@ -35,7 +36,7 @@ public class GuiPotionOptions extends GuiScreen {
 	private void drawPositionX(){
 		this.ui.x = posX_x;
 		this.ui.y = posX_y + 5;
-		this.ui.x = this.ui.drawStringCentered(String.format("x: %d", Cfg.potion_hud_x), 0xffffff, 40);
+		this.ui.x = this.ui.drawString(UI.ALIGN_CENTER, String.format("x: %d", Cfg.potion_hud_x), 0xffffff, 40);
 		this.ui.drawString("x:", 0xaaaaaa);
 		this.ui.x = posX_x + 40;
 		this.ui.y = posX_y;
@@ -44,7 +45,7 @@ public class GuiPotionOptions extends GuiScreen {
 	private void drawPositionY(){
 		this.ui.x = posY_x;
 		this.ui.y = posY_y + 5;
-		this.ui.x = this.ui.drawStringCentered(String.format("y: %d", Cfg.potion_hud_y), 0xffffff, 40);
+		this.ui.x = this.ui.drawString(UI.ALIGN_CENTER, String.format("y: %d", Cfg.potion_hud_y), 0xffffff, 40);
 		this.ui.drawString("y:", 0xaaaaaa);
 		this.ui.x = posY_x + 40;
 		this.ui.y = posY_y;
@@ -74,8 +75,8 @@ public class GuiPotionOptions extends GuiScreen {
 		BUTTON_DONE
 	}
 
-	private GuiButton addButton(ButtonID id, String s, int width, int height){
-		GuiButton button = this.ui.newButton(id.ordinal(), s, width, height);
+	private GuiButton addStateButton(int align, ButtonID id, String s, boolean active, int width, int height){
+		GuiButton button = this.ui.newButton(align, id.ordinal(), s, width, height, CONFIG_WINDOW_WIDTH).initState(active);
 		#ifdef MC147
 		this.controlList.add(button);
 		#else
@@ -83,8 +84,9 @@ public class GuiPotionOptions extends GuiScreen {
 		#endif
 		return button;
 	}
-	private GuiButton addButtonCentered(ButtonID id, String s, int width, int height){
-		GuiButton button = this.ui.newButtonCentered(id.ordinal(), s, width, height, CONFIG_WINDOW_WIDTH);
+
+	private GuiButton addButton(int align, ButtonID id, String s, int width, int height){
+		GuiButton button = this.ui.newButton(align, id.ordinal(), s, width, height, CONFIG_WINDOW_WIDTH);
 		#ifdef MC147
 		this.controlList.add(button);
 		#else
@@ -105,27 +107,27 @@ public class GuiPotionOptions extends GuiScreen {
 
 		this.ui.lineBreak(7);
 		this.ui.drawSpace((int)Math.floor((CONFIG_WINDOW_WIDTH - 2*80)/3));
-		this.addButton(ButtonID.BUTTON_X_DN, "-", 20, 20);
+		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_X_DN, "-", 20, 20);
 		this.posX_x = this.ui.x;
 		this.posX_y = this.ui.y;
 		this.drawPositionX();
-		this.addButton(ButtonID.BUTTON_X_UP, "+", 20, 20);
+		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_X_UP, "+", 20, 20);
 		this.ui.drawSpace((int)Math.floor((CONFIG_WINDOW_WIDTH - 2*80)/3));
-		this.addButton(ButtonID.BUTTON_Y_DN, "-", 20, 20);
+		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_Y_DN, "-", 20, 20);
 		this.posY_x = this.ui.x;
 		this.posY_y = this.ui.y;
 		this.drawPositionY();
-		this.addButton(ButtonID.BUTTON_Y_UP, "+", 20, 20);
+		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_Y_UP, "+", 20, 20);
 		this.ui.lineBreak();
 
-		this.addButtonCentered(ButtonID.BUTTON_CORNER, Cfg.getCornerName(Cfg.potion_hud_corner), 182, 20);
+		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_CORNER, Cfg.getCornerName(Cfg.potion_hud_corner), 182, 20);
 		this.ui.lineBreak();
 
-		this.addButtonCentered(ButtonID.BUTTON_ALWAYS_SHOW, Cfg.getAlwaysShowName(Cfg.always_show_potion_hud), 182, 20);
+		this.addStateButton(UI.ALIGN_CENTER, ButtonID.BUTTON_ALWAYS_SHOW, "Show when chat is open", Cfg.always_show_potion_hud, 182, 20);
 		this.ui.lineBreak();
 
 		this.ui.lineBreak(7);
-		this.addButtonCentered(ButtonID.BUTTON_DONE, "Done", 100, 20);
+		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_DONE, "Done", 100, 20);
 
 		if(this.window_height == 0){
 			// vertically center UI
@@ -137,14 +139,12 @@ public class GuiPotionOptions extends GuiScreen {
 
 	@Override
 	public void actionPerformed(GuiButton button){
-		boolean s = false, update = true;
-
 		// toggle config state
 		switch(ButtonID.values()[button.id]){
-		case BUTTON_X_DN:		Cfg.potion_hud_x -= 1;	update = false;		break;
-		case BUTTON_X_UP:		Cfg.potion_hud_x += 1;	update = false;		break;
-		case BUTTON_Y_DN:		Cfg.potion_hud_y -= 1;	update = false;		break;
-		case BUTTON_Y_UP:		Cfg.potion_hud_y += 1;	update = false;		break;
+		case BUTTON_X_DN:		Cfg.potion_hud_x -= 1;	break;
+		case BUTTON_X_UP:		Cfg.potion_hud_x += 1;	break;
+		case BUTTON_Y_DN:		Cfg.potion_hud_y -= 1;	break;
+		case BUTTON_Y_UP:		Cfg.potion_hud_y += 1;	break;
 
 		case BUTTON_CORNER:
 			Cfg.potion_hud_corner = (Cfg.potion_hud_corner < Cfg.corners.length-1 ? Cfg.potion_hud_corner+1 : 0);
@@ -152,8 +152,7 @@ public class GuiPotionOptions extends GuiScreen {
 			break;
 
 		case BUTTON_ALWAYS_SHOW:
-			Cfg.always_show_potion_hud = (Cfg.always_show_potion_hud ? false : true);
-			button.displayString = Cfg.getAlwaysShowName(Cfg.always_show_potion_hud);
+			((Button)button).active = Cfg.always_show_potion_hud = (Cfg.always_show_potion_hud ? false : true);
 			break;
 
 		default:

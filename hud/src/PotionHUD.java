@@ -19,11 +19,7 @@ import com.qzx.au.util.UI;
 
 @SideOnly(Side.CLIENT)
 public class PotionHUD {
-	private UI ui = new UI();
-
-	public PotionHUD(){
-		this.ui.zLevel = 200.0F;
-	}
+	public PotionHUD(){}
 
 	//////////
 
@@ -54,7 +50,7 @@ public class PotionHUD {
 			if(potion.hasStatusIcon()){
 				int icon = potion.getStatusIconIndex();
 				mc.renderEngine.bindTexture("/gui/inventory.png");
-				this.ui.drawTexturedModalRect(x, y,  0 + icon%8 * 18, 198 + icon/8 * 18, 18, 18);
+				UI.drawTexturedModalRect(x, y,  0 + icon%8 * 18, 198 + icon/8 * 18, 18, 18, 200.0F);
 			}
 
 			// potion name and remaining duration

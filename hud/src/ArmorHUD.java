@@ -59,14 +59,14 @@ public class ArmorHUD {
 						this.ui.drawString(String.format("/%d", max_durability), 0xaaaaaa);
 						this.ui.drawString(String.format("%d", durability), color);
 					} else {
-						this.ui.drawStringRight(String.format("/%d", max_durability), 0xaaaaaa);
-						this.ui.drawStringRight(String.format("%d", durability), color);
+						this.ui.drawString(UI.ALIGN_RIGHT, String.format("/%d", max_durability), 0xaaaaaa, 0);
+						this.ui.drawString(UI.ALIGN_RIGHT, String.format("%d", durability), color, 0);
 					}
 				} else if(durability_style == Cfg.HUD_DURABILITY_PERCENT){
 					if((Cfg.armor_hud_corner&1) == 0)
 						this.ui.drawString(String.format("%d%%", percent), color);
 					else
-						this.ui.drawStringRight(String.format("%d%%", percent), color);
+						this.ui.drawString(UI.ALIGN_RIGHT, String.format("%d%%", percent), color, 0);
 				}
 				this.ui.lineBreak(9);
 			}
@@ -77,7 +77,7 @@ public class ArmorHUD {
 			if((Cfg.armor_hud_corner&1) == 0)
 				this.ui.drawString(String.format("%d", quantity), (quantity > 0 ? 0xffffff : 0xff6666));
 			else
-				this.ui.drawStringRight(String.format("%d", quantity), (quantity > 0 ? 0xffffff : 0xff6666));
+				this.ui.drawString(UI.ALIGN_RIGHT, String.format("%d", quantity), (quantity > 0 ? 0xffffff : 0xff6666), 0);
 		}
 	}
 

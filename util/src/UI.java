@@ -1,9 +1,10 @@
 package com.qzx.au.util;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.Tessellator;
+
+import org.lwjgl.opengl.GL11;
 
 public class UI {
 	private Minecraft mc = Minecraft.getMinecraft();
@@ -11,7 +12,6 @@ public class UI {
 	private int line_height = 10;
 	public int x = 0;
 	public int y = 0;
-	public float zLevel = 0.0F;
 
 	public UI(){}
 
@@ -38,49 +38,63 @@ public class UI {
 		this.x += width;
 	}
 
+	public static int ALIGN_LEFT = 0;
+	public static int ALIGN_RIGHT = 1;
+	public static int ALIGN_CENTER = 2;
+
 	//////////
 
-	public void drawString(String s, int color){
-		if(s == null) return;
-
-		this.mc.fontRenderer.drawStringWithShadow(s, this.x, this.y, color);
-		this.x += this.mc.fontRenderer.getStringWidth(s);
-	}
-
-	public int drawStringCentered(String s, int color, int box_width){
+	public int drawString(int align, String s, int color, int box_width){
 		if(s == null) return this.x;
 
-		int x = this.x + (box_width/2 - this.mc.fontRenderer.getStringWidth(s)/2);
-		this.mc.fontRenderer.drawStringWithShadow(s, x, this.y, color);
-		this.x += box_width;
-
-		return x;
-	}
-
-	public int drawStringRight(String s, int color){
-		if(s == null) return this.x;
-
-		this.x -= this.mc.fontRenderer.getStringWidth(s);
-		this.mc.fontRenderer.drawStringWithShadow(s, this.x, this.y, color);
+		if(align == ALIGN_LEFT){
+			// cursor moved to right side of string
+			this.mc.fontRenderer.drawStringWithShadow(s, this.x, this.y, color);
+			this.x += this.mc.fontRenderer.getStringWidth(s);
+			return this.x; // right side of string
+		}
+		if(align == ALIGN_RIGHT){
+			// cursor moved to left side of string
+			this.x -= this.mc.fontRenderer.getStringWidth(s) + box_width;
+			this.mc.fontRenderer.drawStringWithShadow(s, this.x, this.y, color);
+			return this.x; // left side of string
+		}
+		if(align == ALIGN_CENTER){
+			// cursor moved to right side of box_width
+			int x = this.x + (box_width/2 - this.mc.fontRenderer.getStringWidth(s)/2);
+			this.mc.fontRenderer.drawStringWithShadow(s, x, this.y, color);
+			this.x += box_width;
+			return x; // left side of string
+		}
 
 		return this.x;
 	}
 
+	public int drawString(String s, int color){
+		return this.drawString(UI.ALIGN_LEFT, s, color, 0);
+	}
+
 	//////////
 
-	public GuiButton newButton(int id, String s, int width, int height){
-		GuiButton b = new GuiButton(id, this.x, this.y, width, height, s);
-		this.x += width;
+	public Button newButton(int align, int id, String s, int width, int height, int box_width){
+		Button b;
+
+		if(align == ALIGN_LEFT){
+			// cursor moved to right side of button
+			b = new Button(id, this.x, this.y, width, height, s);
+			this.x += width;
+		} else if(align == ALIGN_RIGHT){
+			// cursor moved to left side of button
+			this.x = this.base_x + (box_width - width);
+			b = new Button(id, this.x, this.y, width, height, s);
+		} else { // ALIGN_CENTER
+			// cursor moved to right side of button
+			this.x = this.base_x + (box_width/2 - width/2);
+			b = new Button(id, this.x, this.y, width, height, s);
+			this.x += width;
+		}
+
 		return b;
-	}
-
-	public GuiButton newButtonCentered(int id, String s, int width, int height, int box_width){
-		this.x = this.base_x + (box_width/2 - width/2);
-		return this.newButton(id, s, width, height);
-	}
-
-	public GuiButton newStateButton(int id, String s, int width, int height, boolean value, String state0, String state1){
-		return this.newButton(id, s + (value ? ": "+state1 : ": "+state0), width, height);
 	}
 
 	//////////
@@ -96,15 +110,56 @@ public class UI {
 
 	//////////
 
-	public void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height){
+	public static void drawBorder(int x, int y, int width, int height, int colorTL, int colorBR, int colorCorner){
+		UI.drawPixel(x+width-1, y, colorCorner); // UR corner
+		UI.drawPixel(x, y+height-1, colorCorner); // BL corner
+		UI.drawLineH(x+1, y, width-2, colorTL); // T border
+		UI.drawLineV(x, y, height-1, colorTL); // L border
+		UI.drawLineH(x+1, y+height-1, width-2, colorBR); // B border
+		UI.drawLineV(x+width-1, y+1, height-1, colorBR); // R border
+	}
+
+	public static void drawPixel(int x, int y, int color){
+		UI.drawRect(x, y, 1, 1, color);
+	}
+
+	public static void drawLineH(int x, int y, int width, int color){
+		UI.drawRect(x, y, width, 1, color);
+	}
+
+	public static void drawLineV(int x, int y, int height, int color){
+		UI.drawRect(x, y, 1, height, color);
+	}
+
+	public static void drawRect(int x, int y, int width, int height, int color){
+		Tessellator tessellator = Tessellator.instance;
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glDisable(GL11.GL_TEXTURE_2D);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		UI.setColor(color);
+		tessellator.startDrawingQuads();
+		tessellator.addVertex(x,		y+height, 0.0D);
+		tessellator.addVertex(x+width,	y+height, 0.0D);
+		tessellator.addVertex(x+width,	y, 0.0D);
+		tessellator.addVertex(x,		y, 0.0D);
+		tessellator.draw();
+		GL11.glEnable(GL11.GL_TEXTURE_2D);
+		GL11.glDisable(GL11.GL_BLEND);
+	}
+
+	public static void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height, float zLevel){
 		float f = 0.00390625F;
 		float f1 = 0.00390625F;
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(x + 0,		y + height,	this.zLevel, f * (textureX + 0),	 f1 * (textureY + height));
-		tessellator.addVertexWithUV(x + width,	y + height,	this.zLevel, f * (textureX + width), f1 * (textureY + height));
-		tessellator.addVertexWithUV(x + width,	y + 0,		this.zLevel, f * (textureX + width), f1 * (textureY + 0));
-		tessellator.addVertexWithUV(x + 0,		y + 0,		this.zLevel, f * (textureX + 0),	 f1 * (textureY + 0));
+		tessellator.addVertexWithUV(x + 0,		y + height,	zLevel, f * (textureX + 0),		f1 * (textureY + height));
+		tessellator.addVertexWithUV(x + width,	y + height,	zLevel, f * (textureX + width), f1 * (textureY + height));
+		tessellator.addVertexWithUV(x + width,	y + 0,		zLevel, f * (textureX + width), f1 * (textureY + 0));
+		tessellator.addVertexWithUV(x + 0,		y + 0,		zLevel, f * (textureX + 0),		f1 * (textureY + 0));
 		tessellator.draw();
+	}
+
+	public static void setColor(int color){
+		GL11.glColor4f((float)(color >> 16 & 255) / 255.0F, (float)(color >> 8 & 255) / 255.0F, (float)(color & 255) / 255.0F, (float)(color >> 24 & 255) / 255.0F);
 	}
 }

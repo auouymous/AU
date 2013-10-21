@@ -134,12 +134,6 @@ public class Cfg extends Config {
 
 	//////////
 
-	public static String getAlwaysShowName(boolean always_show){
-		return (always_show ? "Show when chat open" : "Hide when chat open");
-	}
-
-	//////////
-
 	public static String[] corners = { "TopLeft", "TopRight", "BottomLeft", "BottomRight" };
 	public static int HUD_CORNER_TOPLEFT = 0;
 	public static int HUD_CORNER_TOPRIGHT = 1;

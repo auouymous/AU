@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.opengl.GL11;
 
 import com.qzx.au.util.UI;
+import com.qzx.au.util.Button;
 
 @SideOnly(Side.CLIENT)
 public class GuiInfoOptions extends GuiScreen {
@@ -27,7 +28,7 @@ public class GuiInfoOptions extends GuiScreen {
 
 	private void drawTitle(){
 		this.ui.setCursor((this.width - CONFIG_WINDOW_WIDTH)/2, (this.window_height == 0 ? 2 : (this.height - this.window_height)/2));
-		this.ui.drawStringCentered("AU HUD Options (Info)", 0xffffff, CONFIG_WINDOW_WIDTH);
+		this.ui.drawString(UI.ALIGN_CENTER, "AU HUD Options (Info)", 0xffffff, CONFIG_WINDOW_WIDTH);
 		this.ui.lineBreak(10);
 	}
 
@@ -35,7 +36,7 @@ public class GuiInfoOptions extends GuiScreen {
 	private void drawPositionX(){
 		this.ui.x = posX_x;
 		this.ui.y = posX_y + 5;
-		this.ui.x = this.ui.drawStringCentered(String.format("x: %d", Cfg.info_hud_x), 0xffffff, 40);
+		this.ui.x = this.ui.drawString(UI.ALIGN_CENTER, String.format("x: %d", Cfg.info_hud_x), 0xffffff, 40);
 		this.ui.drawString("x:", 0xaaaaaa);
 		this.ui.x = posX_x + 40;
 		this.ui.y = posX_y;
@@ -44,7 +45,7 @@ public class GuiInfoOptions extends GuiScreen {
 	private void drawPositionY(){
 		this.ui.x = posY_x;
 		this.ui.y = posY_y + 5;
-		this.ui.x = this.ui.drawStringCentered(String.format("y: %d", Cfg.info_hud_y), 0xffffff, 40);
+		this.ui.x = this.ui.drawString(UI.ALIGN_CENTER, String.format("y: %d", Cfg.info_hud_y), 0xffffff, 40);
 		this.ui.drawString("y:", 0xaaaaaa);
 		this.ui.x = posY_x + 40;
 		this.ui.y = posY_y;
@@ -80,8 +81,8 @@ public class GuiInfoOptions extends GuiScreen {
 		BUTTON_DONE
 	}
 
-	private GuiButton addStateButton(ButtonID id, String s, boolean value, int width, int height){
-		GuiButton button = this.ui.newStateButton(id.ordinal(), s, width, height, value, "OFF", "ON");
+	private GuiButton addStateButton(int align, ButtonID id, String s, boolean active, int width, int height){
+		GuiButton button = this.ui.newButton(align, id.ordinal(), s, width, height, CONFIG_WINDOW_WIDTH).initState(active);
 		#ifdef MC147
 		this.controlList.add(button);
 		#else
@@ -89,17 +90,8 @@ public class GuiInfoOptions extends GuiScreen {
 		#endif
 		return button;
 	}
-	private GuiButton addButton(ButtonID id, String s, int width, int height){
-		GuiButton button = this.ui.newButton(id.ordinal(), s, width, height);
-		#ifdef MC147
-		this.controlList.add(button);
-		#else
-		this.buttonList.add(button);
-		#endif
-		return button;
-	}
-	private GuiButton addButtonCentered(ButtonID id, String s, int width, int height){
-		GuiButton button = this.ui.newButtonCentered(id.ordinal(), s, width, height, CONFIG_WINDOW_WIDTH);
+	private GuiButton addButton(int align, ButtonID id, String s, int width, int height){
+		GuiButton button = this.ui.newButton(align, id.ordinal(), s, width, height, CONFIG_WINDOW_WIDTH);
 		#ifdef MC147
 		this.controlList.add(button);
 		#else
@@ -124,57 +116,57 @@ public class GuiInfoOptions extends GuiScreen {
 
 		this.ui.lineBreak(7);
 		this.ui.drawSpace((int)Math.floor((CONFIG_WINDOW_WIDTH - 2*80)/3));
-		this.addButton(ButtonID.BUTTON_X_DN, "-", 20, 20);
+		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_X_DN, "-", 20, 20);
 		this.posX_x = this.ui.x;
 		this.posX_y = this.ui.y;
 		this.drawPositionX();
-		this.addButton(ButtonID.BUTTON_X_UP, "+", 20, 20);
+		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_X_UP, "+", 20, 20);
 		this.ui.drawSpace((int)Math.floor((CONFIG_WINDOW_WIDTH - 2*80)/3));
-		this.addButton(ButtonID.BUTTON_Y_DN, "-", 20, 20);
+		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_Y_DN, "-", 20, 20);
 		this.posY_x = this.ui.x;
 		this.posY_y = this.ui.y;
 		this.drawPositionY();
-		this.addButton(ButtonID.BUTTON_Y_UP, "+", 20, 20);
+		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_Y_UP, "+", 20, 20);
 		this.ui.lineBreak();
 		this.ui.lineBreak(7);
 
-		this.addStateButton(ButtonID.BUTTON_WORLD, "World", Cfg.show_world, 110, 20);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_WORLD, "World", Cfg.show_world, 110, 16);
 		this.ui.drawSpace(10);
-		this.addStateButton(ButtonID.BUTTON_BIOME, "Biome", Cfg.show_biome, 110, 20);
-		this.ui.lineBreak();
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_BIOME, "Biome", Cfg.show_biome, 110, 16);
+		this.ui.lineBreak(19);
 
-		this.button_position = this.addStateButton(ButtonID.BUTTON_POSITION, "Position", Cfg.show_position, 110, 20);
+		this.button_position = this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_POSITION, "Position", Cfg.show_position, 110, 16);
 		this.ui.drawSpace(10);
-		this.button_position_eyes = this.addStateButton(ButtonID.BUTTON_POSITION_EYES, "At Eyes", Cfg.show_position_eyes, 110, 20);
-		this.ui.lineBreak();
+		this.button_position_eyes = this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_POSITION_EYES, "At Eyes", Cfg.show_position_eyes, 110, 16);
+		this.ui.lineBreak(19);
 
-		this.addStateButton(ButtonID.BUTTON_LIGHT, "Light", Cfg.show_light, 70, 20);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_LIGHT, "Light", Cfg.show_light, 70, 16);
 		this.ui.drawSpace(10);
-		this.addStateButton(ButtonID.BUTTON_TIME, "Time", Cfg.show_time, 70, 20);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_TIME, "Time", Cfg.show_time, 70, 16);
 		this.ui.drawSpace(10);
-		this.addStateButton(ButtonID.BUTTON_WEATHER, "Weather", Cfg.show_weather, 70, 20);
-		this.ui.lineBreak();
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_WEATHER, "Weather", Cfg.show_weather, 70, 16);
+		this.ui.lineBreak(19);
 
-		this.addStateButton(ButtonID.BUTTON_USED_INVENTORY, "Used Inventory", Cfg.show_used_inventory, 150, 20);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_USED_INVENTORY, "Used Inventory", Cfg.show_used_inventory, 150, 16);
 		this.ui.drawSpace(10);
-		this.addStateButton(ButtonID.BUTTON_ANIMATE_USED_INVENTORY, "Animate", Cfg.animate_used_inventory, 70, 20);
-		this.ui.lineBreak();
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_ANIMATE_USED_INVENTORY, "Animate", Cfg.animate_used_inventory, 70, 16);
+		this.ui.lineBreak(19);
 
-		this.addStateButton(ButtonID.BUTTON_FPS, "FPS", Cfg.show_fps, 110, 20);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_FPS, "FPS", Cfg.show_fps, 110, 16);
 		this.ui.drawSpace(10);
-		this.addStateButton(ButtonID.BUTTON_CHUNK_UPDATES, "Chunk Updates", Cfg.show_chunk_updates, 110, 20);
-		this.ui.lineBreak();
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_CHUNK_UPDATES, "Chunk Updates", Cfg.show_chunk_updates, 110, 16);
+		this.ui.lineBreak(19);
 
-		this.addStateButton(ButtonID.BUTTON_ENTITIES, "Entities", Cfg.show_entities, 110, 20);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_ENTITIES, "Entities", Cfg.show_entities, 110, 16);
 		this.ui.drawSpace(10);
-		this.addStateButton(ButtonID.BUTTON_PARTICLES, "Particles", Cfg.show_particles, 110, 20);
-		this.ui.lineBreak();
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_PARTICLES, "Particles", Cfg.show_particles, 110, 16);
+		this.ui.lineBreak(19);
 
-		this.button_block_name = this.addStateButton(ButtonID.BUTTON_BLOCK_NAME, "Block/Mob Name", Cfg.show_block_name, 230, 20);
-		this.ui.lineBreak();
+		this.button_block_name = this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_BLOCK_NAME, "Block/Mob Name", Cfg.show_block_name, 230, 16);
+		this.ui.lineBreak(19);
 
 		this.ui.lineBreak(7);
-		this.addButtonCentered(ButtonID.BUTTON_DONE, "Done", 100, 20);
+		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_DONE, "Done", 100, 20);
 
 		if(this.window_height == 0){
 			// vertically center UI
@@ -184,36 +176,29 @@ public class GuiInfoOptions extends GuiScreen {
 		}
 	}
 
-	private void updateButton(GuiButton button, boolean value){
-		String t = button.displayString;
-		button.displayString = t.substring(0, t.indexOf(":")) + (value ? ": ON" : ": OFF");
-	}
-
 	@Override
 	public void actionPerformed(GuiButton button){
-		boolean s = false, update = true;
-
 		// toggle config state
 		switch(ButtonID.values()[button.id]){
-		case BUTTON_X_DN:				Cfg.info_hud_x -= 1;	update = false;		break;
-		case BUTTON_X_UP:				Cfg.info_hud_x += 1;	update = false;		break;
-		case BUTTON_Y_DN:				Cfg.info_hud_y -= 1;	update = false;		break;
-		case BUTTON_Y_UP:				Cfg.info_hud_y += 1;	update = false;		break;
+		case BUTTON_X_DN:				Cfg.info_hud_x -= 1;	break;
+		case BUTTON_X_UP:				Cfg.info_hud_x += 1;	break;
+		case BUTTON_Y_DN:				Cfg.info_hud_y -= 1;	break;
+		case BUTTON_Y_UP:				Cfg.info_hud_y += 1;	break;
 
-		case BUTTON_WORLD:						s = Cfg.show_world				= (Cfg.show_world				? false : true);	break;
-		case BUTTON_BIOME:						s = Cfg.show_biome				= (Cfg.show_biome				? false : true);	break;
-		case BUTTON_POSITION:					s = Cfg.show_position			= (Cfg.show_position			? false : true);	break;
-		case BUTTON_POSITION_EYES:				s = Cfg.show_position_eyes		= (Cfg.show_position_eyes		? false : true);	break;
-		case BUTTON_LIGHT:						s = Cfg.show_light				= (Cfg.show_light				? false : true);	break;
-		case BUTTON_TIME:						s = Cfg.show_time				= (Cfg.show_time				? false : true);	break;
-		case BUTTON_WEATHER:					s = Cfg.show_weather			= (Cfg.show_weather				? false : true);	break;
-		case BUTTON_USED_INVENTORY:				s = Cfg.show_used_inventory		= (Cfg.show_used_inventory		? false : true);	break;
-		case BUTTON_ANIMATE_USED_INVENTORY:		s = Cfg.animate_used_inventory	= (Cfg.animate_used_inventory	? false : true);	break;
-		case BUTTON_FPS:						s = Cfg.show_fps				= (Cfg.show_fps					? false : true);	break;
-		case BUTTON_CHUNK_UPDATES:				s = Cfg.show_chunk_updates		= (Cfg.show_chunk_updates		? false : true);	break;
-		case BUTTON_ENTITIES:					s = Cfg.show_entities			= (Cfg.show_entities			? false : true);	break;
-		case BUTTON_PARTICLES:					s = Cfg.show_particles			= (Cfg.show_particles			? false : true);	break;
-		case BUTTON_BLOCK_NAME:					s = Cfg.show_block_name			= (Cfg.show_block_name			? false : true);	break;
+		case BUTTON_WORLD:						((Button)button).active = Cfg.show_world				= (Cfg.show_world				? false : true);	break;
+		case BUTTON_BIOME:						((Button)button).active = Cfg.show_biome				= (Cfg.show_biome				? false : true);	break;
+		case BUTTON_POSITION:					((Button)button).active = Cfg.show_position				= (Cfg.show_position			? false : true);	break;
+		case BUTTON_POSITION_EYES:				((Button)button).active = Cfg.show_position_eyes		= (Cfg.show_position_eyes		? false : true);	break;
+		case BUTTON_LIGHT:						((Button)button).active = Cfg.show_light				= (Cfg.show_light				? false : true);	break;
+		case BUTTON_TIME:						((Button)button).active = Cfg.show_time					= (Cfg.show_time				? false : true);	break;
+		case BUTTON_WEATHER:					((Button)button).active = Cfg.show_weather				= (Cfg.show_weather				? false : true);	break;
+		case BUTTON_USED_INVENTORY:				((Button)button).active = Cfg.show_used_inventory		= (Cfg.show_used_inventory		? false : true);	break;
+		case BUTTON_ANIMATE_USED_INVENTORY:		((Button)button).active = Cfg.animate_used_inventory	= (Cfg.animate_used_inventory	? false : true);	break;
+		case BUTTON_FPS:						((Button)button).active = Cfg.show_fps					= (Cfg.show_fps					? false : true);	break;
+		case BUTTON_CHUNK_UPDATES:				((Button)button).active = Cfg.show_chunk_updates		= (Cfg.show_chunk_updates		? false : true);	break;
+		case BUTTON_ENTITIES:					((Button)button).active = Cfg.show_entities				= (Cfg.show_entities			? false : true);	break;
+		case BUTTON_PARTICLES:					((Button)button).active = Cfg.show_particles			= (Cfg.show_particles			? false : true);	break;
+		case BUTTON_BLOCK_NAME:					((Button)button).active = Cfg.show_block_name			= (Cfg.show_block_name			? false : true);	break;
 
 		default:
 			// 'done' button
@@ -222,20 +207,14 @@ public class GuiInfoOptions extends GuiScreen {
 		}
 
 		// update dependent states
-		if(button == this.button_position && s == false){
+		if(button == this.button_position && Cfg.show_position == false){
 			// position turned off, turn off eyes
-			Cfg.show_position_eyes = false;
-			this.updateButton(this.button_position_eyes, false);
+			((Button)this.button_position_eyes).active = Cfg.show_position_eyes = false;
 		}
-		if(button == this.button_position_eyes && s == true){
+		if(button == this.button_position_eyes && Cfg.show_position_eyes == true){
 			// eyes turned on, turn on position
-			Cfg.show_position = true;
-			this.updateButton(this.button_position, true);
+			((Button)this.button_position).active = Cfg.show_position = true;
 		}
-
-		// update button state
-		if(update)
-			this.updateButton(button, s);
 
 		// save config
 		Cfg.save();

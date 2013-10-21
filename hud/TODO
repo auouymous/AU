@@ -9,6 +9,7 @@ OPTION MENU
 	- configure position of GraviSuite HUD (restart required)
 
 	- allow player to bind commands to keys?
+	- allow player to add command buttons to hud options
 
 	- add a few useful settings from OptiFine for those who don't use it
 		- redo zoom to be more like optifine
@@ -26,6 +27,8 @@ OPTION MENU
 INFO HUD
 	~ FIX: used-inventory animation is too fast on SP
 
+	~ FIX: time is incorrect in mystcraft ages
+
 	- add server side support
 		- add API for other mods to publish info elements
 			- protection mod can show worldguard region status
@@ -37,6 +40,7 @@ INFO HUD
 	- display number of mobs agressing player, if possible
 	- display memory usage, default to off
 	- display memory warning when usage exceeds 90%
+	- display moon phase: world.getMoonPhase() -> int
 
 	- display list of recent items picked up (as small icons), remove items from list after 15(?) seconds
 		- option to prevent cobble, dirt or gravel from entering player's inventory
