@@ -16,12 +16,11 @@ import com.qzx.au.util.Button;
 public class GuiPotionOptions extends GuiScreen {
 	private static int CONFIG_WINDOW_WIDTH = 230;
 
-	private UI ui;
+	private UI ui = new UI();
 	private int window_height = 0;
 
 	private GuiScreen parentScreen;
 	public GuiPotionOptions(EntityPlayer player, GuiScreen parent){
-		this.ui = new UI();
 		this.ui.setLineHeight(23);
 		this.parentScreen = parent;
 	}
