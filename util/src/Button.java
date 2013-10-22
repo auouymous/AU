@@ -71,8 +71,13 @@ public class Button extends GuiButton {
 		}
 	}
 
-	@Override
-	public boolean mousePressed(Minecraft mc, int cursor_x, int cursor_y){
-		return this.enabled && this.drawButton && cursor_x >= this.xPosition && cursor_y >= this.yPosition && cursor_x < this.xPosition + this.width && cursor_y < this.yPosition + this.height;
-	}
+//	@Override
+//	public boolean mousePressed(Minecraft mc, int cursor_x, int cursor_y){
+//		return this.enabled && this.drawButton && cursor_x >= this.xPosition && cursor_y >= this.yPosition && cursor_x < this.xPosition + this.width && cursor_y < this.yPosition + this.height;
+//	}
+
+//	@Override
+//	protected void mouseDragged(Minecraft mc, int cursor_x, int cursor_y){
+//		
+//	}
 }

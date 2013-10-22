@@ -16,12 +16,11 @@ import com.qzx.au.util.Button;
 public class GuiInfoOptions extends GuiScreen {
 	private static int CONFIG_WINDOW_WIDTH = 230;
 
-	private UI ui;
+	private UI ui = new UI();
 	private int window_height = 0;
 
 	private GuiScreen parentScreen;
 	public GuiInfoOptions(EntityPlayer player, GuiScreen parent){
-		this.ui = new UI();
 		this.ui.setLineHeight(23);
 		this.parentScreen = parent;
 	}
@@ -102,7 +101,6 @@ public class GuiInfoOptions extends GuiScreen {
 
 	private GuiButton button_position = null;
 	private GuiButton button_position_eyes = null;
-	private GuiButton button_block_name = null;
 
 	@Override
 	public void initGui(){
@@ -162,7 +160,7 @@ public class GuiInfoOptions extends GuiScreen {
 		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_PARTICLES, "Particles", Cfg.show_particles, 110, 16);
 		this.ui.lineBreak(19);
 
-		this.button_block_name = this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_BLOCK_NAME, "Block/Mob Name", Cfg.show_block_name, 230, 16);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_BLOCK_NAME, "Block/Mob Name", Cfg.show_block_name, 230, 16);
 		this.ui.lineBreak(19);
 
 		this.ui.lineBreak(7);
