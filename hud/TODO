@@ -63,3 +63,6 @@ ARMOR HUD
 POTION HUD
 	- options to change text colors (potion name and duration)
 	- horizontal and vertical layouts
+
+SERVER INFO
+	- pvp status

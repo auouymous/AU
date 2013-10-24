@@ -50,6 +50,8 @@ public class GuiOptions extends GuiScreen {
 	}
 
 	public enum ButtonID {
+		BUTTON_SERVER_INFO,
+
 		BUTTON_INFO_HUD, BUTTON_INFO_HUD_OPTIONS,
 		BUTTON_ARMOR_HUD, BUTTON_ARMOR_HUD_OPTIONS,
 		BUTTON_POTION_HUD, BUTTON_POTION_HUD_OPTIONS,
@@ -87,6 +89,10 @@ public class GuiOptions extends GuiScreen {
 		#endif
 
 		this.drawTitle();
+
+		this.ui.lineBreak(7);
+		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_SERVER_INFO, "Server Info...", 100, 20);
+		this.ui.lineBreak();
 
 		this.ui.lineBreak(7);
 		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_INFO_HUD, "Info HUD", Cfg.enable_info_hud, 180, 20);
@@ -132,8 +138,12 @@ public class GuiOptions extends GuiScreen {
 		case BUTTON_POTION_HUD:				((Button)button).active =  Cfg.enable_potion_hud			= (Cfg.enable_potion_hud			? false : true);	break;
 		case BUTTON_INSPECTOR:				((Button)button).active =  Cfg.show_inspector				= (Cfg.show_inspector				? false : true);	break;
 		case BUTTON_ADVANCED_INSPECTOR:		((Button)button).active =  Cfg.enable_advanced_inspector	= (Cfg.enable_advanced_inspector	? false : true);	break;
+		case BUTTON_SERVER_INFO:
+			// open server info
+			this.mc.displayGuiScreen(new GuiServerInfo(this.player, this));
+			return;
 		case BUTTON_INFO_HUD_OPTIONS:
-			// option info options
+			// open info options
 			this.mc.displayGuiScreen(new GuiInfoOptions(this.player, this));
 			return;
 		case BUTTON_ARMOR_HUD_OPTIONS:
