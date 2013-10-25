@@ -1,3 +1,4 @@
+	- fixed used-inventory to always moved back in 4 seconds
 	- server info in options
 	- changed all on/off option buttons to two colored buttons
 	- advanced inspector option hides some values when turned off (default: off)

@@ -25,8 +25,6 @@ OPTION MENU
 		- connected textures for glass and glass panes (unlikely)
 
 INFO HUD
-	~ FIX: used-inventory animation is too fast on SP
-
 	~ FIX: time is incorrect in mystcraft ages
 
 	- add server side support

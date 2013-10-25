@@ -67,8 +67,9 @@ public class InfoHUD {
 
 	//////////
 
-	private int invItemX = 0;
+	private int invItemCX = 0;
 	private int invItemCount = 0;
+	private long invItemTime = 0;
 
 	//////////
 
@@ -179,14 +180,22 @@ public class InfoHUD {
 				ItemStack[] mainInventory = player.inventory.mainInventory;
 				int nr_items = 0;
 				for(int i = 0; i < 36; i++) if(mainInventory[i] != null) nr_items++;
+
+				long time = System.currentTimeMillis();
 				if(nr_items == 36 && Cfg.animate_used_inventory){
-					if(this.invItemCount != 36)
-						this.invItemX = screen.getScaledWidth()/2 - mc.fontRenderer.getStringWidth(invText+"100%")/2;
+					if(this.invItemCount != 36){
+						this.invItemCX = screen.getScaledWidth()/2 - mc.fontRenderer.getStringWidth(invText+"100%")/2;
+						this.invItemTime = time;
+					}
 				} else
-					this.invItemX = this.ui.base_x;
-				this.ui.x = this.invItemX;
-				if(this.invItemX > this.ui.base_x) this.invItemX--;
-				invItemCount = nr_items;
+					this.invItemCX = this.ui.base_x;
+				if(this.invItemCX > this.ui.base_x){
+					this.ui.x = this.invItemCX - (int)((float)this.invItemCX * ((float)(time - this.invItemTime) / 4000.0F));
+					if(this.ui.x < this.ui.base_x) this.ui.x = this.ui.base_x;
+				} else
+					this.ui.x = this.ui.base_x;
+				this.invItemCount = nr_items;
+
 				this.ui.drawString(invText, 0xaaaaaa);
 				this.ui.drawString(String.format("%d", nr_items*100/36), (nr_items == 36 ? 0xff6666 : (nr_items >= 27 ? 0xffff66 : 0x66ff66)));
 				this.ui.drawString("%", 0xaaaaaa);
