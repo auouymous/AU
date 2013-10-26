@@ -268,6 +268,12 @@ public class InfoHUD {
 							}
 							this.ui.lineBreak();
 
+							// invulnerable
+							if(entity.isEntityInvulnerable()){
+								this.ui.drawString("   is invulnerable", 0xb25bfd);
+								this.ui.lineBreak();
+							}
+
 							// name of armor and item (5 lines)
 							showItemName("helmet", entity.getCurrentArmor(3));
 							showItemName("chest", entity.getCurrentArmor(2));
@@ -420,6 +426,19 @@ public class InfoHUD {
 											this.ui.drawString("   silkable", 0xb25bfd);
 											this.ui.lineBreak();
 										}
+
+										// redstone
+										int isProvidingSide = (mc.objectMouseOver.sideHit == 0 ? 1 : (mc.objectMouseOver.sideHit == 1 ? 0 : mc.objectMouseOver.sideHit));
+										int isProvidingWeakPower = block.isProvidingWeakPower(world, inspectX, inspectY, inspectZ, isProvidingSide);
+										int isProvidingStrongPower = block.isProvidingStrongPower(world, inspectX, inspectY, inspectZ, isProvidingSide);
+										int blockPowerInput = world.getBlockPowerInput(inspectX, inspectY, inspectZ);
+										this.ui.drawString("   in: ", 0xaaaaaa);
+										this.ui.drawString((blockPowerInput > 0 ? String.format("%d", blockPowerInput) : "_"), 0xffffff);
+										this.ui.drawString(" out: ", 0xaaaaaa);
+										this.ui.drawString((isProvidingWeakPower > 0 ? String.format("%d", isProvidingWeakPower) : "_"), 0xffffff);
+										this.ui.drawString(" / ", 0xaaaaaa);
+										this.ui.drawString((isProvidingStrongPower > 0 ? String.format("%d", isProvidingStrongPower) : "_"), 0xffffff);
+										this.ui.lineBreak();
 									}
 
 									if(Cfg.enable_advanced_inspector){

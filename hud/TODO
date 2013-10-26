@@ -27,6 +27,9 @@ OPTION MENU
 INFO HUD
 	~ FIX: time is incorrect in mystcraft ages
 
+	- move TPS from server info to info hud?
+		- could also show tps average for last 10 minutes
+
 	- add server side support
 		- add API for other mods to publish info elements
 			- protection mod can show worldguard region status

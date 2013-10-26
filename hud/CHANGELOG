@@ -1,3 +1,5 @@
+	- show invulnerable status in entity inspector
+	- show redstone input/output levels in block inspector
 	- fixed used-inventory to always moved back in 4 seconds
 	- server info in options
 	- changed all on/off option buttons to two colored buttons

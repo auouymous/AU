@@ -31,6 +31,7 @@ Entity Inspector
 * max health
 * armor value
 * xp dropped when killed
+* is invulnerable
 * name of each armor piece on player or mob
 * name of item held by player or mob
 
@@ -40,6 +41,8 @@ Block Inspector
 * minimum tool required to break block (sword, axe, pick, shovel, shears, scoop)
 * name and ID of dropped item when block is broken
 * silkable
+* in:redstone input level, out:redstone output level weak/strong
+Advanced Block Inspector
 * b:brightness, h:hardness, r:explosion resistance
 * n:normal, o:opaque, s:solid
 * e:has tile entity, r:random ticks, t:tick rate, b:tile entities in block, a:all loaded tile entities
