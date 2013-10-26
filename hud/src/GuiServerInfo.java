@@ -29,6 +29,8 @@ public class GuiServerInfo extends GuiScreen {
 	private static int TPS_TAIL = TPS_QUEUE-1;
 	private float[] tps_queue = new float[TPS_QUEUE];
 	private int tps_tail;
+	private float tps_interval = 1.0F; // seconds
+	private static float MAX_TPS_INTERVAL = 6.0F; // seconds
 
 	private GuiScreen parentScreen;
 	public GuiServerInfo(EntityPlayer player, GuiScreen parent){
@@ -122,12 +124,13 @@ public class GuiServerInfo extends GuiScreen {
 				// world age and TPS
 				long ticks = worldInfo.getWorldTotalTime();
 				long time = System.currentTimeMillis();
-				if(time >= this.time + 1000){
+				if(time >= this.time + (int)(this.tps_interval*1000.0F)){
 					if(this.ticks > 0){
 						if(this.tps_tail == TPS_TAIL)
 							for(int i = 0; i < TPS_TAIL; i++) this.tps_queue[i] = this.tps_queue[i+1];
 						else this.tps_tail++;
-						this.tps_queue[this.tps_tail] = (float)(ticks - this.ticks) / ((float)(time - this.time) / 1000.0F);
+						this.tps_queue[this.tps_tail] = (float)(ticks - this.ticks) / this.tps_interval / ((float)(time - this.time) / (this.tps_interval*1000.0F));
+						if(this.tps_interval < MAX_TPS_INTERVAL) this.tps_interval++;
 					}
 					this.ticks = ticks;
 					this.time = time;
@@ -144,15 +147,16 @@ public class GuiServerInfo extends GuiScreen {
 				if(!mc.isGamePaused){
 					this.ui.drawString("TPS: ", 0xaaaaaa);
 					if(this.ticks > 0 && this.tps_tail > -1){
-						float tps = 0.0F; for(int i = 0; i <= this.tps_tail; i++) tps += tps_queue[i];
-						this.ui.drawString(String.format("%d", (int)Math.round(tps/(float)(this.tps_tail+1))), 0xffffff);
+						float tps = 0.0F; for(int i = 0; i <= this.tps_tail; i++) tps += tps_queue[i]; tps = Math.round(tps/(float)(this.tps_tail+1));
+						this.ui.drawString(String.format("%d", tps >= 0.0F ? (int)tps : 0), (tps >= 15.0F ? 0x66ff66 : (tps > 5.0F ? 0xffff66 : 0xff6666)));
 						this.ui.drawString(" ticks/second", 0xaaaaaa);
 						if(this.tps_tail < TPS_TAIL){
-							this.ui.drawString("   averaging over 10 seconds", 0x880000);
+							this.ui.drawString("   averaging over "+String.format("%d", (int)this.tps_interval*10)+" seconds, at "
+												+String.format("%.1f", this.tps_interval)+" second intervals", 0xaa0000);
 							for(int i = this.tps_tail; i < TPS_TAIL; i++) this.ui.drawString(".", 0xff6666);
 						}
 					} else
-						this.ui.drawString("preparing...", 0x880000);
+						this.ui.drawString("preparing...", 0xaa0000);
 					this.ui.lineBreak();
 
 //					this.ui.drawString("TPS Queue:", 0xaaaaaa);
