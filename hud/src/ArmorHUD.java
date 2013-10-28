@@ -101,11 +101,11 @@ public class ArmorHUD {
 			RenderItem itemRenderer = new RenderItem();
 			itemRenderer.zLevel = 200.0F;
 
-			ItemStack helmet = mc.thePlayer.getCurrentArmor(3);
-			ItemStack chest = mc.thePlayer.getCurrentArmor(2);
-			ItemStack pants = mc.thePlayer.getCurrentArmor(1);
-			ItemStack boots = mc.thePlayer.getCurrentArmor(0);
-			ItemStack hand = mc.thePlayer.getHeldItem();
+			ItemStack helmet = player.getCurrentArmor(3);
+			ItemStack chest = player.getCurrentArmor(2);
+			ItemStack pants = player.getCurrentArmor(1);
+			ItemStack boots = player.getCurrentArmor(0);
+			ItemStack hand = player.getHeldItem();
 			ItemStack ammo = null;
 
 			int width = screen.getScaledWidth();
