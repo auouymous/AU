@@ -24,10 +24,11 @@ Info HUD elements
 * number of used inventory slots, changes color and bounces out when full
 * FPS and chunk updates
 * visible/total entities and particles
-* name of targeted block or entity
+* ticks/second (tps percentage = slowdown factor)
+* name of targeted block or entity (displays item frame contents)
 
 Entity Inspector
-* entity ID
+* entity ID (e:entityID, i:itemFrameID)
 * max health
 * armor value
 * xp dropped when killed

@@ -1,3 +1,5 @@
+	- show contents of item frames
+	- show localized item frame name instead of unlocalized entity name
 	- show TPS in info hud
 	- show invulnerable status in entity inspector
 	- show redstone input/output levels in block inspector

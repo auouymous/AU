@@ -10,6 +10,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -280,14 +281,15 @@ public class InfoHUD {
 					this.ui.drawString(String.format("%d", (int)tps), colors[lag]);
 					this.ui.drawString(" tps (", 0xaaaaaa);
 					this.ui.drawString(String.format("%d%%", (int)tps * 5), colors[lag]);
-					this.ui.drawString(" : ", 0xaaaaaa);
+					this.ui.drawString(" = ", 0xaaaaaa);
 					this.ui.drawString(String.format("%.1fx", 20.0F / (tps > 0.01F ? tps : 0.01F)), colors[lag]);
 					this.ui.drawString(")", 0xaaaaaa);
-//					if(this.tps_tail < TPS_TAIL){
+					if(this.tps_tail < TPS_TAIL){
 //						this.ui.drawString("   averaging over "+String.format("%d", (int)this.tps_interval*10)+" seconds, at "
 //											+String.format("%.1f", this.tps_interval)+" second intervals", 0xaa0000);
-//						for(int i = this.tps_tail; i < TPS_TAIL; i++) this.ui.drawString(".", 0xff6666);
-//					}
+						this.ui.drawString(" ", 0xaaaaaa);
+						for(int i = this.tps_tail; i < TPS_TAIL; i++) this.ui.drawString(".", 0xff6666);
+					}
 				} else
 					this.ui.drawString("preparing TPS...", 0xaa0000);
 				this.ui.lineBreak();
@@ -307,13 +309,38 @@ public class InfoHUD {
 				if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY){
 					try {
 						// name and ID of entity
-						this.ui.drawString(mc.objectMouseOver.entityHit.getEntityName(), 0xffffff);
+						if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
+							ItemStack stackItemFrame = new ItemStack(Item.itemFrame);
+							this.ui.drawString(stackItemFrame.getDisplayName(), 0xffffff);
+						} else
+							this.ui.drawString(mc.objectMouseOver.entityHit.getEntityName(), 0xffffff);
 						if(Cfg.show_inspector){
 							this.ui.drawString(" (", 0xaaaaaa);
+							if(mc.objectMouseOver.entityHit instanceof EntityItemFrame)
+								this.ui.drawString("e:", 0xaaaaaa);
 							this.ui.drawString(String.format("%d", mc.objectMouseOver.entityHit.entityId), 0xffffff);
+							if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
+								this.ui.drawString(" i:", 0xaaaaaa);
+								this.ui.drawString(String.format("%d", Item.itemFrame.itemID), 0xffffff);
+							}
 							this.ui.drawString(")", 0xaaaaaa);
 						}
 						this.ui.lineBreak();
+
+						// name and ID of item in item frame
+						if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
+							ItemStack itemstack = ((EntityItemFrame)mc.objectMouseOver.entityHit).getDisplayedItem();
+							if(itemstack != null){
+								this.ui.drawString("   ", 0xaaaaaa);
+								this.ui.drawString(itemstack.getDisplayName(), 0xffffff);
+								if(Cfg.show_inspector){
+									this.ui.drawString(" (", 0xaaaaaa);
+									this.ui.drawString(String.format("%d", itemstack.getItem().itemID), 0xffffff);
+									this.ui.drawString(")", 0xaaaaaa);
+								}
+								this.ui.lineBreak();
+							}
+						}
 
 						if(Cfg.show_inspector && mc.objectMouseOver.entityHit instanceof EntityLiving){
 							EntityLiving entity = (EntityLiving)mc.objectMouseOver.entityHit;
