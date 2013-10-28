@@ -23,15 +23,6 @@ import com.qzx.au.util.Button;
 public class GuiServerInfo extends GuiScreen {
 	private UI ui = new UI();
 
-	private long ticks;
-	private long time;
-	private static int TPS_QUEUE = 10;
-	private static int TPS_TAIL = TPS_QUEUE-1;
-	private float[] tps_queue = new float[TPS_QUEUE];
-	private int tps_tail;
-	private float tps_interval = 1.0F; // seconds
-	private static float MAX_TPS_INTERVAL = 6.0F; // seconds
-
 	private GuiScreen parentScreen;
 	public GuiServerInfo(EntityPlayer player, GuiScreen parent){
 		this.parentScreen = parent;
@@ -121,48 +112,17 @@ public class GuiServerInfo extends GuiScreen {
 				this.ui.drawString("  commandBlockOutput", (rules.getGameRuleBooleanValue("commandBlockOutput") ? 0x66ff66 : 0xff6666));
 				this.ui.lineBreak();
 
-				// world age and TPS
+				// world age
 				long ticks = worldInfo.getWorldTotalTime();
-				long time = System.currentTimeMillis();
-				if(time >= this.time + (int)(this.tps_interval*1000.0F)){
-					if(this.ticks > 0){
-						if(this.tps_tail == TPS_TAIL)
-							for(int i = 0; i < TPS_TAIL; i++) this.tps_queue[i] = this.tps_queue[i+1];
-						else this.tps_tail++;
-						this.tps_queue[this.tps_tail] = (float)(ticks - this.ticks) / this.tps_interval / ((float)(time - this.time) / (this.tps_interval*1000.0F));
-						if(this.tps_interval < MAX_TPS_INTERVAL) this.tps_interval++;
-					}
-					this.ticks = ticks;
-					this.time = time;
-				}
 				int days = (int)(ticks / (86400*20)); ticks -= days * (86400*20);
 				int hours = (int)ticks / (3600*20); ticks -= hours * (3600*20);
 				int minutes = (int)ticks / (60*20); ticks -= minutes * (60*20);
 				int seconds = (int)ticks / 20;
-				this.ui.drawString("Created: ", 0xaaaaaa);
+				this.ui.drawString("Map Age: ", 0xaaaaaa);
 				this.ui.drawString(String.format("%d days, %d hours, %d minutes, %d seconds", days, hours, minutes, seconds), 0xffffff);
 				if(mc.isGamePaused)
 					this.ui.drawString(" PAUSED", 0x6666ff);
 				this.ui.lineBreak();
-				if(!mc.isGamePaused){
-					this.ui.drawString("TPS: ", 0xaaaaaa);
-					if(this.ticks > 0 && this.tps_tail > -1){
-						float tps = 0.0F; for(int i = 0; i <= this.tps_tail; i++) tps += tps_queue[i]; tps = Math.round(tps/(float)(this.tps_tail+1));
-						this.ui.drawString(String.format("%d", tps >= 0.0F ? (int)tps : 0), (tps >= 15.0F ? 0x66ff66 : (tps > 5.0F ? 0xffff66 : 0xff6666)));
-						this.ui.drawString(" ticks/second", 0xaaaaaa);
-						if(this.tps_tail < TPS_TAIL){
-							this.ui.drawString("   averaging over "+String.format("%d", (int)this.tps_interval*10)+" seconds, at "
-												+String.format("%.1f", this.tps_interval)+" second intervals", 0xaa0000);
-							for(int i = this.tps_tail; i < TPS_TAIL; i++) this.ui.drawString(".", 0xff6666);
-						}
-					} else
-						this.ui.drawString("preparing...", 0xaa0000);
-					this.ui.lineBreak();
-
-//					this.ui.drawString("TPS Queue:", 0xaaaaaa);
-//					for(int i = 0; i <= TPS_TAIL; i++) this.ui.drawString(String.format("  %.2f", this.tps_queue[i]), 0xcccccc);
-//					this.ui.lineBreak();
-				}
 
 				this.ui.lineBreak();
 
@@ -201,10 +161,6 @@ public class GuiServerInfo extends GuiScreen {
 		#else
 		this.buttonList.clear();
 		#endif
-
-		this.ticks = 0;
-		this.time = System.currentTimeMillis();
-		this.tps_tail = -1;
 
 		this.ui.y = this.height - 22;
 		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_DONE, "Done", 100, 20);

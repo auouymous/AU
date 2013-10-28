@@ -73,6 +73,25 @@ public class InfoHUD {
 
 	//////////
 
+	private long ticks;
+	private long time = 0;
+	private static int TPS_QUEUE = 10;
+	private static int TPS_TAIL = TPS_QUEUE-1;
+	private float[] tps_queue;
+	private int tps_tail;
+	private float tps_interval; // seconds
+	private static float MAX_TPS_INTERVAL = 6.0F; // seconds
+
+	private void initTPS(){
+		this.ticks = 0;
+		this.time = System.currentTimeMillis();
+		this.tps_queue = new float[TPS_QUEUE];
+		this.tps_tail = -1;
+		this.tps_interval = 1.0F;
+	}
+
+	//////////
+
 	private int lastBlockID = 0;
 	private int lastBlockMetadata = 0;
 	private class LastDrop {
@@ -100,12 +119,12 @@ public class InfoHUD {
 	public void draw(Minecraft mc, ScaledResolution screen, EntityPlayer player){
 		GL11.glPushMatrix();
 
-		int pos_x = MathHelper.floor_double(mc.thePlayer.posX);
-		int pos_y = MathHelper.floor_double(mc.thePlayer.posY);
-		int pos_z = MathHelper.floor_double(mc.thePlayer.posZ);
-		int feet_y = MathHelper.floor_double(mc.thePlayer.boundingBox.minY);
+		int pos_x = MathHelper.floor_double(player.posX);
+		int pos_y = MathHelper.floor_double(player.posY);
+		int pos_z = MathHelper.floor_double(player.posZ);
+		int feet_y = MathHelper.floor_double(player.boundingBox.minY);
 
-		World world = mc.isIntegratedServerRunning() ? mc.getIntegratedServer().worldServerForDimension(mc.thePlayer.dimension) : mc.theWorld;
+		World world = mc.isIntegratedServerRunning() ? mc.getIntegratedServer().worldServerForDimension(player.dimension) : mc.theWorld;
 		if(world == null) return;
 
 		Chunk chunk = world.getChunkFromBlockCoords(pos_x, pos_z);
@@ -131,14 +150,14 @@ public class InfoHUD {
 
 			// player position
 			if(Cfg.show_position){
-				this.ui.drawString(String.format("%+.1f", mc.thePlayer.posX), 0xffffff);
+				this.ui.drawString(String.format("%+.1f", player.posX), 0xffffff);
 				this.ui.drawString(", ", 0xaaaaaa);
-				this.ui.drawString(String.format("%+.1f", mc.thePlayer.posZ), 0xffffff);
+				this.ui.drawString(String.format("%+.1f", player.posZ), 0xffffff);
 				this.ui.drawString(" f: ", 0xaaaaaa);
-				this.ui.drawString(String.format("%.1f", mc.thePlayer.boundingBox.minY), 0xffffff);
+				this.ui.drawString(String.format("%.1f", player.boundingBox.minY), 0xffffff);
 				if(Cfg.show_position_eyes){
 					this.ui.drawString(" e: ", 0xaaaaaa);
-					this.ui.drawString(String.format("%.1f", mc.thePlayer.posY), 0xffffff);
+					this.ui.drawString(String.format("%.1f", player.posY), 0xffffff);
 				}
 				this.ui.lineBreak();
 			}
@@ -231,6 +250,51 @@ public class InfoHUD {
 					this.ui.drawString(" particles", 0xaaaaaa);
 				}
 				this.ui.lineBreak();
+			}
+
+			// TPS
+			if(Cfg.show_tps && !mc.isGamePaused){
+				long ticks = world.getWorldInfo().getWorldTotalTime();
+				long time = System.currentTimeMillis();
+				if(time >= this.time + 60000 || (this.ticks != 0 && Math.abs(ticks - this.ticks) > 1200)) this.initTPS(); // re-initialize TPS if last update was more than 1 minute ago
+				if(time >= this.time + (int)(this.tps_interval*1000.0F)){
+					if(this.ticks > 0){
+						if(this.tps_tail == TPS_TAIL)
+							for(int i = 0; i < TPS_TAIL; i++) this.tps_queue[i] = this.tps_queue[i+1];
+						else this.tps_tail++;
+						float tps = (float)(ticks - this.ticks) / this.tps_interval / ((float)(time - this.time) / (this.tps_interval*1000.0F));
+						this.tps_queue[this.tps_tail] = (tps > 20.0F ? 20.0F : tps);
+						if(this.tps_interval < MAX_TPS_INTERVAL) this.tps_interval++;
+					}
+					this.ticks = ticks;
+					this.time = time;
+				}
+
+				if(this.ticks > 0 && this.tps_tail > -1){
+					float tps = 0.0F; for(int i = 0; i <= this.tps_tail; i++) tps += tps_queue[i]; tps = Math.round(tps/(float)(this.tps_tail+1));
+					int[] colors = {0x66ff66, 0xb2ff66, 0xffff66, 0xff6666};
+					if(tps > 20.0F) tps = 20.0F;
+					if(tps < 0.0F) tps = 0.0F;
+					int lag = (int)Math.floor((20.0F - (int)tps) / 5.0F);
+					if(lag > 3) lag = 3;
+					this.ui.drawString(String.format("%d", (int)tps), colors[lag]);
+					this.ui.drawString(" tps (", 0xaaaaaa);
+					this.ui.drawString(String.format("%d%%", (int)tps * 5), colors[lag]);
+					this.ui.drawString(" : ", 0xaaaaaa);
+					this.ui.drawString(String.format("%.1fx", 20.0F / (tps > 0.01F ? tps : 0.01F)), colors[lag]);
+					this.ui.drawString(")", 0xaaaaaa);
+//					if(this.tps_tail < TPS_TAIL){
+//						this.ui.drawString("   averaging over "+String.format("%d", (int)this.tps_interval*10)+" seconds, at "
+//											+String.format("%.1f", this.tps_interval)+" second intervals", 0xaa0000);
+//						for(int i = this.tps_tail; i < TPS_TAIL; i++) this.ui.drawString(".", 0xff6666);
+//					}
+				} else
+					this.ui.drawString("preparing TPS...", 0xaa0000);
+				this.ui.lineBreak();
+
+//				this.ui.drawString("TPS Queue:", 0xaaaaaa);
+//				for(int i = 0; i <= TPS_TAIL; i++) this.ui.drawString(String.format("  %.2f", this.tps_queue[i]), 0xcccccc);
+//				this.ui.lineBreak();
 			}
 
 		} catch(Exception e){
@@ -515,7 +579,7 @@ public class InfoHUD {
 		}
 
 		// SELF: armor value inspector
-		if(Cfg.show_inspector && !mc.thePlayer.capabilities.isCreativeMode){
+		if(Cfg.show_inspector && !player.capabilities.isCreativeMode){
 			int armorValue = player.getTotalArmorValue();
 			if(armorValue > 0){
 				this.ui.setCursor(screen.getScaledWidth()/2 - 95, screen.getScaledHeight() - 70);
@@ -525,8 +589,8 @@ public class InfoHUD {
 		}
 
 		// SELF: daamge inspector
-		if(Cfg.show_inspector && !mc.thePlayer.capabilities.isCreativeMode){
-			ItemStack hand = mc.thePlayer.getHeldItem();
+		if(Cfg.show_inspector && !player.capabilities.isCreativeMode){
+			ItemStack hand = player.getHeldItem();
 			Item item = (hand != null ? Item.itemsList[hand.itemID] : null);
 			int damage = (item != null ? item.getDamageVsEntity(null) : 1);
 			this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - 70);
@@ -535,8 +599,8 @@ public class InfoHUD {
 		}
 
 		// SELF: food inspector
-		if(Cfg.show_inspector && !mc.thePlayer.capabilities.isCreativeMode){
-			FoodStats food = mc.thePlayer.getFoodStats();
+		if(Cfg.show_inspector && !player.capabilities.isCreativeMode){
+			FoodStats food = player.getFoodStats();
 			this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - 50);
 			this.ui.drawString("f: ", 0xaaaaaa);
 			this.ui.drawString(String.format("%d%%", 100*food.getFoodLevel()/20), 0xffffff);

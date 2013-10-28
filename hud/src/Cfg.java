@@ -44,6 +44,7 @@ public class Cfg extends Config {
 	public static boolean show_chunk_updates;
 	public static boolean show_entities;
 	public static boolean show_particles;
+	public static boolean show_tps;
 	public static boolean show_block_name;
 
 	public static void init(FMLPreInitializationEvent event){
@@ -81,6 +82,7 @@ public class Cfg extends Config {
 		Cfg.show_chunk_updates = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "chunk-updates", true, null);
 		Cfg.show_entities = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "entities", true, null);
 		Cfg.show_particles = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "particles", true, null);
+		Cfg.show_tps = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "tps", true, null);
 		Cfg.show_block_name = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "block-name", true, null);
 
 		// fix dependent elements
@@ -127,6 +129,7 @@ public class Cfg extends Config {
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "chunk-updates", Cfg.show_chunk_updates);
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "entities", Cfg.show_entities);
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "particles", Cfg.show_particles);
+		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "tps", Cfg.show_tps);
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "block-name", Cfg.show_block_name);
 
 		Cfg.saveConfig();

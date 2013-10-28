@@ -75,6 +75,7 @@ public class GuiInfoOptions extends GuiScreen {
 		BUTTON_USED_INVENTORY, BUTTON_ANIMATE_USED_INVENTORY,
 		BUTTON_FPS, BUTTON_CHUNK_UPDATES,
 		BUTTON_ENTITIES, BUTTON_PARTICLES,
+		BUTTON_TPS,
 		BUTTON_BLOCK_NAME,
 
 		BUTTON_DONE
@@ -160,6 +161,9 @@ public class GuiInfoOptions extends GuiScreen {
 		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_PARTICLES, "Particles", Cfg.show_particles, 110, 16);
 		this.ui.lineBreak(19);
 
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_TPS, "TPS (Server Lag)", Cfg.show_tps, 230, 16);
+		this.ui.lineBreak(19);
+
 		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_BLOCK_NAME, "Block/Mob Name", Cfg.show_block_name, 230, 16);
 		this.ui.lineBreak(19);
 
@@ -196,6 +200,7 @@ public class GuiInfoOptions extends GuiScreen {
 		case BUTTON_CHUNK_UPDATES:				((Button)button).active = Cfg.show_chunk_updates		= (Cfg.show_chunk_updates		? false : true);	break;
 		case BUTTON_ENTITIES:					((Button)button).active = Cfg.show_entities				= (Cfg.show_entities			? false : true);	break;
 		case BUTTON_PARTICLES:					((Button)button).active = Cfg.show_particles			= (Cfg.show_particles			? false : true);	break;
+		case BUTTON_TPS:						((Button)button).active = Cfg.show_tps					= (Cfg.show_tps					? false : true);	break;
 		case BUTTON_BLOCK_NAME:					((Button)button).active = Cfg.show_block_name			= (Cfg.show_block_name			? false : true);	break;
 
 		default:
