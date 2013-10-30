@@ -41,4 +41,4 @@ colorize_blocks vanilla-stonebrick.png colorStoneBrick
 colorize_blocks vanilla-chiseledbrick.png colorChiseledBrick
 colorize_blocks vanilla-gravel.png colorGravel
 colorize_blocks smoothbrick.png colorSmoothBrick
-colorize_blocks flower-top.png colorFlower flower-stem.png
+colorize_blocks flower-top.png colorFlower blocks/flower-stem.xpm

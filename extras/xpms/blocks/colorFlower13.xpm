@@ -2,13 +2,13 @@
 static char *colorFlower13[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 8 1 ",
-"  c #2F1300",
-". c #106300",
-"X c #168700",
-"o c #AE4BB7",
-"O c #B54EBE",
-"+ c #B74FC1",
-"@ c #BE52C8",
+"  c #2F2F13130000",
+". c #101063630000",
+"X c #161687870000",
+"o c #AEAE4B4BB7B7",
+"O c #B5B54E4EBEBE",
+"+ c #B7B74F4FC1C1",
+"@ c #BEBE5252C8C8",
 "# c None",
 /* pixels */
 "################",
