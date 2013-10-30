@@ -14,6 +14,7 @@ function colorize_blocks(){
 		[ "${color}" = "ffffff" ] && C="5f5f5f"
 		echo "$color -- $C"
 		convert tmp.png +level-colors "#${C}","#${color}" blocks/${2}$i.xpm
+		[ "$3" != "" ] && composite blocks/${2}$i.xpm $3 blocks/${2}$i.xpm
 		i=`expr $i + 1`
 	done
 	rm -f tmp.png
@@ -27,13 +28,17 @@ function colorize_blocks(){
 #convert -colors 64 rf_composite.xpm items/cookedFlesh.xpm
 
 # blocks
-rm -f block/colorCobble*
-rm -f block/colorStone*
-rm -f block/colorStoneBrick*
-rm -f block/colorChiseledBrick*
-rm -f block/colorSmoothBrick*
-colorize_blocks cobblestone.png colorCobble
-colorize_blocks stone.png colorStone
-colorize_blocks stonebrick.png colorStoneBrick
-colorize_blocks chiseledbrick.png colorChiseledBrick
+rm -f blocks/colorCobble*
+rm -f blocks/colorStone*
+rm -f blocks/colorStoneBrick*
+rm -f blocks/colorChiseledBrick*
+rm -f blocks/colorGravel*
+rm -f blocks/colorSmoothBrick*
+rm -f blocks/colorFlower*
+colorize_blocks vanilla-cobblestone.png colorCobble
+colorize_blocks vanilla-stone.png colorStone
+colorize_blocks vanilla-stonebrick.png colorStoneBrick
+colorize_blocks vanilla-chiseledbrick.png colorChiseledBrick
+colorize_blocks vanilla-gravel.png colorGravel
 colorize_blocks smoothbrick.png colorSmoothBrick
+colorize_blocks flower-top.png colorFlower flower-stem.png

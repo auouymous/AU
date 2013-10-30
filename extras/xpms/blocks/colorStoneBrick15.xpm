@@ -44,7 +44,7 @@ static char *colorStoneBrick15[] = {
 "s c #D6D6D6",
 "d c #CACACA",
 "f c #BABABA",
-"g c gray100",
+"g c white",
 /* pixels */
 " .XoOo+@@@@#$%&*",
 "o===-===;::-::>,",

@@ -7,7 +7,7 @@ static char *colorStone15[] = {
 "X c #D9D9D9",
 "o c #C0C0C0",
 "O c #CFCFCF",
-"+ c gray100",
+"+ c white",
 /* pixels */
 " .... XXoX .... ",
 "  XXXX...XXXo  .",

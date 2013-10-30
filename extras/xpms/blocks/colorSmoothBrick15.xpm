@@ -44,7 +44,7 @@ static char *colorSmoothBrick15[] = {
 "s c gray75",
 "d c #BCBCBC",
 "f c #BBBBBB",
-"g c gray100",
+"g c white",
 /* pixels */
 " .XoO+@##@$$%&*=",
 "o--;::>,<-1:2>34",

@@ -41,7 +41,7 @@ static char *colorChiseledBrick15[] = {
 "i c #D6D6D6",
 "p c #BCBCBC",
 "a c #BABABA",
-"s c gray100",
+"s c white",
 /* pixels */
 " .XoOo+@@@@#$%&*",
 "o===-;:::;;>>>,<",

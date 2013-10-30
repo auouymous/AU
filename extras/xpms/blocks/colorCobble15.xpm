@@ -81,7 +81,7 @@ static char *colorCobble15[] = {
 "W c #BBBBBB",
 "Q c #B9B9B9",
 "! c #B4B4B4",
-"~ c gray100",
+"~ c white",
 /* pixels */
 " .XoO+@O#$.%&*=o",
 "-XO;:>O,o<1X23++",
