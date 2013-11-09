@@ -47,7 +47,7 @@ public class AUIdmap {
 			file.createNewFile();
 			out = new PrintWriter(new FileWriter(file));
 		} catch(Throwable e){
-			System.out.println("Unable to create file: "+dir+"/"+filename);
+			System.out.println("AU IDMAP: Unable to create file: "+dir+"/"+filename);
 			return;
 		}
 
