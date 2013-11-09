@@ -46,7 +46,7 @@ Block Inspector
 Advanced Block Inspector
 * b:brightness, h:hardness, r:explosion resistance
 * n:normal, o:opaque, s:solid
-* e:has tile entity, r:random ticks, t:tick rate, b:tile entities in block, a:all loaded tile entities
+* e:has tile entity, r:has random ticks, t:has ticking tile entity, b:tile entities in block, a:all loaded tile entities (all ticking tile entities)
 
 Food Inspector
 * f:food level percentage, s:saturation percentage

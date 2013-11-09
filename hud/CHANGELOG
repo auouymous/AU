@@ -1,3 +1,5 @@
+	- "a:" inspector now shows total ticking tile entities in parens
+	- tickRate in inspector was worthless, "t:" now indicates a ticking tile entity
 	- show contents of item frames
 	- show localized item frame name instead of unlocalized entity name
 	- show TPS in info hud

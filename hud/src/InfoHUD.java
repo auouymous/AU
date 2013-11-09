@@ -556,29 +556,27 @@ public class InfoHUD {
 										boolean hasTileEntity = block.hasTileEntity(blockMetadata);
 										TileEntity tileEntity = (hasTileEntity ? world.getBlockTileEntity(inspectX, inspectY, inspectZ) : null);
 										boolean tickRandomly = block.getTickRandomly();
-										int tickRate = 0;
-										if(tileEntity != null){
-											if(tileEntity.canUpdate()){
-												#ifdef MC147
-												tickRate = block.tickRate();
-												#else
-												tickRate = block.tickRate(world);
-												#endif
-											}
-										}
+										boolean tickingEntity = false;
+										if(tileEntity != null)
+											if(tileEntity.canUpdate())
+												tickingEntity = true;
 										this.ui.drawString("   e: ", 0xaaaaaa);
 										this.ui.drawString((hasTileEntity ? "x" : "_"), 0xffffff);
 										this.ui.drawString(" r: ", 0xaaaaaa);
 										this.ui.drawString((tickRandomly ? "x" : "_"), 0xffffff);
 										this.ui.drawString(" t: ", 0xaaaaaa);
-										this.ui.drawString((tickRate > 0 ? String.format("%d", tickRate) : "_"), 0xffffff);
+										this.ui.drawString((tickingEntity ? "x" : "_"), 0xffffff);
 										ArrayList tileEntityList = (ArrayList)world.loadedTileEntityList;
 										int nr_tileEntities = tileEntityList.size();
 										int nr_tileEntitiesAtPos = 0;
+										int nr_tileEntitiesTicking = 0;
 										for(int t = 0; t < nr_tileEntities; t++){
 											TileEntity te = (TileEntity)tileEntityList.get(t);
 											if(te.xCoord == inspectX && te.yCoord == inspectY && te.zCoord == inspectZ)
 												nr_tileEntitiesAtPos++;
+											if(te.canUpdate())
+												nr_tileEntitiesTicking++;
+
 										}
 										if(nr_tileEntitiesAtPos == 0 && hasTileEntity)
 											nr_tileEntitiesAtPos = world.getBlockTileEntity(inspectX, inspectY, inspectZ) == null ? 0 : 1;
@@ -586,6 +584,9 @@ public class InfoHUD {
 										this.ui.drawString((nr_tileEntitiesAtPos > 0 ? String.format("%d", nr_tileEntitiesAtPos) : "_"), 0xffffff);
 										this.ui.drawString(" a: ", 0xaaaaaa);
 										this.ui.drawString((nr_tileEntities > 0 ? String.format("%d", nr_tileEntities) : "_"), 0xffffff);
+										this.ui.drawString(" (", 0xaaaaaa);
+										this.ui.drawString((nr_tileEntitiesTicking > 0 ? String.format("%d", nr_tileEntitiesTicking) : "_"), 0xffffff);
+										this.ui.drawString(")", 0xaaaaaa);
 										this.ui.lineBreak();
 									}
 
