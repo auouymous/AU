@@ -7,10 +7,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 
-import org.lwjgl.opengl.GL11;
-
-import com.qzx.au.util.UI;
 import com.qzx.au.util.Button;
+import com.qzx.au.util.UI;
 
 @SideOnly(Side.CLIENT)
 public class GuiInfoOptions extends GuiScreen {

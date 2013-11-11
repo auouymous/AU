@@ -53,7 +53,7 @@ public class PotionHUD {
 				if(potion.hasStatusIcon()){
 					int icon = potion.getStatusIconIndex();
 					mc.renderEngine.bindTexture("/gui/inventory.png");
-					UI.drawTexturedModalRect(x, y,  0 + icon%8 * 18, 198 + icon/8 * 18, 18, 18, 200.0F);
+					UI.drawTexturedRect(x, y,  0 + icon%8 * 18, 198 + icon/8 * 18, 18, 18, 200.0F);
 				}
 
 				// potion name and remaining duration

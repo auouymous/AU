@@ -3,6 +3,7 @@ package com.qzx.au.util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.Icon;
 
 import org.lwjgl.opengl.GL11;
 
@@ -72,6 +73,20 @@ public class UI {
 
 	public int drawString(String s, int color){
 		return this.drawString(UI.ALIGN_LEFT, s, color, 0);
+	}
+
+	// draw s2 if s1 is null or empty
+	public int drawString(int align, String s1, String s2, int color, int box_width){
+		if(s1 == null)
+			return this.drawString(align, s2, color, box_width);
+		if(s1.equals(""))
+			return this.drawString(align, s2, color, box_width);
+		return this.drawString(align, s1, color, box_width);
+	}
+
+	// draw s2 if s1 is null or empty
+	public int drawString(String s1, String s2, int color){
+		return this.drawString(UI.ALIGN_LEFT, s1, s2, color, 0);
 	}
 
 	//////////
@@ -147,7 +162,7 @@ public class UI {
 		GL11.glDisable(GL11.GL_BLEND);
 	}
 
-	public static void drawTexturedModalRect(int x, int y, int textureX, int textureY, int width, int height, float zLevel){
+	public static void drawTexturedRect(int x, int y, int textureX, int textureY, int width, int height, float zLevel){
 		float f = 0.00390625F;
 		float f1 = 0.00390625F;
 		Tessellator tessellator = Tessellator.instance;
@@ -159,7 +174,29 @@ public class UI {
 		tessellator.draw();
 	}
 
+	public static void drawTexturedRect(int x, int y, Icon icon, int width, int height, float zLevel){
+		Tessellator tessellator = Tessellator.instance;
+		tessellator.startDrawingQuads();
+		tessellator.addVertexWithUV(x + 0,		y + height,	zLevel, icon.getMinU(), icon.getMaxV());
+		tessellator.addVertexWithUV(x + width,	y + height,	zLevel, icon.getMaxU(), icon.getMaxV());
+		tessellator.addVertexWithUV(x + width,	y + 0,		zLevel, icon.getMaxU(), icon.getMinV());
+		tessellator.addVertexWithUV(x + 0,		y + 0,		zLevel, icon.getMinU(), icon.getMinV());
+		tessellator.draw();
+	}
+
 	public static void setColor(int color){
 		GL11.glColor4f((float)(color >> 16 & 255) / 255.0F, (float)(color >> 8 & 255) / 255.0F, (float)(color & 255) / 255.0F, (float)(color >> 24 & 255) / 255.0F);
 	}
+	public static void setColor(float r, float g, float b, float alpha){
+		GL11.glColor4f(r, g, b, alpha);
+	}
+
+/*
+	public static void setLighting(boolean enable){
+		if(enable)
+			GL11.glEnable(GL11.GL_LIGHTING);
+		else
+			GL11.glDisable(GL11.GL_LIGHTING);
+	}
+*/
 }

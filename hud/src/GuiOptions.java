@@ -7,10 +7,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 
-import org.lwjgl.opengl.GL11;
-
-import com.qzx.au.util.UI;
 import com.qzx.au.util.Button;
+import com.qzx.au.util.UI;
 
 @SideOnly(Side.CLIENT)
 public class GuiOptions extends GuiScreen {
@@ -35,12 +33,6 @@ public class GuiOptions extends GuiScreen {
 	public void drawScreen(int x, int y, float f){
 		// draw shadow
 		this.drawDefaultBackground();
-
-		// draw window
-//		int tex = this.mc.renderEngine.getTexture(CONFIG_WINDOW_PNG);
-//		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-//		this.mc.renderEngine.bindTexture(tex);
-//		this.drawTexturedModalRect((this.width - CONFIG_WINDOW_WIDTH)/2, (this.height - CONFIG_WINDOW_HEIGHT)/2, 0, 0, CONFIG_WINDOW_WIDTH, CONFIG_WINDOW_HEIGHT);
 
 		// draw settings title
 		this.drawTitle();
