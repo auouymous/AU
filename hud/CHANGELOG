@@ -1,3 +1,5 @@
+	- IC2 wrench support in inspector
+	- IC2 armor hud support
 	- added shop sign hud
 	- "a:" inspector now shows total ticking tile entities in parens
 	- tickRate in inspector was worthless, "t:" now indicates a ticking tile entity

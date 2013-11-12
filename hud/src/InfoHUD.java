@@ -25,6 +25,8 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.IShearable;
 
+import ic2.api.tile.IWrenchable;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -396,10 +398,18 @@ public class InfoHUD {
 									lastDrops.clear();
 								}
 
+								ItemStack stackBlock = new ItemStack(blockID, 1, blockMetadata);
+								String blockName = null;
+								try {
+									blockName = stackBlock.getDisplayName();
+								} catch(Exception e){
+//									System.out.println("AU HUD: caught exception in block inspector, blockName");
+								}
+
 								// name and ID if block is picked
-								int pickedID = block.idPicked(world, inspectX, inspectY, inspectZ);
+								int pickedID = block.idPicked(world, inspectX, inspectY, inspectZ), pickedMetadata = 0;
 								if(pickedID > 0){
-									int pickedMetadata = block.getDamageValue(world, inspectX, inspectY, inspectZ);
+									pickedMetadata = block.getDamageValue(world, inspectX, inspectY, inspectZ);
 									ItemStack stackPicked = new ItemStack(pickedID, 1, pickedMetadata);
 									String pickedName = null;
 									try {
@@ -435,8 +445,17 @@ public class InfoHUD {
 									this.ui.drawString(")", 0xaaaaaa);
 								}
 								this.ui.lineBreak();
+								if(blockName != null && (blockID != pickedID || blockMetadata != pickedMetadata))
+									if(!blockName.equals("") && blockName.length() < 40){ // gregtech machines return an error message
+										this.ui.drawString("   ", 0xaaaaaa);
+										this.ui.drawString(blockName, 0xffffff);
+										this.ui.lineBreak();
+									}
 
 								if(Cfg.show_inspector){
+
+									boolean hasTileEntity = block.hasTileEntity(blockMetadata);
+									TileEntity tileEntity = (hasTileEntity ? world.getBlockTileEntity(inspectX, inspectY, inspectZ) : null);
 
 									// creative tab name
 									CreativeTabs tab = block.getCreativeTabToDisplayOn();
@@ -456,8 +475,12 @@ public class InfoHUD {
 									int shovelLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "shovel");
 									int scoopLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "scoop"); // TC
 									boolean shearable = block instanceof IShearable;
+									boolean ic2_wrenchable = false;
+									if(AUHud.supportIC2)
+										if(tileEntity instanceof IWrenchable)
+											ic2_wrenchable = true;
 										// TC grafter
-									if(swordLevel != -1 || axeLevel != -1 || pickaxeLevel != -1 || shovelLevel != -1 || scoopLevel != -1 || shearable){
+									if(swordLevel != -1 || axeLevel != -1 || pickaxeLevel != -1 || shovelLevel != -1 || scoopLevel != -1 || shearable || ic2_wrenchable){
 										this.ui.drawString("   use ", 0xaaaaaa);
 										if(swordLevel != -1) this.showTool("Sword", swordLevel);
 										if(axeLevel != -1) this.showTool("Axe", axeLevel);
@@ -465,6 +488,7 @@ public class InfoHUD {
 										if(shovelLevel != -1) this.showTool("Shovel", shovelLevel);
 										if(scoopLevel != -1) this.showTool("Scoop");
 										if(shearable) this.showTool("Shears");
+										if(ic2_wrenchable) this.showTool("IC2 Wrench");
 										this.ui.lineBreak();
 									}
 
@@ -546,8 +570,6 @@ public class InfoHUD {
 
 									if(Cfg.enable_advanced_inspector){
 										// has tile entity, tick rate, random ticks
-										boolean hasTileEntity = block.hasTileEntity(blockMetadata);
-										TileEntity tileEntity = (hasTileEntity ? world.getBlockTileEntity(inspectX, inspectY, inspectZ) : null);
 										boolean tickRandomly = block.getTickRandomly();
 										boolean tickingEntity = false;
 										if(tileEntity != null)

@@ -1,5 +1,6 @@
 package com.qzx.au.hud;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -17,6 +18,8 @@ public class AUHud {
 	@Instance("AUHud")
 	public static AUHud instance;
 
+	public static boolean supportIC2 = false;
+
 	@SidedProxy(clientSide="com.qzx.au.hud.ClientProxy", serverSide="com.qzx.au.hud.CommonProxy")
 	public static CommonProxy proxy;
 
@@ -32,5 +35,7 @@ public class AUHud {
 	}
 
 	@PostInit
-	public void postInit(FMLPostInitializationEvent event){}
+	public void postInit(FMLPostInitializationEvent event){
+		AUHud.supportIC2 = Loader.isModLoaded("IC2");
+	}
 }

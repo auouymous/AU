@@ -12,6 +12,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 
+import ic2.api.item.ElectricItem;
+import ic2.api.item.IElectricItem;
+
 import org.lwjgl.opengl.GL11;
 
 import com.qzx.au.util.UI;
@@ -23,6 +26,21 @@ public class ArmorHUD {
 	public ArmorHUD(){}
 
 	//////////
+
+	private int getDurability(ItemStack itemstack, int max_durability){
+		Item item = itemstack.getItem();
+		if(AUHud.supportIC2)
+			if(item instanceof IElectricItem)
+				return ElectricItem.manager.getCharge(itemstack);
+		return max_durability - itemstack.getItemDamage();
+	}
+	private int getMaxDurability(ItemStack itemstack){
+		Item item = itemstack.getItem();
+		if(AUHud.supportIC2)
+			if(item instanceof IElectricItem)
+				return ((IElectricItem)item).getMaxCharge(itemstack);
+		return itemstack.getMaxDamage();
+	}
 
 	private void drawItemStack(Minecraft mc, RenderItem itemRenderer, ItemStack itemstack, int x, int y, int quantity, boolean force_quantity){
 		if(itemstack == null) return;
@@ -50,8 +68,8 @@ public class ArmorHUD {
 			if(itemstack.isItemStackDamageable()){
 				if(force_quantity || quantity > 1) this.ui.y -= 4;
 
-				int max_durability = itemstack.getMaxDamage();
-				int durability = max_durability - itemstack.getItemDamage();
+				int max_durability = this.getMaxDurability(itemstack);
+				int durability = this.getDurability(itemstack, max_durability);
 				int percent = (int)Math.round(100.0 * (float)durability / (float)max_durability);
 				int color = (percent > 50 ? 0xaaaaaa : (percent < 25 ? 0xff6666 : 0xffff66));
 				if(durability_style == Cfg.HUD_DURABILITY_VALUE){

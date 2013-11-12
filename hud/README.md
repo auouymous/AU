@@ -40,7 +40,7 @@ Entity Inspector
 Block Inspector
 * block ID (c:picked and b:placed)
 * creative tab
-* minimum tool required to break block (sword, axe, pick, shovel, shears, scoop)
+* minimum tool required to break block (sword, axe, pick, shovel, shears, scoop, IC2 wrench)
 * name and ID of dropped item when block is broken
 * silkable
 * in:redstone input level, out:redstone output level weak/strong
@@ -56,7 +56,7 @@ Armor Inspector
 * shows your armor value
 
 Damage Inspector
-* shows damage dealt but the item you are holding
+* shows damage dealt by the item you are holding
 * does not factor in the random multiplier for enchants
 * some weapons don't report correct damage
 
@@ -66,6 +66,7 @@ Armor HUD
 * always switches to durability/max_durability when info inspector is active
 * shows total quantity of held item in inventory
 * shows quantity of arrows if bow is held item
+* supports IC2 armors and tools
 
 Potion HUD
 * icons for all active potion effects
