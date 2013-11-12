@@ -1,0 +1,25 @@
+/* XPM */
+static char *cauldron_bottom[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 3 1 ",
+"  c #2C2C2C",
+". c #2D2D2D",
+"X c None",
+/* pixels */
+"    XXXXXXXX   .",
+"    XXXXXXXX  ..",
+". XXXXXXXXXXXX..",
+". XXXXXXXXXXXX..",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"XXXXXXXXXXXXXXXX",
+"  XXXXXXXXXXXX .",
+"  XXXXXXXXXXXX..",
+"....XXXXXXXX....",
+"....XXXXXXXX...."
+};
