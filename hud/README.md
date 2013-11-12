@@ -12,7 +12,8 @@ Required: -
 
 'H' key opens HUD options menu.
 'I' key toggles inspector.
-Both keys are configurable in the Controls menu.
+'Z' key zooms
+All keys are configurable in the Controls menu.
 
 Info HUD elements
 * dimension
@@ -58,6 +59,29 @@ Damage Inspector
 * shows damage dealt but the item you are holding
 * does not factor in the random multiplier for enchants
 * some weapons don't report correct damage
+
+Armor HUD
+* icons for all four armor pieces and held item
+* durability bar over item, durability percentage or durability/max_durability
+* always switches to durability/max_durability when info inspector is active
+* shows total quantity of held item in inventory
+* shows quantity of arrows if bow is held item
+
+Potion HUD
+* icons for all active potion effects
+* shows effect name and duration
+
+Shop Signs HUD
+* appears around cursor when targeting a chest shop sign
+* colored buy/sell price and per unit price if more than one
+* displays item name and icon when sign only shows the ID
+
+Server Info
+* server name, address, version, gamemode and motd
+* difficulty and hardcore flag
+* game rules
+* map age
+* spawn or player's home coordinates
 
 ***
 

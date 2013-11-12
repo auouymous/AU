@@ -65,5 +65,9 @@ POTION HUD
 	- options to change text colors (potion name and duration)
 	- horizontal and vertical layouts
 
+SHOP SIGNS HUD
+	- query itemID when only its name is on the sign (to show icon)
+	- support essentials [buy] and [sell] signs
+
 SERVER INFO
 	- pvp status

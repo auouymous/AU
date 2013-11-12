@@ -26,6 +26,8 @@ public class Cfg extends Config {
 	public static int potion_hud_y;
 	public static int potion_hud_corner;
 
+	public static boolean enable_shop_signs_hud;
+
 	public static boolean show_inspector = false; // always default to off
 
 	private static final String CATEGORY_ELEMENTS = "show-elements";
@@ -68,7 +70,9 @@ public class Cfg extends Config {
 		Cfg.potion_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "potion-hud-y", 2, null);
 		Cfg.potion_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "potion-hud-corner", "BottomLeft", null));
 
-		// info hud
+		Cfg.enable_shop_signs_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-shop-signs-hud", true, null);
+
+		// info hud elements
 		Cfg.show_world = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "world", true, null);
 		Cfg.show_biome = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "biome", true, null);
 		Cfg.show_position = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "position", true, null);
@@ -115,7 +119,9 @@ public class Cfg extends Config {
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "potion-hud-y", Cfg.potion_hud_y);
 		Cfg.setString(Cfg.CATEGORY_GENERAL, "potion-hud-corner", Cfg.getCornerName(Cfg.potion_hud_corner));
 
-		// info hud
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-shop-signs-hud", Cfg.enable_shop_signs_hud);
+
+		// info hud elements
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "world", Cfg.show_world);
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "biome", Cfg.show_biome);
 		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "position", Cfg.show_position);
