@@ -108,7 +108,11 @@ public class ShopSignsHUD {
 													RenderHelper.enableGUIStandardItemLighting();
 													try {
 														itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, centerX-8, centerY-(offset+19));
+														#ifdef MC147
+														itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, centerX-8, centerY-(offset+19));
+														#else
 														itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, centerX-8, centerY-(offset+19), null);
+														#endif
 													} catch(Exception e){
 //														System.out.println("AU HUD: caught exception in shop signs");
 													}

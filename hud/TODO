@@ -1,5 +1,6 @@
 - port to 1.6.2/1.6.4
 - port to 1.7.2
+- find IC2 API source for 1.4.7 and add support
 
 OPTION MENU
 	~ shift or right clicking position buttons to increment/decrement by 10
@@ -30,8 +31,7 @@ OPTION MENU
 INFO HUD
 	~ FIX: time is incorrect in mystcraft ages
 
-	- move TPS from server info to info hud?
-		- could also show tps average for last 10 minutes
+	- display player name in inspector when looking at heads
 
 	- add server side support
 		- add API for other mods to publish info elements

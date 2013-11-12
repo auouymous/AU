@@ -12,7 +12,7 @@ Required: -
 
 'H' key opens HUD options menu.
 'I' key toggles inspector.
-'Z' key zooms
+<none> key zooms player view.
 All keys are configurable in the Controls menu.
 
 Info HUD elements
@@ -40,10 +40,10 @@ Entity Inspector
 Block Inspector
 * block ID (c:picked and b:placed)
 * creative tab
-* minimum tool required to break block (sword, axe, pick, shovel, shears, scoop, IC2 wrench)
+* minimum tool required to break block (sword, axe, pick, shovel, shears, scoop, IC2 wrench [1.5.2+])
 * name and ID of dropped item when block is broken
 * silkable
-* in:redstone input level, out:redstone output level weak/strong
+* in:redstone input level, out:redstone output level weak/strong [1.4.7 only shows on or off]
 Advanced Block Inspector
 * b:brightness, h:hardness, r:explosion resistance
 * n:normal, o:opaque, s:solid
@@ -66,7 +66,7 @@ Armor HUD
 * always switches to durability/max_durability when info inspector is active
 * shows total quantity of held item in inventory
 * shows quantity of arrows if bow is held item
-* supports IC2 armors and tools
+* supports IC2 armors and tools [1.5.2+]
 
 Potion HUD
 * icons for all active potion effects

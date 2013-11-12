@@ -12,8 +12,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 
+#ifndef MC147
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
+#endif
 
 import org.lwjgl.opengl.GL11;
 
@@ -29,16 +31,20 @@ public class ArmorHUD {
 
 	private int getDurability(ItemStack itemstack, int max_durability){
 		Item item = itemstack.getItem();
+#ifndef MC147
 		if(AUHud.supportIC2)
 			if(item instanceof IElectricItem)
 				return ElectricItem.manager.getCharge(itemstack);
+#endif
 		return max_durability - itemstack.getItemDamage();
 	}
 	private int getMaxDurability(ItemStack itemstack){
 		Item item = itemstack.getItem();
+#ifndef MC147
 		if(AUHud.supportIC2)
 			if(item instanceof IElectricItem)
 				return ((IElectricItem)item).getMaxCharge(itemstack);
+#endif
 		return itemstack.getMaxDamage();
 	}
 
@@ -57,7 +63,11 @@ public class ArmorHUD {
 
 		// durability bar/value/percent
 		if(durability_style == Cfg.HUD_DURABILITY_BAR){
+			#ifdef MC147
+			itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y);
+			#else
 			itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y, (quantity > 1 ? "" : null));
+			#endif
 
 			RenderHelper.disableStandardItemLighting();
 			GL11.glDisable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT

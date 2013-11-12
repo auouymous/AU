@@ -25,7 +25,9 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.IShearable;
 
+#ifndef MC147
 import ic2.api.tile.IWrenchable;
+#endif
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -408,6 +410,7 @@ public class InfoHUD {
 
 								// name and ID if block is picked
 								int pickedID = block.idPicked(world, inspectX, inspectY, inspectZ), pickedMetadata = 0;
+								boolean pickedSameAsBlock = false;
 								if(pickedID > 0){
 									pickedMetadata = block.getDamageValue(world, inspectX, inspectY, inspectZ);
 									ItemStack stackPicked = new ItemStack(pickedID, 1, pickedMetadata);
@@ -417,6 +420,9 @@ public class InfoHUD {
 									} catch(Exception e){
 //										System.out.println("AU HUD: caught exception in block inspector, pickedName");
 									}
+									if(blockName != null && pickedName != null)
+										if(blockName.equals(pickedName))
+											pickedSameAsBlock = true;
 									this.ui.drawString(pickedName, "<Unknown Block>", 0xffffff);
 
 									if(Cfg.show_inspector){
@@ -445,8 +451,8 @@ public class InfoHUD {
 									this.ui.drawString(")", 0xaaaaaa);
 								}
 								this.ui.lineBreak();
-								if(blockName != null && (blockID != pickedID || blockMetadata != pickedMetadata))
-									if(!blockName.equals("") && blockName.length() < 40){ // gregtech machines return an error message
+								if(!pickedSameAsBlock && blockName != null && (blockID != pickedID || blockMetadata != pickedMetadata))
+									if(!blockName.equals("")){
 										this.ui.drawString("   ", 0xaaaaaa);
 										this.ui.drawString(blockName, 0xffffff);
 										this.ui.lineBreak();
@@ -474,12 +480,14 @@ public class InfoHUD {
 									int pickaxeLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "pickaxe");
 									int shovelLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "shovel");
 									int scoopLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "scoop"); // TC
+// TODO: thaumcraft grafter
 									boolean shearable = block instanceof IShearable;
 									boolean ic2_wrenchable = false;
+#ifndef MC147
 									if(AUHud.supportIC2)
 										if(tileEntity instanceof IWrenchable)
 											ic2_wrenchable = true;
-										// TC grafter
+#endif
 									if(swordLevel != -1 || axeLevel != -1 || pickaxeLevel != -1 || shovelLevel != -1 || scoopLevel != -1 || shearable || ic2_wrenchable){
 										this.ui.drawString("   use ", 0xaaaaaa);
 										if(swordLevel != -1) this.showTool("Sword", swordLevel);
@@ -542,15 +550,21 @@ public class InfoHUD {
 
 										// redstone
 										int isProvidingSide = (mc.objectMouseOver.sideHit == 0 ? 1 : (mc.objectMouseOver.sideHit == 1 ? 0 : mc.objectMouseOver.sideHit));
+										#ifdef MC147
+										int isProvidingWeakPower = (block.isProvidingWeakPower(world, inspectX, inspectY, inspectZ, isProvidingSide) ? -1 : 0);
+										int isProvidingStrongPower = (block.isProvidingStrongPower(world, inspectX, inspectY, inspectZ, isProvidingSide) ? -1 : 0);
+										int blockPowerInput = (world.isBlockGettingPowered(inspectX, inspectY, inspectZ) ? -1 : 0);
+										#else
 										int isProvidingWeakPower = block.isProvidingWeakPower(world, inspectX, inspectY, inspectZ, isProvidingSide);
 										int isProvidingStrongPower = block.isProvidingStrongPower(world, inspectX, inspectY, inspectZ, isProvidingSide);
 										int blockPowerInput = world.getBlockPowerInput(inspectX, inspectY, inspectZ);
+										#endif
 										this.ui.drawString("   in: ", 0xaaaaaa);
-										this.ui.drawString((blockPowerInput > 0 ? String.format("%d", blockPowerInput) : "_"), 0xffffff);
+										this.ui.drawString((blockPowerInput > 0 ? String.format("%d", blockPowerInput) : (blockPowerInput == -1 ? "x" : "_")), 0xffffff);
 										this.ui.drawString(" out: ", 0xaaaaaa);
-										this.ui.drawString((isProvidingWeakPower > 0 ? String.format("%d", isProvidingWeakPower) : "_"), 0xffffff);
+										this.ui.drawString((isProvidingWeakPower > 0 ? String.format("%d", isProvidingWeakPower) : (isProvidingWeakPower == -1 ? "x" : "_")), 0xffffff);
 										this.ui.drawString(" / ", 0xaaaaaa);
-										this.ui.drawString((isProvidingStrongPower > 0 ? String.format("%d", isProvidingStrongPower) : "_"), 0xffffff);
+										this.ui.drawString((isProvidingStrongPower > 0 ? String.format("%d", isProvidingStrongPower) : (isProvidingStrongPower == -1 ? "x" : "_")), 0xffffff);
 										this.ui.lineBreak();
 									}
 

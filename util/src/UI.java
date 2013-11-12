@@ -3,7 +3,9 @@ package com.qzx.au.util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.Tessellator;
+#ifndef MC147
 import net.minecraft.util.Icon;
+#endif
 
 import org.lwjgl.opengl.GL11;
 
@@ -174,6 +176,8 @@ public class UI {
 		tessellator.draw();
 	}
 
+	// no support for 147
+	#ifndef MC147
 	public static void drawTexturedRect(int x, int y, Icon icon, int width, int height, float zLevel){
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
@@ -183,6 +187,8 @@ public class UI {
 		tessellator.addVertexWithUV(x + 0,		y + 0,		zLevel, icon.getMinU(), icon.getMinV());
 		tessellator.draw();
 	}
+	#endif
+	// no support for 147
 
 	public static void setColor(int color){
 		GL11.glColor4f((float)(color >> 16 & 255) / 255.0F, (float)(color >> 8 & 255) / 255.0F, (float)(color & 255) / 255.0F, (float)(color >> 24 & 255) / 255.0F);
