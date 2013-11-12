@@ -6,8 +6,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 
-import org.lwjgl.opengl.GL11;
-
 @SideOnly(Side.CLIENT)
 public class Button extends GuiButton {
 	// width, height, xPosition, yPosition, displayString, enabled, drawButton
@@ -34,7 +32,7 @@ public class Button extends GuiButton {
 		if(this.style == Button.DEFAULT_STYLE){
 			super.drawButton(mc, cursor_x, cursor_y);
 		} else if(this.drawButton){
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			UI.setColor(1.0F, 1.0F, 1.0F, 1.0F);
 
 			this.field_82253_i = cursor_x >= this.xPosition && cursor_y >= this.yPosition && cursor_x < this.xPosition + this.width && cursor_y < this.yPosition + this.height;
 

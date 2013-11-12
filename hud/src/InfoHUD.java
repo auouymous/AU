@@ -5,7 +5,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-//import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,7 +17,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -409,12 +407,7 @@ public class InfoHUD {
 									} catch(Exception e){
 //										System.out.println("AU HUD: caught exception in block inspector, pickedName");
 									}
-									if(pickedName == null)
-										this.ui.drawString("<Unknown Block>", 0xffffff);
-									else if(pickedName.equals(""))
-										this.ui.drawString("<Unknown Block>", 0xffffff);
-									else
-										this.ui.drawString(pickedName, 0xffffff);
+									this.ui.drawString(pickedName, "<Unknown Block>", 0xffffff);
 
 									if(Cfg.show_inspector){
 										if(blockID == pickedID && blockMetadata == pickedMetadata){
