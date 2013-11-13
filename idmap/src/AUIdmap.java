@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-@Mod(modid="AUIdmap", name="Altered Unification ID Map", version="20130817-r1")
+@Mod(modid="AUIdmap", name="Altered Unification ID Map", version="0.0.0")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class AUIdmap {
 	@Instance("AUIdmap")

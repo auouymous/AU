@@ -13,6 +13,13 @@ prepare:
 	@(cd src; for j in *.java; do cpp -E -P -DMC$(VER) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done)
 	@(cd src; for d in *; do if [ -d "$$d" ]; then mkdir $(SRC)/com/qzx/au/$(MOD)/$$d; for j in $$d/*.java; do cpp -E -P -DMC$(VER) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done; fi; done)
 
+ifneq ($(MOD),util)
+	@(cp _mcmod.info mcmod.info)
+	@(sed -E -i "s:, version=\"0.0.0\"\):, version=\"$(NOW)\"\):" $(SRC)/com/qzx/au/$(MOD)/$(AUMOD).java)
+	@(sed -E -i "s:\"version\"\: \"0.0.0\":\"version\"\: \"$(NOW)\":" mcmod.info)
+	@(sed -E -i "s:\"mcversion\"\: \"0.0.0\":\"mcversion\"\: \"$(DOTVER)\":" mcmod.info)
+endif
+
 clean:
 	rm -f au_$(MOD)-*.zip *.class
-	rm -rf com mods
+	rm -rf mcmod.info com mods

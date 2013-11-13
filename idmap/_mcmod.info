@@ -1,10 +1,10 @@
 [
 {
-  "modid": "AUHud",
-  "name": "Altered Unification HUD",
+  "modid": "AUIdMap",
+  "name": "Altered Unification ID Map",
   "description": "",
-  "version": "20130817-r1",
-  "mcversion": "1.4.7",
+  "version": "0.0.0",
+  "mcversion": "0.0.0",
   "url": "http://au.qzx.com",
   "updateUrl": "",
   "authors": [ "auouymous" ],

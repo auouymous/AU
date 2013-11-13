@@ -12,7 +12,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid="AUHud", name="Altered Unification HUD", version="20130817-r1")
+@Mod(modid="AUHud", name="Altered Unification HUD", version="0.0.0")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
 public class AUHud {
 	@Instance("AUHud")

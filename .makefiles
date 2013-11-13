@@ -1,28 +1,37 @@
 ifeq ($(v),147)
-	VER = 147
-	BASE = /home/mcdev/forge-1.4.7/mcp
+	VER := 147
+	DOTVER := 1.4.7
+	BASE := /home/mcdev/forge-1.4.7/mcp
 else ifeq ($(v),152)
-	VER = 152
-	BASE = /home/mcdev/forge-1.5.2/mcp
+	VER := 152
+	DOTVER := 1.5.2
+	BASE := /home/mcdev/forge-1.5.2/mcp
+else ifeq ($(v),164)
+	VER := 164
+	DOTVER := 1.6.4
+	BASE := /home/mcdev/forge-1.6.4/mcp
 else
-$(error No version specified, call with v=147|152)
+$(error No version specified, call with v=147|152|164)
 endif
 
-SRC = $(BASE)/src/minecraft
-LIB = $(BASE)/lib
-BIN = $(BASE)/jars/bin
-CPCOMMON = $(SRC)/:$(BIN)/jinput.jar:$(BIN)/lwjgl_util.jar:$(BIN)/lwjgl.jar:$(BIN)/minecraft.jar
+SRC := $(BASE)/src/minecraft
+LIB := $(BASE)/lib
+BIN := $(BASE)/jars/bin
+CPCOMMON := $(SRC)/:$(BIN)/jinput.jar:$(BIN)/lwjgl_util.jar:$(BIN)/lwjgl.jar:$(BIN)/minecraft.jar
 ifeq ($(VER),147)
-	CP = $(LIB)/argo-2.25.jar:$(LIB)/bcprov-jdk15on-147.jar:$(LIB)/asm-all-4.0.jar:$(LIB)/asm-all-4.0-source.jar:$(LIB)/guava-12.0.1.jar:$(LIB)/guava-12.0.1-sources.jar
+	CP := $(LIB)/argo-2.25.jar:$(LIB)/bcprov-jdk15on-147.jar:$(LIB)/asm-all-4.0.jar:$(LIB)/asm-all-4.0-source.jar:$(LIB)/guava-12.0.1.jar:$(LIB)/guava-12.0.1-sources.jar
 else
-	CP = $(LIB)/argo-3.2-src.jar:$(LIB)/bcprov-debug-jdk15on-148.jar:$(LIB)/bcprov-jdk15on-148-src.zip:$(LIB)/asm-debug-all-4.1.jar:$(LIB)/asm-4.1.tar.gz:$(LIB)/guava-14.0-rc3.jar:$(LIB)/guava-14.0-rc3-sources.jar
+	CP := $(LIB)/argo-3.2-src.jar:$(LIB)/bcprov-debug-jdk15on-148.jar:$(LIB)/bcprov-jdk15on-148-src.zip:$(LIB)/asm-debug-all-4.1.jar:$(LIB)/asm-4.1.tar.gz:$(LIB)/guava-14.0-rc3.jar:$(LIB)/guava-14.0-rc3-sources.jar
 #	:$(LIB)/ForgeMultipart-dev-1.5.2-1.0.0.114.jar
 endif
 export CLASSPATH=$(CPCOMMON):$(CP)
 
-REOBF = $(BASE)/reobf/minecraft
+REOBF := $(BASE)/reobf/minecraft
 
-P = $(PWD)
+P := $(PWD)
 
-JC = javac -encoding UTF-8
-JFLAGS = -Xlint:deprecation
+JC := javac -encoding UTF-8
+JFLAGS := -Xlint:deprecation
+
+NOW := $(shell /bin/date +%Y)$(shell /bin/date +%m)$(shell /bin/date +%d)-$(shell /bin/date +%H)$(shell /bin/date +%M)
+AUMOD := $(shell export m=$(MOD) ; echo AU$${m^})
