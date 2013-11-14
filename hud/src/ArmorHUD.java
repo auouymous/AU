@@ -12,7 +12,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 
-#ifndef MC147
+#ifdef MC147
+import ic2.api.ElectricItem;
+import ic2.api.IElectricItem;
+#else
 import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 #endif
@@ -31,20 +34,24 @@ public class ArmorHUD {
 
 	private int getDurability(ItemStack itemstack, int max_durability){
 		Item item = itemstack.getItem();
-#ifndef MC147
 		if(AUHud.supportIC2)
 			if(item instanceof IElectricItem)
+				#ifdef MC147
+				return (int)Math.round((float)max_durability * (float)(itemstack.getMaxDamage()-itemstack.getItemDamage())/26.0F);
+				#else
 				return ElectricItem.manager.getCharge(itemstack);
-#endif
+				#endif
 		return max_durability - itemstack.getItemDamage();
 	}
 	private int getMaxDurability(ItemStack itemstack){
 		Item item = itemstack.getItem();
-#ifndef MC147
 		if(AUHud.supportIC2)
 			if(item instanceof IElectricItem)
+				#ifdef MC147
+				return ((IElectricItem)item).getMaxCharge();
+				#else
 				return ((IElectricItem)item).getMaxCharge(itemstack);
-#endif
+				#endif
 		return itemstack.getMaxDamage();
 	}
 

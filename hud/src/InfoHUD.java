@@ -25,7 +25,9 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.IShearable;
 
-#ifndef MC147
+#ifdef MC147
+import ic2.api.IWrenchable;
+#else
 import ic2.api.tile.IWrenchable;
 #endif
 
@@ -483,11 +485,9 @@ public class InfoHUD {
 // TODO: thaumcraft grafter
 									boolean shearable = block instanceof IShearable;
 									boolean ic2_wrenchable = false;
-#ifndef MC147
 									if(AUHud.supportIC2)
 										if(tileEntity instanceof IWrenchable)
 											ic2_wrenchable = true;
-#endif
 									if(swordLevel != -1 || axeLevel != -1 || pickaxeLevel != -1 || shovelLevel != -1 || scoopLevel != -1 || shearable || ic2_wrenchable){
 										this.ui.drawString("   use ", 0xaaaaaa);
 										if(swordLevel != -1) this.showTool("Sword", swordLevel);
