@@ -52,11 +52,7 @@ public class PotionHUD {
 				// potion icon
 				if(potion.hasStatusIcon()){
 					int icon = potion.getStatusIconIndex();
-					#ifdef MC147
-					mc.renderEngine.bindTexture(mc.renderEngine.getTexture("/gui/inventory.png"));
-					#else
-					mc.renderEngine.bindTexture("/gui/inventory.png");
-					#endif
+					UI.bindTexture(mc, "/gui/inventory.png");
 					UI.drawTexturedRect(x, y,  0 + icon%8 * 18, 198 + icon/8 * 18, 18, 18, 200.0F);
 				}
 

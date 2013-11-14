@@ -40,8 +40,7 @@ public class Button extends GuiButton {
 
 //			if(this.style == Button.DEFAULT_STYLE){
 //				int h = this.getHoverState(this.field_82253_i); // 0:disabled, 1:normal, 2:hover
-//				mc.renderEngine.bindTexture(mc.renderEngine.getTexture("/gui/gui.png")); // 1.4.7
-//				mc.renderEngine.bindTexture("/gui/gui.png"); // 1.5.2+
+//				UI.bindTexture(mc, "/gui/gui.png");
 //				this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 46 + h * 20, this.width / 2, this.height);
 //				this.drawTexturedModalRect(this.xPosition + this.width / 2, this.yPosition, 200 - this.width / 2, 46 + h * 20, this.width / 2, this.height);
 

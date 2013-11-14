@@ -176,6 +176,14 @@ public class UI {
 		tessellator.draw();
 	}
 
+	public static void bindTexture(Minecraft mc, String filename){
+		#ifdef MC147
+		mc.renderEngine.bindTexture(mc.renderEngine.getTexture(filename));
+		#else
+		mc.renderEngine.bindTexture(filename);
+		#endif
+	}
+
 	// no support for 147
 	#ifndef MC147
 	public static void drawTexturedRect(int x, int y, Icon icon, int width, int height, float zLevel){
