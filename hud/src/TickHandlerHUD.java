@@ -8,9 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.entity.player.EntityPlayer;
 
-import java.lang.reflect.Field;
 import java.util.EnumSet;
 
 @SideOnly(Side.CLIENT)
@@ -46,10 +44,10 @@ public class TickHandlerHUD implements ITickHandler {
 			// zoom player view
 			if(KeyHandlerHUD.keyZoom.pressed){
 				zooming = true;
-				this.setFOVMult(mc.thePlayer, 1.0F);
+				Hacks.setFOVMult(mc.thePlayer, 1.0F);
 			} else if(zooming){
 				zooming = false;
-				this.setFOVMult(mc.thePlayer, 0.1F);
+				Hacks.setFOVMult(mc.thePlayer, 0.1F);
 			}
 		}
 	}
@@ -62,41 +60,5 @@ public class TickHandlerHUD implements ITickHandler {
 	@Override
 	public String getLabel(){
 		return "AUHud: Render Tick";
-	}
-
-	//////////
-
-	// Copyright (c) MachineMuse, 2013 http://machinemuse.net
-	public void setFOVMult(EntityPlayer player, float fovmult){
-		Field movementfactor = this.getMovementFactorField();
-		try {
-			movementfactor.set(player, fovmult);
-		} catch(IllegalAccessException e){
-			System.out.println("AU HUD: caught exception in setFOVMult");
-		}
-	}
-
-	protected Field movementfactorfieldinstance;
-
-	public Field getMovementFactorField(){
-		if(this.movementfactorfieldinstance == null){
-			try {
-				this.movementfactorfieldinstance = EntityPlayer.class.getDeclaredField("speedOnGround");
-				this.movementfactorfieldinstance.setAccessible(true);
-			} catch(NoSuchFieldException e){
-				try {
-					this.movementfactorfieldinstance = EntityPlayer.class.getDeclaredField("field_71108_cd");
-					this.movementfactorfieldinstance.setAccessible(true);
-				} catch(NoSuchFieldException e1){
-					try {
-						this.movementfactorfieldinstance = EntityPlayer.class.getDeclaredField("ci");
-						this.movementfactorfieldinstance.setAccessible(true);
-					} catch(NoSuchFieldException e2){
-						System.out.println("AU HUD: caught exception in getMovementFactorField");
-					}
-				}
-			}
-		}
-		return this.movementfactorfieldinstance;
 	}
 }
