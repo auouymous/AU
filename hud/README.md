@@ -30,7 +30,7 @@ Info HUD elements
 
 Entity Inspector
 * entity ID (e:entityID, i:itemFrameID)
-* max health
+* max health (pre-1.6), health/max_health (1.6+)
 * armor value
 * xp dropped when killed
 * is invulnerable

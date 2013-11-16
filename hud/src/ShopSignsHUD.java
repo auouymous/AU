@@ -90,12 +90,7 @@ public class ShopSignsHUD {
 
 												if(itemID > 0 && itemstack != null){
 													// show item name above sign
-													String itemName = null;
-													try {
-														itemName = itemstack.getDisplayName();
-													} catch(Exception e){
-//														System.out.println("AU HUD: caught exception in shop signs, itemName");
-													}
+													String itemName = ItemUtils.getDisplayName(itemstack);
 													this.ui.drawString(UI.ALIGN_CENTER, itemName, "<Unknown>", 0xffffff, 0);
 
 													// show item icon above sign
@@ -114,7 +109,7 @@ public class ShopSignsHUD {
 														itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, centerX-8, centerY-(offset+19), null);
 														#endif
 													} catch(Exception e){
-//														System.out.println("AU HUD: caught exception in shop signs");
+														Failure.log("shop signs, render icon");
 													}
 													RenderHelper.disableStandardItemLighting();
 													GL11.glDisable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
@@ -165,9 +160,10 @@ public class ShopSignsHUD {
 													this.ui.drawString(UI.ALIGN_CENTER, "Left-click (attack) to sell", 0xaaaaaa, 0);
 											}
 										}
+																	
 									}
-								} catch(Exception e){
-//									System.out.println("AU HUD: caught exception in shop signs");
+								} catch (Exception e){
+									Failure.log("shop signs");
 								}
 							}
 						}

@@ -15,7 +15,7 @@ public class Hacks {
 		try {
 			return (Boolean)gamePaused.get(mc);
 		} catch(IllegalAccessException e){
-			System.out.println("AU HUD: caught exception in isGamePaused");
+			Failure.log("hacks, isGamePaused");
 			return false;
 		}
 		#endif
@@ -39,12 +39,12 @@ public class Hacks {
 						#elif defined MC164
 						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("V");
 						#else
-						System.out.println("AU HUD: unsupported minecraft version in getGamePausedField");
+						Failure.log("hacks, unsupported minecraft version in getGamePausedField");
 						return null;
 						#endif
 						Hacks.gamePausedFieldInstance.setAccessible(true);
 					} catch(NoSuchFieldException e2){
-						System.out.println("AU HUD: caught exception in getGamePausedField");
+						Failure.log("hacks, getGamePausedField");
 					}
 				}
 			}
@@ -63,7 +63,7 @@ public class Hacks {
 		try {
 			return (ServerData)serverData.get(mc);
 		} catch(IllegalAccessException e){
-			System.out.println("AU HUD: caught exception in getServerData");
+			Failure.log("hacks, getServerData");
 			return null;
 		}
 		#endif
@@ -88,12 +88,12 @@ public class Hacks {
 						#elif defined MC164
 						Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("M");
 						#else
-						System.out.println("AU HUD: unsupported minecraft version in getServerDataField");
+						Failure.log("hacks, unsupported minecraft version in getServerDataField");
 						return null;
 						#endif
 						Hacks.serverDataFieldInstance.setAccessible(true);
 					} catch(NoSuchFieldException e2){
-						System.out.println("AU HUD: caught exception in getServerDataField");
+						Failure.log("hacks, getServerDataField");
 					}
 				}
 			}
@@ -110,7 +110,7 @@ public class Hacks {
 		try {
 			movementFactor.set(player, fovmult);
 		} catch(IllegalAccessException e){
-			System.out.println("AU HUD: caught exception in setFOVMult");
+			Failure.log("hacks, setFOVMult");
 		}
 	}
 
@@ -135,12 +135,12 @@ public class Hacks {
 						#elif defined MC164
 						Hacks.movementFactorFieldInstance = EntityPlayer.class.getDeclaredField("bK");
 						#else
-						System.out.println("AU HUD: unsupported minecraft version in getMovementFactorField");
+						Failure.log("hacks, unsupported minecraft version in getMovementFactorField");
 						return null;
 						#endif
 						Hacks.movementFactorFieldInstance.setAccessible(true);
 					} catch(NoSuchFieldException e2){
-						System.out.println("AU HUD: caught exception in getMovementFactorField");
+						Failure.log("hacks, getMovementFactorField");
 					}
 				}
 			}

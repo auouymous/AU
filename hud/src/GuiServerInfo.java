@@ -27,7 +27,7 @@ public class GuiServerInfo extends GuiScreen {
 	}
 
 	private void drawTitle(){
-		this.ui.setCursor(2, 2);
+		this.ui.setCursor(2, 12);
 		this.ui.drawString(UI.ALIGN_CENTER, "AU HUD (Server Info)", 0xffffff, this.width);
 		this.ui.lineBreak(10);
 	}
@@ -55,84 +55,113 @@ public class GuiServerInfo extends GuiScreen {
 					MinecraftServer server = MinecraftServer.getServer();
 
 					// map name and version
-					this.ui.drawString("Map: ", 0xaaaaaa);
-					this.ui.drawString(worldInfo.getWorldName(), 0xffffff);
-					this.ui.drawString("  ", 0xaaaaaa);
-					this.ui.drawString(server.getMinecraftVersion(), 0xaaaaaa);
-					this.ui.drawString("  ", 0xaaaaaa);
-					this.ui.drawString(worldInfo.getGameType().getName(), 0xffffff);
-					this.ui.lineBreak();
+					try {
+						this.ui.drawString("Map: ", 0xaaaaaa);
+						this.ui.drawString(worldInfo.getWorldName(), 0xffffff);
+						this.ui.drawString("  ", 0xaaaaaa);
+						this.ui.drawString(server.getMinecraftVersion(), 0xaaaaaa);
+						this.ui.drawString("  ", 0xaaaaaa);
+						this.ui.drawString(worldInfo.getGameType().getName(), 0xffffff);
+						this.ui.lineBreak();
+					} catch(Exception e){
+						Failure.log("server info, SP map");
+					}
 				} else {
 					// multi player world
 
 					ServerData server = Hacks.getServerData(mc);
+
 					if(server != null){
 						// server host:port, version, player count
-						this.ui.drawString("Server: ", 0xaaaaaa);
-						this.ui.drawString(server.serverName, 0xffffff);
-						this.ui.drawString(" (", 0xaaaaaa);
-						this.ui.drawString(server.serverIP, 0xffffff);
-						this.ui.drawString(")", 0xaaaaaa);
-						this.ui.drawString("  ", 0xaaaaaa);
-						this.ui.drawString(server.gameVersion, 0xaaaaaa);
-						this.ui.drawString("  ", 0xaaaaaa);
-						this.ui.drawString(worldInfo.getGameType().getName(), 0xffffff);
-						this.ui.lineBreak();
+						try {
+							this.ui.drawString("Server: ", 0xaaaaaa);
+							this.ui.drawString(server.serverName, 0xffffff);
+							this.ui.drawString(" (", 0xaaaaaa);
+							this.ui.drawString(server.serverIP, 0xffffff);
+							this.ui.drawString(")", 0xaaaaaa);
+							this.ui.drawString("  ", 0xaaaaaa);
+							this.ui.drawString(server.gameVersion, 0xaaaaaa);
+							this.ui.drawString("  ", 0xaaaaaa);
+							this.ui.drawString(worldInfo.getGameType().getName(), 0xffffff);
+							this.ui.lineBreak();
+						} catch(Exception e){
+							Failure.log("server info, MP server");
+						}
 
 						// motd
-						this.ui.drawString("MOTD: ", 0xaaaaaa);
-						this.ui.drawString(server.serverMOTD, 0xffffff); // getMOTD
-						this.ui.lineBreak();
+						try {
+							this.ui.drawString("MOTD: ", 0xaaaaaa);
+							this.ui.drawString(server.serverMOTD, 0xffffff); // getMOTD
+							this.ui.lineBreak();
+						} catch(Exception e){
+							Failure.log("server info, MP MOTD");
+						}
 					}
 				}
 
 				this.ui.lineBreak();
 
 				// difficulty
-				this.ui.drawString("Difficulty: ", 0xaaaaaa);
-				String[] difficulties = {"Peaceful", "Easy", "Normal", "Hard"};
-				if(mc.gameSettings.difficulty >= 0 || mc.gameSettings.difficulty <= 3)
-					this.ui.drawString(difficulties[mc.gameSettings.difficulty], 0xffffff);
-				if(worldInfo.isHardcoreModeEnabled())
-					this.ui.drawString("  Hardcore", 0xff6666);
-				this.ui.lineBreak();
+				try {
+					this.ui.drawString("Difficulty: ", 0xaaaaaa);
+					String[] difficulties = {"Peaceful", "Easy", "Normal", "Hard"};
+					if(mc.gameSettings.difficulty >= 0 || mc.gameSettings.difficulty <= 3)
+						this.ui.drawString(difficulties[mc.gameSettings.difficulty], 0xffffff);
+					if(worldInfo.isHardcoreModeEnabled())
+						this.ui.drawString("  Hardcore", 0xff6666);
+					this.ui.lineBreak();
+				} catch(Exception e){
+					Failure.log("server info, difficulty");
+				}
 
 				// gamerules
-				GameRules rules = worldInfo.getGameRulesInstance();
-				this.ui.drawString("Game Rules:", 0xaaaaaa);
-				this.ui.drawString("  keepInventory", (rules.getGameRuleBooleanValue("keepInventory") ? 0x66ff66 : 0xff6666));
-				this.ui.drawString("  doFireTick", (rules.getGameRuleBooleanValue("doFireTick") ? 0x66ff66 : 0xff6666));
-				this.ui.drawString("  mobGriefing", (rules.getGameRuleBooleanValue("mobGriefing") ? 0x66ff66 : 0xff6666));
-				this.ui.drawString("  doMobSpawning", (rules.getGameRuleBooleanValue("doMobSpawning") ? 0x66ff66 : 0xff6666));
-				this.ui.drawString("  doMobLoot", (rules.getGameRuleBooleanValue("doMobLoot") ? 0x66ff66 : 0xff6666));
-				this.ui.lineBreak();
-				this.ui.drawString("              ", 0xaaaaaa);
-				this.ui.drawString("  doTileDrops", (rules.getGameRuleBooleanValue("doTileDrops") ? 0x66ff66 : 0xff6666));
-				this.ui.drawString("  commandBlockOutput", (rules.getGameRuleBooleanValue("commandBlockOutput") ? 0x66ff66 : 0xff6666));
-				this.ui.lineBreak();
+				try {
+					GameRules rules = worldInfo.getGameRulesInstance();
+					this.ui.drawString("Game Rules:", 0xaaaaaa);
+					this.ui.drawString("  keepInventory", (rules.getGameRuleBooleanValue("keepInventory") ? 0x66ff66 : 0xff6666));
+					this.ui.drawString("  doFireTick", (rules.getGameRuleBooleanValue("doFireTick") ? 0x66ff66 : 0xff6666));
+					this.ui.drawString("  mobGriefing", (rules.getGameRuleBooleanValue("mobGriefing") ? 0x66ff66 : 0xff6666));
+					this.ui.drawString("  doMobSpawning", (rules.getGameRuleBooleanValue("doMobSpawning") ? 0x66ff66 : 0xff6666));
+					this.ui.drawString("  doMobLoot", (rules.getGameRuleBooleanValue("doMobLoot") ? 0x66ff66 : 0xff6666));
+					this.ui.lineBreak();
+					this.ui.drawString("              ", 0xaaaaaa);
+					this.ui.drawString("  doTileDrops", (rules.getGameRuleBooleanValue("doTileDrops") ? 0x66ff66 : 0xff6666));
+					this.ui.drawString("  commandBlockOutput", (rules.getGameRuleBooleanValue("commandBlockOutput") ? 0x66ff66 : 0xff6666));
+					this.ui.lineBreak();
+				} catch(Exception e){
+					Failure.log("server info, gamerules");
+				}
 
 				// world age
-				long ticks = worldInfo.getWorldTotalTime();
-				int days = (int)(ticks / (86400*20)); ticks -= days * (86400*20);
-				int hours = (int)ticks / (3600*20); ticks -= hours * (3600*20);
-				int minutes = (int)ticks / (60*20); ticks -= minutes * (60*20);
-				int seconds = (int)ticks / 20;
-				this.ui.drawString("Map Age: ", 0xaaaaaa);
-				this.ui.drawString(String.format("%d days, %d hours, %d minutes, %d seconds", days, hours, minutes, seconds), 0xffffff);
-				if(Hacks.isGamePaused(mc))
-					this.ui.drawString(" PAUSED", 0x6666ff);
-				this.ui.lineBreak();
+				try {
+					long ticks = worldInfo.getWorldTotalTime();
+					int days = (int)(ticks / (86400*20)); ticks -= days * (86400*20);
+					int hours = (int)ticks / (3600*20); ticks -= hours * (3600*20);
+					int minutes = (int)ticks / (60*20); ticks -= minutes * (60*20);
+					int seconds = (int)ticks / 20;
+					this.ui.drawString("Map Age: ", 0xaaaaaa);
+					this.ui.drawString(String.format("%d days, %d hours, %d minutes, %d seconds", days, hours, minutes, seconds), 0xffffff);
+					if(Hacks.isGamePaused(mc))
+						this.ui.drawString(" PAUSED", 0x6666ff);
+					this.ui.lineBreak();
+				} catch(Exception e){
+					Failure.log("server info, world age");
+				}
 
 				this.ui.lineBreak();
 
 				// spawn coordinates
-				this.ui.drawString("Spawn/Home: ", 0xaaaaaa);
-				this.ui.drawString(String.format("%d, %d (%d)", worldInfo.getSpawnX(), worldInfo.getSpawnZ(), worldInfo.getSpawnY()), 0xffffff);
-				this.ui.lineBreak();
+				try {
+					this.ui.drawString("Spawn/Home: ", 0xaaaaaa);
+					this.ui.drawString(String.format("%d, %d (%d)", worldInfo.getSpawnX(), worldInfo.getSpawnZ(), worldInfo.getSpawnY()), 0xffffff);
+					this.ui.lineBreak();
+				} catch(Exception e){
+					Failure.log("server info, spawn/home");
+				}
 			}
 
 		} catch(Exception e){
-//			System.out.println("AU HUD: caught exception in server info");
+			Failure.log("server info");
 		}
 
 		// draw controls
@@ -161,7 +190,7 @@ public class GuiServerInfo extends GuiScreen {
 		this.buttonList.clear();
 		#endif
 
-		this.ui.y = this.height - 22;
+		this.ui.y = this.height - 32;
 		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_DONE, "Done", 100, 20);
 	}
 

@@ -33,26 +33,36 @@ public class ArmorHUD {
 	//////////
 
 	private int getDurability(ItemStack itemstack, int max_durability){
-		Item item = itemstack.getItem();
-		if(AUHud.supportIC2)
-			if(item instanceof IElectricItem)
-				#ifdef MC147
-				return (int)Math.round((float)max_durability * (float)(itemstack.getMaxDamage()-itemstack.getItemDamage())/26.0F);
-				#else
-				return ElectricItem.manager.getCharge(itemstack);
-				#endif
-		return max_durability - itemstack.getItemDamage();
+		try {
+			Item item = itemstack.getItem();
+			if(AUHud.supportIC2)
+				if(item instanceof IElectricItem)
+					#ifdef MC147
+					return (int)Math.round((float)max_durability * (float)(itemstack.getMaxDamage()-itemstack.getItemDamage())/26.0F);
+					#else
+					return ElectricItem.manager.getCharge(itemstack);
+					#endif
+			return max_durability - itemstack.getItemDamage();
+		} catch(Exception e){
+			Failure.log("armor hud, getDurability");
+			return 0;
+		}
 	}
 	private int getMaxDurability(ItemStack itemstack){
-		Item item = itemstack.getItem();
-		if(AUHud.supportIC2)
-			if(item instanceof IElectricItem)
-				#ifdef MC147
-				return ((IElectricItem)item).getMaxCharge();
-				#else
-				return ((IElectricItem)item).getMaxCharge(itemstack);
-				#endif
-		return itemstack.getMaxDamage();
+		try {
+			Item item = itemstack.getItem();
+			if(AUHud.supportIC2)
+				if(item instanceof IElectricItem)
+					#ifdef MC147
+					return ((IElectricItem)item).getMaxCharge();
+					#else
+					return ((IElectricItem)item).getMaxCharge(itemstack);
+					#endif
+			return itemstack.getMaxDamage();
+		} catch(Exception e){
+			Failure.log("armor hud, getMaxDurability");
+			return 1; // prevent divide by zero
+		}
 	}
 
 	private void drawItemStack(Minecraft mc, RenderItem itemRenderer, ItemStack itemstack, int x, int y, int quantity, boolean force_quantity){
@@ -62,7 +72,11 @@ public class ArmorHUD {
 		RenderHelper.enableStandardItemLighting();
 		RenderHelper.enableGUIStandardItemLighting();
 
-		itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y);
+		try {
+			itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y);
+		} catch(Exception e){
+			Failure.log("armor hud, draw itemstack");
+		}
 
 		this.ui.setCursor(x + ((Cfg.armor_hud_corner&1) == 0 ? 18 : -2), y + 4);
 
@@ -70,11 +84,15 @@ public class ArmorHUD {
 
 		// durability bar/value/percent
 		if(durability_style == Cfg.HUD_DURABILITY_BAR){
-			#ifdef MC147
-			itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y);
-			#else
-			itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y, (quantity > 1 ? "" : null));
-			#endif
+			try {
+				#ifdef MC147
+				itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y);
+				#else
+				itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y, (quantity > 1 ? "" : null));
+				#endif
+			} catch(Exception e){
+				Failure.log("armor hud, draw itemstack overlay");
+			}
 
 			RenderHelper.disableStandardItemLighting();
 			GL11.glDisable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
@@ -82,28 +100,32 @@ public class ArmorHUD {
 			RenderHelper.disableStandardItemLighting();
 			GL11.glDisable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
 
-			if(itemstack.isItemStackDamageable()){
-				if(force_quantity || quantity > 1) this.ui.y -= 4;
+			try {
+				if(itemstack.isItemStackDamageable()){
+					if(force_quantity || quantity > 1) this.ui.y -= 4;
 
-				int max_durability = this.getMaxDurability(itemstack);
-				int durability = this.getDurability(itemstack, max_durability);
-				int percent = (int)Math.round(100.0 * (float)durability / (float)max_durability);
-				int color = (percent > 50 ? 0xaaaaaa : (percent < 25 ? 0xff6666 : 0xffff66));
-				if(durability_style == Cfg.HUD_DURABILITY_VALUE){
-					if((Cfg.armor_hud_corner&1) == 0){
-						this.ui.drawString(String.format("/%d", max_durability), 0xaaaaaa);
-						this.ui.drawString(String.format("%d", durability), color);
-					} else {
-						this.ui.drawString(UI.ALIGN_RIGHT, String.format("/%d", max_durability), 0xaaaaaa, 0);
-						this.ui.drawString(UI.ALIGN_RIGHT, String.format("%d", durability), color, 0);
+					int max_durability = this.getMaxDurability(itemstack);
+					int durability = this.getDurability(itemstack, max_durability);
+					int percent = (int)Math.round(100.0 * (float)durability / (float)max_durability);
+					int color = (percent > 50 ? 0xaaaaaa : (percent < 25 ? 0xff6666 : 0xffff66));
+					if(durability_style == Cfg.HUD_DURABILITY_VALUE){
+						if((Cfg.armor_hud_corner&1) == 0){
+							this.ui.drawString(String.format("/%d", max_durability), 0xaaaaaa);
+							this.ui.drawString(String.format("%d", durability), color);
+						} else {
+							this.ui.drawString(UI.ALIGN_RIGHT, String.format("/%d", max_durability), 0xaaaaaa, 0);
+							this.ui.drawString(UI.ALIGN_RIGHT, String.format("%d", durability), color, 0);
+						}
+					} else if(durability_style == Cfg.HUD_DURABILITY_PERCENT){
+						if((Cfg.armor_hud_corner&1) == 0)
+							this.ui.drawString(String.format("%d%%", percent), color);
+						else
+							this.ui.drawString(UI.ALIGN_RIGHT, String.format("%d%%", percent), color, 0);
 					}
-				} else if(durability_style == Cfg.HUD_DURABILITY_PERCENT){
-					if((Cfg.armor_hud_corner&1) == 0)
-						this.ui.drawString(String.format("%d%%", percent), color);
-					else
-						this.ui.drawString(UI.ALIGN_RIGHT, String.format("%d%%", percent), color, 0);
+					this.ui.lineBreak(9);
 				}
-				this.ui.lineBreak(9);
+			} catch(Exception e){
+				Failure.log("armor hud, draw itemstack durability/count");
 			}
 		}
 
@@ -149,17 +171,21 @@ public class ArmorHUD {
 			int y = ((Cfg.armor_hud_corner&2) == 0 ? Cfg.armor_hud_y : height-80-Cfg.armor_hud_y);
 
 			int nr_hand = 0, nr_ammo = -1;
-			if(hand != null){
-				nr_hand = (hand.getMaxStackSize() > 1 ? countItemsInInventory(player, hand.itemID, hand.getItemDamage()) : 1);
+			try {
+				if(hand != null){
+					nr_hand = (hand.getMaxStackSize() > 1 ? countItemsInInventory(player, hand.itemID, hand.getItemDamage()) : 1);
 
-				// bow ammo
-				if(hand.getItem() instanceof ItemBow){
-					nr_ammo = countItemsInInventory(player, Item.arrow.itemID, 0);
-					ammo = new ItemStack(Item.arrow);
+					// bow ammo
+					if(hand.getItem() instanceof ItemBow){
+						nr_ammo = countItemsInInventory(player, Item.arrow.itemID, 0);
+						ammo = new ItemStack(Item.arrow);
+					}
+
+					// move HUD up if at bottom and has ammo
+					if(ammo != null) y -= ((Cfg.armor_hud_corner&2) == 0 ? 0 : 16);
 				}
-
-				// move HUD up if at bottom and has ammo
-				if(ammo != null) y -= ((Cfg.armor_hud_corner&2) == 0 ? 0 : 16);
+			} catch(Exception e){
+				Failure.log("armor hud, count hand/ammo");
 			}
 
 			GL11.glTranslatef(0.0F, 0.0F, 32.0F);
@@ -174,7 +200,7 @@ public class ArmorHUD {
 
 			GL11.glPopMatrix();
 		} catch(Exception e){
-//			System.out.println("AU HUD: caught exception in armor hud");
+			Failure.log("armor hud");
 		}
 	}
 }

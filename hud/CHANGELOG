@@ -1,3 +1,4 @@
+	- entity inspector shows current health / max health in 1.6+
 	- item damage indicator now shows entity/block damage and will change if entity/block is targeted
 	- port to 1.6.2/1.6.4
 	- IC2 wrench support in inspector
