@@ -29,21 +29,18 @@ public class Hacks {
 				Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("isGamePaused");
 				Hacks.gamePausedFieldInstance.setAccessible(true);
 			} catch(NoSuchFieldException e){
-
 				try {
-					Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("field_71348_o");
+					Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("field_71445_n");
 					Hacks.gamePausedFieldInstance.setAccessible(true);
 				} catch(NoSuchFieldException e1){
 					try {
-						#ifdef MC147
-						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("n");
-						#elif defined MC152
-						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("o");
+						#ifdef MC162
+						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("V");
 						#elif defined MC164
 						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("V");
 						#else
-						System.out.println("AU HUD: unsupported version in getGamePausedField");
-						return false;
+						System.out.println("AU HUD: unsupported minecraft version in getGamePausedField");
+						return null;
 						#endif
 						Hacks.gamePausedFieldInstance.setAccessible(true);
 					} catch(NoSuchFieldException e2){
@@ -81,20 +78,17 @@ public class Hacks {
 				Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("currentServerData");
 				Hacks.serverDataFieldInstance.setAccessible(true);
 			} catch(NoSuchFieldException e){
-
 				try {
 					Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("field_71422_O");
 					Hacks.serverDataFieldInstance.setAccessible(true);
 				} catch(NoSuchFieldException e1){
 					try {
-						#ifdef MC147
-						Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("O");
-						#elif defined MC152
-						Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("Q");
+						#ifdef MC162
+						Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("M");
 						#elif defined MC164
 						Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("M");
 						#else
-						System.out.println("AU HUD: unsupported version in getServerDataField");
+						System.out.println("AU HUD: unsupported minecraft version in getServerDataField");
 						return null;
 						#endif
 						Hacks.serverDataFieldInstance.setAccessible(true);
@@ -120,7 +114,7 @@ public class Hacks {
 		}
 	}
 
-	private static Field movementFactorFieldInstance;
+	private static Field movementFactorFieldInstance = null;
 	private static Field getMovementFactorField(){
 		if(Hacks.movementFactorFieldInstance == null){
 			try {
@@ -136,10 +130,12 @@ public class Hacks {
 						Hacks.movementFactorFieldInstance = EntityPlayer.class.getDeclaredField("ch");
 						#elif defined MC152
 						Hacks.movementFactorFieldInstance = EntityPlayer.class.getDeclaredField("ci");
+						#elif defined MC162
+						Hacks.movementFactorFieldInstance = EntityPlayer.class.getDeclaredField("bK");
 						#elif defined MC164
 						Hacks.movementFactorFieldInstance = EntityPlayer.class.getDeclaredField("bK");
 						#else
-						System.out.println("AU HUD: unsupported version in getMovementFactorField");
+						System.out.println("AU HUD: unsupported minecraft version in getMovementFactorField");
 						return null;
 						#endif
 						Hacks.movementFactorFieldInstance.setAccessible(true);

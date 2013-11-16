@@ -65,24 +65,25 @@ public class GuiServerInfo extends GuiScreen {
 				} else {
 					// multi player world
 
-					ServerData server = mc.getServerData();
+					ServerData server = Hacks.getServerData(mc);
+					if(server != null){
+						// server host:port, version, player count
+						this.ui.drawString("Server: ", 0xaaaaaa);
+						this.ui.drawString(server.serverName, 0xffffff);
+						this.ui.drawString(" (", 0xaaaaaa);
+						this.ui.drawString(server.serverIP, 0xffffff);
+						this.ui.drawString(")", 0xaaaaaa);
+						this.ui.drawString("  ", 0xaaaaaa);
+						this.ui.drawString(server.gameVersion, 0xaaaaaa);
+						this.ui.drawString("  ", 0xaaaaaa);
+						this.ui.drawString(worldInfo.getGameType().getName(), 0xffffff);
+						this.ui.lineBreak();
 
-					// server host:port, version, player count
-					this.ui.drawString("Server: ", 0xaaaaaa);
-					this.ui.drawString(server.serverName, 0xffffff);
-					this.ui.drawString(" (", 0xaaaaaa);
-					this.ui.drawString(server.serverIP, 0xffffff);
-					this.ui.drawString(")", 0xaaaaaa);
-					this.ui.drawString("  ", 0xaaaaaa);
-					this.ui.drawString(server.gameVersion, 0xaaaaaa);
-					this.ui.drawString("  ", 0xaaaaaa);
-					this.ui.drawString(worldInfo.getGameType().getName(), 0xffffff);
-					this.ui.lineBreak();
-
-					// motd
-					this.ui.drawString("MOTD: ", 0xaaaaaa);
-					this.ui.drawString(server.serverMOTD, 0xffffff); // getMOTD
-					this.ui.lineBreak();
+						// motd
+						this.ui.drawString("MOTD: ", 0xaaaaaa);
+						this.ui.drawString(server.serverMOTD, 0xffffff); // getMOTD
+						this.ui.lineBreak();
+					}
 				}
 
 				this.ui.lineBreak();
@@ -118,7 +119,7 @@ public class GuiServerInfo extends GuiScreen {
 				int seconds = (int)ticks / 20;
 				this.ui.drawString("Map Age: ", 0xaaaaaa);
 				this.ui.drawString(String.format("%d days, %d hours, %d minutes, %d seconds", days, hours, minutes, seconds), 0xffffff);
-				if(mc.isGamePaused)
+				if(Hacks.isGamePaused(mc))
 					this.ui.drawString(" PAUSED", 0x6666ff);
 				this.ui.lineBreak();
 

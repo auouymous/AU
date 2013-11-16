@@ -6,6 +6,9 @@ import net.minecraft.client.renderer.Tessellator;
 #ifndef MC147
 import net.minecraft.util.Icon;
 #endif
+#if !defined MC147 && !defined MC152
+import net.minecraft.util.ResourceLocation;
+#endif
 
 import org.lwjgl.opengl.GL11;
 
@@ -176,12 +179,17 @@ public class UI {
 		tessellator.draw();
 	}
 
-	public static void bindTexture(Minecraft mc, String filename){
+	public static void bindTexture(Minecraft mc, String mod, String filename){
 		#ifdef MC147
 		mc.renderEngine.bindTexture(mc.renderEngine.getTexture(filename));
-		#else
+		#elif defined MC152
 		mc.renderEngine.bindTexture(filename);
+		#else
+		mc.getTextureManager().bindTexture(mod == null ? new ResourceLocation(filename) : new ResourceLocation(mod, filename));
 		#endif
+	}
+	public static void bindTexture(Minecraft mc, String filename){
+		UI.bindTexture(mc, null, filename);
 	}
 
 	// no support for 147

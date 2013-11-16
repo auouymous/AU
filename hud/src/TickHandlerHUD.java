@@ -35,18 +35,22 @@ public class TickHandlerHUD implements ITickHandler {
 
 		ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
 
-		if(Cfg.enable_info_hud) this.infoHUD.draw(mc, screen, mc.thePlayer);
-		if(Cfg.enable_armor_hud && (!(mc.currentScreen instanceof GuiChat) || Cfg.always_show_armor_hud)) this.armorHUD.draw(mc, screen, mc.thePlayer);
-		if(Cfg.enable_potion_hud && (!(mc.currentScreen instanceof GuiChat) || Cfg.always_show_potion_hud)) this.potionHUD.draw(mc, screen, mc.thePlayer);
-		if(Cfg.enable_shop_signs_hud) this.shopSignsHUD.draw(mc, screen, mc.thePlayer);
+		try {
+			if(Cfg.enable_info_hud) this.infoHUD.draw(mc, screen, mc.thePlayer);
+			if(Cfg.enable_armor_hud && (!(mc.currentScreen instanceof GuiChat) || Cfg.always_show_armor_hud)) this.armorHUD.draw(mc, screen, mc.thePlayer);
+			if(Cfg.enable_potion_hud && (!(mc.currentScreen instanceof GuiChat) || Cfg.always_show_potion_hud)) this.potionHUD.draw(mc, screen, mc.thePlayer);
+			if(Cfg.enable_shop_signs_hud) this.shopSignsHUD.draw(mc, screen, mc.thePlayer);
+		} catch(Exception e){
+			System.out.println("AU HUD: caught unknown exception in tickEnd huds");
+		}
 
 		if(!(mc.currentScreen instanceof GuiChat)){
 			// zoom player view
 			if(KeyHandlerHUD.keyZoom.pressed){
-				zooming = true;
+				this.zooming = true;
 				Hacks.setFOVMult(mc.thePlayer, 1.0F);
 			} else if(zooming){
-				zooming = false;
+				this.zooming = false;
 				Hacks.setFOVMult(mc.thePlayer, 0.1F);
 			}
 		}

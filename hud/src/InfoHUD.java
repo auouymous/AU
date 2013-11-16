@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +22,13 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
+
+#if !defined MC147 && !defined MC152
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.item.ItemSword;
+import net.minecraft.item.ItemTool;
+#endif
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.IShearable;
@@ -65,9 +73,13 @@ public class InfoHUD {
 	private void showItemName(String name, ItemStack item){
 		if(item == null) return;
 
-		this.ui.drawString("   " + name + ": ", 0xaaaaaa);
-		this.ui.drawString(item.getDisplayName(), 0xffffff);
-		this.ui.lineBreak();
+		try {
+			this.ui.drawString("   " + name + ": ", 0xaaaaaa);
+			this.ui.drawString(item.getDisplayName(), 0xffffff);
+			this.ui.lineBreak();
+		} catch(Exception e){
+			System.out.println("AU HUD: caught exception in showItemName() entity inspector");
+		}
 	}
 
 	//////////
@@ -137,10 +149,9 @@ public class InfoHUD {
 
 		this.ui.setCursor(Cfg.info_hud_x, Cfg.info_hud_y);
 
+		// world
+		// biome
 		try {
-
-			// world
-			// biome
 			if(Cfg.show_world || Cfg.show_biome){
 				if(Cfg.show_world)
 					this.ui.drawString(world.provider.getDimensionName(), 0xffffff);
@@ -152,8 +163,12 @@ public class InfoHUD {
 				}
 				this.ui.lineBreak();
 			}
+		} catch(Exception e){
+			System.out.println("AU HUD: caught exception in world/biome info element");
+		}
 
-			// player position
+		// player position
+		try {
 			if(Cfg.show_position){
 				this.ui.drawString(String.format("%+.1f", player.posX), 0xffffff);
 				this.ui.drawString(", ", 0xaaaaaa);
@@ -166,10 +181,14 @@ public class InfoHUD {
 				}
 				this.ui.lineBreak();
 			}
+		} catch(Exception e){
+			System.out.println("AU HUD: caught exception in player position info element");
+		}
 
-			// light levels -- 0-6 red, 7-8 yellow, 9-15 green
-			// time
-			// raining
+		// light levels -- 0-6 red, 7-8 yellow, 9-15 green
+		// time
+		// raining
+		try {
 			if(Cfg.show_light || Cfg.show_time || Cfg.show_weather){
 				if(Cfg.show_light){
 					int light = chunk.getSavedLightValue(EnumSkyBlock.Block, pos_x & 15, feet_y, pos_z & 15);
@@ -197,8 +216,12 @@ public class InfoHUD {
 				if(Cfg.show_light || Cfg.show_time || (Cfg.show_weather && is_raining))
 					this.ui.lineBreak();
 			}
+		} catch(Exception e){
+			System.out.println("AU HUD: caught exception in light/time/weather info element");
+		}
 
-			// player inventory
+		// player inventory
+		try {
 			if(Cfg.show_used_inventory){
 				String invText = "used inventory slots: ";
 				ItemStack[] mainInventory = player.inventory.mainInventory;
@@ -225,8 +248,12 @@ public class InfoHUD {
 				this.ui.drawString("%", 0xaaaaaa);
 				this.ui.lineBreak();
 			}
+		} catch(Exception e){
+			System.out.println("AU HUD: caught exception in inventory info element");
+		}
 
-			// fps and chunk updates
+		// fps and chunk updates
+		try {
 			if(Cfg.show_fps || Cfg.show_chunk_updates){
 				if(Cfg.show_fps){
 					this.ui.drawString(mc.debug.substring(0, mc.debug.indexOf(" fps")), 0xffffff);
@@ -240,8 +267,12 @@ public class InfoHUD {
 				}
 				this.ui.lineBreak();
 			}
+		} catch(Exception e){
+			System.out.println("AU HUD: caught exception in fps/chunk info element");
+		}
 
-			// particles, rendered entities, total entities
+		// rendered entities, total entities, particles
+		try {
 			if(Cfg.show_entities || Cfg.show_particles){
 				if(Cfg.show_entities){
 					String entities = mc.getEntityDebug();
@@ -256,9 +287,13 @@ public class InfoHUD {
 				}
 				this.ui.lineBreak();
 			}
+		} catch(Exception e){
+			System.out.println("AU HUD: caught exception in entities/particles info element");
+		}
 
-			// TPS
-			if(Cfg.show_tps && !mc.isGamePaused){
+		// TPS
+		try {
+			if(Cfg.show_tps && !Hacks.isGamePaused(mc)){
 				long ticks = world.getWorldInfo().getWorldTotalTime();
 				long time = System.currentTimeMillis();
 				if(time >= this.time + 60000 || (this.ticks != 0 && Math.abs(ticks - this.ticks) > 1200)) this.initTPS(); // re-initialize TPS if last update was more than 1 minute ago
@@ -302,17 +337,16 @@ public class InfoHUD {
 //				for(int i = 0; i <= TPS_TAIL; i++) this.ui.drawString(String.format("  %.2f", this.tps_queue[i]), 0xcccccc);
 //				this.ui.lineBreak();
 			}
-
 		} catch(Exception e){
-//			System.out.println("AU HUD: caught exception in elements");
+			System.out.println("AU HUD: caught exception in tps info element");
 		}
 
 		// block at cursor
 		if(Cfg.show_block_name || Cfg.show_inspector){
 			if(mc.objectMouseOver != null){
-				if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY){
+				if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY){														// ENTITY
+					// name and ID of entity
 					try {
-						// name and ID of entity
 						if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
 							ItemStack stackItemFrame = new ItemStack(Item.itemFrame);
 							this.ui.drawString(stackItemFrame.getDisplayName(), 0xffffff);
@@ -330,8 +364,12 @@ public class InfoHUD {
 							this.ui.drawString(")", 0xaaaaaa);
 						}
 						this.ui.lineBreak();
+					} catch(Exception e){
+						System.out.println("AU HUD: caught exception in entity name/ID info element");
+					}
 
-						// name and ID of item in item frame
+					// name and ID of item in item frame
+					try {
 						if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
 							ItemStack itemstack = ((EntityItemFrame)mc.objectMouseOver.entityHit).getDisplayedItem();
 							if(itemstack != null){
@@ -350,13 +388,17 @@ public class InfoHUD {
 								this.ui.lineBreak();
 							}
 						}
+					} catch(Exception e){
+						System.out.println("AU HUD: caught exception in entity name/ID info element, item frame contents name/ID");
+					}
 
-						if(Cfg.show_inspector && mc.objectMouseOver.entityHit instanceof EntityLiving){
-							EntityLiving entity = (EntityLiving)mc.objectMouseOver.entityHit;
+					if(Cfg.show_inspector && mc.objectMouseOver.entityHit instanceof EntityLiving){
+						EntityLiving entity = (EntityLiving)mc.objectMouseOver.entityHit;
 
-							// health, armor and xp
+						// health, armor and xp
+						try {
 							this.ui.drawString("   max health: ", 0xaaaaaa);
-							this.ui.drawString(String.format("%d", entity.getMaxHealth()), 0xffffff);
+							this.ui.drawString(String.format("%d", (int)entity.getMaxHealth()), 0xffffff);
 							int armorValue = entity.getTotalArmorValue();
 							if(armorValue > 0){
 								this.ui.drawString(" armor: ", 0xaaaaaa);
@@ -367,22 +409,30 @@ public class InfoHUD {
 								this.ui.drawString(String.format("%d", entity.experienceValue), 0xffffff);
 							}
 							this.ui.lineBreak();
+						} catch(Exception e){
+							System.out.println("AU HUD: caught exception in entity inspector, max_health/armor_value/xp");
+						}
 
-							// invulnerable
+						// invulnerable
+						try {
 							if(entity.isEntityInvulnerable()){
 								this.ui.drawString("   is invulnerable", 0xb25bfd);
 								this.ui.lineBreak();
 							}
-
-							// name of armor and item (5 lines)
-							showItemName("helmet", entity.getCurrentArmor(3));
-							showItemName("chest", entity.getCurrentArmor(2));
-							showItemName("pants", entity.getCurrentArmor(1));
-							showItemName("boots", entity.getCurrentArmor(0));
-							showItemName("hand", entity.getHeldItem());
+						} catch(Exception e){
+							System.out.println("AU HUD: caught exception in entity inspector, invulnerable");
 						}
-					} catch(Exception e){
-//						System.out.println("AU HUD: caught exception in entity inspector");
+
+						// name of armor and item (5 lines)
+						try {
+							showItemName("helmet", entity.getCurrentItemOrArmor(4));
+							showItemName("chest", entity.getCurrentItemOrArmor(3));
+							showItemName("pants", entity.getCurrentItemOrArmor(2));
+							showItemName("boots", entity.getCurrentItemOrArmor(1));
+							showItemName("hand", entity.getHeldItem());
+						} catch(Exception e){
+							System.out.println("AU HUD: caught exception in entity inspector, armor/hand");
+						}
 					}
 				} else if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.TILE){
 					int blockID = world.getBlockId(mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
@@ -392,25 +442,25 @@ public class InfoHUD {
 						int inspectY = mc.objectMouseOver.blockY;
 						int inspectZ = mc.objectMouseOver.blockZ;
 						if(block != null){
+							int blockMetadata = world.getBlockMetadata(inspectX, inspectY, inspectZ);
+
+							if(blockID != lastBlockID || blockMetadata != lastBlockMetadata){
+								// reset drops
+								lastBlockID = blockID;
+								lastBlockMetadata = blockMetadata;
+								lastDrops.clear();
+							}
+
+							// name and ID if block is picked
 							try {
-								int blockMetadata = world.getBlockMetadata(inspectX, inspectY, inspectZ);
-
-								if(blockID != lastBlockID || blockMetadata != lastBlockMetadata){
-									// reset drops
-									lastBlockID = blockID;
-									lastBlockMetadata = blockMetadata;
-									lastDrops.clear();
-								}
-
 								ItemStack stackBlock = new ItemStack(blockID, 1, blockMetadata);
 								String blockName = null;
 								try {
 									blockName = stackBlock.getDisplayName();
 								} catch(Exception e){
-//									System.out.println("AU HUD: caught exception in block inspector, blockName");
+//									System.out.println("AU HUD: caught exception in block name/ID, blockName");
 								}
 
-								// name and ID if block is picked
 								int pickedID = block.idPicked(world, inspectX, inspectY, inspectZ), pickedMetadata = 0;
 								boolean pickedSameAsBlock = false;
 								if(pickedID > 0){
@@ -420,7 +470,7 @@ public class InfoHUD {
 									try {
 										pickedName = stackPicked.getDisplayName();
 									} catch(Exception e){
-//										System.out.println("AU HUD: caught exception in block inspector, pickedName");
+//										System.out.println("AU HUD: caught exception in block name/ID, pickedName");
 									}
 									if(blockName != null && pickedName != null)
 										if(blockName.equals(pickedName))
@@ -459,13 +509,17 @@ public class InfoHUD {
 										this.ui.drawString(blockName, 0xffffff);
 										this.ui.lineBreak();
 									}
+							} catch(Exception e){
+								System.out.println("AU HUD: caught exception in block name/ID info element");
+							}
 
-								if(Cfg.show_inspector){
+							if(Cfg.show_inspector){
 
-									boolean hasTileEntity = block.hasTileEntity(blockMetadata);
-									TileEntity tileEntity = (hasTileEntity ? world.getBlockTileEntity(inspectX, inspectY, inspectZ) : null);
+								boolean hasTileEntity = block.hasTileEntity(blockMetadata);
+								TileEntity tileEntity = (hasTileEntity ? world.getBlockTileEntity(inspectX, inspectY, inspectZ) : null);
 
-									// creative tab name
+								// creative tab name
+								try {
 									CreativeTabs tab = block.getCreativeTabToDisplayOn();
 									String tabName = "";
 									if(tab != null)
@@ -475,8 +529,12 @@ public class InfoHUD {
 										this.ui.drawString(tabName, 0xffffff);
 										this.ui.lineBreak();
 									}
+								} catch(Exception e){
+									System.out.println("AU HUD: caught exception in block inspector, creative tab");
+								}
 
-									// required tools and levels
+								// required tools and levels
+								try {
 									int swordLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "sword");
 									int axeLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "axe");
 									int pickaxeLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "pickaxe");
@@ -499,8 +557,12 @@ public class InfoHUD {
 										if(ic2_wrenchable) this.showTool("IC2 Wrench");
 										this.ui.lineBreak();
 									}
+								} catch(Exception e){
+									System.out.println("AU HUD: caught exception in block inspector, required tool");
+								}
 
-									// item dropped when broken
+								// item dropped when broken
+								try {
 									int droppedID = block.idDropped(blockMetadata, new Random(), 0);
 									if(droppedID > 0){
 										int droppedMetadata = block.damageDropped(blockMetadata);
@@ -509,7 +571,7 @@ public class InfoHUD {
 										try {
 											droppedName = stackDropped.getDisplayName();
 										} catch(Exception e){
-//											System.out.println("AU HUD: caught exception in block inspector, droppedName");
+											System.out.println("AU HUD: caught exception in block inspector, drops as - droppedName");
 										}
 										if(droppedID == 0 || droppedName != null){
 											// add to drops list, if not already
@@ -547,29 +609,38 @@ public class InfoHUD {
 											this.ui.drawString("   silkable", 0xb25bfd);
 											this.ui.lineBreak();
 										}
-
-										// redstone
-										int isProvidingSide = (mc.objectMouseOver.sideHit == 0 ? 1 : (mc.objectMouseOver.sideHit == 1 ? 0 : mc.objectMouseOver.sideHit));
-										#ifdef MC147
-										int isProvidingWeakPower = (block.isProvidingWeakPower(world, inspectX, inspectY, inspectZ, isProvidingSide) ? -1 : 0);
-										int isProvidingStrongPower = (block.isProvidingStrongPower(world, inspectX, inspectY, inspectZ, isProvidingSide) ? -1 : 0);
-										int blockPowerInput = (world.isBlockGettingPowered(inspectX, inspectY, inspectZ) ? -1 : 0);
-										#else
-										int isProvidingWeakPower = block.isProvidingWeakPower(world, inspectX, inspectY, inspectZ, isProvidingSide);
-										int isProvidingStrongPower = block.isProvidingStrongPower(world, inspectX, inspectY, inspectZ, isProvidingSide);
-										int blockPowerInput = world.getBlockPowerInput(inspectX, inspectY, inspectZ);
-										#endif
-										this.ui.drawString("   in: ", 0xaaaaaa);
-										this.ui.drawString((blockPowerInput > 0 ? String.format("%d", blockPowerInput) : (blockPowerInput == -1 ? "x" : "_")), 0xffffff);
-										this.ui.drawString(" out: ", 0xaaaaaa);
-										this.ui.drawString((isProvidingWeakPower > 0 ? String.format("%d", isProvidingWeakPower) : (isProvidingWeakPower == -1 ? "x" : "_")), 0xffffff);
-										this.ui.drawString(" / ", 0xaaaaaa);
-										this.ui.drawString((isProvidingStrongPower > 0 ? String.format("%d", isProvidingStrongPower) : (isProvidingStrongPower == -1 ? "x" : "_")), 0xffffff);
-										this.ui.lineBreak();
 									}
+								} catch(Exception e){
+									System.out.println("AU HUD: caught exception in block inspector, drops as");
+								}
 
-									if(Cfg.enable_advanced_inspector){
-										// brightness, hardness, resistance
+								// redstone
+								try {
+									int isProvidingSide = (mc.objectMouseOver.sideHit == 0 ? 1 : (mc.objectMouseOver.sideHit == 1 ? 0 : mc.objectMouseOver.sideHit));
+									#ifdef MC147
+									int isProvidingWeakPower = (block.isProvidingWeakPower(world, inspectX, inspectY, inspectZ, isProvidingSide) ? -1 : 0);
+									int isProvidingStrongPower = (block.isProvidingStrongPower(world, inspectX, inspectY, inspectZ, isProvidingSide) ? -1 : 0);
+									int blockPowerInput = (world.isBlockGettingPowered(inspectX, inspectY, inspectZ) ? -1 : 0);
+									#else
+									int isProvidingWeakPower = block.isProvidingWeakPower(world, inspectX, inspectY, inspectZ, isProvidingSide);
+									int isProvidingStrongPower = block.isProvidingStrongPower(world, inspectX, inspectY, inspectZ, isProvidingSide);
+									int blockPowerInput = world.getBlockPowerInput(inspectX, inspectY, inspectZ);
+									#endif
+									this.ui.drawString("   in: ", 0xaaaaaa);
+									this.ui.drawString((blockPowerInput > 0 ? String.format("%d", blockPowerInput) : (blockPowerInput == -1 ? "x" : "_")), 0xffffff);
+									this.ui.drawString(" out: ", 0xaaaaaa);
+									this.ui.drawString((isProvidingWeakPower > 0 ? String.format("%d", isProvidingWeakPower) : (isProvidingWeakPower == -1 ? "x" : "_")), 0xffffff);
+									this.ui.drawString(" / ", 0xaaaaaa);
+									this.ui.drawString((isProvidingStrongPower > 0 ? String.format("%d", isProvidingStrongPower) : (isProvidingStrongPower == -1 ? "x" : "_")), 0xffffff);
+									this.ui.lineBreak();
+								} catch(Exception e){
+									System.out.println("AU HUD: caught exception in block inspector, redstone");
+								}
+
+								if(Cfg.enable_advanced_inspector){
+
+									// brightness, hardness, resistance
+									try {
 										int brightness = block.getLightValue(world, inspectX, inspectY, inspectZ);
 										float hardness = block.getBlockHardness(world, inspectX, inspectY, inspectZ);
 										float resistance = block.getExplosionResistance(null);
@@ -580,10 +651,12 @@ public class InfoHUD {
 										this.ui.drawString(" r: ", 0xaaaaaa);
 										this.ui.drawString(String.format("%.1f", resistance), 0xffffff);
 										this.ui.lineBreak();
+									} catch(Exception e){
+										System.out.println("AU HUD: caught exception in advanced block inspector, b.h.r.");
 									}
 
-									if(Cfg.enable_advanced_inspector){
-										// has tile entity, tick rate, random ticks
+									// has tile entity, has random ticks, has ticking tile entity, tile entities in block, total tile entities around player
+									try {
 										boolean tickRandomly = block.getTickRandomly();
 										boolean tickingEntity = false;
 										if(tileEntity != null)
@@ -595,6 +668,7 @@ public class InfoHUD {
 										this.ui.drawString((tickRandomly ? "x" : "_"), 0xffffff);
 										this.ui.drawString(" t: ", 0xaaaaaa);
 										this.ui.drawString((tickingEntity ? "x" : "_"), 0xffffff);
+
 										ArrayList tileEntityList = (ArrayList)world.loadedTileEntityList;
 										int nr_tileEntities = tileEntityList.size();
 										int nr_tileEntitiesAtPos = 0;
@@ -605,7 +679,6 @@ public class InfoHUD {
 												nr_tileEntitiesAtPos++;
 											if(te.canUpdate())
 												nr_tileEntitiesTicking++;
-
 										}
 										if(nr_tileEntitiesAtPos == 0 && hasTileEntity)
 											nr_tileEntitiesAtPos = world.getBlockTileEntity(inspectX, inspectY, inspectZ) == null ? 0 : 1;
@@ -617,10 +690,12 @@ public class InfoHUD {
 										this.ui.drawString((nr_tileEntitiesTicking > 0 ? String.format("%d", nr_tileEntitiesTicking) : "_"), 0xffffff);
 										this.ui.drawString(")", 0xaaaaaa);
 										this.ui.lineBreak();
+									} catch(Exception e){
+										System.out.println("AU HUD: caught exception in advanced block inspector, e.r.t.b.a.");
 									}
 
-									if(Cfg.enable_advanced_inspector){
-										// normal, opaque, solid
+									// normal, opaque, solid
+									try {
 										boolean solid = block.isBlockSolid(world, inspectX, inspectY, inspectZ, mc.objectMouseOver.sideHit);
 										this.ui.drawString("   n: ", 0xaaaaaa);
 										this.ui.drawString((block.isNormalCube(blockID) ? "x" : "_"), 0xffffff);
@@ -629,11 +704,13 @@ public class InfoHUD {
 										this.ui.drawString(" s: ", 0xaaaaaa);
 										this.ui.drawString((solid ? "x" : "_"), 0xffffff);
 										this.ui.lineBreak();
+									} catch(Exception e){
+										System.out.println("AU HUD: caught exception in advanced block inspector, n.o.s.");
 									}
-								}
-							} catch(Exception e){
-//								System.out.println("AU HUD: caught exception in block inspector");
-							}
+
+								} // END Cfg.enable_advanced_inspector
+
+							} // END Cfg.show_inspector
 						}
 					}
 				}
@@ -641,33 +718,75 @@ public class InfoHUD {
 		}
 
 		// SELF: armor value inspector
-		if(Cfg.show_inspector && !player.capabilities.isCreativeMode){
-			int armorValue = player.getTotalArmorValue();
-			if(armorValue > 0){
-				this.ui.setCursor(screen.getScaledWidth()/2 - 95, screen.getScaledHeight() - 70);
-				this.ui.drawString(" armor: ", 0xaaaaaa);
-				this.ui.drawString(String.format("%d", armorValue), 0xffffff);
+		try {
+			if(Cfg.show_inspector && !player.capabilities.isCreativeMode){
+				int armorValue = player.getTotalArmorValue();
+				if(armorValue > 0){
+					this.ui.setCursor(screen.getScaledWidth()/2 - 95, screen.getScaledHeight() - 70);
+					this.ui.drawString(" armor: ", 0xaaaaaa);
+					this.ui.drawString(String.format("%d", armorValue), 0xffffff);
+				}
 			}
+		} catch(Exception e){
+			System.out.println("AU HUD: caught exception in armor value inspector");
 		}
 
-		// SELF: daamge inspector
-		if(Cfg.show_inspector && !player.capabilities.isCreativeMode){
-			ItemStack hand = player.getHeldItem();
-			Item item = (hand != null ? Item.itemsList[hand.itemID] : null);
-			int damage = (item != null ? item.getDamageVsEntity(null) : 1);
-			this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - 70);
-			this.ui.drawString("damage: ", 0xaaaaaa);
-			this.ui.drawString(String.format("%d", damage), 0xffffff);
+		// SELF: damage inspector
+		try {
+			if(Cfg.show_inspector && !player.capabilities.isCreativeMode){
+				Entity entity = null;
+				Block block = null;
+				float damageEntity = 1.0F;
+				float damageBlock = 1.0F;
+
+				ItemStack hand = player.getHeldItem();
+				Item item = (hand != null ? Item.itemsList[hand.itemID] : null);
+				if(item != null){
+					if(mc.objectMouseOver != null){
+						if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY){
+							entity = mc.objectMouseOver.entityHit;
+						} else if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.TILE){
+							int blockID = world.getBlockId(mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
+							if(blockID > 0)
+								block = Block.blocksList[blockID];
+						}
+					}
+
+					#if defined MC147 || defined MC152
+					damageEntity = (float)item.getDamageVsEntity(entity, hand);
+					#else
+					if(item instanceof ItemTool){
+						entity = null;
+						damageEntity = ((ItemTool)item).damageVsEntity;
+					} else if(item instanceof ItemSword){
+						entity = null;
+//						damageEntity = (float)((AttributeModifier)item.getItemAttributeModifiers().get(SharedMonsterAttributes.attackDamage)).getAmount();
+					} else
+						damageEntity = item.getDamageVsEntity(entity, hand);
+// TODO: getDamageVsEntity is deprecated
+					#endif
+					damageBlock = item.getStrVsBlock(hand, block);
+				}
+				this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - 70);
+				this.ui.drawString("damage: ", 0xaaaaaa);
+				this.ui.drawString(String.format("%s%.1f / %s%.1f", (entity == null ? "*" : ""), damageEntity, (block == null ? "*" : ""), damageBlock), 0xffffff);
+			}
+		} catch(Exception e){
+			System.out.println("AU HUD: caught exception in damage inspector");
 		}
 
 		// SELF: food inspector
-		if(Cfg.show_inspector && !player.capabilities.isCreativeMode){
-			FoodStats food = player.getFoodStats();
-			this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - 50);
-			this.ui.drawString("f: ", 0xaaaaaa);
-			this.ui.drawString(String.format("%d%%", 100*food.getFoodLevel()/20), 0xffffff);
-			this.ui.drawString("  s: ", 0xaaaaaa);
-			this.ui.drawString(String.format("%d%%", (int)Math.round(100*food.getSaturationLevel()/20)), 0xffffff);
+		try {
+			if(Cfg.show_inspector && !player.capabilities.isCreativeMode){
+				FoodStats food = player.getFoodStats();
+				this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - 50);
+				this.ui.drawString("f: ", 0xaaaaaa);
+				this.ui.drawString(String.format("%d%%", 100*food.getFoodLevel()/20), 0xffffff);
+				this.ui.drawString("  s: ", 0xaaaaaa);
+				this.ui.drawString(String.format("%d%%", (int)Math.round(100*food.getSaturationLevel()/20)), 0xffffff);
+			}
+		} catch(Exception e){
+			System.out.println("AU HUD: caught exception in food inspector");
 		}
 
 // TODO: memory

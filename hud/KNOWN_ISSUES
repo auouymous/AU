@@ -1,3 +1,10 @@
+1.6.x port
+	- zoom key doesn't save
+	- zooming doesn't work
+	- damage inspector on ItemSword isn't ready
+	- block inspector creative tab is unlocalized
+	- server info is untested in MP
+
 Enchants on armor spaz out when NEI's highlight tips are enabled.
 
 The time is incorrect for the age I live in.

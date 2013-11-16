@@ -56,7 +56,8 @@ Armor Inspector
 * shows your armor value
 
 Damage Inspector
-* shows damage dealt by the item you are holding
+* shows damage dealt by the item you are holding (entity / block)
+* an asterisk before entity/block damage represents base damage, targeting an entity/block shows true damage
 * does not factor in the random multiplier for enchants
 * some weapons don't report correct damage
 

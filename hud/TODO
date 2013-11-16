@@ -1,7 +1,3 @@
-- port to 1.6.2/1.6.4
-- port to 1.7.2
-- find IC2 API source for 1.4.7 and add support
-
 OPTION MENU
 	~ shift or right clicking position buttons to increment/decrement by 10
 
@@ -70,6 +66,19 @@ POTION HUD
 SHOP SIGNS HUD
 	- query itemID when only its name is on the sign (to show icon)
 	- support essentials [buy] and [sell] signs
+
+CHAT HUD
+	- "channel" tabs around chat box when focused
+		- highlight active channel tab
+		- all messages, not prefixed with / will be sent to active channel
+		- "general" channel will send to all
+	- if possible, intercept incoming and outgoing private messages
+		- add channel for each player in sent or received messages
+		- "X" button next to each player tab to remove it
+		- all outgoing messages will be sent as private messages to active player
+	- towny/mytown town channel support
+		- detect towny/mytown and add a "town" channel
+		- all outgoing messages will be sent as /tc <message>
 
 SERVER INFO
 	- pvp status
