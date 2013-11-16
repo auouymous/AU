@@ -745,7 +745,9 @@ public class InfoHUD {
 					}
 
 					try {
-						#if defined MC147 || defined MC152
+						#ifdef MC147
+						damageEntity = (float)item.getDamageVsEntity(entity);
+						#elif defined MC152
 						damageEntity = (float)item.getDamageVsEntity(entity, hand);
 						#else
 						if(item instanceof ItemTool){
