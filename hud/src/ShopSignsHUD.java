@@ -34,6 +34,24 @@ public class ShopSignsHUD {
 
 	//////////
 
+	private int parseInt(String s){
+		try {
+			return Integer.parseInt(s);
+		} catch(Exception e){
+			// return 0 if sign unparsable
+			return 0;
+		}
+	}
+
+	private float parseFloat(String s){
+		try {
+			return Float.parseFloat(s);
+		} catch(Exception e){
+			// return 0 if sign unparsable
+			return 0.0F;
+		}
+	}
+
 	public void draw(Minecraft mc, ScaledResolution screen, EntityPlayer player){
 		GL11.glPushMatrix();
 
@@ -56,27 +74,27 @@ public class ShopSignsHUD {
 									TileEntity tileEntity = world.getBlockTileEntity(inspectX, inspectY, inspectZ);
 									if(tileEntity instanceof TileEntitySign){
 										String[] signText = ((TileEntitySign)tileEntity).signText;
-										int quantity = Integer.parseInt(signText[1].trim()); // second line = quantity
+										int quantity = this.parseInt(signText[1].trim()); // second line = quantity
 										if(quantity > 0){
 											float buyPrice = 0.0F, sellPrice = 0.0F;
 											signText[2] = signText[2].replace(" ", "");
 											Matcher matchBuy = shopSignBuy.matcher(signText[2]); // third line = buy price
 											Matcher matchSell = shopSignSell.matcher(signText[2]); // third line = sell price
 											if(matchBuy.find())
-												buyPrice = Float.parseFloat(signText[2].substring(matchBuy.start()+1, matchBuy.end()));
+												buyPrice = this.parseFloat(signText[2].substring(matchBuy.start()+1, matchBuy.end()));
 											if(matchSell.find())
-												sellPrice = Float.parseFloat(signText[2].substring(matchSell.start()+1, matchSell.end()));
+												sellPrice = this.parseFloat(signText[2].substring(matchSell.start()+1, matchSell.end()));
 											if(buyPrice > 0 || sellPrice > 0){
 												int itemID = 0, itemDamage = 0;
 												signText[3] = signText[3].trim();
 												if(signText[3].charAt(0) == 'X'){
 													Matcher matchID = shopSignID.matcher(signText[3]); // fourth line = item name or ID
 													if(matchID.find()){
-														itemID = Integer.parseInt(signText[3].substring(matchID.start()+1, matchID.end()));
+														itemID = this.parseInt(signText[3].substring(matchID.start()+1, matchID.end()));
 														if(itemID > 0)
 															if(matchID.find())
 																if(signText[3].charAt(matchID.start()) == ':')
-																	itemDamage = Integer.parseInt(signText[3].substring(matchID.start()+1, matchID.end()));
+																	itemDamage = this.parseInt(signText[3].substring(matchID.start()+1, matchID.end()));
 													}
 												} else {
 // TODO: query item by name in signText[3]
@@ -160,7 +178,6 @@ public class ShopSignsHUD {
 													this.ui.drawString(UI.ALIGN_CENTER, "Left-click (attack) to sell", 0xaaaaaa, 0);
 											}
 										}
-																	
 									}
 								} catch (Exception e){
 									Failure.log("shop signs");
