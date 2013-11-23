@@ -1,6 +1,9 @@
-OPTION MENU
-	~ shift or right clicking position buttons to increment/decrement by 10
+~ DEPRECATED
+	cpw.mods.fml.common.Mod.PreInit			@PreInit
+	cpw.mods.fml.common.Mod.Init			@Init
+	cpw.mods.fml.common.Mod.PostInit		@PostInit
 
+OPTION MENU
 	- fine grained control over info HUD elements
 		- move elements to different lines and different positions within each line
 		- change the pre and post text for elements
@@ -58,6 +61,8 @@ ARMOR HUD
 	- shows stats for held item if ItemFood (healAmount, saturationModifier, alwaysEdible, itemUseDuration)
 		- potionId, potionDuration, potionAmplifier, potionEffectProbability
 		- inspector must be on
+
+	- show rarity of enchanted books when held
 
 POTION HUD
 	- options to change text colors (potion name and duration)

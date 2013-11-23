@@ -35,6 +35,8 @@ public class GuiPotionOptions extends GuiScreen {
 		this.ui.y = posX_y + 5;
 		this.ui.x = this.ui.drawString(UI.ALIGN_CENTER, String.format("x: %d", Cfg.potion_hud_x), 0xffffff, 40);
 		this.ui.drawString("x:", 0xaaaaaa);
+		this.ui.x = posX_x - 30;
+		this.ui.drawString(UI.ALIGN_RIGHT, "right-click by 10", 0x555555, 0);
 		this.ui.x = posX_x + 40;
 		this.ui.y = posX_y;
 	}
@@ -44,6 +46,8 @@ public class GuiPotionOptions extends GuiScreen {
 		this.ui.y = posY_y + 5;
 		this.ui.x = this.ui.drawString(UI.ALIGN_CENTER, String.format("y: %d", Cfg.potion_hud_y), 0xffffff, 40);
 		this.ui.drawString("y:", 0xaaaaaa);
+		this.ui.x = posY_x + 40 + 30;
+		this.ui.drawString(UI.ALIGN_LEFT, "middle-click by 20", 0x555555, 0);
 		this.ui.x = posY_x + 40;
 		this.ui.y = posY_y;
 	}
@@ -132,6 +136,35 @@ public class GuiPotionOptions extends GuiScreen {
 			this.window_height = this.ui.y;
 			this.initGui();
 		}
+	}
+
+	@Override
+	protected void mouseClicked(int cursor_x, int cursor_y, int mouse_button){
+		if(mouse_button == 0) super.mouseClicked(cursor_x, cursor_y, mouse_button);
+		else {
+			for(int i = 0; i < this.buttonList.size(); i++){
+				Button button = (Button)this.buttonList.get(i);
+				if(button.mousePressed(this.mc, cursor_x, cursor_y)){
+					this.mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
+					this.actionPerformed(button, mouse_button); // 1:right, 2:middle
+				}
+			}
+		}
+	}
+
+	public void actionPerformed(GuiButton button, int mouse_button){
+		// toggle config state
+		switch(ButtonID.values()[button.id]){
+		case BUTTON_X_DN:		Cfg.potion_hud_x -= (mouse_button == 1 ? 10 : 20);	break;
+		case BUTTON_X_UP:		Cfg.potion_hud_x += (mouse_button == 1 ? 10 : 20);	break;
+		case BUTTON_Y_DN:		Cfg.potion_hud_y -= (mouse_button == 1 ? 10 : 20);	break;
+		case BUTTON_Y_UP:		Cfg.potion_hud_y += (mouse_button == 1 ? 10 : 20);	break;
+		default:
+			return;
+		}
+
+		// save config
+		Cfg.save();
 	}
 
 	@Override
