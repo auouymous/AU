@@ -7,6 +7,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 
+import java.util.List;
+
 import com.qzx.au.util.Button;
 import com.qzx.au.util.UI;
 
@@ -184,8 +186,13 @@ public class GuiInfoOptions extends GuiScreen {
 	protected void mouseClicked(int cursor_x, int cursor_y, int mouse_button){
 		if(mouse_button == 0) super.mouseClicked(cursor_x, cursor_y, mouse_button);
 		else {
-			for(int i = 0; i < this.buttonList.size(); i++){
-				Button button = (Button)this.buttonList.get(i);
+			#ifdef MC147
+			List buttons = this.controlList;
+			#else
+			List buttons = this.buttonList;
+			#endif
+			for(int i = 0; i < buttons.size(); i++){
+				Button button = (Button)buttons.get(i);
 				if(button.mousePressed(this.mc, cursor_x, cursor_y)){
 					this.mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
 					this.actionPerformed(button, mouse_button); // 1:right, 2:middle
