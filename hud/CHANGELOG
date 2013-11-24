@@ -1,3 +1,4 @@
+	- fixed block name to show correctly on more blocks
 	- right-click changes HUD positions by 10 and middle-click by 20
 	- entity inspector shows current health / max health in 1.6+
 	- item damage indicator now shows entity/block damage and will change if entity/block is targeted

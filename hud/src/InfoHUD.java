@@ -458,19 +458,11 @@ public class InfoHUD {
 
 							// name and ID if block is picked
 							try {
-								ItemStack stackBlock = new ItemStack(blockID, 1, blockMetadata);
-								String blockName = ItemUtils.getDisplayName(stackBlock);
-
-								int pickedID = block.idPicked(world, inspectX, inspectY, inspectZ), pickedMetadata = 0;
-								boolean pickedSameAsBlock = false;
+								ItemStack stackPicked = block.getPickBlock(mc.objectMouseOver, world, inspectX, inspectY, inspectZ);
+								int pickedID = stackPicked.itemID;
 								if(pickedID > 0){
-									pickedMetadata = block.getDamageValue(world, inspectX, inspectY, inspectZ);
-									ItemStack stackPicked = new ItemStack(pickedID, 1, pickedMetadata);
+									int pickedMetadata = stackPicked.getItemDamage();
 									String pickedName = ItemUtils.getDisplayName(stackPicked);
-
-									if(blockName != null && pickedName != null)
-										if(blockName.equals(pickedName))
-											pickedSameAsBlock = true;
 									this.ui.drawString(pickedName, "<Unknown Block>", 0xffffff);
 
 									if(Cfg.show_inspector){
@@ -497,14 +489,9 @@ public class InfoHUD {
 									this.ui.drawString(" (b: ", 0xaaaaaa);
 									this.ui.drawString(String.format("%d:%d", blockID, blockMetadata), 0xffffff);
 									this.ui.drawString(")", 0xaaaaaa);
-								}
+								} else
+									this.ui.drawString("<Unknown Block>", 0xffffff);
 								this.ui.lineBreak();
-								if(!pickedSameAsBlock && blockName != null && (blockID != pickedID || blockMetadata != pickedMetadata))
-									if(!blockName.equals("")){
-										this.ui.drawString("   ", 0xaaaaaa);
-										this.ui.drawString(blockName, 0xffffff);
-										this.ui.lineBreak();
-									}
 							} catch(Exception e){
 								Failure.log("block name/ID info element");
 							}
