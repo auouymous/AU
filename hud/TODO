@@ -30,6 +30,10 @@ OPTION MENU
 INFO HUD
 	~ FIX: time is incorrect in mystcraft ages
 
+	- find block/entity behind crosshairs when no target
+		- show block/entity inspector
+		- show distance to block/entity
+
 	- display player name in inspector when looking at heads
 
 	- add server side support

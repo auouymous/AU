@@ -1,9 +1,7 @@
-1.6.x port
-	- zoom key doesn't save
+1.6.2 / 1.6.4
 	- zooming doesn't work
 	- damage inspector on ItemSword isn't ready
 	- block inspector creative tab is unlocalized
-	- server info is untested in MP
 
 Enchants on armor spaz out when NEI's highlight tips are enabled.
 

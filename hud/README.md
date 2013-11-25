@@ -12,7 +12,7 @@ Required: -
 
 'H' key opens HUD options menu.
 'I' key toggles inspector.
-<none> key zooms player view.
+<none> key zooms player view. (does not work in 1.6.x)
 All keys are configurable in the Controls menu.
 
 Info HUD elements
