@@ -459,7 +459,7 @@ public class InfoHUD {
 							// name and ID if block is picked
 							try {
 								ItemStack stackPicked = block.getPickBlock(mc.objectMouseOver, world, inspectX, inspectY, inspectZ);
-								int pickedID = stackPicked.itemID;
+								int pickedID = (stackPicked != null ? stackPicked.itemID : 0);
 								if(pickedID > 0){
 									int pickedMetadata = stackPicked.getItemDamage();
 									String pickedName = ItemUtils.getDisplayName(stackPicked);
@@ -482,15 +482,18 @@ public class InfoHUD {
 											this.ui.drawString(")", 0xaaaaaa);
 										}
 									}
-								} else if(Cfg.show_inspector){
-									this.ui.drawString("<Unknown Block>", 0xffffff);
+								} else {
+									ItemStack stackBlock = new ItemStack(blockID, 1, blockMetadata);
+									String blockName = ItemUtils.getDisplayName(stackBlock);
+									this.ui.drawString(blockName, "<Unknown Block>", 0xffffff);
 
-									// ID of placed block
-									this.ui.drawString(" (b: ", 0xaaaaaa);
-									this.ui.drawString(String.format("%d:%d", blockID, blockMetadata), 0xffffff);
-									this.ui.drawString(")", 0xaaaaaa);
-								} else
-									this.ui.drawString("<Unknown Block>", 0xffffff);
+									if(Cfg.show_inspector){
+										// ID of placed block
+										this.ui.drawString(" (b: ", 0xaaaaaa);
+										this.ui.drawString(String.format("%d:%d", blockID, blockMetadata), 0xffffff);
+										this.ui.drawString(")", 0xaaaaaa);
+									}
+								}
 								this.ui.lineBreak();
 							} catch(Exception e){
 								Failure.log("block name/ID info element");
