@@ -14,8 +14,8 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
 
-import com.qzx.au.util.Button;
-import com.qzx.au.util.UI;
+import com.qzx.au.core.Button;
+import com.qzx.au.core.UI;
 
 @SideOnly(Side.CLIENT)
 public class GuiServerInfo extends GuiScreen {

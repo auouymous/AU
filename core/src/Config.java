@@ -1,4 +1,4 @@
-package com.qzx.au.util;
+package com.qzx.au.core;
 
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;

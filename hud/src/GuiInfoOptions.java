@@ -9,8 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.List;
 
-import com.qzx.au.util.Button;
-import com.qzx.au.util.UI;
+import com.qzx.au.core.Button;
+import com.qzx.au.core.UI;
 
 @SideOnly(Side.CLIENT)
 public class GuiInfoOptions extends GuiScreen {

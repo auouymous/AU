@@ -5,7 +5,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 
-import com.qzx.au.util.Config;
+import com.qzx.au.core.Config;
 
 public class Cfg extends Config {
 	public static boolean enable_info_hud;

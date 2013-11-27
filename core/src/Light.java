@@ -1,4 +1,4 @@
-package com.qzx.au.util;
+package com.qzx.au.core;
 
 public class Light {
 	public static float[] level = {

@@ -1,8 +1,11 @@
-package com.qzx.au.util;
+package com.qzx.au.core;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.item.ItemStack;
 #ifndef MC147
 import net.minecraft.util.Icon;
 #endif
@@ -205,6 +208,35 @@ public class UI {
 	}
 	#endif
 	// no support for 147
+
+/*
+	public static void drawItemStack(Minecraft mc, RenderItem itemRenderer, ItemStack itemstack, int x, int y, boolean durability_bar){
+		if(itemstack != null){
+			GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+
+			GL11.glEnable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
+			RenderHelper.enableStandardItemLighting();
+			RenderHelper.enableGUIStandardItemLighting();
+			try {
+				itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y);
+
+				if(durability_bar){
+					#ifdef MC147
+					itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y);
+					#else
+					itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y, null);
+					#endif
+				}
+			} catch(Exception e){
+				// ignore errors
+			}
+			RenderHelper.disableStandardItemLighting();
+			GL11.glDisable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
+		}
+	}
+*/
+
+	//////////
 
 	public static void setColor(int color){
 		GL11.glColor4f((float)(color >> 16 & 255) / 255.0F, (float)(color >> 8 & 255) / 255.0F, (float)(color & 255) / 255.0F, (float)(color >> 24 & 255) / 255.0F);

@@ -1,4 +1,4 @@
-MOD = hud
+MOD = core
 FILES = 
 
 include ../.submakefiles

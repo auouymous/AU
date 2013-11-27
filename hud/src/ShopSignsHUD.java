@@ -21,7 +21,7 @@ import java.util.regex.Matcher;
 
 import org.lwjgl.opengl.GL11;
 
-import com.qzx.au.util.UI;
+import com.qzx.au.core.UI;
 
 @SideOnly(Side.CLIENT)
 public class ShopSignsHUD {

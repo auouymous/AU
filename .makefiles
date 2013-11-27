@@ -35,5 +35,10 @@ P := $(PWD)
 JC := javac -encoding UTF-8
 JFLAGS := -Xlint:deprecation
 
-NOW := $(shell /bin/date +%Y)$(shell /bin/date +%m)$(shell /bin/date +%d)-$(shell /bin/date +%H)$(shell /bin/date +%M)
+ifneq ($(r),)
+	NOW := $(shell /bin/date +%Y)$(shell /bin/date +%m)$(shell /bin/date +%d)-r$(r)
+else
+	NOW := $(shell /bin/date +%Y)$(shell /bin/date +%m)$(shell /bin/date +%d)-$(shell /bin/date +%H)$(shell /bin/date +%M)
+endif
+
 AUMOD := $(shell export m=$(MOD) ; echo AU$${m^})

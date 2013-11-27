@@ -1,4 +1,4 @@
-package com.qzx.au.util;
+package com.qzx.au.core;
 
 // no support for 147
 #ifndef MC147

@@ -1,7 +1,7 @@
 [
 {
-  "modid": "AUHud",
-  "name": "Altered Unification HUD",
+  "modid": "AUCore",
+  "name": "Altered Unification CORE",
   "description": "",
   "version": "0.0.0",
   "mcversion": "0.0.0",
@@ -13,7 +13,6 @@
   "screenshots": [ ],
   "parent": "",
   "requiredMods": [
-	"AUCore",
     "Forge",
     "FML"
   ],

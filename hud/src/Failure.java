@@ -2,7 +2,7 @@ package com.qzx.au.hud;
 
 import net.minecraft.client.gui.ScaledResolution;
 
-import com.qzx.au.util.UI;
+import com.qzx.au.core.UI;
 
 public class Failure {
     private static UI ui = new UI();

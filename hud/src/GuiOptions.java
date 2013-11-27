@@ -7,8 +7,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 
-import com.qzx.au.util.Button;
-import com.qzx.au.util.UI;
+import com.qzx.au.core.Button;
+import com.qzx.au.core.UI;
 
 @SideOnly(Side.CLIENT)
 public class GuiOptions extends GuiScreen {
