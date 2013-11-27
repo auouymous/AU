@@ -14,7 +14,7 @@ public class ItemFoodGeneric extends ItemFood {
 		this.setMaxStackSize(maxStackSize);
 		this.setUnlocalizedName(name);
 		LanguageRegistry.addName(this, readableName);
-		this.setCreativeTab(CreativeTabs.tabFood);
+		this.setCreativeTab(AUExtras.tabAU);
 	}
 
 	@SideOnly(Side.CLIENT)

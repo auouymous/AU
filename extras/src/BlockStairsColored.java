@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 
 import net.minecraftforge.common.MinecraftForge;
 
-import com.qzx.au.util.Light;
+import com.qzx.au.core.Light;
 
 class BlockStairsColored extends BlockStairs {
 	public BlockStairsColored(int id, String name, String readableName, Block block, int blockMeta){

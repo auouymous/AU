@@ -2,7 +2,7 @@ package com.qzx.au.extras;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
-import com.qzx.au.util.Config;
+import com.qzx.au.core.Config;
 
 public class Cfg extends Config {
 	public static boolean enableCobble;
@@ -14,7 +14,6 @@ public class Cfg extends Config {
 	public static boolean enableGlassTinted;
 	public static boolean enableGlassTintedNoFrame;
 	public static boolean enableLamps;
-
 	public static boolean enableCobbleStairs;
 	public static boolean enableStoneStairs;
 	public static boolean enableStoneBrickStairs;
@@ -29,6 +28,8 @@ public class Cfg extends Config {
 	public static int nrCookedFleshToLeather;
 
 	// IDs
+	public static int blockChromaInfuser;
+
 	public static int blockCobble;
 	public static int blockStone;
 	public static int blockStoneBrick;
@@ -41,7 +42,6 @@ public class Cfg extends Config {
 	public static int blockInvertedLamp;
 	public static int blockLampPowered;
 	public static int blockInvertedLampPowered;
-
 	public static int blockCobbleStairs;
 	public static int blockStoneStairs;
 	public static int blockStoneBrickStairs;
@@ -49,6 +49,7 @@ public class Cfg extends Config {
 
 	public static int itemFriedEgg;
 	public static int itemCookedFlesh;
+	public static int itemChromaSprayer;
 
 	public static void init(FMLPreInitializationEvent event){
 		Cfg.loadConfig(event);
@@ -106,9 +107,13 @@ public class Cfg extends Config {
 		Cfg.blockGlassTinted = Cfg.getBlock("blockGlassTinted", startBlockID, null); startBlockID++;
 		Cfg.blockGlassTintedNoFrame = Cfg.getBlock("blockGlassTintedNoFrame", startBlockID, null); startBlockID++;
 
+		Cfg.blockChromaInfuser = Cfg.getBlock("blockChromaInfuser", startBlockID, null); startBlockID++;
+
 		// ITEMS
 		Cfg.itemFriedEgg = Cfg.getItem("itemFriedEgg", startItemID, null); startItemID++;
 		Cfg.itemCookedFlesh = Cfg.getItem("itemCookedFlesh", startItemID, null); startItemID++;
+
+		Cfg.itemChromaSprayer = Cfg.getItem("itemChromaSprayer", startItemID, null); startItemID++;
 
 		//////////
 

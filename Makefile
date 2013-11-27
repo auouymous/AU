@@ -8,7 +8,7 @@ all:
 	@(cd core ; make prepare v=$(VER))
 	@(cd hud ; make prepare v=$(VER))
 ifneq ($(VER),147)
-	@#(cd extras ; make prepare v=$(VER))
+	@(cd extras ; make prepare v=$(VER))
 	@#(cd world ; make prepare v=$(VER))
 endif
 
@@ -21,7 +21,7 @@ endif
 	@(cd core ; make jar v=$(VER))
 	@(cd hud ; make jar v=$(VER))
 ifneq ($(VER),147)
-	@#(cd extras ; make jar v=$(VER))
+	@(cd extras ; make jar v=$(VER))
 	@#(cd world ; make jar v=$(VER))
 endif
 
@@ -30,7 +30,7 @@ clean:
 	@(cd idmap ; make clean v=$(VER))
 	@(cd core ; make clean v=$(VER))
 	@(cd hud ; make clean v=$(VER))
-	@#(cd extras ; make clean v=$(VER))
+	@(cd extras ; make clean v=$(VER))
 	@#(cd world ; make clean v=$(VER))
 
 	@# clean up MCP files

@@ -17,7 +17,7 @@ import net.minecraftforge.common.MinecraftForge;
 
 import java.util.List;
 
-import com.qzx.au.util.Color;
+import com.qzx.au.core.Color;
 
 public class BlockColored extends Block {
 	@SideOnly(Side.CLIENT)
@@ -44,6 +44,7 @@ public class BlockColored extends Block {
 			this.blockIcons[c] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int color){
 		return this.blockIcons[color];
@@ -54,6 +55,7 @@ public class BlockColored extends Block {
 		return color;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubBlocks(int unknown, CreativeTabs tab, List subItems){
 		for(int c = 0; c < 16; c++)

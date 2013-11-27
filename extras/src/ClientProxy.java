@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 	public static int renderPass = 0;
+	public static int infuserRenderType;
 	public static int glassRenderType;
 	public static int lampRenderType;
 
@@ -15,6 +16,9 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerRenderers(){
+		infuserRenderType = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(new RendererChromaInfuser());
+
 		glassRenderType = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new RendererGlass());
 
@@ -23,7 +27,9 @@ public class ClientProxy extends CommonProxy {
 	}
 
 	@Override
-	public void registerHandlers(){}
+	public void registerHandlers(){
+		super.registerHandlers();
+	}
 
 	@Override
 	public void postInit(){}

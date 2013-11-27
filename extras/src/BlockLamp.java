@@ -15,13 +15,14 @@ import net.minecraftforge.common.ForgeDirection;
 
 import java.util.Random;
 
-import com.qzx.au.util.BlockCoord;
-import com.qzx.au.util.IConnectedTexture;
-import com.qzx.au.util.Light;
+import com.qzx.au.core.BlockCoord;
+import com.qzx.au.core.IConnectedTexture;
+import com.qzx.au.core.Light;
 
 public class BlockLamp extends BlockColored {
 	@SideOnly(Side.CLIENT)
 	private Icon[] blockIcons;
+	@SideOnly(Side.CLIENT)
 	private Icon[] blockIcons_glow;
 
 	private boolean inverted = false;
@@ -60,31 +61,33 @@ public class BlockLamp extends BlockColored {
 		return (this.inverted != this.powered ? this.blockIcons_glow[color] : null);
 	}
 
+	@Override
 	public boolean isOpaqueCube(){
 		return true;
 	}
 
+	@Override
 	public boolean renderAsNormalBlock(){
 		return true;
 	}
 
+	@Override
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side){
 		return true;
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getRenderType(){
 		return ClientProxy.lampRenderType;
 	}
 
-//	@Override
-//	public int getRenderColor(int color){
-//		return 16777215;
-//	}
-
+	@SideOnly(Side.CLIENT)
 	public int getRenderBlockPass(){
 		return (this.inverted != this.powered ? 1 : 0);
 	}
+
+	@SideOnly(Side.CLIENT)
 	public boolean canRenderInPass(int pass){
 		ClientProxy.renderPass = pass;
 		return true;
@@ -107,6 +110,11 @@ public class BlockLamp extends BlockColored {
 
 	//////////
 
+	@Override
+	public int tickRate(World world){
+		return 4;
+	}
+
 	private void updateBlockState(World world, int x, int y, int z){
 		if(world.isRemote) return;
 
@@ -114,33 +122,38 @@ public class BlockLamp extends BlockColored {
 
 		if(this.powered && !has_power)
 			// signal update to change to unpowered state
-			world.scheduleBlockUpdate(x, y, z, this.blockID, 4);
+			world.scheduleBlockUpdate(x, y, z, this.blockID, this.tickRate(world));
 		else if(!this.powered && has_power)
 			// change to powered state
 			world.setBlock(x, y, z, (this.inverted ? AUExtras.blockInvertedLampPowered.blockID : AUExtras.blockLampPowered.blockID), world.getBlockMetadata(x, y, z), 2);
 	}
+
+	@Override
 	public void onBlockAdded(World world, int x, int y, int z){
 		this.updateBlockState(world, x, y, z);
 	}
+
+	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID){
 		this.updateBlockState(world, x, y, z);
 	}
 
+	@Override
 	public void updateTick(World world, int x, int y, int z, Random random){
 		if(world.isRemote) return;
 
 		// change to unpowered state
 		if(this.powered && !world.isBlockIndirectlyGettingPowered(x, y, z))
 			world.setBlock(x, y, z, (this.inverted ? AUExtras.blockInvertedLamp.blockID : AUExtras.blockLamp.blockID), world.getBlockMetadata(x, y, z), 2);
-//		else
-//			Minecraft.getMinecraft().renderGlobal.markBlockForRenderUpdate(x, y, z);
 	}
 
+	@Override
 	public int idDropped(int par1, Random par2Random, int par3){
 		// always drop unpowered block
 		return (this.inverted ? AUExtras.blockInvertedLamp.blockID : AUExtras.blockLamp.blockID);
 	}
 
+	@Override
 	public int idPicked(World par1World, int par2, int par3, int par4){
 		// always pick unpowered block
 		return (this.inverted ? AUExtras.blockInvertedLamp.blockID : AUExtras.blockLamp.blockID);

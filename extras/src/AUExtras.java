@@ -17,14 +17,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 
 import net.minecraftforge.common.MinecraftForge;
 
-import com.qzx.au.util.Color;
-import com.qzx.au.util.Light;
+import com.qzx.au.core.Color;
+import com.qzx.au.core.Light;
 
-@Mod(modid="AUExtras", name="Altered Unification EXTRAS", version="20130817-r1")
+@Mod(modid="AUExtras", name="Altered Unification EXTRAS", version="0.0.0")
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class AUExtras {
 	@Instance("AUExtras")
@@ -33,6 +32,15 @@ public class AUExtras {
 	@SidedProxy(clientSide="com.qzx.au.extras.ClientProxy", serverSide="com.qzx.au.extras.CommonProxy")
 	public static CommonProxy proxy;
 
+	#ifdef MC152
+	public static String texturePath = "/mods/au_extras/textures";
+	#else
+	public static String texturePath = "textures";
+	#endif
+
+	public static CreativeTabs tabAU = new CreativeTabAUExtras();
+
+	public static Block blockChromaInfuser;
 	public static Block blockCobble;
 	public static Block blockStone;
 	public static Block blockStoneBrick;
@@ -61,6 +69,9 @@ public class AUExtras {
 	public void load(FMLInitializationEvent event){
 		proxy.registerRenderers();
 		proxy.registerHandlers();
+		proxy.registerEntities();
+
+		//////////
 
 		ItemStack cobblestone = new ItemStack(Block.cobblestone);
 		ItemStack stone = new ItemStack(Block.stone);
@@ -71,10 +82,27 @@ public class AUExtras {
 		ItemStack redstoneTorch = new ItemStack(Block.torchRedstoneActive);
 		ItemStack redstoneDust = new ItemStack(Item.redstone);
 		ItemStack glowstone = new ItemStack(Block.glowStone);
+		#ifdef MC152
 		ItemStack glowstoneDust = new ItemStack(Item.lightStoneDust);
+		#else
+		ItemStack glowstoneDust = new ItemStack(Item.glowstone);
+		#endif
 		ItemStack[] dyes = new ItemStack[16];
 		for(int c = 0; c < 16; c++)
 			dyes[c] = new ItemStack(Item.dyePowder, 1, c);
+
+		//////////
+
+		this.blockChromaInfuser = new BlockChromaInfuser(Cfg.blockChromaInfuser, "au.chromaInfuser", "Chroma Infuser")
+			.setHardness(2.0F)
+			.setResistance(10.0F)
+//			.setLightOpacity(191) // 25% transparent
+			.setStepSound(Block.soundMetalFootstep)
+			.setCreativeTab(AUExtras.tabAU);
+		MinecraftForge.setBlockHarvestLevel(this.blockChromaInfuser, "pickaxe", 0); // wooden pickaxe
+
+		// CRAFT cauldron
+		GameRegistry.addRecipe(new ItemStack(this.blockChromaInfuser, 1), " g ", "gcg", " g ", 'g', glass, 'c', new ItemStack(Block.cauldron));
 
 		//////////
 
@@ -83,9 +111,11 @@ public class AUExtras {
 				.setHardness(2.0F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
-				.setCreativeTab(CreativeTabs.tabBlock);
+				.setCreativeTab(AUExtras.tabAU);
 			MinecraftForge.setBlockHarvestLevel(this.blockCobble, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredCobble = new ItemStack(this.blockCobble);
+
+ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, cobblestone, coloredCobble);
 
 			// CRAFT 8 cobblestone + dye -> 8 <colored> cobble
 			for(int c = 0; c < 16; c++)
@@ -115,9 +145,11 @@ public class AUExtras {
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
-				.setCreativeTab(CreativeTabs.tabBlock);
+				.setCreativeTab(AUExtras.tabAU);
 			MinecraftForge.setBlockHarvestLevel(this.blockStone, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredStone = new ItemStack(this.blockStone);
+
+ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, stone, coloredStone);
 
 			// CRAFT 8 stone + dye -> 8 <colored> stone
 			for(int c = 0; c < 16; c++)
@@ -147,7 +179,7 @@ public class AUExtras {
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
-				.setCreativeTab(CreativeTabs.tabBlock);
+				.setCreativeTab(AUExtras.tabAU);
 			MinecraftForge.setBlockHarvestLevel(this.blockStoneBrick, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredStoneBrick = new ItemStack(this.blockStoneBrick);
 
@@ -179,7 +211,7 @@ public class AUExtras {
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
-				.setCreativeTab(CreativeTabs.tabBlock);
+				.setCreativeTab(AUExtras.tabAU);
 			MinecraftForge.setBlockHarvestLevel(this.blockChiseledBrick, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredChiseledBrick = new ItemStack(this.blockChiseledBrick);
 
@@ -209,7 +241,7 @@ public class AUExtras {
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
-				.setCreativeTab(CreativeTabs.tabBlock);
+				.setCreativeTab(AUExtras.tabAU);
 			MinecraftForge.setBlockHarvestLevel(this.blockSmoothBrick, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredSmoothBrick = new ItemStack(this.blockSmoothBrick);
 
@@ -241,7 +273,7 @@ public class AUExtras {
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
-				.setCreativeTab(CreativeTabs.tabBlock);
+				.setCreativeTab(AUExtras.tabAU);
 			ItemStack coloredGlass = new ItemStack(this.blockGlass);
 
 			// CRAFT 8 glass + dye -> 8 <colored> glass
@@ -263,7 +295,7 @@ public class AUExtras {
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
-				.setCreativeTab(CreativeTabs.tabBlock);
+				.setCreativeTab(AUExtras.tabAU);
 			ItemStack coloredGlass = new ItemStack(this.blockGlassTinted);
 
 			// CRAFT 6 glass + 3 dye -> 6 <colored tinted> glass
@@ -289,7 +321,7 @@ public class AUExtras {
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
-				.setCreativeTab(CreativeTabs.tabBlock);
+				.setCreativeTab(AUExtras.tabAU);
 			ItemStack coloredGlass = new ItemStack(this.blockGlassTintedNoFrame);
 
 			// CRAFT 7 glass + 2 dye -> 7 <tinted frameless> glass
@@ -315,7 +347,7 @@ public class AUExtras {
 				.setHardness(0.6F)
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGlassFootstep)
-				.setCreativeTab(CreativeTabs.tabRedstone);
+				.setCreativeTab(AUExtras.tabAU);
 			this.blockLampPowered = new BlockLamp(Cfg.blockLampPowered, "au.colorLampPowered", " Lamp", false, true)
 				.setHardness(0.6F)
 				.setResistance(3.0F)
@@ -339,7 +371,7 @@ public class AUExtras {
 				.setHardness(0.6F)
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGlassFootstep)
-				.setCreativeTab(CreativeTabs.tabRedstone);
+				.setCreativeTab(AUExtras.tabAU);
 			this.blockInvertedLampPowered = new BlockLamp(Cfg.blockInvertedLampPowered, "au.colorInvertedLampPowered", " Inverted Lamp", true, true)
 				.setHardness(0.6F)
 				.setResistance(3.0F)

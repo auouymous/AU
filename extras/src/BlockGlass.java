@@ -14,13 +14,15 @@ import net.minecraft.world.World;
 
 import net.minecraftforge.common.ForgeDirection;
 
-import com.qzx.au.util.BlockCoord;
-import com.qzx.au.util.IConnectedTexture;
+import com.qzx.au.core.BlockCoord;
+import com.qzx.au.core.IConnectedTexture;
 
 public class BlockGlass extends BlockColored implements IConnectedTexture {
 	@SideOnly(Side.CLIENT)
 	private Icon[][] blockIcons;
+	@SideOnly(Side.CLIENT)
 	private Icon[] itemIcons;
+
 	private int style;
 
 	public BlockGlass(int id, String name, String readableName, Class<? extends ItemBlock> itemblockclass, int style){
@@ -69,31 +71,41 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		return (this.style == 0 ? this.blockIcons[color][IConnectedTexture.ctm_default] : this.itemIcons[color]);
 	}
 
+	@Override
 	public boolean isOpaqueCube(){
 		return false;
 	}
 
+	@Override
 	public boolean renderAsNormalBlock(){
 		return false;
 	}
 
+	@Override
 	public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side){
 		return true;
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getRenderType(){
 		return ClientProxy.glassRenderType;
 	}
 
+	@Override
+	@SideOnly(Side.CLIENT)
 	public int getRenderBlockPass(){
 		return (this.style == 0 ? 0 : 1);
 	}
+
+	@Override
+	@SideOnly(Side.CLIENT)
 	public boolean canRenderInPass(int pass){
 		ClientProxy.renderPass = pass;
 		return true;
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockAccess access, int x, int y, int z, int side){
 		// coordinates are the block at each side, not the block being rendered
@@ -107,6 +119,7 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		return false;
 	}
 
+	@SideOnly(Side.CLIENT)
 	public boolean canConnectSideTextures(int id, int metadata, int side, BlockCoord neighbor){
 		if(this.style == 2) return false; // no connected textures
 
@@ -138,6 +151,7 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		return true;
 	}
 
+	@SideOnly(Side.CLIENT)
 	public boolean canConnectCornerTextures(int id, int metadata, int side, BlockCoord diagonal){
 		if(this.style == 2) return false; // no connected textures
 
@@ -169,6 +183,7 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public Icon getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
 		BlockCoord coord = new BlockCoord(access, x, y, z);
 		int blockID = coord.getBlockID();
