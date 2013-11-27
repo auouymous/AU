@@ -18,6 +18,7 @@ Required: -
 * 4 stone brick TO 4 chiseled stone bricks
 * 8 chiseled brick + dye TO 8 [colored] chiseled brick
 * 4 stone brick + 4 stone + dye TO 8 [colored] smooth brick
+* 8 gravel + dye TO 8 [colored] gravel (does not obey gravity and does not drop flint)
 * 8 glass + 1 dye TO 8 [colored] glass
 * 6 glass + 3 dye TO 6 [colored tinted] glass
 * 7 glass + 2 dye TO 7 [tinted frameless] glass
@@ -27,6 +28,7 @@ Required: -
 * 8 [colored] stone brick + dye TO 8 [colored] stone brick
 * 8 [colored] chiseled brick + dye TO 8 [colored] chiseled brick
 * 8 [colored] smooth brick + dye TO 8 [colored] smooth brick
+* 8 [colored] gravel + dye TO 8 [colored] gravel
 * 8 [colored] glass + 1 dye TO 8 [colored] glass
 * 6 [colored tinted] glass + 3 dye TO 6 [colored tinted] glass
 * 7 [tinted frameless] glass + 2 dye TO 7 [tinted frameless] glass
@@ -36,6 +38,7 @@ Required: -
 * SMELT [colored] stone brick TO stone brick
 * SMELT [colored] chiseled brick TO chiseled brick
 * SMELT [colored] smooth brick TO stone
+* SMELT [colored] gravel TO gravel
 * 
 * 6 [colored] cobblestone TO 4 [colored] cobblestone stairs
 * 6 [colored] stone TO 4 [colored] stone stairs

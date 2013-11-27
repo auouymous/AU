@@ -46,6 +46,7 @@ public class AUExtras {
 	public static Block blockStoneBrick;
 	public static Block blockChiseledBrick;
 	public static Block blockSmoothBrick;
+	public static Block blockGravel;
 	public static Block blockGlass;
 	public static Block blockGlassTinted;
 	public static Block blockGlassTintedNoFrame;
@@ -77,6 +78,7 @@ public class AUExtras {
 		ItemStack stone = new ItemStack(Block.stone);
 		ItemStack stoneBrick = new ItemStack(Block.stoneBrick);
 		ItemStack chiseledBrick = new ItemStack(Block.stoneBrick, 1, 3);
+		ItemStack gravel = new ItemStack(Block.gravel);
 		ItemStack glass = new ItemStack(Block.glass);
 		ItemStack glassPane = new ItemStack(Block.thinGlass);
 		ItemStack redstoneTorch = new ItemStack(Block.torchRedstoneActive);
@@ -264,6 +266,31 @@ ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, stone, coloredStone);
 					this.blockSmoothBrickStairs[c] = new BlockStairsColored(Cfg.blockSmoothBrickStairs+c, "au.colorSmoothBrickStairs."+Color.colors[c],
 															Color.readableColors[c]+" Smooth Brick Stairs",
 															this.blockSmoothBrick, c);
+		}
+
+		//////////
+
+		if(Cfg.enableGravel){
+			this.blockGravel = new BlockColored(Cfg.blockGravel, "au.colorGravel", " Gravel", ItemBlockGravel.class, Material.sand)
+				.setHardness(0.6F)
+				.setResistance(3.0F)
+				.setStepSound(Block.soundGravelFootstep)
+				.setCreativeTab(AUExtras.tabAU);
+			MinecraftForge.setBlockHarvestLevel(this.blockGravel, "shovel", 0); // wooden shovel
+			ItemStack coloredGravel = new ItemStack(this.blockGravel);
+
+			// CRAFT 8 gravel + dye -> 8 <colored> gravel
+			for(int c = 0; c < 16; c++)
+				GameRegistry.addRecipe(new ItemStack(this.blockGravel, 8, c), "ggg", "g-g", "ggg", 'g', gravel, '-', dyes[c]);
+			// CRAFT 8 <colored> gravel + dye -> 8 <colored> gravel
+			for(int g = 0; g < 16; g++){
+				ItemStack anyGravel = new ItemStack(this.blockGravel, 1, g);
+				for(int c = 0; c < 16; c++)
+					if(g != c)
+						GameRegistry.addRecipe(new ItemStack(this.blockGravel, 8, c), "ggg", "g-g", "ggg", 'g', anyGravel, '-', dyes[c]);
+			}
+			// SMELT <colored> gravel -> gravel
+			GameRegistry.addSmelting(coloredGravel.itemID, gravel, 1.0f);
 		}
 
 		//////////
