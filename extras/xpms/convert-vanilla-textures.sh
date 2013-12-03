@@ -7,12 +7,23 @@ function colorize_blocks(){
 	# "black", "red", "green", "brown", "blue", "purple", "cyan", "silver",
 	# "gray", "pink", "lime", "yellow", "lightBlue", "magenta", "orange", "white"
 
-	convert ${1} -brightness-contrast 20x0 tmp.png
+	# 20% brighter
+	# 282525 d63a34 46611f 61391f 2c3aaf 9338e4 308db5 f8f8f8 - 575757 ff9ab6 4ef63e fff832 7aa4fd ea64f6 ffa351 ffffff
+
+	if [ "$2" = "colorFlower" ]; then
+		convert ${1} tmp.png
+		# amplify all colors by 20% except light dray, dark gray and white
+		# amplify red by 40%, but leave its GB components at default
+		COLORS="282525 fa312c 46611f 61391f 2c3aaf 9338e4 308db5 cfcfcf 494949 ff9ab6 4ef63e fff832 7aa4fd ea64f6 ffa351 ffffff"
+	else
+		convert ${1} -brightness-contrast 20x0 tmp.png
+	fi
 	i=`expr 0`
 	for color in $COLORS; do
-		C=`php -r 'function t($h,$o){return floor(hexdec(substr($h,$o,2))/4);}echo dechex((t($argv[1],0)<<16)+(t($argv[1],2)<<8)+t($argv[1],4));' ${color}`
+		# get 1/4 of the color
+		C=`php -r 'function t($h,$o){return floor(hexdec(substr($h,$o,2))/4);}echo substr("000000".dechex((t($argv[1],0)<<16)+(t($argv[1],2)<<8)+t($argv[1],4)),-6);' ${color}`
 		[ "${color}" = "ffffff" ] && C="5f5f5f"
-		echo "$color -- $C"
+		echo "$color -- $C -- $2"
 		convert tmp.png +level-colors "#${C}","#${color}" blocks/${2}$i.xpm
 		[ "$3" != "" ] && composite blocks/${2}$i.xpm $3 blocks/${2}$i.xpm
 		i=`expr $i + 1`
@@ -41,4 +52,4 @@ colorize_blocks vanilla-stonebrick.png colorStoneBrick
 colorize_blocks vanilla-chiseledbrick.png colorChiseledBrick
 colorize_blocks vanilla-gravel.png colorGravel
 colorize_blocks smoothbrick.png colorSmoothBrick
-colorize_blocks flower-top.png colorFlower blocks/flower-stem.xpm
+colorize_blocks flower-top.xpm colorFlower blocks/flowerStage1.xpm

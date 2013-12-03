@@ -2,11 +2,11 @@
 static char *colorStone2[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 6 1 ",
-"  c #293912",
-". c #273511",
-"X c #2D3E14",
-"o c #243110",
-"O c #293912",
+"  c #2D3F14",
+". c #2B3C13",
+"X c #304215",
+"o c #293912",
+"O c #2E3F14",
 "+ c #3B511A",
 /* pixels */
 " .... XXoX .... ",
