@@ -10,7 +10,6 @@ import net.minecraft.block.Block;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -21,9 +20,9 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import java.util.Random;
-
 import net.minecraftforge.common.ForgeDirection;
+
+import java.util.Random;
 
 public abstract class TileEntityAU extends TileEntity implements ISidedInventory {
 	// public World worldObj
@@ -70,28 +69,14 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		Random random = new Random();
 
 // TODO: if retention, store NBT from TileEntity into Item
-//			BlockTileAU.dropItemAsEntity() has code to do this
+//		ItemUtils.dropItemAsEntity() has code to do this
 
 		// drop upgrades
 //		for(int i = 0; i < this.upgradeContents.length; i++)
-//			BlockTileAU.dropItemAsEntity(world, x, y, z, this.upgradeContents[i], random);
+//			ItemUtils.dropItemAsEntity(world, x, y, z, this.upgradeContents[i], random);
 		// drop inventory
 		for(int i = this.firstValidSlot; i < this.slotContents.length; i++)
-			TileEntityAU.dropItemAsEntity(world, x, y, z, this.slotContents[i], random);
-	}
-
-	public static void dropItemAsEntity(World world, int x, int y, int z, ItemStack item, Random random){
-		if(item != null && item.stackSize > 0){
-			EntityItem entity = new EntityItem(world, (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F, new ItemStack(item.itemID, item.stackSize, item.getItemDamage()));
-
-			if(item.hasTagCompound())
-				entity.getEntityItem().setTagCompound((NBTTagCompound)item.getTagCompound().copy());
-
-			entity.delayBeforeCanPickup = 10;
-			entity.motionX = entity.motionY = entity.motionZ = 0.0F;
-			world.spawnEntityInWorld(entity);
-			item.stackSize = 0;
-		}
+			ItemUtils.dropItemAsEntity(world, x, y, z, this.slotContents[i], random);
 	}
 
 	/////////
@@ -278,12 +263,12 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	public Packet getDescriptionPacket(){
 		NBTTagCompound tag = new NBTTagCompound();
 		this.writeToNBT(tag);
-System.out.println("AU UTILS: --- getDescriptionPacket("+this.xCoord+", "+this.yCoord+", "+this.zCoord+") "+(this.worldObj == null ? "no world" : (this.worldObj.isRemote ? "client" : "server")));
+System.out.println("AU CORE: --- getDescriptionPacket("+this.xCoord+", "+this.yCoord+", "+this.zCoord+") "+(this.worldObj == null ? "no world" : (this.worldObj.isRemote ? "client" : "server")));
 		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, tag);
 	}
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet){
-System.out.println("AU UTILS: --- onDataPacket("+this.xCoord+", "+this.yCoord+", "+this.zCoord+") "+(this.worldObj == null ? "no world" : (this.worldObj.isRemote ? "client" : "server")));
+System.out.println("AU CORE: --- onDataPacket("+this.xCoord+", "+this.yCoord+", "+this.zCoord+") "+(this.worldObj == null ? "no world" : (this.worldObj.isRemote ? "client" : "server")));
 		#ifdef MC152
 		this.readFromNBT(packet.customParam1);
 		#else
@@ -310,7 +295,6 @@ System.out.println("AU UTILS: --- onDataPacket("+this.xCoord+", "+this.yCoord+",
 
 	// @Override public void onInventoryChanged(){
 
-	// public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt);
 	// public void onChunkUnload();
 
 	////////////////

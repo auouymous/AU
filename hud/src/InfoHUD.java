@@ -45,6 +45,7 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
+import com.qzx.au.core.ItemUtils;
 import com.qzx.au.core.UI;
 
 @SideOnly(Side.CLIENT)
