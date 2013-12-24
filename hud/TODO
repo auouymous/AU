@@ -30,6 +30,11 @@ OPTION MENU
 INFO HUD
 	~ FIX: time is incorrect in mystcraft ages
 
+	- show xp points next to xp bar when inspector enabled
+
+	- target armor hud, same as armor hud but shows armor icons and durability of target's armor
+		- could also show target's health on 1.6+
+
 	- find block/entity behind crosshairs when no target
 		- show block/entity inspector
 		- show distance to block/entity
