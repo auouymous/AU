@@ -108,7 +108,7 @@ public class Config {
 	// set list of values
 	public static void setIntList(String category, String key, int[] values){
 		Property p = Config.config.get(category, key, values, null);
-		String[] valueList = null;
+		String[] valueList = new String[values.length];
 		for(int i = 0; i < values.length; i++)
 			valueList[i] = Integer.toString(values[i]);
 		#ifdef MC147
@@ -119,7 +119,7 @@ public class Config {
 	}
 	public static void setDoubleList(String category, String key, double[] values){
 		Property p = Config.config.get(category, key, values, null);
-		String[] valueList = null;
+		String[] valueList = new String[values.length];
 		for(int i = 0; i < values.length; i++)
 			valueList[i] = Double.toString(values[i]);
 		#ifdef MC147
@@ -130,7 +130,7 @@ public class Config {
 	}
 	public static void setBooleanList(String category, String key, boolean[] values){
 		Property p = Config.config.get(category, key, values, null);
-		String[] valueList = null;
+		String[] valueList = new String[values.length];
 		for(int i = 0; i < values.length; i++)
 			valueList[i] = Boolean.toString(values[i]);
 		#ifdef MC147
@@ -141,7 +141,7 @@ public class Config {
 	}
 	public static void setStringList(String category, String key, String[] values){
 		Property p = Config.config.get(category, key, values, null);
-		String[] valueList = null;
+		String[] valueList = new String[values.length];
 		for(int i = 0; i < values.length; i++)
 			valueList[i] = values[i];
 		#ifdef MC147
