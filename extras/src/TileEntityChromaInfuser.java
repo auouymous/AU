@@ -30,7 +30,6 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		this.hasWater = false;
 		this.dyeColor = 0;
 		this.dyeVolume = 0;
-System.out.println("AU EXTRAS: --- TileEntityChromaInfuser() ");
 	}
 
 	//////////
@@ -43,8 +42,6 @@ System.out.println("AU EXTRAS: --- TileEntityChromaInfuser() ");
 		this.hasWater = nbt.getBoolean("hasWater");
 		this.dyeColor = nbt.getByte("dyeColor");
 		this.dyeVolume = nbt.getByte("dyeVolume");
-System.out.println((this.worldObj == null ? "-" : (this.worldObj.isRemote ? "client" : "server"))+" readFromNBT("+this.xCoord+", "+this.yCoord+", "+this.zCoord+") ");
-System.out.println("  this.recipeButton = "+this.recipeButton.ordinal());
 	}
 
 	@Override
@@ -55,8 +52,6 @@ System.out.println("  this.recipeButton = "+this.recipeButton.ordinal());
 		nbt.setBoolean("hasWater", this.hasWater);
 		nbt.setByte("dyeColor", (byte)this.dyeColor);
 		nbt.setByte("dyeVolume", (byte)this.dyeVolume);
-System.out.println((this.worldObj == null ? "-" : (this.worldObj.isRemote ? "client" : "server"))+" writeToNBT("+this.xCoord+", "+this.yCoord+", "+this.zCoord+")");
-System.out.println("  this.recipeButton = "+this.recipeButton.ordinal());
 	}
 
 	//////////
@@ -97,8 +92,6 @@ System.out.println("  this.recipeButton = "+this.recipeButton.ordinal());
 	public void setRecipeButton(ChromaButton button){
 		this.recipeButton = button;
 
-System.out.println("CLIENT setButton("+button.ordinal()+")");
-System.out.println("  this.recipeButton = "+this.recipeButton.ordinal());
 		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, 100, button.ordinal());
 		this.markChunkModified();
 
@@ -133,7 +126,7 @@ System.out.println("  this.recipeButton = "+this.recipeButton.ordinal());
 				this.dyeVolume = 8;
 				this.dyeColor = color;
 
-// TODO: does this work for other dyes?
+// TODO: does this work for other dyes? works for anything that extends ItemDye, should it support ore dictionary?
 
 				itemstack.stackSize--;
 				if(itemstack.stackSize == 0) this.slotContents[TileEntityChromaInfuser.SLOT_DYE_INPUT] = null;
@@ -146,7 +139,6 @@ System.out.println("  this.recipeButton = "+this.recipeButton.ordinal());
 	}
 
 	public void resetOutputSlot(boolean sync){
-System.out.println((sync ? "CLIENT" : "SERVER")+" resetOutputSlot("+this.recipeButton.ordinal()+")");
 		ChromaRecipe recipe = ChromaRegistry.getRecipe(this.recipeButton, this.slotContents[TileEntityChromaInfuser.SLOT_ITEM_INPUT]);
 		this.slotContents[TileEntityChromaInfuser.SLOT_ITEM_OUTPUT]
 			= (recipe == null || !this.hasWater || this.dyeVolume == 0
@@ -169,7 +161,6 @@ System.out.println((sync ? "CLIENT" : "SERVER")+" resetOutputSlot("+this.recipeB
 		case 100:
 			// set button
 			this.recipeButton = ChromaButton.values()[value];
-System.out.println("SERVER setButton("+this.recipeButton.ordinal()+")");
 			this.resetOutputSlot(false);
 			return true;
 		case 101:

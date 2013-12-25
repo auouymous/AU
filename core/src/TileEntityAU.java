@@ -263,12 +263,10 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	public Packet getDescriptionPacket(){
 		NBTTagCompound tag = new NBTTagCompound();
 		this.writeToNBT(tag);
-System.out.println("AU CORE: --- getDescriptionPacket("+this.xCoord+", "+this.yCoord+", "+this.zCoord+") "+(this.worldObj == null ? "no world" : (this.worldObj.isRemote ? "client" : "server")));
 		return new Packet132TileEntityData(this.xCoord, this.yCoord, this.zCoord, 1, tag);
 	}
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet){
-System.out.println("AU CORE: --- onDataPacket("+this.xCoord+", "+this.yCoord+", "+this.zCoord+") "+(this.worldObj == null ? "no world" : (this.worldObj.isRemote ? "client" : "server")));
 		#ifdef MC152
 		this.readFromNBT(packet.customParam1);
 		#else

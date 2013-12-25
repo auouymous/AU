@@ -16,12 +16,12 @@ public class PacketUtils {
 	}
 
 	public static int getPacketID(DataInputStream in){
-		if(in == null) return 0;
+		if(in == null) return -1;
 		try {
 			return (int)in.readInt();
 		} catch(Exception e){
-			e.printStackTrace();
-			return 0;
+			System.err.println("AU CORE: Unable to read packet ID");
+			return -1;
 		}
 	}
 
@@ -35,13 +35,13 @@ public class PacketUtils {
 				else if(t == Integer.class)		objects[i] = (Integer)in.readInt();
 				else if(t == String.class)		objects[i] = (String)in.readUTF();
 				else {
-					System.out.println("AU CORE: Invalid packet class");
+					System.err.println("AU CORE: Invalid packet class");
 					return null;
 				}
 				// float, double, long, short
 			}
 		} catch(Exception e){
-			e.printStackTrace();
+			System.err.println("AU CORE: Unable to read packet data");
 			return null;
 		}
 		return objects;
@@ -59,11 +59,11 @@ public class PacketUtils {
 				else if(o instanceof Byte)		out.writeByte((Byte)o);
 				else if(o instanceof Integer)	out.writeInt((Integer)o);
 				else if(o instanceof String)	out.writeUTF((String)o);
-				else System.out.println("AU CORE: Invalid packet object");
+				else System.err.println("AU CORE: Invalid packet object");
 				// float, double, long, short
 			}
 		} catch(Exception e){
-			e.printStackTrace();
+			System.err.println("AU CORE: Unable to write packet ID/data");
 			return null;
 		}
 

@@ -35,8 +35,6 @@ public class RendererChromaInfuser implements ISimpleBlockRenderingHandler {
 			// render exterior of block
 			renderer.renderStandardBlock(block, x, y, z);
 
-System.out.println("AU EXTRAS: --- renderWorldBlock("+x+", "+y+", "+z+") "+(world.getBlockTileEntity(x, y, z) == null ? "no TE" : "has TE"));
-
 			tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
 
 			Color color = (new Color(block.colorMultiplier(world, x, y, z))).anaglyph();

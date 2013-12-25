@@ -1,5 +1,6 @@
 package com.qzx.au.extras;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -12,6 +13,7 @@ import net.minecraft.util.Icon;
 import com.qzx.au.core.Button;
 import com.qzx.au.core.Color;
 import com.qzx.au.core.GuiContainerAU;
+import com.qzx.au.core.PacketUtils;
 import com.qzx.au.core.UI;
 
 @SideOnly(Side.CLIENT)
@@ -107,8 +109,9 @@ public class GuiChromaInfuser extends GuiContainerAU {
 
 	@Override
 	public void actionPerformed(GuiButton button){
-		((TileEntityChromaInfuser)this.tileEntity).setRecipeButton(ChromaButton.values()[button.id]);
-		this.updateRecipeButtons();
+		PacketDispatcher.sendPacketToServer(
+			PacketUtils.createPacket(AUExtras.packetChannel, Packets.RECIPE_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
+		);
 	}
 
 /*

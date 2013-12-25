@@ -36,8 +36,7 @@ public class ContainerChromaInfuser extends ContainerAU {
 					this.inventory.onInventoryChanged();
 
 					TileEntityChromaInfuser te = (TileEntityChromaInfuser)this.inventory;
-System.out.println((te.worldObj == null ? "-" : (te.worldObj.isRemote ? "client" : "server"))+" input slot changed("+te.xCoord+", "+te.yCoord+", "+te.zCoord+") ");
-					if(te.worldObj.isRemote)
+					if(!te.worldObj.isRemote)
 						te.resetOutputSlot(true);
 				}
 				@Override
@@ -57,7 +56,7 @@ System.out.println((te.worldObj == null ? "-" : (te.worldObj.isRemote ? "client"
 				public void onSlotChanged(){
 					this.inventory.onInventoryChanged();
 					TileEntityChromaInfuser te = (TileEntityChromaInfuser)this.inventory;
-					if(te.worldObj.isRemote)
+					if(!te.worldObj.isRemote)
 						te.consumeDye();
 				}
 				@Override
@@ -76,7 +75,7 @@ System.out.println((te.worldObj == null ? "-" : (te.worldObj.isRemote ? "client"
 					if(itemstack != null){
 						if(itemstack.itemID == Item.bucketWater.itemID){
 							TileEntityChromaInfuser te = (TileEntityChromaInfuser)this.inventory;
-							if(te.worldObj.isRemote)
+							if(!te.worldObj.isRemote)
 								te.resetWater();
 							// replace water bucket with empty bucket
 							this.putStack(new ItemStack(Item.bucketEmpty, 1));
