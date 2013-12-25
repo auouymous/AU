@@ -5,7 +5,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemFood;
 
 public class ItemFoodGeneric extends ItemFood {
@@ -14,9 +13,9 @@ public class ItemFoodGeneric extends ItemFood {
 		this.setMaxStackSize(maxStackSize);
 		this.setUnlocalizedName(name);
 		LanguageRegistry.addName(this, readableName);
-		this.setCreativeTab(AUExtras.tabAU);
 	}
 
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister){
 		this.itemIcon = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("item.au.", ""));
