@@ -1,0 +1,27 @@
+/* XPM */
+static char *dye[] = {
+"16 16 7 1",
+"  c None",
+". c #888888",
+"# c #cccccc",
+"a c #d7d7d7",
+"b c #dddddd",
+"c c #eeeeee",
+"d c #ffffff",
+"                ",
+"                ",
+"                ",
+"                ",
+"      ....      ",
+"    ..dccb..    ",
+"   .ddcddb#a.   ",
+"  .dccddccb#b.  ",
+"  .dcddcddb#b.  ",
+"  .bddccd#bb#.  ",
+"   .bbddbb##.   ",
+"    ..bb#b..    ",
+"      ....      ",
+"                ",
+"                ",
+"                "
+};

@@ -10,6 +10,7 @@ public class ClientProxy extends CommonProxy {
 	public static int infuserRenderType;
 	public static int glassRenderType;
 	public static int lampRenderType;
+	public static int flowerRenderType;
 
 	@Override
 	public void registerEvents(){}
@@ -24,6 +25,9 @@ public class ClientProxy extends CommonProxy {
 
 		lampRenderType = RenderingRegistry.getNextAvailableRenderId();
 		RenderingRegistry.registerBlockHandler(new RendererLamp());
+
+		flowerRenderType = RenderingRegistry.getNextAvailableRenderId();
+		RenderingRegistry.registerBlockHandler(new RendererFlower());
 	}
 
 	@Override

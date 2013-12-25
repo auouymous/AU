@@ -1,5 +1,7 @@
 Stairs and slabs absorb other light sources and emit that light when the sources are removed.
 This is caused by the lighting hack that prevents dark spots.
 
+-----
+
 Tinted glass and frameless tinted glass can not be seen when looking at it through other
 tinted glass or frameless tinted glass. This is an issue with Minecraft's rendering engine.

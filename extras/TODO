@@ -1,7 +1,41 @@
+~ FIX: flower rendering
+
 ~ FIX: stairs and slabs absorb other light sources and emit that light when the sources are removed
 	- the lighting hack causes this
 
+
+
+
+
 ~ FIX: prevent powered lamps from appearing in NEI
+
+-----
+
+- add flowers to world gen
+	http://www.minecraftforum.net/topic/2203069-164-forge-how-do-i-get-my-chunk-provider-to-call-on-my-biome-decorator/
+	http://www.minecraftforum.net/topic/2200810-wold-generation-structure-help/
+	http://www.minecraftforum.net/topic/2177959-ore-generation-solved/
+	black			hot(1.0+)	- [end], desert, nether
+	red							- forests
+	green						- jungle, swamp
+	brown						- jungle
+	blue						- forests
+	purple						- [end], mushroom island
+	cyan						- forests
+	light gray		cold(0.3-)	-
+	dark gray		hot(1.0+)	- desert, nether
+	pink						- plains/meadows
+	lime						- swamp, plains/meadows
+	yellow						- plains/meadows
+	light blue					- plains/meadows
+	magenta						- mushroom island
+	orange						- jungle
+	white			cold(0.3-)	-
+- check biome when growing flowers and decrease odds for colors not in current biome
+	- option to only grow colors for current biome
+
+- add a flower pot that supports these flowers
+	- maybe use a tile entity and support all flowers
 
 ~ forge multipart support
 	- OR colored slabs

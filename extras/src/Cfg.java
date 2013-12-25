@@ -19,6 +19,7 @@ public class Cfg extends Config {
 	public static boolean enableStoneStairs;
 	public static boolean enableStoneBrickStairs;
 	public static boolean enableSmoothBrickStairs;
+	public static boolean enableFlowers;
 
 	public static boolean enableLightingHack;
 
@@ -48,10 +49,13 @@ public class Cfg extends Config {
 	public static int blockStoneStairs;
 	public static int blockStoneBrickStairs;
 	public static int blockSmoothBrickStairs;
+	public static int blockFlower;
+	public static int blockFlowerSeed;
 
 	public static int itemFriedEgg;
 	public static int itemCookedFlesh;
 	public static int itemChromaSprayer;
+	public static int itemFlowerDye;
 
 	public static void init(FMLPreInitializationEvent event){
 		Cfg.loadConfig(event);
@@ -73,6 +77,8 @@ public class Cfg extends Config {
 		Cfg.enableStoneStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneStairs", true, "enable colored stone stairs (uses 16 block IDs)");
 		Cfg.enableStoneBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneBrickStairs", true, "enable colored stone brick stairs (uses 16 block IDs)");
 		Cfg.enableSmoothBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrickStairs", true, "enable colored smooth brick stairs (uses 16 block IDs)");
+
+		Cfg.enableFlowers = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableFlowers", true, "enable colored flowers (uses 2 block IDs and 1 item ID)");
 
 		Cfg.enableLightingHack = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLightingHack", true,
 								"add minimal light to vanilla stairs and slabs to prevent dark spots\nwill absorb and continue to emit external light sources, after sources are removed");
@@ -114,11 +120,16 @@ public class Cfg extends Config {
 
 		Cfg.blockGravel = Cfg.getBlock("blockGravel", startBlockID, null); startBlockID++;
 
+		Cfg.blockFlower = Cfg.getBlock("blockFlower", startBlockID, null); startBlockID++;
+		Cfg.blockFlowerSeed = Cfg.getBlock("blockFlowerSeed", startBlockID, null); startBlockID++;
+
 		// ITEMS
 		Cfg.itemFriedEgg = Cfg.getItem("itemFriedEgg", startItemID, null); startItemID++;
 		Cfg.itemCookedFlesh = Cfg.getItem("itemCookedFlesh", startItemID, null); startItemID++;
 
 		Cfg.itemChromaSprayer = Cfg.getItem("itemChromaSprayer", startItemID, null); startItemID++;
+
+		Cfg.itemFlowerDye = Cfg.getItem("itemFlowerDye", startItemID, null); startItemID++;
 
 		//////////
 

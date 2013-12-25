@@ -1,0 +1,2 @@
+	- added PacketUtils
+	- renamed utils to core and packaged as stand-alone mod
