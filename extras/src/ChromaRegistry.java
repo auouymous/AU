@@ -16,7 +16,7 @@ public class ChromaRegistry {
 	public static void addRecipe(ChromaButton button, int dyeConsumption, ItemStack input, ItemStack output){
 		// ignore duplicate recipes (same button and input)
 		if(ChromaRegistry.hasRecipe(button, input)){
-			System.out.println("AU EXTRAS: ignoring duplicate Chroma Infuser recipe");
+			System.err.println("AU EXTRAS: ignoring duplicate Chroma Infuser recipe");
 			return;
 		}
 		ChromaRegistry.registry.recipes.add(new ChromaRecipe(button, dyeConsumption, input, output));
