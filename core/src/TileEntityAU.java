@@ -73,10 +73,10 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 		// drop upgrades
 //		for(int i = 0; i < this.upgradeContents.length; i++)
-//			ItemUtils.dropItemAsEntity(world, x, y, z, this.upgradeContents[i], random);
+//			ItemUtils.dropItemAsEntity(world, x, y, z, this.upgradeContents[i]);
 		// drop inventory
 		for(int i = this.firstValidSlot; i < this.slotContents.length; i++)
-			ItemUtils.dropItemAsEntity(world, x, y, z, this.slotContents[i], random);
+			ItemUtils.dropItemAsEntity(world, x, y, z, this.slotContents[i]);
 	}
 
 	/////////
