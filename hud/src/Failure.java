@@ -14,7 +14,7 @@ public class Failure {
 
 	public static void log(String location){
 		Failure.count++;
-		System.out.println("AU HUD: caught exception in "+location);
+		System.err.println("AU HUD: caught exception in "+location);
 	}
 
 	public static void show(ScaledResolution screen){
