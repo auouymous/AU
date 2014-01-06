@@ -8,12 +8,15 @@ import net.minecraft.world.World;
 public class ItemUtils {
 	public static String getDisplayName(ItemStack itemstack){
 		if(itemstack == null) return null;
+		String s = null;
 		try {
-			return itemstack.getDisplayName();
+			s = itemstack.getDisplayName();
 		} catch(Exception e){
 			// this can happen
-			return null;
 		}
+		if(s == null || s.equals(""))
+			s = itemstack.getItem().getUnlocalizedName(itemstack);
+		return s;
 	}
 
 	public static void dropItemAsEntity(World world, int x, int y, int z, ItemStack item){
