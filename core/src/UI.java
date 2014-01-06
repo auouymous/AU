@@ -209,11 +209,10 @@ public class UI {
 	#endif
 	// no support for 147
 
-/*
-	public static void drawItemStack(Minecraft mc, RenderItem itemRenderer, ItemStack itemstack, int x, int y, boolean durability_bar){
+	public static void drawItemStack(Minecraft mc, RenderItem itemRenderer, ItemStack itemstack, int x, int y, boolean durability_bar, float tx, float ty, float tz) throws Exception {
 		if(itemstack != null){
-			GL11.glTranslatef(0.0F, 0.0F, 32.0F);
-
+			GL11.glTranslatef(tx, ty, tz);
+			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glEnable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
 			RenderHelper.enableStandardItemLighting();
 			RenderHelper.enableGUIStandardItemLighting();
@@ -228,13 +227,17 @@ public class UI {
 					#endif
 				}
 			} catch(Exception e){
-				// ignore errors
+				RenderHelper.disableStandardItemLighting();
+				GL11.glDisable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
+				throw e;
 			}
 			RenderHelper.disableStandardItemLighting();
 			GL11.glDisable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
 		}
 	}
-*/
+	public static void drawItemStack(Minecraft mc, RenderItem itemRenderer, ItemStack itemstack, int x, int y, boolean durability_bar) throws Exception {
+		UI.drawItemStack(mc, itemRenderer, itemstack, x, y, durability_bar, 0.0F, 0.0F, 32.0F);
+	}
 
 	//////////
 

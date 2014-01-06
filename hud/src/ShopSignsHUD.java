@@ -115,23 +115,11 @@ public class ShopSignsHUD {
 													// show item icon above sign
 													RenderItem itemRenderer = new RenderItem();
 													itemRenderer.zLevel = 200.0F;
-													GL11.glTranslatef(0.0F, 0.0F, 32.0F);
-													GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-													GL11.glEnable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
-													RenderHelper.enableStandardItemLighting();
-													RenderHelper.enableGUIStandardItemLighting();
 													try {
-														itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, centerX-8, centerY-(offset+19));
-														#ifdef MC147
-														itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, centerX-8, centerY-(offset+19));
-														#else
-														itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, centerX-8, centerY-(offset+19), null);
-														#endif
+														UI.drawItemStack(mc, itemRenderer, itemstack, centerX-8, centerY-(offset+19), true);
 													} catch(Exception e){
 														Failure.log("shop signs, render icon");
 													}
-													RenderHelper.disableStandardItemLighting();
-													GL11.glDisable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
 												} else {
 													// show item name and quantity above sign
 													this.ui.drawString(UI.ALIGN_CENTER, signText[3], "<Unknown>", 0xffffff, 0);
