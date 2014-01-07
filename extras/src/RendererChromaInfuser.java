@@ -63,7 +63,7 @@ public class RendererChromaInfuser implements ISimpleBlockRenderingHandler {
 						#ifdef MC152
 						: BlockFluid.func_94424_b("water");
 						#else
-						: BlockFluid.getFluidIcon("water");
+						: BlockFluid.getFluidIcon("water_still");
 						#endif
 					renderer.setRenderBounds(0.125F, 0.0F, 0.125F, 0.875F, 1.0F, 0.875F);
 					renderer.renderFaceYPos(block, (double)x, (double)((float)y - (tileEntity.getDyeVolume() > 0 ? 0.0625F : 0.5F)), (double)z, waterIcon);
