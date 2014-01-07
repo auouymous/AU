@@ -22,8 +22,6 @@ import net.minecraft.world.World;
 
 import net.minecraftforge.common.ForgeDirection;
 
-import java.util.Random;
-
 public abstract class TileEntityAU extends TileEntity implements ISidedInventory {
 	// public World worldObj
 	// public int xCoord, yCoord, zCoord
@@ -65,18 +63,23 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 	//////////
 
+	public void dropContents(World world, int x, int y, int z){
+		// drop upgrades
+		if(this.upgradeContents != null)
+			for(int i = 0; i < this.upgradeContents.length; i++)
+				ItemUtils.dropItemAsEntity(world, x, y, z, this.upgradeContents[i]);
+		// drop inventory
+		if(this.slotContents != null)
+			for(int i = this.firstValidSlot; i < this.slotContents.length; i++)
+				ItemUtils.dropItemAsEntity(world, x, y, z, this.slotContents[i]);
+	}
+
 	public void dropContents(World world, int x, int y, int z, ItemStack item){
-		Random random = new Random();
 
 // TODO: if retention, store NBT from TileEntity into Item
 //		ItemUtils.dropItemAsEntity() has code to do this
 
-		// drop upgrades
-//		for(int i = 0; i < this.upgradeContents.length; i++)
-//			ItemUtils.dropItemAsEntity(world, x, y, z, this.upgradeContents[i]);
-		// drop inventory
-		for(int i = this.firstValidSlot; i < this.slotContents.length; i++)
-			ItemUtils.dropItemAsEntity(world, x, y, z, this.slotContents[i]);
+		this.dropContents(world, x, y, z);
 	}
 
 	/////////

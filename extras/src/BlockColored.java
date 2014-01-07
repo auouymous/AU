@@ -61,11 +61,4 @@ public class BlockColored extends Block {
 		for(int c = 0; c < 16; c++)
 			subItems.add(new ItemStack(this, 1, c));
 	}
-
-	public static int getBlockFromDye(int color){
-		return ~color & 15;
-	}
-	public static int getDyeFromBlock(int color){
-		return ~color & 15;
-	}
 }

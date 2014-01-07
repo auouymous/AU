@@ -166,10 +166,10 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 	@Override
 	public void breakBlock(World world, int x, int y, int z, int side, int metadata){
 		// don't double break block, only drop contents on server
-		if(world.getBlockId(x, y, z) != 0 && !world.isRemote){
+		if(!world.isRemote){
 			TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 			if(tileEntity != null)
-				((TileEntityAU)tileEntity).dropContents(world, x, y, z, new ItemStack(this.idPicked(world, x, y, z), 1, this.getDamageValue(world, x, y, z)));
+				((TileEntityAU)tileEntity).dropContents(world, x, y, z);
 		}
 		world.removeBlockTileEntity(x, y, z);
 	}

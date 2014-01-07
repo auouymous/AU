@@ -18,16 +18,24 @@ public class PacketHandlerServer implements IPacketHandler {
 	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player){
 		DataInputStream data = PacketUtils.getPacketData(packet);
 		int id = PacketUtils.getPacketID(data);
-		if(id == -1){ System.err.println("AU EXTRAS: Invalid packet ID"); return; }
+		if(id == -1){ Debug.error("Invalid packet ID"); return; }
 
 		if(id == Packets.RECIPE_BUTTON){
 			// chroma infuser recipe buttons
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
-			if(values == null){ System.err.println("AU EXTRAS: Invalid recipe button packet"); return; }
+			if(values == null){ Debug.error("Invalid recipe button packet"); return; }
 
 			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityChromaInfuser)
 				((TileEntityChromaInfuser)te).setRecipeButton(ChromaButton.values()[(Byte)values[3]]);;
+		} else if(id == Packets.LOCKED_BUTTON){
+			// chroma infuser locked button
+			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Boolean.class);
+			if(values == null){ Debug.error("Invalid locked button packet"); return; }
+
+			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			if(te instanceof TileEntityChromaInfuser)
+				((TileEntityChromaInfuser)te).setLocked(!(Boolean)values[3]);;
 		}
 	}
 }

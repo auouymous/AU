@@ -9,6 +9,7 @@ public class Cfg extends Config {
 	public static boolean enableStone;
 	public static boolean enableStoneBrick;
 	public static boolean enableChiseledBrick;
+	public static boolean enableChiseledBrickCrafting;
 	public static boolean enableSmoothBrick;
 	public static boolean enableGravel;
 	public static boolean enableGlass;
@@ -66,6 +67,7 @@ public class Cfg extends Config {
 		Cfg.enableStone = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStone", true, "enable colored stone (uses 1 block ID)");
 		Cfg.enableStoneBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneBrick", true, "enable colored stone brick (uses 1 block ID)");
 		Cfg.enableChiseledBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrick", true, "enable colored chiseled brick (uses 1 block ID)");
+		Cfg.enableChiseledBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrickCrafting", true, "enable chiseled brick crafting recipe from 4 stone bricks");
 		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrick", true, "enable colored smooth brick (uses 1 block ID)");
 		Cfg.enableGravel = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGravel", true, "enable colored gravel (uses 1 block ID)");
 		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlass", true, "enable colored glass (uses 1 block ID)");

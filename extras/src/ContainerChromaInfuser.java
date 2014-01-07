@@ -11,16 +11,15 @@ import net.minecraft.item.ItemStack;
 import com.qzx.au.core.ContainerAU;
 import com.qzx.au.core.SlotAU;
 import com.qzx.au.core.SlotInventory;
-import com.qzx.au.core.SlotResult;
 
 public class ContainerChromaInfuser extends ContainerAU {
 	public ContainerChromaInfuser(InventoryPlayer inventoryPlayer, TileEntityChromaInfuser tileEntity){
 		this.tileEntity = tileEntity;
 
-		//	--b--D-
-		//	-Ib--W-
-		//	-vb--W-
-		//	-O---W-
+		//	-----D-
+		//	-IbP-W-
+		//	bvbP-W-
+		//	-ObP-W-
 		//	-----B-
 
 		// width = 7 slots
@@ -35,9 +34,9 @@ public class ContainerChromaInfuser extends ContainerAU {
 				public void onSlotChanged(){
 					this.inventory.onInventoryChanged();
 
-					TileEntityChromaInfuser te = (TileEntityChromaInfuser)this.inventory;
-					if(!te.worldObj.isRemote)
-						te.resetOutputSlot(true);
+//					TileEntityChromaInfuser te = (TileEntityChromaInfuser)this.inventory;
+//					if(!te.worldObj.isRemote)
+//						te.resetOutputSlot(true);
 				}
 				@Override
 				public boolean isItemValid(ItemStack itemstack){
@@ -45,10 +44,15 @@ public class ContainerChromaInfuser extends ContainerAU {
 				}
 			});
 
-		// result slot
-		SlotResult slotResult = new SlotResult(tileEntity, TileEntityChromaInfuser.SLOT_ITEM_OUTPUT, x_offset+1*18, y_offset+3*18);
-		slotResult.borderPadding = 4;
-		this.addSlotToContainer(slotResult);
+		// output slot
+		SlotInventory slotOutput = (new SlotInventory(tileEntity, TileEntityChromaInfuser.SLOT_ITEM_OUTPUT, x_offset+1*18, y_offset+3*18){
+				@Override
+				public boolean isItemValid(ItemStack stack){
+					return false;
+				}
+			});
+		slotOutput.borderPadding = 4;
+		this.addSlotToContainer(slotOutput);
 
 		// dye input slot
 		SlotInventory slotDye = new SlotInventory(tileEntity, TileEntityChromaInfuser.SLOT_DYE_INPUT, x_offset+5*18, y_offset+0*18+9){
@@ -96,16 +100,17 @@ public class ContainerChromaInfuser extends ContainerAU {
 		this.addSlotToContainer(slotBucket);
 
 		// player's inventory
-		this.addPlayerInventorySlotsToContainer(inventoryPlayer, y_offset+5*18 -5);
+		this.addPlayerInventorySlotsToContainer(inventoryPlayer, y_offset+5*18 -6);
 	}
 
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex){
 		// player inventory
-		if(slotIndex != TileEntityChromaInfuser.SLOT_ITEM_OUTPUT) return super.transferStackInSlot(player, slotIndex);
+//		if(slotIndex != TileEntityChromaInfuser.SLOT_ITEM_OUTPUT)
+			return super.transferStackInSlot(player, slotIndex);
 
 		// result
-		return null;
+//		return null;
 // TODO: this will decrement from input and return the dyed item
 
 	}

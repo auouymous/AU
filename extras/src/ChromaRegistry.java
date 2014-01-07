@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.qzx.au.core.ItemUtils;
+
 public class ChromaRegistry {
 	private static ChromaRegistry registry = new ChromaRegistry();
 
@@ -13,14 +15,19 @@ public class ChromaRegistry {
 
 	private ChromaRegistry(){}
 
-	public static void addRecipe(ChromaButton button, int dyeConsumption, ItemStack input, ItemStack output){
+	public static void addRecipe(ChromaButton button, ItemStack input, ItemStack output, boolean reverse_colors){
 		// ignore duplicate recipes (same button and input)
 		if(ChromaRegistry.hasRecipe(button, input)){
-			System.err.println("AU EXTRAS: ignoring duplicate Chroma Infuser recipe");
+			Debug.error("ignoring duplicate Chroma Infuser recipe (button: "+button.ordinal()
+																+", input: "+ItemUtils.getDisplayName(input)
+																+", output: "+ItemUtils.getDisplayName(output)+")");
 			return;
 		}
-		ChromaRegistry.registry.recipes.add(new ChromaRecipe(button, dyeConsumption, input, output));
+		ChromaRegistry.registry.recipes.add(new ChromaRecipe(button, input, output, reverse_colors));
 		ChromaRegistry.registry.nr_recipes++;
+	}
+	public static void addRecipe(ChromaButton button, ItemStack input, ItemStack output){
+		ChromaRegistry.addRecipe(button, input, output, false);
 	}
 
 	public static boolean hasRecipe(ChromaButton findButton, ItemStack findInput){

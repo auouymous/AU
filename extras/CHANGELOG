@@ -1,20 +1,24 @@
-	- added flowers
+	- added flowers and flower seeds
 	- added chroma infuser
-	- require core mod
-	- added colored gravel
-	- handled a missing connected texture case
-	- added tinted and tinted frameless glass
-	- start ID to shift all blocks and items
+		- changed recipes from 1 dye per block to 1 dye per 8 blocks
+		- color vanilla wool in chroma infuser (1 dye per 8 wool)
+		- color vanilla carpet in chroma infuser (1 dye per 8 carpet) (1.6.x and up)
+		- color vanilla hardened clay and stained clay in chroma infuser (1 dye per 8 clay) (1.6.x and up)
+	- handled a missing connected texture case on glass
 	- torches and levers can now be placed on glass
 	- lighting hack for all vanilla stairs and slabs
-	- added lamps and inverted lamps, unpowered lamps double as tinted glass
+	- added tinted and tinted frameless glass
+	- added lamps and inverted lamps
 	- added cobble, stone, stone brick and smooth brick colored stairs
-	- changed recipes from 1 dye per block to 1 dye per 8 blocks
+	- added colored gravel
 	- added colored smooth bricks
 	- added colored chiseled bricks
 	- added recipe to craft chiseled stone bricks
+
+	- start ID to shift all blocks and items
 	- added "au." prefix to block and item unlocalized names
 	- removed pickaxe on glass
+	- require core mod
 
 17aug2013-r1
 	- 1.5.2 release

@@ -121,8 +121,8 @@ public class AUExtras {
 			.setCreativeTab(AUExtras.tabAU);
 		MinecraftForge.setBlockHarvestLevel(this.blockChromaInfuser, "pickaxe", 0); // wooden pickaxe
 
-		// CRAFT cauldron
-		GameRegistry.addRecipe(new ItemStack(this.blockChromaInfuser, 1), " g ", "gcg", " g ", 'g', glass, 'c', new ItemStack(Block.cauldron));
+		// CRAFT cauldron + 4 glass -> chroma infuser
+		GameRegistry.addRecipe(new ItemStack(this.blockChromaInfuser, 1), " g ", "gcg", " g ", 'g', glass, 'c', new ItemStack(Item.cauldron));
 
 		//////////
 
@@ -135,28 +135,22 @@ public class AUExtras {
 			MinecraftForge.setBlockHarvestLevel(this.blockCobble, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredCobble = new ItemStack(this.blockCobble);
 
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, cobblestone, coloredCobble);
-
-			// CRAFT 8 cobblestone + dye -> 8 <colored> cobble
-//			for(int c = 0; c < 16; c++)
-//				GameRegistry.addRecipe(new ItemStack(this.blockCobble, 8, c), "sss", "s-s", "sss", 's', cobblestone, '-', dyes[c]);
-			// CRAFT 8 <colored> cobble + dye -> 8 <colored> cobble
-			for(int g = 0; g < 16; g++){
-				ItemStack anyCobble = new ItemStack(this.blockCobble, 1, g);
-				for(int c = 0; c < 16; c++)
-					if(g != c)
-//						GameRegistry.addRecipe(new ItemStack(this.blockCobble, 8, c), "sss", "s-s", "sss", 's', anyCobble, '-', dyes[c]);
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, anyCobble, coloredCobble);
-			}
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, cobblestone, coloredCobble);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(this.blockCobble, 1, c), coloredCobble);
 			// SMELT <colored> cobble -> cobblestone
 			GameRegistry.addSmelting(coloredCobble.itemID, cobblestone, 1.0f);
 
 			// stairs
-			if(Cfg.enableCobbleStairs)
-				for(int c = 0; c < 16; c++)
+			if(Cfg.enableCobbleStairs){
+				for(int c = 0; c < 16; c++){
 					this.blockCobbleStairs[c] = new BlockStairsColored(Cfg.blockCobbleStairs+c, "au.colorCobbleStairs."+Color.colors[c],
 															Color.readableColors[c]+" Cobblestone Stairs",
 															this.blockCobble, c);
+//					GameRegistry.addSmelting((this.blockCobbleStairs[c]).itemID, cobblestone, 1.0f);
+				}
+			}
 		}
 
 		//////////
@@ -170,28 +164,22 @@ ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, anyCobble, coloredCobble)
 			MinecraftForge.setBlockHarvestLevel(this.blockStone, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredStone = new ItemStack(this.blockStone);
 
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, stone, coloredStone);
-
-			// CRAFT 8 stone + dye -> 8 <colored> stone
-//			for(int c = 0; c < 16; c++)
-//				GameRegistry.addRecipe(new ItemStack(this.blockStone, 8, c), "sss", "s-s", "sss", 's', stone, '-', dyes[c]);
-			// CRAFT 8 <colored> stone + dye -> 8 <colored> stone
-			for(int g = 0; g < 16; g++){
-				ItemStack anyStone = new ItemStack(this.blockStone, 1, g);
-				for(int c = 0; c < 16; c++)
-					if(g != c)
-//						GameRegistry.addRecipe(new ItemStack(this.blockStone, 8, c), "sss", "s-s", "sss", 's', anyStone, '-', dyes[c]);
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, anyStone, coloredStone);
-			}
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, stone, coloredStone);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(this.blockStone, 1, c), coloredStone);
 			// SMELT <colored> stone -> stone
 			GameRegistry.addSmelting(coloredStone.itemID, stone, 1.0f);
 
 			// stairs
-			if(Cfg.enableStoneStairs)
-				for(int c = 0; c < 16; c++)
+			if(Cfg.enableStoneStairs){
+				for(int c = 0; c < 16; c++){
 					this.blockStoneStairs[c] = new BlockStairsColored(Cfg.blockStoneStairs+c, "au.colorStoneStairs."+Color.colors[c],
 															Color.readableColors[c]+" Stone Stairs",
 															this.blockStone, c);
+//					GameRegistry.addSmelting((new ItemStack(this.blockStoneStairs[c])).itemID, stone, 1.0f);
+				}
+			}
 		}
 
 		//////////
@@ -205,28 +193,22 @@ ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, anyStone, coloredStone);
 			MinecraftForge.setBlockHarvestLevel(this.blockStoneBrick, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredStoneBrick = new ItemStack(this.blockStoneBrick);
 
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, stoneBrick, coloredStoneBrick);
-
-			// CRAFT 8 stoneBrick + dye -> 8 <colored> stoneBrick
-//			for(int c = 0; c < 16; c++)
-//				GameRegistry.addRecipe(new ItemStack(this.blockStoneBrick, 8, c), "bbb", "b-b", "bbb", 'b', stoneBrick, '-', dyes[c]);
-			// CRAFT 8 <colored> stoneBrick + dye -> 8 <colored> stoneBrick
-			for(int g = 0; g < 16; g++){
-				ItemStack anyStoneBrick = new ItemStack(this.blockStoneBrick, 1, g);
-				for(int c = 0; c < 16; c++)
-					if(g != c)
-//						GameRegistry.addRecipe(new ItemStack(this.blockStoneBrick, 8, c), "bbb", "b-b", "bbb", 'b', anyStoneBrick, '-', dyes[c]);
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, anyStoneBrick, coloredStoneBrick);
-			}
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, stoneBrick, coloredStoneBrick);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(this.blockStoneBrick, 1, c), coloredStoneBrick);
 			// SMELT <colored> stoneBrick -> stoneBrick
 			GameRegistry.addSmelting(coloredStoneBrick.itemID, stoneBrick, 1.0f);
 
 			// stairs
-			if(Cfg.enableStoneBrickStairs)
-				for(int c = 0; c < 16; c++)
+			if(Cfg.enableStoneBrickStairs){
+				for(int c = 0; c < 16; c++){
 					this.blockStoneBrickStairs[c] = new BlockStairsColored(Cfg.blockStoneBrickStairs+c, "au.colorStoneBrickStairs."+Color.colors[c],
 															Color.readableColors[c]+" Stone Brick Stairs",
 															this.blockStoneBrick, c);
+//					GameRegistry.addSmelting((new ItemStack(this.blockStoneBrickStairs[c])).itemID, stoneBrick, 1.0f);
+				}
+			}
 		}
 
 		//////////
@@ -240,24 +222,16 @@ ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, anyStoneBrick, coloredSto
 			MinecraftForge.setBlockHarvestLevel(this.blockChiseledBrick, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredChiseledBrick = new ItemStack(this.blockChiseledBrick);
 
-			// CRAFT 4 stoneBrick -> 4 chiseledBrick
-			GameRegistry.addRecipe(new ItemStack(Block.stoneBrick, 4, 3), "bb ", "bb ", "   ", 'b', stoneBrick);
-
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, chiseledBrick, coloredChiseledBrick);
-// OR
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, 1, stone, coloredChiseledBrick);
-
-			// CRAFT 8 chiseledBrick + dye -> 8 <colored> chiseledBrick
-//			for(int c = 0; c < 16; c++)
-//				GameRegistry.addRecipe(new ItemStack(this.blockChiseledBrick, 8, c), "bbb", "b-b", "bbb", 'b', chiseledBrick, '-', dyes[c]);
-			// CRAFT 8 <colored> chiseledBrick + dye -> 8 <colored> chiseledBrick
-			for(int g = 0; g < 16; g++){
-				ItemStack anyChiseledBrick = new ItemStack(this.blockChiseledBrick, 1, g);
-				for(int c = 0; c < 16; c++)
-					if(g != c)
-//						GameRegistry.addRecipe(new ItemStack(this.blockChiseledBrick, 8, c), "bbb", "b-b", "bbb", 'b', anyChiseledBrick, '-', dyes[c]);
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, anyChiseledBrick, coloredChiseledBrick);
+			if(Cfg.enableChiseledBrickCrafting){
+				// CRAFT 4 stoneBrick -> 4 chiseledBrick
+				GameRegistry.addRecipe(new ItemStack(Block.stoneBrick, 4, 3), "bb ", "bb ", "   ", 'b', stoneBrick);
 			}
+
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, chiseledBrick, coloredChiseledBrick);
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, stone, coloredChiseledBrick);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(this.blockChiseledBrick, 1, c), coloredChiseledBrick);
 			// SMELT <colored> chiseledBrick -> chiseledBrick
 			GameRegistry.addSmelting(coloredChiseledBrick.itemID, chiseledBrick, 1.0f);
 
@@ -275,28 +249,22 @@ ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, anyChiseledBrick, colored
 			MinecraftForge.setBlockHarvestLevel(this.blockSmoothBrick, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredSmoothBrick = new ItemStack(this.blockSmoothBrick);
 
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, 1, stone, coloredSmoothBrick);
-
-			// CRAFT 4 stoneBrick + 4 stone + dye -> 8 <colored> smoothBrick
-//			for(int c = 0; c < 16; c++)
-//				GameRegistry.addRecipe(new ItemStack(this.blockSmoothBrick, 8, c), "bsb", "s-s", "bsb", 'b', stoneBrick, 's', stone, '-', dyes[c]);
-			// CRAFT 8 <colored> smoothBrick + dye -> 8 <colored> smoothBrick
-			for(int g = 0; g < 16; g++){
-				ItemStack anySmoothBrick = new ItemStack(this.blockSmoothBrick, 1, g);
-				for(int c = 0; c < 16; c++)
-					if(g != c)
-//						GameRegistry.addRecipe(new ItemStack(this.blockSmoothBrick, 8, c), "bbb", "b-b", "bbb", 'b', anySmoothBrick, '-', dyes[c]);
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, 1, anySmoothBrick, coloredSmoothBrick);
-			}
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, stone, coloredSmoothBrick);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(this.blockSmoothBrick, 1, c), coloredSmoothBrick);
 			// SMELT <colored> smoothBrick -> stone
 			GameRegistry.addSmelting(coloredSmoothBrick.itemID, stone, 1.0f);
 
 			// stairs
-			if(Cfg.enableSmoothBrickStairs)
-				for(int c = 0; c < 16; c++)
+			if(Cfg.enableSmoothBrickStairs){
+				for(int c = 0; c < 16; c++){
 					this.blockSmoothBrickStairs[c] = new BlockStairsColored(Cfg.blockSmoothBrickStairs+c, "au.colorSmoothBrickStairs."+Color.colors[c],
 															Color.readableColors[c]+" Smooth Brick Stairs",
 															this.blockSmoothBrick, c);
+//					GameRegistry.addSmelting((new ItemStack(this.blockSmoothBrickStairs[c])).itemID, stone, 1.0f);
+				}
+			}
 		}
 
 		//////////
@@ -310,19 +278,10 @@ ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, 1, anySmoothBrick, coloredS
 			MinecraftForge.setBlockHarvestLevel(this.blockGravel, "shovel", 0); // wooden shovel
 			ItemStack coloredGravel = new ItemStack(this.blockGravel);
 
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, gravel, coloredGravel);
-
-			// CRAFT 8 gravel + dye -> 8 <colored> gravel
-//			for(int c = 0; c < 16; c++)
-//				GameRegistry.addRecipe(new ItemStack(this.blockGravel, 8, c), "ggg", "g-g", "ggg", 'g', gravel, '-', dyes[c]);
-			// CRAFT 8 <colored> gravel + dye -> 8 <colored> gravel
-			for(int g = 0; g < 16; g++){
-				ItemStack anyGravel = new ItemStack(this.blockGravel, 1, g);
-				for(int c = 0; c < 16; c++)
-					if(g != c)
-//						GameRegistry.addRecipe(new ItemStack(this.blockGravel, 8, c), "ggg", "g-g", "ggg", 'g', anyGravel, '-', dyes[c]);
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, anyGravel, coloredGravel);
-			}
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, gravel, coloredGravel);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(this.blockGravel, 1, c), coloredGravel);
 			// SMELT <colored> gravel -> gravel
 			GameRegistry.addSmelting(coloredGravel.itemID, gravel, 1.0f);
 		}
@@ -337,19 +296,10 @@ ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, 1, anyGravel, coloredGravel)
 				.setCreativeTab(AUExtras.tabAU);
 			ItemStack coloredGlass = new ItemStack(this.blockGlass);
 
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, 1, glass, coloredGlass);
-
-			// CRAFT 8 glass + dye -> 8 <colored> glass
-//			for(int c = 0; c < 16; c++)
-//				GameRegistry.addRecipe(new ItemStack(this.blockGlass, 8, c), "ggg", "g-g", "ggg", 'g', glass, '-', dyes[c]);
-			// CRAFT 8 <colored> glass + dye -> 8 <colored> glass
-			for(int g = 0; g < 16; g++){
-				ItemStack anyGlass = new ItemStack(this.blockGlass, 1, g);
-				for(int c = 0; c < 16; c++)
-					if(g != c)
-//						GameRegistry.addRecipe(new ItemStack(this.blockGlass, 8, c), "ggg", "g-g", "ggg", 'g', anyGlass, '-', dyes[c]);
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, 1, anyGlass, coloredGlass);
-			}
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, glass, coloredGlass);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(this.blockGlass, 1, c), coloredGlass);
 			// SMELT <colored> glass -> glass
 			GameRegistry.addSmelting(coloredGlass.itemID, glass, 1.0f);
 		}
@@ -364,24 +314,10 @@ ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, 1, anyGlass, coloredGlass);
 				.setCreativeTab(AUExtras.tabAU);
 			ItemStack coloredGlassTinted = new ItemStack(this.blockGlassTinted);
 
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, 1, glass, coloredGlassTinted);
-
-			// CRAFT 6 glass + 3 dye -> 6 <colored tinted> glass
-//			for(int c = 0; c < 16; c++){
-//				GameRegistry.addRecipe(new ItemStack(this.blockGlassTinted, 6, c), "g-g", "g-g", "g-g", 'g', glass, '-', dyes[c]);
-//				GameRegistry.addRecipe(new ItemStack(this.blockGlassTinted, 6, c), "ggg", "---", "ggg", 'g', glass, '-', dyes[c]);
-//			}
-			// CRAFT 6 <colored tinted> glass + 3 dye -> 6 <colored tinted> glass
-			for(int g = 0; g < 16; g++){
-				ItemStack anyGlassTinted = new ItemStack(this.blockGlassTinted, 1, g);
-				for(int c = 0; c < 16; c++)
-					if(g != c)
-//{
-//						GameRegistry.addRecipe(new ItemStack(this.blockGlassTinted, 6, c), "g-g", "g-g", "g-g", 'g', anyGlassTinted, '-', dyes[c]);
-//						GameRegistry.addRecipe(new ItemStack(this.blockGlassTinted, 6, c), "ggg", "---", "ggg", 'g', anyGlassTinted, '-', dyes[c]);
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, 1, anyGlassTinted, coloredGlassTinted);
-//					}
-			}
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, glass, coloredGlassTinted);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(this.blockGlassTinted, 1, c), coloredGlassTinted);
 			// SMELT <colored tinted> glass -> glass
 			GameRegistry.addSmelting(coloredGlassTinted.itemID, glass, 1.0f);
 		}
@@ -396,27 +332,64 @@ ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, 1, anyGlassTinted, colo
 				.setCreativeTab(AUExtras.tabAU);
 			ItemStack coloredGlassTintedNoFrame = new ItemStack(this.blockGlassTintedNoFrame);
 
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, 1, glass, coloredGlassTintedNoFrame);
-
-			// CRAFT 7 glass + 2 dye -> 7 <tinted frameless> glass
-//			for(int c = 0; c < 16; c++){
-//				GameRegistry.addRecipe(new ItemStack(this.blockGlassTintedNoFrame, 7, c), "ggg", "-g-", "ggg", 'g', glass, '-', dyes[c]);
-//				GameRegistry.addRecipe(new ItemStack(this.blockGlassTintedNoFrame, 7, c), "g-g", "ggg", "g-g", 'g', glass, '-', dyes[c]);
-//			}
-			// CRAFT 7 <tinted frameless> glass + 2 dye -> 7 <tinted frameless> glass
-			for(int g = 0; g < 16; g++){
-				ItemStack anyGlassTintedNoFrame = new ItemStack(this.blockGlassTintedNoFrame, 1, g);
-				for(int c = 0; c < 16; c++)
-					if(g != c)
-//{
-//						GameRegistry.addRecipe(new ItemStack(this.blockGlassTintedNoFrame, 7, c), "ggg", "-g-", "ggg", 'g', anyGlassTintedNoFrame, '-', dyes[c]);
-//						GameRegistry.addRecipe(new ItemStack(this.blockGlassTintedNoFrame, 7, c), "g-g", "ggg", "g-g", 'g', anyGlassTintedNoFrame, '-', dyes[c]);
-ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, 1, anyGlassTintedNoFrame, coloredGlassTintedNoFrame);
-//					}
-			}
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, glass, coloredGlassTintedNoFrame);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(this.blockGlassTintedNoFrame, 1, c), coloredGlassTintedNoFrame);
 			// SMELT <tinted frameless> glass -> glass
 			GameRegistry.addSmelting(coloredGlassTintedNoFrame.itemID, glass, 1.0f);
 		}
+
+		//////////
+
+		// convert any colored glass to any other colored glass
+		if(Cfg.enableGlass && Cfg.enableGlassTinted){
+			ItemStack coloredGlass = new ItemStack(this.blockGlass);
+			ItemStack coloredGlassTinted = new ItemStack(this.blockGlassTinted);
+			for(int c = 0; c < 16; c++){
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(this.blockGlassTinted, 1, c), coloredGlass);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(this.blockGlass, 1, c), coloredGlassTinted);
+			}
+		}
+		if(Cfg.enableGlass && Cfg.enableGlassTintedNoFrame){
+			ItemStack coloredGlass = new ItemStack(this.blockGlass);
+			ItemStack coloredGlassTintedNoFrame = new ItemStack(this.blockGlassTintedNoFrame);
+			for(int c = 0; c < 16; c++){
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(this.blockGlassTintedNoFrame, 1, c), coloredGlass);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(this.blockGlass, 1, c), coloredGlassTintedNoFrame);
+			}
+		}
+		if(Cfg.enableGlassTinted && Cfg.enableGlassTintedNoFrame){
+			ItemStack coloredGlassTinted = new ItemStack(this.blockGlassTinted);
+			ItemStack coloredGlassTintedNoFrame = new ItemStack(this.blockGlassTintedNoFrame);
+			for(int c = 0; c < 16; c++){
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(this.blockGlassTintedNoFrame, 1, c), coloredGlassTinted);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(this.blockGlassTinted, 1, c), coloredGlassTintedNoFrame);
+			}
+		}
+
+		//////////
+
+		// vanilla wool
+		for(int c = 0; c < 16; c++)
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.cloth, 1, c), new ItemStack(Block.cloth), true);
+
+		#if !defined MC147 && !defined MC152
+			// vanilla hardened clay (1.6)
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.hardenedClay), new ItemStack(Block.stainedClay), true);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.stainedClay, 1, c), new ItemStack(Block.stainedClay), true);
+			// vanilla carpet (1.6)
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.carpet, 1, c), new ItemStack(Block.carpet), true);
+		#endif
+
+		#if !defined MC147 && !defined MC152 && !defined MC162 && !defined MC164
+			// vanilla stained glass (1.7)
+			
+			// vanilla stained glass panes (1.7)
+			
+		#endif
 
 		//////////
 
@@ -434,15 +407,13 @@ ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, 1, anyGlassTintedNoFrame, colo
 
 			// CRAFT 6 glass panes + dye + glowstone + redstone -> <colored> lamp
 			for(int c = 0; c < 16; c++)
-//				GameRegistry.addRecipe(new ItemStack(this.blockLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstone, '-', dyes[c], 'r', redstoneDust);
-GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstone, '-', oreDyes[c], 'r', redstoneDust));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstone, '-', oreDyes[c], 'r', redstoneDust));
 			// CRAFT <colored> lamp + dye -> <colored> lamp
 			for(int g = 0; g < 16; g++){
 				ItemStack anyLamp = new ItemStack(this.blockLamp, 1, g);
 				for(int c = 0; c < 16; c++)
 					if(g != c)
-//						GameRegistry.addShapelessRecipe(new ItemStack(this.blockLamp, 1, c), anyLamp, dyes[c]);
-GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(this.blockLamp, 1, c), anyLamp, oreDyes[c]));
+						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(this.blockLamp, 1, c), anyLamp, oreDyes[c]));
 			}
 
 			//////////
@@ -460,15 +431,13 @@ GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(this.blockLamp, 1, c
 
 			// CRAFT 6 glass panes + dye + glowstone + redstone torch -> <colored> inverted lamp
 			for(int c = 0; c < 16; c++)
-//				GameRegistry.addRecipe(new ItemStack(this.blockInvertedLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstone, '-', dyes[c], 'r', redstoneTorch);
-GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockInvertedLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstone, '-', oreDyes[c], 'r', redstoneTorch));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockInvertedLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstone, '-', oreDyes[c], 'r', redstoneTorch));
 			// CRAFT <colored> inverted lamp + dye -> <colored> inverted lamp
 			for(int g = 0; g < 16; g++){
 				ItemStack anyInvertedLamp = new ItemStack(this.blockInvertedLamp, 1, g);
 				for(int c = 0; c < 16; c++)
 					if(g != c)
-//						GameRegistry.addShapelessRecipe(new ItemStack(this.blockInvertedLamp, 1, c), anyInvertedLamp, dyes[c]);
-GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(this.blockInvertedLamp, 1, c), anyInvertedLamp, oreDyes[c]));
+						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(this.blockInvertedLamp, 1, c), anyInvertedLamp, oreDyes[c]));
 			}
 
 			//////////
@@ -524,12 +493,12 @@ GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(this.blockInvertedLa
 			// breaking grass drops flower seed
 			MinecraftForge.addGrassSeed(new ItemStack(this.blockFlowerSeed, 1), 1);
 
-// ore dictionary
-OreDictionary.registerOre("dyeBlack", new ItemStack(this.itemFlowerDye, 1, 0));
-OreDictionary.registerOre("dyeGreen", new ItemStack(this.itemFlowerDye, 1, 2));
-OreDictionary.registerOre("dyeBrown", new ItemStack(this.itemFlowerDye, 1, 3));
-OreDictionary.registerOre("dyeBlue",  new ItemStack(this.itemFlowerDye, 1, 4));
-OreDictionary.registerOre("dyeWhite", new ItemStack(this.itemFlowerDye, 1, 15));
+			// ore dictionary
+			OreDictionary.registerOre("dyeBlack", new ItemStack(this.itemFlowerDye, 1, 0));
+			OreDictionary.registerOre("dyeGreen", new ItemStack(this.itemFlowerDye, 1, 2));
+			OreDictionary.registerOre("dyeBrown", new ItemStack(this.itemFlowerDye, 1, 3));
+			OreDictionary.registerOre("dyeBlue",  new ItemStack(this.itemFlowerDye, 1, 4));
+			OreDictionary.registerOre("dyeWhite", new ItemStack(this.itemFlowerDye, 1, 15));
 
 			// flower to dye recipes
 			GameRegistry.addShapelessRecipe(new ItemStack(this.itemFlowerDye, 1, 0), new ItemStack(this.blockFlower, 1, 0)); // black
