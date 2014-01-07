@@ -1,5 +1,6 @@
 MOD = extras
 FILES = 
+DEBUG = 1
 
 include ../.submakefiles
 

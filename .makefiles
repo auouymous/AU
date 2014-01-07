@@ -42,3 +42,4 @@ else
 endif
 
 AUMOD := $(shell export m=$(MOD) ; echo AU$${m^})
+MODUPPER := $(shell export m=$(MOD) ; echo $${m^})
