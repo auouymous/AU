@@ -5,44 +5,28 @@ package com.qzx.au.core;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.util.Icon;
+import net.minecraft.item.ItemStack;
 
 public class SlotAU extends Slot {
 	private int maxStackSize;
 	public int borderPadding; // must be an even value
 	public boolean shaded;
 
-	private String filterMod;
-	private String filterTexture;
-	private Icon filterIcon;
+	private ItemStack filterItemStack;
 
 	public SlotAU(IInventory inventory, int slot, int x, int y, int maxStackSize){
 		super(inventory, slot, x, y);
 		this.maxStackSize = maxStackSize;
 		this.borderPadding = 0;
 		this.shaded = false;
-		this.filterMod = null;
-		this.filterTexture = null;
-		this.filterIcon = null;
+		this.filterItemStack = null;
 	}
 
-	public void setFilterIcon(String mod, String texture, Icon icon){
-		this.filterMod = mod;
-		this.filterTexture = texture;
-		this.filterIcon = icon;
+	public void setFilterItemStack(ItemStack itemstack){
+		this.filterItemStack = itemstack;
 	}
-	public void setFilterIcon(Icon icon){
-		this.setFilterIcon(null, null, icon);
-	}
-
-	public String getFilterMod(){
-		return this.filterMod;
-	}
-	public String getFilterTexture(){
-		return this.filterTexture;
-	}
-	public Icon getFilterIcon(){
-		return this.filterIcon;
+	public ItemStack getFilterItemStack(){
+		return this.filterItemStack;
 	}
 
 	@Override

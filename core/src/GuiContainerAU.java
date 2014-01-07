@@ -7,13 +7,15 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
-//import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 
 import java.util.ArrayList;
 
-//import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL11;
+
+import com.qzx.au.core.UI;
 
 @SideOnly(Side.CLIENT)
 public class GuiContainerAU extends GuiContainer {
@@ -108,21 +110,17 @@ public class GuiContainerAU extends GuiContainer {
 			int size = 18 + slot.borderPadding;
 			UI.drawBorder(x, y, size, size, 0xff373737, 0xffffffff, 0xff8b8b8b);
 			UI.drawRect(x+1, y+1, size-2, size-2, 0xff8b8b8b); // background
-			if(slot.getStack() == null && slot.getFilterIcon() != null){
+			if(slot.getStack() == null && slot.getFilterItemStack() != null){
 				// draw itemstack background
-//				GL11.glPushMatrix();
-//				RenderItem itemRenderer = new RenderItem();
-//				itemRenderer.zLevel = 200.0F;
-//				UI.setColor(0xffffffff);
-//				UI.drawItemStack(this.mc, itemRenderer, slot.getFilterItemStack(), x+1, y+1, false);
-//				GL11.glPopMatrix();
-// TODO: above could be used to render any itemstack and its quantity into the background
-//			below allows for non-item textures to be used
-
-				// draw texture background
-				UI.setColor(0xffffffff);
-				UI.bindTexture(this.mc, slot.getFilterMod(), slot.getFilterTexture() == null ? "/gui/items.png" : slot.getFilterTexture());
-				UI.drawTexturedRect(x+1, y+1, slot.getFilterIcon(), 16, 16, 0.0F);
+				GL11.glPushMatrix();
+				RenderItem itemRenderer = new RenderItem();
+				itemRenderer.zLevel = 0.0F;
+				try {
+					UI.drawItemStack(this.mc, itemRenderer, slot.getFilterItemStack(), x+1, y+1, false);
+				} catch(Exception e){
+					Debug.error("Failed to render slot filter icon");
+				}
+				GL11.glPopMatrix();
 
 				// fade icon
 				UI.drawRect(x+1, y+1, size-2, size-2, 0xbb8b8b8b);

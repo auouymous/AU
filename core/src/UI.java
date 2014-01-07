@@ -211,7 +211,6 @@ public class UI {
 
 	public static void drawItemStack(Minecraft mc, RenderItem itemRenderer, ItemStack itemstack, int x, int y, boolean durability_bar) throws Exception {
 		if(itemstack != null){
-			GL11.glTranslatef(0.0F, 0.0F, 32.0F);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			GL11.glEnable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
 			RenderHelper.enableStandardItemLighting();

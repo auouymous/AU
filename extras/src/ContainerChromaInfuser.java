@@ -68,7 +68,7 @@ public class ContainerChromaInfuser extends ContainerAU {
 					return itemstack.getItem() instanceof ItemDye;
 				}
 			};
-		slotDye.setFilterIcon(Item.dyePowder.getIconFromDamage(8));
+		slotDye.setFilterItemStack(new ItemStack(Item.dyePowder, 1, 8));
 		this.addSlotToContainer(slotDye);
 
 		// water bucket slot
@@ -96,7 +96,7 @@ public class ContainerChromaInfuser extends ContainerAU {
 					return itemstack.itemID == Item.bucketWater.itemID; // || itemstack.itemID == Block.waterMoving.blockID || itemstack.itemID == Block.waterStill.blockID;
 				}
 			};
-		slotBucket.setFilterIcon(Item.bucketWater.getIconFromDamage(0));
+		slotBucket.setFilterItemStack(new ItemStack(Item.bucketWater));
 		this.addSlotToContainer(slotBucket);
 
 		// player's inventory
