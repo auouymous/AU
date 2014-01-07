@@ -115,7 +115,7 @@ public class GuiChromaInfuser extends GuiContainerAU {
 				try {
 					UI.drawItemStack(this.mc, itemRenderer, output, button.xPosition+15, button.yPosition-2, true);
 				} catch(Exception e){
-					// this can happen
+					Debug.error("Failed to render chroma infuser output pattern");
 				}
 			}
 		}
