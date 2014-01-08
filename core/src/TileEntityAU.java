@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 
 import net.minecraftforge.common.ForgeDirection;
 
-public abstract class TileEntityAU extends TileEntity implements ISidedInventory {
+public abstract class TileEntityAU extends TileEntity implements ISidedInventory, ISidedTileEntity {
 	// public World worldObj
 	// public int xCoord, yCoord, zCoord
 	// protected boolean tileEntityInvalid
@@ -30,13 +30,15 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	// public Block blockType
 	protected int nrAccessPlayers;
 	protected ForgeDirection direction; // NBT
-	private Block camoBlock; // NBT
+	private ItemStack camoBlock; // NBT
 	private String owner; // NBT
 	protected int nrUpgrades; // NBT
 	protected ItemStack[] upgradeContents; // NBT
 	protected int nrSlots; // NBT
 	protected ItemStack[] slotContents; // NBT
 	protected int firstValidSlot;
+
+	protected SidedBlockInfo sidedBlockInfo;
 
 	protected TileEntityAU(){
 		super();
@@ -49,6 +51,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		this.nrSlots = 0;
 		this.slotContents = null;
 		this.firstValidSlot = 0;
+		this.sidedBlockInfo = null;
 	}
 
 	//////////
@@ -96,7 +99,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 		// block camo
 		if(this.canCamo())
-			this.camoBlock = Block.blocksList[nbt.getInteger("camo")];
+			this.camoBlock = new ItemStack(Block.blocksList[nbt.getInteger("camoID")], 1, nbt.getByte("camoMeta"));
 
 		// placed by
 		if(this.canOwn())
@@ -125,6 +128,9 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 					this.slotContents[slot] = ItemStack.loadItemStackFromNBT(nbt_slot);
 			}
 		}
+
+		// sided slots
+		if(this.sidedBlockInfo != null) this.sidedBlockInfo.readFromNBT(nbt);
 	}
 
 	@Override
@@ -136,8 +142,10 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 			nbt.setByte("face", (byte)this.direction.ordinal());
 
 		// block camo
-		if(this.canCamo())
-			nbt.setInteger("camo", this.camoBlock != null ? this.camoBlock.blockID : 0);
+		if(this.canCamo()){
+			nbt.setInteger("camoID", (this.camoBlock != null ? this.camoBlock.itemID : 0));
+			nbt.setByte("camoMeta", (byte)(this.camoBlock != null ? this.camoBlock.getItemDamage() : 0));
+		}
 
 		// placed by
 		if(this.owner != null)
@@ -170,6 +178,9 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 			}
 			nbt.setTag("contents", taglist);
 		}
+
+		// sided slots
+		if(this.sidedBlockInfo != null) this.sidedBlockInfo.writeToNBT(nbt);
 	}
 
 	////////
@@ -189,6 +200,14 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		return null;
 	}
 
+	//////////
+
+	private static final int CLIENT_EVENT_ACCESS_PLAYERS	= 1;
+	private static final int CLIENT_EVENT_DIRECTION			= 2;
+	private static final int CLIENT_EVENT_CAMO_ID			= 3;
+	private static final int CLIENT_EVENT_CAMO_META			= 4;
+	private static final int CLIENT_EVENT_TOGGLE_SIDE		= 5;
+
 	/////////////////
 	// directional //
 	/////////////////
@@ -207,7 +226,8 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	public void setDirection(ForgeDirection direction){
 		if(direction == this.direction || !this.canRotate()) return;
 		this.direction = direction;
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, 2, direction.ordinal());
+
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_DIRECTION, direction.ordinal());
 		this.markChunkModified();
 	}
 
@@ -223,14 +243,16 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		return true;
 	}
 
-	public void setCamoBlock(Block block){
-		if(block == this.camoBlock || !this.canCamo()) return;
-		this.camoBlock = block;
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, 3, block.blockID);
+	public void setCamoBlock(Block block, int metadata){
+		if((this.camoBlock.itemID == block.blockID && this.camoBlock.getItemDamage() == metadata) || !this.canCamo()) return;
+		this.camoBlock = new ItemStack(block, 1, metadata);
+
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_CAMO_ID, block.blockID);
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_CAMO_META, metadata);
 		this.markChunkModified();
 	}
 
-	public Block getCamoBlock(){
+	public ItemStack getCamoBlock(){
 		return this.camoBlock;
 	}
 
@@ -280,14 +302,17 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	@Override
 	public boolean receiveClientEvent(int eventID, int value){
 		switch(eventID){
-		case 1:
+		case TileEntityAU.CLIENT_EVENT_ACCESS_PLAYERS:
 			this.nrAccessPlayers = value;
 			return true;
-		case 2:
+		case TileEntityAU.CLIENT_EVENT_DIRECTION:
 			this.direction = ForgeDirection.values()[value];
 			return true;
-		case 3:
-			this.camoBlock = Block.blocksList[value];
+		case TileEntityAU.CLIENT_EVENT_CAMO_ID:
+			this.camoBlock = new ItemStack(Block.blocksList[value], 1, this.camoBlock.getItemDamage());
+			return true;
+		case TileEntityAU.CLIENT_EVENT_CAMO_META:
+			this.camoBlock = new ItemStack(Block.blocksList[this.camoBlock.itemID], 1, value);
 			return true;
 		default:
 			return false;
@@ -314,11 +339,11 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		return "au.tileentity.AU";
 	}
 
-	public ItemStack getStackInSlot(int slot){
-		return slot >= 0 && slot < this.nrSlots ? this.slotContents[slot] : null;
+	public ItemStack getStackInSlot(int slotIndex){
+		return slotIndex >= 0 && slotIndex < this.nrSlots ? this.slotContents[slotIndex] : null;
 	}
-	public ItemStack decrStackSize(int slot, int amount){
-		ItemStack itemstack = this.getStackInSlot(slot);
+	public ItemStack decrStackSize(int slotIndex, int amount){
+		ItemStack itemstack = this.getStackInSlot(slotIndex);
 		if(itemstack == null) return null;
 
 // TODO: if upgrade slot, call method in ItemUpgrade to verify it can be removed
@@ -326,29 +351,30 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 // TODO: return null if fake slot (SlotPattern, SlotResult, etc)
 
 		if(itemstack.stackSize <= amount){
-			this.slotContents[slot] = null;
+			this.slotContents[slotIndex] = null;
 			this.onInventoryChanged();
 			return itemstack;
 		}
-		ItemStack ret_itemstack = this.slotContents[slot].splitStack(amount);
-		if(this.slotContents[slot].stackSize == 0)
-			this.slotContents[slot] = null;
+		ItemStack ret_itemstack = this.slotContents[slotIndex].splitStack(amount);
+		if(this.slotContents[slotIndex].stackSize == 0)
+			this.slotContents[slotIndex] = null;
 		this.onInventoryChanged();
 		return ret_itemstack;
 	}
-	public ItemStack getStackInSlotOnClosing(int slot){
+	public ItemStack getStackInSlotOnClosing(int slotIndex){
 		return null;
 	}
 	#ifdef MC152
-	public boolean isStackValidForSlot(int slot, ItemStack itemstack){
+	public boolean isStackValidForSlot(int slotIndex, ItemStack itemstack){
 	#else
-	public boolean isItemValidForSlot(int slot, ItemStack itemstack){
+	public boolean isItemValidForSlot(int slotIndex, ItemStack itemstack){
 	#endif
-		// override and return true is slot accepts itemstack type (ignore itemstack size)
-		return false;
+		if(this.sidedBlockInfo == null) return false;
+		SidedSlotInfo info = this.sidedBlockInfo.getSlotInfoFromIndex(slotIndex);
+		return (info == null ? false : info.isItemValid(itemstack)); // ignore itemstack size
 	}
-	public void setInventorySlotContents(int slot, ItemStack itemstack){
-		if(slot < 0 || slot >= this.nrSlots) return;
+	public void setInventorySlotContents(int slotIndex, ItemStack itemstack){
+		if(slotIndex < 0 || slotIndex >= this.nrSlots) return;
 
 // TODO: return if fake slot? (SlotPattern, SlotResult, etc)
 
@@ -357,7 +383,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 // TODO: set maxStackSize per slot
 		int maxStackSize = 64;
 
-		this.slotContents[slot] = itemstack;
+		this.slotContents[slotIndex] = itemstack;
 		if(itemstack != null && itemstack.stackSize > maxStackSize)
 			itemstack.stackSize = maxStackSize;
 		this.onInventoryChanged();
@@ -376,13 +402,15 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	public void openChest(){
 		if(this.worldObj == null) return;
 		this.nrAccessPlayers++;
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, 1, this.nrAccessPlayers);
+
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_ACCESS_PLAYERS, this.nrAccessPlayers);
 	}
 
 	public void closeChest(){
 		if(this.worldObj == null) return;
 		this.nrAccessPlayers--;
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, 1, this.nrAccessPlayers);
+
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_ACCESS_PLAYERS, this.nrAccessPlayers);
 	}
 
 	/////////////////////
@@ -390,19 +418,39 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	/////////////////////
 
 	public int[] getAccessibleSlotsFromSide(int side){
-		// returns slot indices accessible from side
-
-// TODO: add support for 6 colored inventories
-
-		return null;
+		if(this.sidedBlockInfo == null) return null;
+		return this.sidedBlockInfo.getAccessibleSlotsFromSide(side);
 	}
 	public boolean canInsertItem(int slotIndex, ItemStack itemstack, int side){
-		if(slotIndex < this.firstValidSlot) return false;
-		return true;
+		if(this.sidedBlockInfo == null) return false;
+		return this.sidedBlockInfo.canInsert(slotIndex, side);
 	}
 	public boolean canExtractItem(int slotIndex, ItemStack itemstack, int side){
-		if(slotIndex < this.firstValidSlot) return false;
-		return true;
+		if(this.sidedBlockInfo == null) return false;
+		return this.sidedBlockInfo.canExtract(slotIndex, side);
+	}
+
+	//////////////////////
+	// ISidedTileEntity //
+	//////////////////////
+
+	public SidedBlockInfo getSidedBlockInfo(){
+		return this.sidedBlockInfo;
+	}
+	public Class<? extends ISidedRenderer> getSidedRenderer(){
+		return null;
+	}
+	public void toggleSide(int side){
+		SidedBlockInfo info = this.sidedBlockInfo;
+		if(info != null)
+			if(info.canToggle(side)){
+				int old_slot = info.getSlot(side);
+				int new_slot = info.toggleSide(side);
+				if(old_slot != new_slot){
+					this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_TOGGLE_SIDE, new_slot);
+					this.markChunkModified();
+				}
+			}
 	}
 }
 

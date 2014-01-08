@@ -4,10 +4,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.entity.player.InventoryPlayer;
-//import net.minecraft.item.Item;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import com.qzx.au.core.SidedBlockInfo;
+import com.qzx.au.core.SidedSlotInfo;
 import com.qzx.au.core.TileEntityAU;
 
 public class TileEntityChromaInfuser extends TileEntityAU {
@@ -21,6 +23,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	private boolean hasWater;
 	private int dyeColor;
 	private int dyeVolume; // 0-8
+
 	private int outputTick;
 	private ItemStack processingItem;
 	private ChromaRecipe processingRecipe;
@@ -29,7 +32,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 
 	public TileEntityChromaInfuser(){
 		super();
-		this.nrSlots = 5; // item input(top), item output(bottom), dye inventory(side), water bucket inventory
+		this.nrSlots = 4; // item input(top), item output(bottom), dye inventory(side), water bucket inventory
 		this.slotContents = new ItemStack[this.nrSlots];
 
 		this.recipeButton = ChromaButton.BUTTON_BLANK;
@@ -40,7 +43,31 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		this.outputTick = 0;
 		this.processingItem = null;
 		this.processingRecipe = null;
+
+		this.sidedBlockInfo = new SidedBlockInfo(TileEntityChromaInfuser.sidedSlotInfo,
+												TileEntityChromaInfuser.sidedSlots,
+												TileEntityChromaInfuser.sidedCanToggle,
+												TileEntityChromaInfuser.sidedIsVisible);
 	}
+
+	private static final SidedSlotInfo[] sidedSlotInfo = {
+		(new SidedSlotInfo("Item Input",		SidedSlotInfo.BLUE_COLOR,	TileEntityChromaInfuser.SLOT_ITEM_INPUT,	1,	true, true){
+				@Override
+				public boolean isItemValid(ItemStack itemstack){
+					return ChromaRegistry.hasRecipe(itemstack);
+				}
+			}),
+		(new SidedSlotInfo("Dye Input",		SidedSlotInfo.PURPLE_COLOR,	TileEntityChromaInfuser.SLOT_DYE_INPUT,		1,	true, true){
+				@Override
+				public boolean isItemValid(ItemStack itemstack){
+					return itemstack.getItem() instanceof ItemDye;
+				}
+			}),
+		new SidedSlotInfo("Item Output",	SidedSlotInfo.ORANGE_COLOR,	TileEntityChromaInfuser.SLOT_ITEM_OUTPUT,	1,	false, true)
+	};
+	private static final int[] sidedSlots = {2, 0, 1, 1, 1, 1}; // bottom:itemOutput, top:itemInput, sides:dyeInput
+	private static final boolean[] sidedCanToggle = {false, false, false, false, false, false};
+	private static final boolean[] sidedIsVisible = {false, false, false, false, false, false};
 
 	//////////
 
@@ -53,7 +80,6 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		this.hasWater = nbt.getBoolean("hasWater");
 		this.dyeColor = nbt.getByte("dyeColor");
 		this.dyeVolume = nbt.getByte("dyeVolume");
-		this.outputTick = nbt.getByte("outputTick");
 		this.processingItem = this.getInput();
 		this.processingRecipe = ChromaRegistry.getRecipe(this.recipeButton, this.getInput());
 	}
@@ -67,7 +93,6 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		nbt.setBoolean("hasWater", this.hasWater);
 		nbt.setByte("dyeColor", (byte)this.dyeColor);
 		nbt.setByte("dyeVolume", (byte)this.dyeVolume);
-		nbt.setByte("outputTick", (byte)this.outputTick);
 	}
 
 	//////////
@@ -163,12 +188,9 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		if(this.hasWater && this.dyeVolume == 0){
 			ItemStack itemstack = this.slotContents[TileEntityChromaInfuser.SLOT_DYE_INPUT];
 			if(itemstack != null){
-//				Item item = itemstack.getItem();
 				int color = itemstack.getItemDamage();
 				this.dyeVolume = 8;
 				this.dyeColor = color;
-
-// TODO: does this work for other dyes? works for anything that extends ItemDye, should it support ore dictionary?
 
 				itemstack.stackSize--;
 				if(itemstack.stackSize == 0) this.slotContents[TileEntityChromaInfuser.SLOT_DYE_INPUT] = null;
@@ -297,13 +319,5 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	@Override
 	public String getInvName(){
 		return "au.tileentity.ChromaInfuser";
-	}
-
-	public int[] getAccessibleSlotsFromSide(int side){
-		// returns slot indices accessible from side
-		int[][] sidedSlots = {{TileEntityChromaInfuser.SLOT_ITEM_OUTPUT}, {TileEntityChromaInfuser.SLOT_ITEM_INPUT}, {TileEntityChromaInfuser.SLOT_DYE_INPUT}};
-		if(side == 0) return sidedSlots[0];
-		if(side == 1) return sidedSlots[1];
-		return sidedSlots[2];
 	}
 }
