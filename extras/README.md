@@ -8,7 +8,7 @@ All recipes are configurable.
 
 [Minecraft Forum](http://www.minecraftforum.net/topic/1945197-)
 
-Required: -
+Required: AU CORE
 
 ***
 

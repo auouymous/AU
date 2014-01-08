@@ -31,13 +31,18 @@ INFO HUD
 	~ FIX: time is incorrect in mystcraft ages
 
 	- target armor hud, same as armor hud but shows armor icons and durability of target's armor
+		- maybe don't show durability, too cheaty
 		- could also show target's health on 1.6+
+	- target potion hud, same as potion hud but shows potion icons (no duration) for target
 
 	- find block/entity behind crosshairs when no target
 		- show block/entity inspector
 		- show distance to block/entity
 
 	- display player name in inspector when looking at heads
+	- display name and volume of liquid in tanks and fluid pipes/conduits (Buildcraft, Railcraft, Thermal Expansion, Ender Storage)
+	- display direction of the output face for IC2 energy storage
+	- display direction of the input face for IC2 transformers
 
 	- add server side support
 		- add API for other mods to publish info elements

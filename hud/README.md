@@ -6,7 +6,7 @@ Also includes armor and potion HUDs that can be placed in any corner.
 
 [Minecraft Forum](http://www.minecraftforum.net/topic/1945197-)
 
-Required: -
+Required: AU CORE
 
 ***
 

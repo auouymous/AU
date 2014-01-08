@@ -9,7 +9,16 @@
 
 ~ FIX: prevent powered lamps from appearing in NEI
 
+~ FIX: ChromaRegistry.addRecipe() can't get localized names for input/output itemstacks from AU Extras
+
 -----
+
+- NEI support for chroma infuser recipes
+
+- chroma infuser shouldn't process a colored item with the same color, unless converting item IDs for it
+	- need to add a colored flag to ChromeRecipe and set in all conversion recipes
+
+- add tooltip to recipe button output images
 
 - add flowers to world gen
 	http://www.minecraftforum.net/topic/2203069-164-forge-how-do-i-get-my-chunk-provider-to-call-on-my-biome-decorator/
@@ -34,18 +43,20 @@
 - check biome when growing flowers and decrease odds for colors not in current biome
 	- option to only grow colors for current biome
 
+- display bubbles in chroma infuser's water and play a sound when processing items
+
 - add a flower pot that supports these flowers
 	- maybe use a tile entity and support all flowers
 
 ~ forge multipart support
 	- OR colored slabs
 
+- MC174
+	- glass/pane + BLANK_BUTTON -> stained glass/pane
+
 - lamp and inverted lamp that light up but don't emit light, use glowstone dust instead of glowstone block
 
 - config option to add additional block IDs that should receive the lighting hack (stairs and slabs from other mods)
-
-- render all 6 sides of glass, option to disable
-	- causes flickering from a distance and minor gaps between interior textures
 
 - grated floor
 	- frame around outside edge, connected textures
@@ -54,5 +65,3 @@
 - key or item to feign death
 	- lay down as if on a bed
 	- make mobs ignore player
-
-- vorpal enchant ?
