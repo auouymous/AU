@@ -230,6 +230,8 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 
 		this.dyeVolume--;
 		this.consumeDye();
+		if(this.dyeVolume == 0)
+			this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityChromaInfuser.CLIENT_EVENT_RESET_WATER, 0);
 
 		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityChromaInfuser.CLIENT_EVENT_UPDATE_OUTPUT, 0);
 		this.markChunkModified();
