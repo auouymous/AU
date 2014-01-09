@@ -451,6 +451,18 @@ public class InfoHUD {
 						if(block != null){
 							int blockMetadata = world.getBlockMetadata(inspectX, inspectY, inspectZ);
 
+							// hide silverfish blocks :)
+							if(Cfg.hide_silverfish_blocks && blockID == Block.silverfish.blockID){
+								if(blockMetadata == 0){
+									blockID = 1; blockMetadata = 0; // stone
+								} else if(blockMetadata == 1){
+									blockID = 4; blockMetadata = 0; // cobblestone
+								} else if(blockMetadata == 2){
+									blockID = 98; blockMetadata = 0; // stone bricks
+								}
+								// block variable is reset after getting picked ID:META below
+							}
+
 							if(blockID != lastBlockID || blockMetadata != lastBlockMetadata){
 								// reset drops
 								lastBlockID = blockID;
@@ -464,6 +476,18 @@ public class InfoHUD {
 								int pickedID = (stackPicked != null ? stackPicked.itemID : 0);
 								if(pickedID > 0){
 									int pickedMetadata = stackPicked.getItemDamage();
+
+									// hide silverfish blocks :)
+									if(Cfg.hide_silverfish_blocks && pickedID == Block.silverfish.blockID){
+										if(pickedMetadata == 0){
+											pickedID = 1; pickedMetadata = 0; stackPicked = new ItemStack(pickedID, 1, pickedMetadata); block = Block.blocksList[blockID]; // stone
+										} else if(pickedMetadata == 1){
+											pickedID = 4; pickedMetadata = 0; stackPicked = new ItemStack(pickedID, 1, pickedMetadata); block = Block.blocksList[blockID]; // cobblestone
+										} else if(pickedMetadata == 2){
+											pickedID = 98; pickedMetadata = 0; stackPicked = new ItemStack(pickedID, 1, pickedMetadata); block = Block.blocksList[blockID]; // stone bricks
+										}
+									}
+
 									String pickedName = ItemUtils.getDisplayName(stackPicked);
 									this.ui.drawString(pickedName, "<Unknown Block>", 0xffffff);
 

@@ -1,3 +1,4 @@
+	- option to hide silverfish blocks in inspector (default: enabled - only accessible from config file)
 	- experience inspector
 	- require core mod
 

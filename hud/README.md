@@ -48,6 +48,7 @@ Advanced Block Inspector
 * b:brightness, h:hardness, r:explosion resistance
 * n:normal, o:opaque, s:solid
 * e:has tile entity, r:has random ticks, t:has ticking tile entity, b:tile entities in block, a:all loaded tile entities (all ticking tile entities)
+* hides silverfish blocks, can be changed in the config file
 
 Food Inspector
 * f:food level percentage, s:saturation percentage
@@ -60,6 +61,9 @@ Damage Inspector
 * an asterisk before entity/block damage represents base damage, targeting an entity/block shows true damage
 * does not factor in the random multiplier for enchants
 * some weapons don't report correct damage
+
+Experience Inspector
+* shows total xp points and total xp points for next level
 
 Armor HUD
 * icons for all four armor pieces and held item
