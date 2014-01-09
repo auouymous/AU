@@ -88,6 +88,7 @@ public class AUExtras {
 
 		//////////
 
+		ItemStack grassBlock = new ItemStack(Block.grass);
 		ItemStack cobblestone = new ItemStack(Block.cobblestone);
 		ItemStack stone = new ItemStack(Block.stone);
 		ItemStack stoneBrick = new ItemStack(Block.stoneBrick);
@@ -221,11 +222,6 @@ public class AUExtras {
 				.setCreativeTab(AUExtras.tabAU);
 			MinecraftForge.setBlockHarvestLevel(this.blockChiseledBrick, "pickaxe", 0); // wooden pickaxe
 			ItemStack coloredChiseledBrick = new ItemStack(this.blockChiseledBrick);
-
-			if(Cfg.enableChiseledBrickCrafting){
-				// CRAFT 4 stoneBrick -> 4 chiseledBrick
-				GameRegistry.addRecipe(new ItemStack(Block.stoneBrick, 4, 3), "bb ", "bb ", "   ", 'b', stoneBrick);
-			}
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, chiseledBrick, coloredChiseledBrick);
@@ -450,6 +446,21 @@ public class AUExtras {
 				GameRegistry.addShapelessRecipe(anyInvertedLamp, anyLamp, redstoneTorch);
 				GameRegistry.addShapelessRecipe(anyLamp, anyInvertedLamp, redstoneDust);
 			}
+		}
+
+		//////////
+
+		if(Cfg.enableChiseledBrickCrafting){
+			// CRAFT 4 stoneBrick -> 4 chiseledBrick
+			GameRegistry.addRecipe(new ItemStack(Block.stoneBrick, 4, 3), "bb", "bb", 'b', stoneBrick);
+		}
+		if(Cfg.enableGrassBlockCrafting){
+			// CRAFT 1 tall grass + 1 dirt -> 1 grass block
+			GameRegistry.addShapelessRecipe(grassBlock, new ItemStack(Block.tallGrass, 1, 1), new ItemStack(Block.dirt));
+		}
+		if(Cfg.enableMyceliumCrafting){
+			// CRAFT 1 brown mushroom + 1 red mushroom + 1 grass block -> 1 mycelium block
+			GameRegistry.addShapelessRecipe(new ItemStack(Block.mycelium), new ItemStack(Block.mushroomBrown), new ItemStack(Block.mushroomRed), grassBlock);
 		}
 
 		//////////

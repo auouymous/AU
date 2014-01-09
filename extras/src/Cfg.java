@@ -9,7 +9,6 @@ public class Cfg extends Config {
 	public static boolean enableStone;
 	public static boolean enableStoneBrick;
 	public static boolean enableChiseledBrick;
-	public static boolean enableChiseledBrickCrafting;
 	public static boolean enableSmoothBrick;
 	public static boolean enableGravel;
 	public static boolean enableGlass;
@@ -21,6 +20,10 @@ public class Cfg extends Config {
 	public static boolean enableStoneBrickStairs;
 	public static boolean enableSmoothBrickStairs;
 	public static boolean enableFlowers;
+
+	public static boolean enableChiseledBrickCrafting;
+	public static boolean enableGrassBlockCrafting;
+	public static boolean enableMyceliumCrafting;
 
 	public static boolean enableLightingHack;
 
@@ -67,7 +70,6 @@ public class Cfg extends Config {
 		Cfg.enableStone = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStone", true, "enable colored stone (uses 1 block ID)");
 		Cfg.enableStoneBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneBrick", true, "enable colored stone brick (uses 1 block ID)");
 		Cfg.enableChiseledBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrick", true, "enable colored chiseled brick (uses 1 block ID)");
-		Cfg.enableChiseledBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrickCrafting", true, "enable chiseled brick crafting recipe from 4 stone bricks");
 		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrick", true, "enable colored smooth brick (uses 1 block ID)");
 		Cfg.enableGravel = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGravel", true, "enable colored gravel (uses 1 block ID)");
 		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlass", true, "enable colored glass (uses 1 block ID)");
@@ -81,6 +83,10 @@ public class Cfg extends Config {
 		Cfg.enableSmoothBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrickStairs", true, "enable colored smooth brick stairs (uses 16 block IDs)");
 
 		Cfg.enableFlowers = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableFlowers", true, "enable colored flowers (uses 2 block IDs and 1 item ID)");
+
+		Cfg.enableChiseledBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrickCrafting", true, "enable chiseled brick crafting recipe");
+		Cfg.enableGrassBlockCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGrassBlockCrafting", true, "enable grass block crafting recipe");
+		Cfg.enableMyceliumCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableMyceliumCrafting", true, "enable mycelium crafting recipe");
 
 		Cfg.enableLightingHack = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLightingHack", true,
 								"add minimal light to vanilla stairs and slabs to prevent dark spots\nwill absorb and continue to emit external light sources, after sources are removed");

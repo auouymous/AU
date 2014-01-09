@@ -26,7 +26,6 @@ Required: AU CORE
 * CHROMA INFUSER [colored] stone brick TO [colored] stone brick (blank: 8 per dye)
 * SMELT [colored] stone brick TO stone brick
 * 
-* CRAFT 4 stone brick TO 4 chiseled stone bricks
 * CHROMA INFUSER chiseled brick TO [colored] chiseled brick (blank: 8 per dye)
 * CHROMA INFUSER stone TO [colored] chiseled brick (square dot: 8 per dye)
 * CHROMA INFUSER [colored] chiseled brick TO [colored] chiseled brick (blank: 8 per dye)
@@ -81,6 +80,10 @@ Required: AU CORE
 * BREAK grass plant TO GET flower seeds
 * PLANT flower seeds ON hydrated farmland (bonemeal to grow, sheer to get flower, break to get seeds)
 * 
+* CRAFT 4 stone brick TO 4 chiseled stone bricks
+* CRAFT 1 tall grass + 1 dirt TO 1 grass block
+* CRAFT 1 brown mushroom + 1 red mushroom + 1 grass block TO 1 mycelium
+*
 * SMELT egg TO fried egg
 * SMELT rotten flesh TO cooked flesh
 * CRAFT 4 cooked flesh TO leather
