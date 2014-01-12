@@ -55,19 +55,19 @@ public class Config {
 
 	// get list of values
 	public static int[] getIntList(String category, String key, int[] defaultValues, String comment){
-		return Config.config.get(category, key, defaultValues, comment).getIntList();
+		return Config.config.get(category, key, (defaultValues == null ? new int[0] : defaultValues), comment).getIntList();
 	}
 	public static double[] getDoubleList(String category, String key, double[] defaultValues, String comment){
-		return Config.config.get(category, key, defaultValues, comment).getDoubleList();
+		return Config.config.get(category, key, (defaultValues == null ? new double[0] : defaultValues), comment).getDoubleList();
 	}
 	public static boolean[] getBooleanList(String category, String key, boolean[] defaultValues, String comment){
-		return Config.config.get(category, key, defaultValues, comment).getBooleanList();
+		return Config.config.get(category, key, (defaultValues == null ? new boolean[0] : defaultValues), comment).getBooleanList();
 	}
 	public static String[] getStringList(String category, String key, String[] defaultValues, String comment){
 		#ifdef MC147
-		return Config.config.get(category, key, defaultValues, comment).valueList;
+		return Config.config.get(category, key, (defaultValues == null ? new String[0] : defaultValues), comment).valueList;
 		#else
-		return Config.config.get(category, key, defaultValues, comment).getStringList();
+		return Config.config.get(category, key, (defaultValues == null ? new String[0] : defaultValues), comment).getStringList();
 		#endif
 	}
 
@@ -107,7 +107,7 @@ public class Config {
 
 	// set list of values
 	public static void setIntList(String category, String key, int[] values, String comment){
-		Property p = Config.config.get(category, key, values, comment);
+		Property p = Config.config.get(category, key, (values == null ? new int[0] : values), comment);
 		String[] valueList = new String[values.length];
 		for(int i = 0; i < values.length; i++)
 			valueList[i] = Integer.toString(values[i]);
@@ -118,7 +118,7 @@ public class Config {
 		#endif
 	}
 	public static void setDoubleList(String category, String key, double[] values, String comment){
-		Property p = Config.config.get(category, key, values, comment);
+		Property p = Config.config.get(category, key, (values == null ? new double[0] : values), comment);
 		String[] valueList = new String[values.length];
 		for(int i = 0; i < values.length; i++)
 			valueList[i] = Double.toString(values[i]);
@@ -129,7 +129,7 @@ public class Config {
 		#endif
 	}
 	public static void setBooleanList(String category, String key, boolean[] values, String comment){
-		Property p = Config.config.get(category, key, values, comment);
+		Property p = Config.config.get(category, key, (values == null ? new boolean[0] : values), comment);
 		String[] valueList = new String[values.length];
 		for(int i = 0; i < values.length; i++)
 			valueList[i] = Boolean.toString(values[i]);
@@ -140,7 +140,7 @@ public class Config {
 		#endif
 	}
 	public static void setStringList(String category, String key, String[] values, String comment){
-		Property p = Config.config.get(category, key, values, comment);
+		Property p = Config.config.get(category, key, (values == null ? new String[0] : values), comment);
 		String[] valueList = new String[values.length];
 		for(int i = 0; i < values.length; i++)
 			valueList[i] = values[i];
