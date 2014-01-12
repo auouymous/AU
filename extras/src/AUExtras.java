@@ -361,7 +361,7 @@ public class AUExtras {
 		for(int c = 0; c < 16; c++)
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.cloth, 1, c), new ItemStack(Block.cloth), true);
 
-		#if !defined MC147 && !defined MC152
+		#ifndef MC152
 			// vanilla hardened clay (1.6)
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.hardenedClay), new ItemStack(Block.stainedClay), true);
 			for(int c = 0; c < 16; c++)
@@ -371,7 +371,7 @@ public class AUExtras {
 				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.carpet, 1, c), new ItemStack(Block.carpet), true);
 		#endif
 
-		#if !defined MC147 && !defined MC152 && !defined MC162 && !defined MC164
+		#if !defined MC152 && !defined MC162 && !defined MC164
 			// vanilla stained glass (1.7)
 			
 			// vanilla stained glass panes (1.7)
