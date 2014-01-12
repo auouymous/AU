@@ -152,7 +152,6 @@ public class AUExtras {
 					this.blockCobbleStairs[c] = new BlockStairsColored(Cfg.blockCobbleStairs+c, "au.colorCobbleStairs."+Color.colors[c],
 															Color.readableColors[c]+" Cobblestone Stairs",
 															this.blockCobble, c);
-//					GameRegistry.addSmelting((this.blockCobbleStairs[c]).itemID, cobblestone, 1.0f);
 				}
 			}
 		}
@@ -181,7 +180,6 @@ public class AUExtras {
 					this.blockStoneStairs[c] = new BlockStairsColored(Cfg.blockStoneStairs+c, "au.colorStoneStairs."+Color.colors[c],
 															Color.readableColors[c]+" Stone Stairs",
 															this.blockStone, c);
-//					GameRegistry.addSmelting((new ItemStack(this.blockStoneStairs[c])).itemID, stone, 1.0f);
 				}
 			}
 		}
@@ -210,7 +208,6 @@ public class AUExtras {
 					this.blockStoneBrickStairs[c] = new BlockStairsColored(Cfg.blockStoneBrickStairs+c, "au.colorStoneBrickStairs."+Color.colors[c],
 															Color.readableColors[c]+" Stone Brick Stairs",
 															this.blockStoneBrick, c);
-//					GameRegistry.addSmelting((new ItemStack(this.blockStoneBrickStairs[c])).itemID, stoneBrick, 1.0f);
 				}
 			}
 		}
@@ -261,7 +258,6 @@ public class AUExtras {
 					this.blockSmoothBrickStairs[c] = new BlockStairsColored(Cfg.blockSmoothBrickStairs+c, "au.colorSmoothBrickStairs."+Color.colors[c],
 															Color.readableColors[c]+" Smooth Brick Stairs",
 															this.blockSmoothBrick, c);
-//					GameRegistry.addSmelting((new ItemStack(this.blockSmoothBrickStairs[c])).itemID, stone, 1.0f);
 				}
 			}
 		}
