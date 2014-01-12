@@ -479,6 +479,12 @@ public class AUExtras {
 			// slabs
 			Block.stoneSingleSlab.setLightValue(Light.level[1]);
 			Block.woodSingleSlab.setLightValue(Light.level[1]);
+			// additional
+			if(Cfg.additionalLightingHack != null)
+				for(int i = 0; i < Cfg.additionalLightingHack.length; i++){
+					Block block = Block.blocksList[Cfg.additionalLightingHack[i]];
+					if(block != null) block.setLightValue(Light.level[1]);
+				}
 		}
 
 		//////////

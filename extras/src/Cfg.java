@@ -33,6 +33,7 @@ public class Cfg extends Config {
 	public static boolean enableMyceliumCrafting;
 
 	public static boolean enableLightingHack;
+	public static int[] additionalLightingHack;
 
 	public static boolean enableFriedEgg;
 	public static boolean enableCookedFlesh;
@@ -106,6 +107,8 @@ public class Cfg extends Config {
 
 		Cfg.enableLightingHack = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "lightingHack.enable", true,
 								"add minimal light to vanilla stairs and slabs to prevent dark spots\nwill absorb and continue to emit external light sources, after sources are removed");
+		Cfg.additionalLightingHack = Cfg.getIntList(Cfg.CATEGORY_GENERAL, "lightingHack.additionalIDs", null,
+								"additional block IDs to apply lighting hack, put each ID on its own line, between the <>");
 
 		Cfg.enableFriedEgg = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.friedEgg.enable", true, "enable smelting eggs to edible food");
 		Cfg.enableCookedFlesh = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.enable", true, "enable smelting rotten flesh to edible food");

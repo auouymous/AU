@@ -8,6 +8,7 @@
 	- handled a missing connected texture case on glass
 	- torches and levers can now be placed on glass
 	- lighting hack for all vanilla stairs and slabs
+	- lighting hack for user-defined blocks
 	- added tinted and tinted frameless glass
 	- added lamps and inverted lamps
 	- added cobble, stone, stone brick and smooth brick colored stairs
