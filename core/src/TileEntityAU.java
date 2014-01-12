@@ -18,6 +18,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 import net.minecraftforge.common.ForgeDirection;
@@ -30,7 +31,8 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	// public Block blockType
 	protected int nrAccessPlayers;
 	protected ForgeDirection direction; // NBT
-	private ItemStack camoBlock; // NBT
+	private Block camoBlock; // NBT
+	private byte camoMeta; // NBT
 	private String owner; // NBT
 	protected int nrUpgrades; // NBT
 	protected ItemStack[] upgradeContents; // NBT
@@ -45,6 +47,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		this.nrAccessPlayers = 0;
 		this.direction = (this.canRotateVertical() ? ForgeDirection.UP : ForgeDirection.NORTH);
 		this.camoBlock = null;
+		this.camoMeta = 0;
 		this.owner = null;
 		this.nrUpgrades = 0;
 		this.upgradeContents = null;
@@ -98,8 +101,10 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 			this.direction = ForgeDirection.values()[nbt.getByte("face")];
 
 		// block camo
-		if(this.canCamo())
-			this.camoBlock = new ItemStack(Block.blocksList[nbt.getInteger("camoID")], 1, nbt.getByte("camoMeta"));
+		if(this.canCamo()){
+			this.camoBlock = Block.blocksList[nbt.getInteger("camoID")];
+			this.camoMeta = nbt.getByte("camoMeta");
+		}
 
 		// placed by
 		if(this.canOwn())
@@ -142,9 +147,9 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 			nbt.setByte("face", (byte)this.direction.ordinal());
 
 		// block camo
-		if(this.canCamo()){
-			nbt.setInteger("camoID", (this.camoBlock != null ? this.camoBlock.itemID : 0));
-			nbt.setByte("camoMeta", (byte)(this.camoBlock != null ? this.camoBlock.getItemDamage() : 0));
+		if(this.canCamo() && this.camoBlock != null){
+			nbt.setInteger("camoID", this.camoBlock.blockID);
+			nbt.setByte("camoMeta", (byte)this.camoMeta);
 		}
 
 		// placed by
@@ -244,16 +249,17 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	}
 
 	public void setCamoBlock(Block block, int metadata){
-		if((this.camoBlock.itemID == block.blockID && this.camoBlock.getItemDamage() == metadata) || !this.canCamo()) return;
-		this.camoBlock = new ItemStack(block, 1, metadata);
+		if((this.camoBlock.blockID == block.blockID && this.camoMeta == metadata) || !this.canCamo()) return;
+		this.camoBlock = block;
+		this.camoMeta = (byte)metadata;
 
 		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_CAMO_ID, block.blockID);
 		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_CAMO_META, metadata);
 		this.markChunkModified();
 	}
 
-	public ItemStack getCamoBlock(){
-		return this.camoBlock;
+	public Icon getCamoIcon(int side){
+		return (this.camoBlock != null ? this.camoBlock.getIcon(side, this.camoMeta) : null);
 	}
 
 	///////////
@@ -309,10 +315,10 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 			this.direction = ForgeDirection.values()[value];
 			return true;
 		case TileEntityAU.CLIENT_EVENT_CAMO_ID:
-			this.camoBlock = new ItemStack(Block.blocksList[value], 1, this.camoBlock.getItemDamage());
+			this.camoBlock = Block.blocksList[value];
 			return true;
 		case TileEntityAU.CLIENT_EVENT_CAMO_META:
-			this.camoBlock = new ItemStack(Block.blocksList[this.camoBlock.itemID], 1, value);
+			this.camoMeta = (byte)value;
 			return true;
 		default:
 			return false;
