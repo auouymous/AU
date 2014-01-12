@@ -86,7 +86,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 		// scan for nearby ender cube
 		int delta = (teleport_up ? 1 : -1);
 		int y = this.yCoord + delta;
-		int limit = y + (20 * delta);
+		int limit = y + (Cfg.enderCubeDistance * delta);
 		if(limit < 1) limit = 1; else if(limit > 255) limit = 255;
 		for(; y != limit; y += delta){
 			if(this.worldObj.isAirBlock(this.xCoord, y, this.zCoord)) continue;

@@ -21,6 +21,7 @@ public class Cfg extends Config {
 	public static boolean enableSmoothBrickStairs;
 	public static boolean enableFlowers;
 	public static boolean enableEnderCube;
+	public static int enderCubeDistance;
 
 	public static boolean enableChiseledBrickCrafting;
 	public static boolean enableGrassBlockCrafting;
@@ -87,6 +88,7 @@ public class Cfg extends Config {
 		Cfg.enableFlowers = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableFlowers", true, "enable colored flowers (uses 2 block IDs and 1 item ID)");
 
 		Cfg.enableEnderCube = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableEnderCube", true, "enable ender cube (uses 1 block ID)");
+		Cfg.enderCubeDistance = Cfg.getInt(Cfg.CATEGORY_GENERAL, "enderCubeDistance", 16, "maximum distance between ender cubes");
 
 		Cfg.enableChiseledBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrickCrafting", true, "enable chiseled brick crafting recipe");
 		Cfg.enableGrassBlockCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGrassBlockCrafting", true, "enable grass block crafting recipe");

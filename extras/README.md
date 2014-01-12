@@ -22,7 +22,7 @@ Items can be piped in from top and extracted from bottom.
 The Ender Cube is used to teleport players and entities to othere Cubes above or below.
 Ender Cubes can only have air blocks between them, and must have two air blocks above each cube.
 Stand on an Ender Cube and sneak to teleport down, jump to teleport up.
-Maximum distance between Cubes is 20, adjustable in the config.
+Maximum distance between Cubes is 16, adjustable in the config.
 
 ***
 
