@@ -24,6 +24,8 @@ public class Cfg extends Config {
 	public static int enderCubeDistance;
 
 	public static boolean enableChiseledBrickCrafting;
+	public static boolean enableMossyBrickCrafting;
+	public static boolean enableMossyCobbleCrafting;
 	public static boolean enableGrassBlockCrafting;
 	public static boolean enableMyceliumCrafting;
 
@@ -91,6 +93,8 @@ public class Cfg extends Config {
 		Cfg.enderCubeDistance = Cfg.getInt(Cfg.CATEGORY_GENERAL, "enderCubeDistance", 16, "maximum distance between ender cubes");
 
 		Cfg.enableChiseledBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrickCrafting", true, "enable chiseled brick crafting recipe");
+		Cfg.enableMossyBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableMossyBrickCrafting", true, "enable mossy brick crafting recipe");
+		Cfg.enableMossyCobbleCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableMossyCobbleCrafting", true, "enable mossy cobble crafting recipe");
 		Cfg.enableGrassBlockCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGrassBlockCrafting", true, "enable grass block crafting recipe");
 		Cfg.enableMyceliumCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableMyceliumCrafting", true, "enable mycelium crafting recipe");
 

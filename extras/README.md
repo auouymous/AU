@@ -97,7 +97,9 @@ Recipes
 * BREAK grass plant TO GET flower seeds
 * PLANT flower seeds ON hydrated farmland (bonemeal to grow, sheer to get flower, break to get seeds)
 * 
-* CRAFT 4 stone brick TO 4 chiseled stone bricks
+* CRAFT 2 stone brick slabs TO 1 chiseled stone bricks (same as 1.8)
+* CRAFT 1 stone brick + 1 vine TO 1 mossy stone bricks (same as 1.8)
+* CRAFT 1 cobblestone + 1 vine TO 1 moss stone
 * CRAFT 1 tall grass + 1 dirt TO 1 grass block
 * CRAFT 1 brown mushroom + 1 red mushroom + 1 grass block TO 1 mycelium
 *

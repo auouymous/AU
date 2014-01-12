@@ -452,8 +452,16 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableChiseledBrickCrafting){
-			// CRAFT 2 stoneBrick slabs -> 1 chiseledBrick
+			// CRAFT 2 stoneBrick slabs -> chiseledBrick (1.8 recipe)
 			GameRegistry.addRecipe(new ItemStack(Block.stoneBrick, 1, 3), "b", "b", 'b', new ItemStack(Block.stoneSingleSlab, 1, 5));
+		}
+		if(Cfg.enableMossyBrickCrafting){
+			// CRAFT stoneBrick + vine -> mossy stone brick (1.8 recipe)
+			GameRegistry.addRecipe(new ItemStack(Block.stoneBrick, 1, 1), "b", "v", 'b', stoneBrick, 'v', new ItemStack(Block.vine));
+		}
+		if(Cfg.enableMossyCobbleCrafting){
+			// CRAFT cobblestone + vine -> mossy cobble
+			GameRegistry.addRecipe(new ItemStack(Block.cobblestoneMossy), "c", "v", 'c', cobblestone, 'v', new ItemStack(Block.vine));
 		}
 		if(Cfg.enableGrassBlockCrafting){
 			// CRAFT tall grass + dirt -> grass block
