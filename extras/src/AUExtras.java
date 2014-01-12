@@ -72,8 +72,8 @@ public class AUExtras {
 	public static Block blockEnderCube;
 	public static Item itemFriedEgg;
 	public static Item itemCookedFlesh;
-	public static Item itemChromaSprayer;
 	public static Item itemFlowerDye;
+//	public static Item itemChromaSprayer;
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){
@@ -545,11 +545,12 @@ public class AUExtras {
 
 		if(Cfg.enableEnderCube){
 			this.blockEnderCube = new BlockEnderCube(Cfg.blockEnderCube, "au.enderCube", "Ender Cube")
-				.setHardness(0.3F)
-				.setResistance(1.5F)
+				.setHardness(5.0F)
+				.setResistance(25.0F)
 				.setLightValue(Light.level[15])
 				.setStepSound(Block.soundStoneFootstep)
 				.setCreativeTab(AUExtras.tabAU);
+			MinecraftForge.setBlockHarvestLevel(this.blockEnderCube, "pickaxe", 3); // diamond pickaxe
 
 			// CRAFT glass + 3 eye of ender + redstone dust + 4 gold ingots -> ender cube
 			GameRegistry.addRecipe(new ItemStack(this.blockEnderCube),
