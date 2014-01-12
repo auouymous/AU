@@ -12,6 +12,7 @@ import net.minecraft.item.ItemDye;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.Color;
 import com.qzx.au.core.RenderUtils;
 
@@ -42,10 +43,10 @@ public class RendererChromaInfuser implements ISimpleBlockRenderingHandler {
 
 			// render interior of block
 			Icon icon = block.getBlockTexture(world, x, y, z, 2);
-			renderer.renderFaceXPos(block, (double)((float)x - 1.0F + 0.125F), (double)y, (double)z, icon);
-			renderer.renderFaceXNeg(block, (double)((float)x + 1.0F - 0.125F), (double)y, (double)z, icon);
-			renderer.renderFaceZPos(block, (double)x, (double)y, (double)((float)z - 1.0F + 0.125F), icon);
-			renderer.renderFaceZNeg(block, (double)x, (double)y, (double)((float)z + 1.0F - 0.125F), icon);
+			renderer.renderFaceXPos(block, (double)((float)x - 1.0F + BlockCoord.ADD_1_8), (double)y, (double)z, icon);
+			renderer.renderFaceXNeg(block, (double)((float)x + 1.0F - BlockCoord.ADD_1_8), (double)y, (double)z, icon);
+			renderer.renderFaceZPos(block, (double)x, (double)y, (double)((float)z - 1.0F + BlockCoord.ADD_1_8), icon);
+			renderer.renderFaceZNeg(block, (double)x, (double)y, (double)((float)z + 1.0F - BlockCoord.ADD_1_8), icon);
 			icon = BlockChromaInfuser.getIconByName("inner");
 			renderer.renderFaceYPos(block, (double)x, (double)((float)y - 1.0F + 0.25F), (double)z, icon);
 			renderer.renderFaceYNeg(block, (double)x, (double)((float)y + 1.0F - 0.75F), (double)z, icon);
@@ -65,8 +66,8 @@ public class RendererChromaInfuser implements ISimpleBlockRenderingHandler {
 						#else
 						: BlockFluid.getFluidIcon("water_still");
 						#endif
-					renderer.setRenderBounds(0.125F, 0.0F, 0.125F, 0.875F, 1.0F, 0.875F);
-					renderer.renderFaceYPos(block, (double)x, (double)((float)y - (tileEntity.getDyeVolume() > 0 ? 0.0625F : 0.5F)), (double)z, waterIcon);
+					renderer.setRenderBounds(BlockCoord.ADD_1_8, 0.0F, BlockCoord.ADD_1_8, BlockCoord.SUB_1_8, 1.0F, BlockCoord.SUB_1_8);
+					renderer.renderFaceYPos(block, (double)x, (double)((float)y - (tileEntity.getDyeVolume() > 0 ? BlockCoord.ADD_1_16 : 0.5F)), (double)z, waterIcon);
 				}
 			}
 		}

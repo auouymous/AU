@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Random;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.TileEntityAU;
 
 public class BlockChromaInfuser extends Block implements ITileEntityProvider {
@@ -91,16 +92,15 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 
 	@Override
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity){
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.3125F, 1.0F);
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 5*BlockCoord.ADD_1_16, 1.0F);
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
-		float f = 0.125F;
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, f, 1.0F, 1.0F);
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, BlockCoord.ADD_1_8, 1.0F, 1.0F);
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
-		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, f);
+		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, BlockCoord.ADD_1_8);
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
-		this.setBlockBounds(1.0F - f, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+		this.setBlockBounds(BlockCoord.SUB_1_8, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
-		this.setBlockBounds(0.0F, 0.0F, 1.0F - f, 1.0F, 1.0F, 1.0F);
+		this.setBlockBounds(0.0F, 0.0F, BlockCoord.SUB_1_8, 1.0F, 1.0F, 1.0F);
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
 		this.setBlockBoundsForItemRender();
 	}

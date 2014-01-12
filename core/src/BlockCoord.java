@@ -10,6 +10,16 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.ForgeDirection;
 
 public class BlockCoord {
+	public static final float ADD_1_8  = 0.125F;
+	public static final float ADD_1_16 = 0.0625F;
+	public static final float ADD_1_32 = 0.03125F;
+	public static final float ADD_1_64 = 0.015625F;
+
+	public static final float SUB_1_8  = 1.0F - BlockCoord.ADD_1_8;
+	public static final float SUB_1_16 = 1.0F - BlockCoord.ADD_1_16;
+	public static final float SUB_1_32 = 1.0F - BlockCoord.ADD_1_32;
+	public static final float SUB_1_64 = 1.0F - BlockCoord.ADD_1_64;
+
 	public IBlockAccess access;
 	public int x, y, z;
 
