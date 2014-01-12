@@ -20,17 +20,22 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerRenderers(){
-		infuserRenderType = RenderingRegistry.getNextAvailableRenderId();
-		RenderingRegistry.registerBlockHandler(new RendererChromaInfuser());
-
-		glassRenderType = RenderingRegistry.getNextAvailableRenderId();
-		RenderingRegistry.registerBlockHandler(new RendererGlass());
-
-		lampRenderType = RenderingRegistry.getNextAvailableRenderId();
-		RenderingRegistry.registerBlockHandler(new RendererLamp());
-
-		flowerRenderType = RenderingRegistry.getNextAvailableRenderId();
-		RenderingRegistry.registerBlockHandler(new RendererFlower());
+		if(Cfg.enableChromaInfuser){
+			infuserRenderType = RenderingRegistry.getNextAvailableRenderId();
+			RenderingRegistry.registerBlockHandler(new RendererChromaInfuser());
+		}
+		if(Cfg.enableGlass || Cfg.enableGlassTinted || Cfg.enableGlassTintedNoFrame){
+			glassRenderType = RenderingRegistry.getNextAvailableRenderId();
+			RenderingRegistry.registerBlockHandler(new RendererGlass());
+		}
+		if(Cfg.enableLamps){
+			lampRenderType = RenderingRegistry.getNextAvailableRenderId();
+			RenderingRegistry.registerBlockHandler(new RendererLamp());
+		}
+		if(Cfg.enableFlowers){
+			flowerRenderType = RenderingRegistry.getNextAvailableRenderId();
+			RenderingRegistry.registerBlockHandler(new RendererFlower());
+		}
 	}
 
 	@Override
