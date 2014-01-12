@@ -147,13 +147,11 @@ public class AUExtras {
 			GameRegistry.addSmelting(coloredCobble.itemID, cobblestone, 1.0f);
 
 			// stairs
-			if(Cfg.enableCobbleStairs){
-				for(int c = 0; c < 16; c++){
+			if(Cfg.enableCobbleStairs)
+				for(int c = 0; c < 16; c++)
 					this.blockCobbleStairs[c] = new BlockStairsColored(Cfg.blockCobbleStairs+c, "au.colorCobbleStairs."+Color.colors[c],
 															Color.readableColors[c]+" Cobblestone Stairs",
 															this.blockCobble, c);
-				}
-			}
 		}
 
 		//////////
@@ -175,13 +173,11 @@ public class AUExtras {
 			GameRegistry.addSmelting(coloredStone.itemID, stone, 1.0f);
 
 			// stairs
-			if(Cfg.enableStoneStairs){
-				for(int c = 0; c < 16; c++){
+			if(Cfg.enableStoneStairs)
+				for(int c = 0; c < 16; c++)
 					this.blockStoneStairs[c] = new BlockStairsColored(Cfg.blockStoneStairs+c, "au.colorStoneStairs."+Color.colors[c],
 															Color.readableColors[c]+" Stone Stairs",
 															this.blockStone, c);
-				}
-			}
 		}
 
 		//////////
@@ -203,13 +199,11 @@ public class AUExtras {
 			GameRegistry.addSmelting(coloredStoneBrick.itemID, stoneBrick, 1.0f);
 
 			// stairs
-			if(Cfg.enableStoneBrickStairs){
-				for(int c = 0; c < 16; c++){
+			if(Cfg.enableStoneBrickStairs)
+				for(int c = 0; c < 16; c++)
 					this.blockStoneBrickStairs[c] = new BlockStairsColored(Cfg.blockStoneBrickStairs+c, "au.colorStoneBrickStairs."+Color.colors[c],
 															Color.readableColors[c]+" Stone Brick Stairs",
 															this.blockStoneBrick, c);
-				}
-			}
 		}
 
 		//////////
@@ -253,13 +247,11 @@ public class AUExtras {
 			GameRegistry.addSmelting(coloredSmoothBrick.itemID, stone, 1.0f);
 
 			// stairs
-			if(Cfg.enableSmoothBrickStairs){
-				for(int c = 0; c < 16; c++){
+			if(Cfg.enableSmoothBrickStairs)
+				for(int c = 0; c < 16; c++)
 					this.blockSmoothBrickStairs[c] = new BlockStairsColored(Cfg.blockSmoothBrickStairs+c, "au.colorSmoothBrickStairs."+Color.colors[c],
 															Color.readableColors[c]+" Smooth Brick Stairs",
 															this.blockSmoothBrick, c);
-				}
-			}
 		}
 
 		//////////
