@@ -18,13 +18,15 @@ BIN := $(BASE)/jars/bin
 CPCOMMON := $(SRC)/:$(BIN)/jinput.jar:$(BIN)/lwjgl_util.jar:$(BIN)/lwjgl.jar:$(BIN)/minecraft.jar
 ifeq ($(VER),147)
 	CP := $(LIB)/argo-2.25.jar:$(LIB)/bcprov-jdk15on-147.jar:$(LIB)/asm-all-4.0.jar:$(LIB)/asm-all-4.0-source.jar:$(LIB)/guava-12.0.1.jar:$(LIB)/guava-12.0.1-sources.jar
+#	:$(LIB)/CodeChickenCore_0.8.1.6.jar:$(LIB)/NotEnoughItems_1.4.7.4.jar
 else ifeq ($(v),152)
-	CP := $(LIB)/argo-3.2-src.jar:$(LIB)/bcprov-debug-jdk15on-148.jar:$(LIB)/bcprov-jdk15on-148-src.zip:$(LIB)/asm-debug-all-4.1.jar:$(LIB)/asm-4.1.tar.gz:$(LIB)/guava-14.0-rc3.jar:$(LIB)/guava-14.0-rc3-sources.jar
+	CP := $(LIB)/argo-3.2-src.jar:$(LIB)/bcprov-debug-jdk15on-148.jar:$(LIB)/bcprov-jdk15on-148-src.zip:$(LIB)/asm-debug-all-4.1.jar:$(LIB)/asm-4.1.tar.gz:$(LIB)/guava-14.0-rc3.jar:$(LIB)/guava-14.0-rc3-sources.jar\
+	:$(LIB)/CodeChickenCore_0.8.7.3-fix1.jar:$(LIB)/NotEnoughItems_1.5.2.28.jar
 #	:$(LIB)/ForgeMultipart-dev-1.5.2-1.0.0.114.jar
 else ifeq ($(v),162)
-	CP := 
+	CP := $(LIB)/CodeChickenCore_0.9.0.5.jar:$(LIB)/NotEnoughItems_1.6.1.4.jar
 else ifeq ($(v),164)
-	CP := 
+	CP := $(LIB)/CodeChickenCore_0.9.0.7.jar:$(LIB)/NotEnoughItems_1.6.1.8.jar
 endif
 export CLASSPATH=$(CPCOMMON):$(CP)
 
