@@ -12,7 +12,24 @@ Required: AU CORE
 
 ***
 
+The Chroma Infuser is used to color vanilla blocks and create and color some new blocks.
+Place a water bucket in its UI to add a permanent water supply or to clear dye.
+Place dye in UI to color the water, can be inserted via pipes from sides.
+Place blocks in top UI slot and click one of the four recipe buttons.
+Click the downward arrow in UI to begin crafting, click again to stop.
+Items can be piped in from top and extracted from bottom.
+
+The Ender Cube is used to teleport players and entities to othere Cubes above or below.
+Ender Cubes can only have air blocks between them, and must have two air blocks above each cube.
+Stand on an Ender Cube and sneak to teleport down, jump to teleport up.
+Maximum distance between Cubes is 20, adjustable in the config.
+
+***
+
+Recipes
+
 * CRAFT 4 glass + 1 cauldron TO 1 chroma infuser
+* CRAFT 4 gold + 3 eyes of ender + 1 obsidian + 1 redstone dust TO 1 ender cube
 * 
 * CHROMA INFUSER cobblestone TO [colored] cobblestone (blank: 8 per dye)
 * CHROMA INFUSER [colored] cobblestone TO [colored] cobblestone (blank: 8 per dye)
