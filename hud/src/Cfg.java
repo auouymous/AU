@@ -31,8 +31,6 @@ public class Cfg extends Config {
 
 	public static boolean show_inspector = false; // always default to off
 
-	private static final String CATEGORY_ELEMENTS = "show-elements";
-
 	// info hud
 	public static boolean show_world;
 	public static boolean show_biome;
@@ -53,43 +51,47 @@ public class Cfg extends Config {
 	public static void init(FMLPreInitializationEvent event){
 		Cfg.loadConfig(event);
 
-		Cfg.enable_info_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-info-hud", true, null);
-		Cfg.info_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "info-hud-x", 2, null);
-		Cfg.info_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "info-hud-y", 32, null);
-		Cfg.enable_advanced_inspector = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-advanced-inspector", false, null);
-		Cfg.hide_silverfish_blocks = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hide-silverfish-blocks", true, "set to false to see silverfish blocks");
+		// info
+		Cfg.enable_info_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.enable", true, null);
+		Cfg.info_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.info.x", 2, null);
+		Cfg.info_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.info.y", 32, null);
+		Cfg.enable_advanced_inspector = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.advancedInspector.show", false, null);
+		Cfg.hide_silverfish_blocks = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.silverfishBlocks.hide", true, "set to false to see silverfish blocks");
+		// info elements
+		Cfg.show_world = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.world", true, null);
+		Cfg.show_biome = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.biome", true, null);
+		Cfg.show_position = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.position", true, null);
+		Cfg.show_position_eyes = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.position.eyes", true, null);
+		Cfg.show_light = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.light", true, null);
+		Cfg.show_time = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.time", true, null);
+		Cfg.show_weather = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.weather", true, null);
+		Cfg.show_used_inventory = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.usedInventory", true, null);
+		Cfg.animate_used_inventory = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.usedInventory.animate", true, null);
+		Cfg.show_fps = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.fps", true, null);
+		Cfg.show_chunk_updates = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.chunkUpdates", true, null);
+		Cfg.show_entities = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.entities", true, null);
+		Cfg.show_particles = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.particles", true, null);
+		Cfg.show_tps = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.tps", true, null);
+		Cfg.show_block_name = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.blockName", true, null);
 
-		Cfg.enable_armor_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-armor-hud", true, null);
-		Cfg.always_show_armor_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "always-show-armor-hud", false, null);
-		Cfg.armor_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "armor-hud-x", 2, null);
-		Cfg.armor_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "armor-hud-y", 2, null);
-		Cfg.armor_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "armor-hud-corner", "BottomRight", null));
-		Cfg.armor_hud_durability = Cfg.clipDurabilityID(Cfg.getInt(Cfg.CATEGORY_GENERAL, "armor-hud-durability", Cfg.HUD_DURABILITY_PERCENT, null));
+		// armor
+		Cfg.enable_armor_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.armor.enable", true, null);
+		Cfg.always_show_armor_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.armor.alwaysShow", false, null);
+		Cfg.armor_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.armor.x", 2, null);
+		Cfg.armor_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.armor.y", 2, null);
+		Cfg.armor_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "hud.armor.corner", "BottomRight", null));
+		Cfg.armor_hud_durability = Cfg.clipDurabilityID(Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.armor.durability", Cfg.HUD_DURABILITY_PERCENT, null));
 
-		Cfg.enable_potion_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-potion-hud", true, null);
-		Cfg.always_show_potion_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "always-show-potion-hud", false, null);
-		Cfg.potion_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "potion-hud-x", 2, null);
-		Cfg.potion_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "potion-hud-y", 2, null);
-		Cfg.potion_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "potion-hud-corner", "BottomLeft", null));
+		// potion
+		Cfg.enable_potion_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.potion.enable", true, null);
+		Cfg.always_show_potion_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.potion.alwaysShow", false, null);
+		Cfg.potion_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.potion.x", 2, null);
+		Cfg.potion_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.potion.y", 2, null);
+		Cfg.potion_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "hud.potion.corner", "BottomLeft", null));
 
-		Cfg.enable_shop_signs_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enable-shop-signs-hud", true, null);
+		// shop signs
+		Cfg.enable_shop_signs_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.shopSigns.enable", true, null);
 
-		// info hud elements
-		Cfg.show_world = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "world", true, null);
-		Cfg.show_biome = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "biome", true, null);
-		Cfg.show_position = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "position", true, null);
-		Cfg.show_position_eyes = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "position-eyes", true, null);
-		Cfg.show_light = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "light", true, null);
-		Cfg.show_time = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "time", true, null);
-		Cfg.show_weather = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "weather", true, null);
-		Cfg.show_used_inventory = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "used-inventory", true, null);
-		Cfg.animate_used_inventory = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "animate-used-inventory", true, null);
-		Cfg.show_fps = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "fps", true, null);
-		Cfg.show_chunk_updates = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "chunk-updates", true, null);
-		Cfg.show_entities = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "entities", true, null);
-		Cfg.show_particles = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "particles", true, null);
-		Cfg.show_tps = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "tps", true, null);
-		Cfg.show_block_name = Cfg.getBoolean(Cfg.CATEGORY_ELEMENTS, "block-name", true, null);
 
 		// fix dependent elements
 		if(Cfg.show_position == false && Cfg.show_position_eyes == true)
@@ -103,43 +105,46 @@ public class Cfg extends Config {
 	public static void save(){
 		Cfg.clipPositions();
 
-		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-info-hud", Cfg.enable_info_hud);
-		Cfg.setInt(Cfg.CATEGORY_GENERAL, "info-hud-x", Cfg.info_hud_x);
-		Cfg.setInt(Cfg.CATEGORY_GENERAL, "info-hud-y", Cfg.info_hud_y);
-		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-advanced-inspector", Cfg.enable_advanced_inspector);
-		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hide-silverfish-blocks", Cfg.hide_silverfish_blocks);
+		// info
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.enable", Cfg.enable_info_hud, null);
+		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.info.x", Cfg.info_hud_x, null);
+		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.info.y", Cfg.info_hud_y, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.advancedInspector.show", Cfg.enable_advanced_inspector, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.silverfishBlocks.hide", Cfg.hide_silverfish_blocks, "set to false to see silverfish blocks");
+		// info elements
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.world", Cfg.show_world, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.biome", Cfg.show_biome, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.position", Cfg.show_position, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.position.eyes", Cfg.show_position_eyes, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.light", Cfg.show_light, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.time", Cfg.show_time, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.weather", Cfg.show_weather, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.usedInventory", Cfg.show_used_inventory, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.usedInventory.animate", Cfg.animate_used_inventory, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.fps", Cfg.show_fps, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.chunkUpdates", Cfg.show_chunk_updates, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.entities", Cfg.show_entities, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.particles", Cfg.show_particles, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.tps", Cfg.show_tps, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.blockName", Cfg.show_block_name, null);
 
-		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-armor-hud", Cfg.enable_armor_hud);
-		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "always-show-armor-hud", Cfg.always_show_armor_hud);
-		Cfg.setInt(Cfg.CATEGORY_GENERAL, "armor-hud-x", Cfg.armor_hud_x);
-		Cfg.setInt(Cfg.CATEGORY_GENERAL, "armor-hud-y", Cfg.armor_hud_y);
-		Cfg.setString(Cfg.CATEGORY_GENERAL, "armor-hud-corner", Cfg.getCornerName(Cfg.armor_hud_corner));
-		Cfg.setInt(Cfg.CATEGORY_GENERAL, "armor-hud-durability", Cfg.armor_hud_durability);
+		// armor
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.armor.enable", Cfg.enable_armor_hud, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.armor.alwaysShow", Cfg.always_show_armor_hud, null);
+		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.armor.x", Cfg.armor_hud_x, null);
+		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.armor.y", Cfg.armor_hud_y, null);
+		Cfg.setString(Cfg.CATEGORY_GENERAL, "hud.armor.corner", Cfg.getCornerName(Cfg.armor_hud_corner), null);
+		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.armor.durability", Cfg.armor_hud_durability, null);
 
-		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-potion-hud", Cfg.enable_potion_hud);
-		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "always-show-potion-hud", Cfg.always_show_potion_hud);
-		Cfg.setInt(Cfg.CATEGORY_GENERAL, "potion-hud-x", Cfg.potion_hud_x);
-		Cfg.setInt(Cfg.CATEGORY_GENERAL, "potion-hud-y", Cfg.potion_hud_y);
-		Cfg.setString(Cfg.CATEGORY_GENERAL, "potion-hud-corner", Cfg.getCornerName(Cfg.potion_hud_corner));
+		// potion
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.potion.enable", Cfg.enable_potion_hud, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.potion.alwaysShow", Cfg.always_show_potion_hud, null);
+		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.potion.x", Cfg.potion_hud_x, null);
+		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.potion.y", Cfg.potion_hud_y, null);
+		Cfg.setString(Cfg.CATEGORY_GENERAL, "hud.potion.corner", Cfg.getCornerName(Cfg.potion_hud_corner), null);
 
-		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "enable-shop-signs-hud", Cfg.enable_shop_signs_hud);
-
-		// info hud elements
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "world", Cfg.show_world);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "biome", Cfg.show_biome);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "position", Cfg.show_position);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "position-eyes", Cfg.show_position_eyes);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "light", Cfg.show_light);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "time", Cfg.show_time);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "weather", Cfg.show_weather);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "used-inventory", Cfg.show_used_inventory);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "animate-used-inventory", Cfg.animate_used_inventory);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "fps", Cfg.show_fps);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "chunk-updates", Cfg.show_chunk_updates);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "entities", Cfg.show_entities);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "particles", Cfg.show_particles);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "tps", Cfg.show_tps);
-		Cfg.setBoolean(Cfg.CATEGORY_ELEMENTS, "block-name", Cfg.show_block_name);
+		// shop signs
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.shopSigns.enable", Cfg.enable_shop_signs_hud, null);
 
 		Cfg.saveConfig();
 	}

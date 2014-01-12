@@ -76,38 +76,38 @@ public class Config {
 	///////////
 
 	// set value
-	public static void setInt(String category, String key, int value){
+	public static void setInt(String category, String key, int value, String comment){
 		#ifdef MC147
-		Config.config.get(category, key, value, null).value = Integer.toString(value);
+		Config.config.get(category, key, value, comment).value = Integer.toString(value);
 		#else
-		Config.config.get(category, key, value, null).set(Integer.toString(value));
+		Config.config.get(category, key, value, comment).set(Integer.toString(value));
 		#endif
 	}
-	public static void setDouble(String category, String key, double value){
+	public static void setDouble(String category, String key, double value, String comment){
 		#ifdef MC147
-		Config.config.get(category, key, value, null).value = Double.toString(value);
+		Config.config.get(category, key, value, comment).value = Double.toString(value);
 		#else
-		Config.config.get(category, key, value, null).set(Double.toString(value));
+		Config.config.get(category, key, value, comment).set(Double.toString(value));
 		#endif
 	}
-	public static void setBoolean(String category, String key, boolean value){
+	public static void setBoolean(String category, String key, boolean value, String comment){
 		#ifdef MC147
-		Config.config.get(category, key, value, null).value = Boolean.toString(value);
+		Config.config.get(category, key, value, comment).value = Boolean.toString(value);
 		#else
-		Config.config.get(category, key, value, null).set(Boolean.toString(value));
+		Config.config.get(category, key, value, comment).set(Boolean.toString(value));
 		#endif
 	}
-	public static void setString(String category, String key, String value){
+	public static void setString(String category, String key, String value, String comment){
 		#ifdef MC147
-		Config.config.get(category, key, value, null).value = value;
+		Config.config.get(category, key, value, comment).value = value;
 		#else
-		Config.config.get(category, key, value, null).set(value);
+		Config.config.get(category, key, value, comment).set(value);
 		#endif
 	}
 
 	// set list of values
-	public static void setIntList(String category, String key, int[] values){
-		Property p = Config.config.get(category, key, values, null);
+	public static void setIntList(String category, String key, int[] values, String comment){
+		Property p = Config.config.get(category, key, values, comment);
 		String[] valueList = new String[values.length];
 		for(int i = 0; i < values.length; i++)
 			valueList[i] = Integer.toString(values[i]);
@@ -117,8 +117,8 @@ public class Config {
 		p.set(valueList);
 		#endif
 	}
-	public static void setDoubleList(String category, String key, double[] values){
-		Property p = Config.config.get(category, key, values, null);
+	public static void setDoubleList(String category, String key, double[] values, String comment){
+		Property p = Config.config.get(category, key, values, comment);
 		String[] valueList = new String[values.length];
 		for(int i = 0; i < values.length; i++)
 			valueList[i] = Double.toString(values[i]);
@@ -128,8 +128,8 @@ public class Config {
 		p.set(valueList);
 		#endif
 	}
-	public static void setBooleanList(String category, String key, boolean[] values){
-		Property p = Config.config.get(category, key, values, null);
+	public static void setBooleanList(String category, String key, boolean[] values, String comment){
+		Property p = Config.config.get(category, key, values, comment);
 		String[] valueList = new String[values.length];
 		for(int i = 0; i < values.length; i++)
 			valueList[i] = Boolean.toString(values[i]);
@@ -139,8 +139,8 @@ public class Config {
 		p.set(valueList);
 		#endif
 	}
-	public static void setStringList(String category, String key, String[] values){
-		Property p = Config.config.get(category, key, values, null);
+	public static void setStringList(String category, String key, String[] values, String comment){
+		Property p = Config.config.get(category, key, values, comment);
 		String[] valueList = new String[values.length];
 		for(int i = 0; i < values.length; i++)
 			valueList[i] = values[i];
