@@ -452,8 +452,8 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableChiseledBrickCrafting){
-			// CRAFT 4 stoneBrick -> 4 chiseledBrick
-			GameRegistry.addRecipe(new ItemStack(Block.stoneBrick, 4, 3), "bb", "bb", 'b', stoneBrick);
+			// CRAFT 2 stoneBrick slabs -> 1 chiseledBrick
+			GameRegistry.addRecipe(new ItemStack(Block.stoneBrick, 1, 3), "b", "b", 'b', new ItemStack(Block.stoneSingleSlab, 1, 5));
 		}
 		if(Cfg.enableGrassBlockCrafting){
 			// CRAFT tall grass + dirt -> grass block
