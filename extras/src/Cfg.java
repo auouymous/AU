@@ -66,52 +66,52 @@ public class Cfg extends Config {
 
 	public static int itemFriedEgg;
 	public static int itemCookedFlesh;
-	public static int itemChromaSprayer;
 	public static int itemFlowerDye;
+//	public static int itemChromaSprayer;
 
 	public static void init(FMLPreInitializationEvent event){
 		Cfg.loadConfig(event);
 
 		//////////
 
-		Cfg.enableChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChromaInfuser", true, "enable chroma infuser (uses 1 block ID)");
-		Cfg.rainResetsChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "rainResetsChromaInfuser", true, "rain resets chroma infuser");
+		Cfg.enableChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.chromaInfuser.enable", true, "enable chroma infuser (uses 1 block ID)");
+		Cfg.rainResetsChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.chromaInfuser.rainResets", true, "rain resets chroma infuser");
 
-		Cfg.enableCobble = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCobble", true, "enable colored cobblestone (uses 1 block ID)");
-		Cfg.enableStone = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStone", true, "enable colored stone (uses 1 block ID)");
-		Cfg.enableStoneBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneBrick", true, "enable colored stone brick (uses 1 block ID)");
-		Cfg.enableChiseledBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrick", true, "enable colored chiseled brick (uses 1 block ID)");
-		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrick", true, "enable colored smooth brick (uses 1 block ID)");
-		Cfg.enableGravel = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGravel", true, "enable colored gravel (uses 1 block ID)");
-		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlass", true, "enable colored glass (uses 1 block ID)");
-		Cfg.enableGlassTinted = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlassTinted", true, "enable colored glass w/ tint (uses 1 block ID)");
-		Cfg.enableGlassTintedNoFrame = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGlassTintedNoFrame", true, "enable frameless glass w/ tint (uses 1 block ID)");
-		Cfg.enableLamps = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLamps", true, "enable colored lamps (uses 4 block IDs)");
+		Cfg.enableCobble = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.cobble.enable", true, "enable colored cobblestone (uses 1 block ID)");
+		Cfg.enableStone = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stone.enable", true, "enable colored stone (uses 1 block ID)");
+		Cfg.enableStoneBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stoneBrick.enable", true, "enable colored stone brick (uses 1 block ID)");
+		Cfg.enableChiseledBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.chiseledBrick.enable", true, "enable colored chiseled brick (uses 1 block ID)");
+		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.smoothBrick.enable", true, "enable colored smooth brick (uses 1 block ID)");
+		Cfg.enableGravel = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.gravel.enable", true, "enable colored gravel (uses 1 block ID)");
+		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glass.enable", true, "enable colored glass (uses 1 block ID)");
+		Cfg.enableGlassTinted = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glassTinted.enable", true, "enable colored glass w/ tint (uses 1 block ID)");
+		Cfg.enableGlassTintedNoFrame = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glassTintedNoFrame.enable", true, "enable frameless glass w/ tint (uses 1 block ID)");
+		Cfg.enableLamps = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.lamps.enable", true, "enable colored lamps (uses 4 block IDs)");
 
-		Cfg.enableCobbleStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCobbleStairs", true, "enable colored cobblestone stairs (uses 16 block IDs)");
-		Cfg.enableStoneStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneStairs", true, "enable colored stone stairs (uses 16 block IDs)");
-		Cfg.enableStoneBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStoneBrickStairs", true, "enable colored stone brick stairs (uses 16 block IDs)");
-		Cfg.enableSmoothBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrickStairs", true, "enable colored smooth brick stairs (uses 16 block IDs)");
+		Cfg.enableCobbleStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.cobble.stairs.enable", true, "enable colored cobblestone stairs (uses 16 block IDs)");
+		Cfg.enableStoneStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stone.stairs.enable", true, "enable colored stone stairs (uses 16 block IDs)");
+		Cfg.enableStoneBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stoneBrick.stairs.enable", true, "enable colored stone brick stairs (uses 16 block IDs)");
+		Cfg.enableSmoothBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.smoothBrick.stairs.enable", true, "enable colored smooth brick stairs (uses 16 block IDs)");
 
-		Cfg.enableFlowers = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableFlowers", true, "enable colored flowers (uses 2 block IDs and 1 item ID)");
+		Cfg.enableFlowers = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.flowers.enable", true, "enable colored flowers (uses 2 block IDs and 1 item ID)");
 
-		Cfg.enableEnderCube = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableEnderCube", true, "enable ender cube (uses 1 block ID)");
-		Cfg.enderCubeDistance = Cfg.getInt(Cfg.CATEGORY_GENERAL, "enderCubeDistance", 16, "maximum distance between ender cubes");
+		Cfg.enableEnderCube = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enable", true, "enable ender cube (uses 1 block ID)");
+		Cfg.enderCubeDistance = Cfg.getInt(Cfg.CATEGORY_GENERAL, "block.enderCube.distance", 16, "maximum distance between ender cubes");
 
-		Cfg.enableChiseledBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrickCrafting", true, "enable chiseled brick crafting recipe");
-		Cfg.enableMossyBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableMossyBrickCrafting", true, "enable mossy brick crafting recipe");
-		Cfg.enableMossyCobbleCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableMossyCobbleCrafting", true, "enable mossy cobble crafting recipe");
-		Cfg.enableGrassBlockCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGrassBlockCrafting", true, "enable grass block crafting recipe");
-		Cfg.enableMyceliumCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableMyceliumCrafting", true, "enable mycelium crafting recipe");
+		Cfg.enableChiseledBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.chiseledBrick.recipe", true, "enable chiseled brick crafting recipe");
+		Cfg.enableMossyBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mossyBrick.recipe", true, "enable mossy brick crafting recipe");
+		Cfg.enableMossyCobbleCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mossyCobble.recipe", true, "enable mossy cobble crafting recipe");
+		Cfg.enableGrassBlockCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.grassBlock.recipe", true, "enable grass block crafting recipe");
+		Cfg.enableMyceliumCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mycelium.recipe", true, "enable mycelium crafting recipe");
 
-		Cfg.enableLightingHack = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableLightingHack", true,
+		Cfg.enableLightingHack = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "lightingHack.enable", true,
 								"add minimal light to vanilla stairs and slabs to prevent dark spots\nwill absorb and continue to emit external light sources, after sources are removed");
 
-		Cfg.enableFriedEgg = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableFriedEgg", true, "enable smelting eggs to edible food");
-		Cfg.enableCookedFlesh = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCookedFlesh", true, "enable smelting rotten flesh to edible food");
+		Cfg.enableFriedEgg = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.friedEgg.enable", true, "enable smelting eggs to edible food");
+		Cfg.enableCookedFlesh = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.enable", true, "enable smelting rotten flesh to edible food");
 
-		Cfg.enableCookedFleshToLeather = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCookedFleshToLeather", true, "enable crafting cooked flesh to leather");
-		Cfg.nrCookedFleshToLeather = Cfg.getInt(Cfg.CATEGORY_GENERAL, "nrCookedFleshToLeather", 4, "number of cooked flesh per leather (1-9)");
+		Cfg.enableCookedFleshToLeather = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.toLeather", true, "enable crafting cooked flesh to leather");
+		Cfg.nrCookedFleshToLeather = Cfg.getInt(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.toLeather.count", 4, "number of cooked flesh per leather (1-9)");
 
 		//////////
 
@@ -120,42 +120,43 @@ public class Cfg extends Config {
 		int startItemID = Cfg.getInt(Cfg.CATEGORY_IDMAP, "startItemID", 31000, "clear all item IDs and restart client to move all items, beginning here");
 
 		// BLOCKS
-		Cfg.blockCobble = Cfg.getBlock("blockCobble", startBlockID, null); startBlockID++;
-		Cfg.blockStone = Cfg.getBlock("blockStone", startBlockID, null); startBlockID++;
-		Cfg.blockStoneBrick = Cfg.getBlock("blockStoneBrick", startBlockID, null); startBlockID++;
-		Cfg.blockGlass = Cfg.getBlock("blockGlass", startBlockID, null); startBlockID++;
-		Cfg.blockChiseledBrick = Cfg.getBlock("blockChiseledBrick", startBlockID, null); startBlockID++;
-		Cfg.blockSmoothBrick = Cfg.getBlock("blockSmoothBrick", startBlockID, null); startBlockID++;
+		Cfg.blockCobble = Cfg.getBlock("block.colored.cobble.id", startBlockID, null); startBlockID++;
+		Cfg.blockStone = Cfg.getBlock("block.colored.stone.id", startBlockID, null); startBlockID++;
+		Cfg.blockStoneBrick = Cfg.getBlock("block.colored.stoneBrick.id", startBlockID, null); startBlockID++;
+		Cfg.blockGlass = Cfg.getBlock("block.colored.glass.id", startBlockID, null); startBlockID++;
+		Cfg.blockChiseledBrick = Cfg.getBlock("block.colored.chiseledBrick.id", startBlockID, null); startBlockID++;
+		Cfg.blockSmoothBrick = Cfg.getBlock("block.colored.smoothBrick.id", startBlockID, null); startBlockID++;
 
-		Cfg.blockCobbleStairs = Cfg.getBlock("startCobbleStairs", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
-		Cfg.blockStoneStairs = Cfg.getBlock("startStoneStairs", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
-		Cfg.blockStoneBrickStairs = Cfg.getBlock("startStoneBrickStairs", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
-		Cfg.blockSmoothBrickStairs = Cfg.getBlock("startSmoothBrickStairs", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
+		Cfg.blockCobbleStairs = Cfg.getBlock("block.colored.cobble.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
+		Cfg.blockStoneStairs = Cfg.getBlock("block.colored.stone.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
+		Cfg.blockStoneBrickStairs = Cfg.getBlock("block.colored.stoneBrick.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
+		Cfg.blockSmoothBrickStairs = Cfg.getBlock("block.colored.smoothBrick.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
 
-		Cfg.blockLamp = Cfg.getBlock("blockLamp", startBlockID, null); startBlockID++;
-		Cfg.blockInvertedLamp = Cfg.getBlock("blockInvertedLamp", startBlockID, null); startBlockID++;
-		Cfg.blockLampPowered = Cfg.getBlock("blockLampPowered", startBlockID, null); startBlockID++;
-		Cfg.blockInvertedLampPowered = Cfg.getBlock("blockInvertedLampPowered", startBlockID, null); startBlockID++;
+		Cfg.blockLamp = Cfg.getBlock("block.colored.lamp.id", startBlockID, null); startBlockID++;
+		Cfg.blockInvertedLamp = Cfg.getBlock("block.colored.lamp.inverted.id", startBlockID, null); startBlockID++;
+		Cfg.blockLampPowered = Cfg.getBlock("block.colored.lamp.powered.id", startBlockID, null); startBlockID++;
+		Cfg.blockInvertedLampPowered = Cfg.getBlock("block.colored.lamp.invertedPowered.id", startBlockID, null); startBlockID++;
 
-		Cfg.blockGlassTinted = Cfg.getBlock("blockGlassTinted", startBlockID, null); startBlockID++;
-		Cfg.blockGlassTintedNoFrame = Cfg.getBlock("blockGlassTintedNoFrame", startBlockID, null); startBlockID++;
+		Cfg.blockGlassTinted = Cfg.getBlock("block.colored.glassTinted.id", startBlockID, null); startBlockID++;
+		Cfg.blockGlassTintedNoFrame = Cfg.getBlock("block.colored.glassTintedNoFrame.id", startBlockID, null); startBlockID++;
 
-		Cfg.blockChromaInfuser = Cfg.getBlock("blockChromaInfuser", startBlockID, null); startBlockID++;
+		Cfg.blockChromaInfuser = Cfg.getBlock("block.chromaInfuser.id", startBlockID, null); startBlockID++;
 
-		Cfg.blockGravel = Cfg.getBlock("blockGravel", startBlockID, null); startBlockID++;
+		Cfg.blockGravel = Cfg.getBlock("block.colored.gravel.id", startBlockID, null); startBlockID++;
 
-		Cfg.blockFlower = Cfg.getBlock("blockFlower", startBlockID, null); startBlockID++;
-		Cfg.blockFlowerSeed = Cfg.getBlock("blockFlowerSeed", startBlockID, null); startBlockID++;
+		Cfg.blockFlower = Cfg.getBlock("block.colored.flower.id", startBlockID, null); startBlockID++;
+		Cfg.blockFlowerSeed = Cfg.getBlock("block.colored.flowerSeed.id", startBlockID, null); startBlockID++;
 
-		Cfg.blockEnderCube = Cfg.getBlock("blockEnderCube", startBlockID, null); startBlockID++;
+		Cfg.blockEnderCube = Cfg.getBlock("block.enderCube.id", startBlockID, null); startBlockID++;
 
 		// ITEMS
-		Cfg.itemFriedEgg = Cfg.getItem("itemFriedEgg", startItemID, null); startItemID++;
-		Cfg.itemCookedFlesh = Cfg.getItem("itemCookedFlesh", startItemID, null); startItemID++;
+		Cfg.itemFriedEgg = Cfg.getItem("item.friedEgg.id", startItemID, null); startItemID++;
 
-		Cfg.itemChromaSprayer = Cfg.getItem("itemChromaSprayer", startItemID, null); startItemID++;
+		Cfg.itemCookedFlesh = Cfg.getItem("item.cookedFlesh.id", startItemID, null); startItemID++;
 
-		Cfg.itemFlowerDye = Cfg.getItem("itemFlowerDye", startItemID, null); startItemID++;
+		Cfg.itemFlowerDye = Cfg.getItem("item.flowerDye.id", startItemID, null); startItemID++;
+
+//		Cfg.itemChromaSprayer = Cfg.getItem("item.chromaSprayer.id", startItemID, null); startItemID++;
 
 		//////////
 
