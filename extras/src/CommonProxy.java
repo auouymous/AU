@@ -19,6 +19,7 @@ public class CommonProxy implements IGuiHandler {
 	}
 	public void registerEntities(){
 		GameRegistry.registerTileEntity(TileEntityChromaInfuser.class, "AU-ChromaInfuser");
+		GameRegistry.registerTileEntity(TileEntityEnderCube.class, "AU-EnderCube");
 	}
 	public void postInit(){}
 

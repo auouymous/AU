@@ -69,6 +69,7 @@ public class AUExtras {
 	public static Block[] blockSmoothBrickStairs = new BlockStairsColored[16];
 	public static Block blockFlower;
 	public static Block blockFlowerSeed;
+	public static Block blockEnderCube;
 	public static Item itemFriedEgg;
 	public static Item itemCookedFlesh;
 	public static Item itemChromaSprayer;
@@ -122,8 +123,8 @@ public class AUExtras {
 			.setCreativeTab(AUExtras.tabAU);
 		MinecraftForge.setBlockHarvestLevel(this.blockChromaInfuser, "pickaxe", 0); // wooden pickaxe
 
-		// CRAFT cauldron + 4 glass -> chroma infuser
-		GameRegistry.addRecipe(new ItemStack(this.blockChromaInfuser, 1), " g ", "gcg", " g ", 'g', glass, 'c', new ItemStack(Item.cauldron));
+		// CRAFT cauldron + 4 glass -> 1 chroma infuser
+		GameRegistry.addRecipe(new ItemStack(this.blockChromaInfuser), " g ", "gcg", " g ", 'g', glass, 'c', new ItemStack(Item.cauldron));
 
 		//////////
 
@@ -455,11 +456,11 @@ public class AUExtras {
 			GameRegistry.addRecipe(new ItemStack(Block.stoneBrick, 4, 3), "bb", "bb", 'b', stoneBrick);
 		}
 		if(Cfg.enableGrassBlockCrafting){
-			// CRAFT 1 tall grass + 1 dirt -> 1 grass block
+			// CRAFT tall grass + dirt -> grass block
 			GameRegistry.addShapelessRecipe(grassBlock, new ItemStack(Block.tallGrass, 1, 1), new ItemStack(Block.dirt));
 		}
 		if(Cfg.enableMyceliumCrafting){
-			// CRAFT 1 brown mushroom + 1 red mushroom + 1 grass block -> 1 mycelium block
+			// CRAFT brown mushroom + red mushroom + grass block -> mycelium block
 			GameRegistry.addShapelessRecipe(new ItemStack(Block.mycelium), new ItemStack(Block.mushroomBrown), new ItemStack(Block.mushroomRed), grassBlock);
 		}
 
@@ -502,7 +503,7 @@ public class AUExtras {
 			for(int c = 0; c < 16; c++)
 				MinecraftForge.addGrassPlant(this.blockFlower, c, 1);
 			// breaking grass drops flower seed
-			MinecraftForge.addGrassSeed(new ItemStack(this.blockFlowerSeed, 1), 1);
+			MinecraftForge.addGrassSeed(new ItemStack(this.blockFlowerSeed), 1);
 
 			// ore dictionary
 			OreDictionary.registerOre("dyeBlack", new ItemStack(this.itemFlowerDye, 1, 0));
@@ -532,6 +533,22 @@ public class AUExtras {
 
 		//////////
 
+		if(Cfg.enableEnderCube){
+			this.blockEnderCube = new BlockEnderCube(Cfg.blockEnderCube, "au.enderCube", "Ender Cube")
+				.setHardness(0.3F)
+				.setResistance(1.5F)
+				.setLightValue(Light.level[15])
+				.setStepSound(Block.soundStoneFootstep)
+				.setCreativeTab(AUExtras.tabAU);
+
+			// CRAFT glass + 3 eye of ender + redstone dust + 4 gold ingots -> ender cube
+			GameRegistry.addRecipe(new ItemStack(this.blockEnderCube),
+									"xex", "eoe", "xrx",
+									'o', new ItemStack(Block.obsidian), 'e', new ItemStack(Item.eyeOfEnder), 'r', redstoneDust, 'x', new ItemStack(Item.ingotGold));
+		}
+
+		//////////
+
 		// SMELT egg -> fried egg
 		if(Cfg.enableFriedEgg){
 			this.itemFriedEgg = new ItemFoodGeneric(Cfg.itemFriedEgg, 64, "au.friedEgg", "Fried Egg", 2, 0.4F, false)
@@ -544,13 +561,13 @@ public class AUExtras {
 		if(Cfg.enableCookedFlesh){
 			this.itemCookedFlesh = new ItemFoodGeneric(Cfg.itemCookedFlesh, 64, "au.cookedFlesh", "Cooked Flesh", 2, 0.2F, false)
 				.setCreativeTab(AUExtras.tabAU);
-			cookedFlesh = new ItemStack(this.itemCookedFlesh, 1);
+			cookedFlesh = new ItemStack(this.itemCookedFlesh);
 			GameRegistry.addSmelting(Item.rottenFlesh.itemID, cookedFlesh, 1.0f);
 		}
 
 		// CRAFT cooked flesh -> leather
 		if(Cfg.enableCookedFleshToLeather && Cfg.enableCookedFlesh){
-			ItemStack leather = new ItemStack(Item.leather, 1);
+			ItemStack leather = new ItemStack(Item.leather);
 			switch(Cfg.nrCookedFleshToLeather){
 			case 1: GameRegistry.addShapelessRecipe(leather, cookedFlesh); break;
 			case 2: GameRegistry.addShapelessRecipe(leather, cookedFlesh, cookedFlesh); break;

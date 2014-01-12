@@ -20,6 +20,7 @@ public class Cfg extends Config {
 	public static boolean enableStoneBrickStairs;
 	public static boolean enableSmoothBrickStairs;
 	public static boolean enableFlowers;
+	public static boolean enableEnderCube;
 
 	public static boolean enableChiseledBrickCrafting;
 	public static boolean enableGrassBlockCrafting;
@@ -55,6 +56,7 @@ public class Cfg extends Config {
 	public static int blockSmoothBrickStairs;
 	public static int blockFlower;
 	public static int blockFlowerSeed;
+	public static int blockEnderCube;
 
 	public static int itemFriedEgg;
 	public static int itemCookedFlesh;
@@ -83,6 +85,8 @@ public class Cfg extends Config {
 		Cfg.enableSmoothBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableSmoothBrickStairs", true, "enable colored smooth brick stairs (uses 16 block IDs)");
 
 		Cfg.enableFlowers = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableFlowers", true, "enable colored flowers (uses 2 block IDs and 1 item ID)");
+
+		Cfg.enableEnderCube = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableEnderCube", true, "enable ender cube (uses 1 block ID)");
 
 		Cfg.enableChiseledBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChiseledBrickCrafting", true, "enable chiseled brick crafting recipe");
 		Cfg.enableGrassBlockCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableGrassBlockCrafting", true, "enable grass block crafting recipe");
@@ -130,6 +134,8 @@ public class Cfg extends Config {
 
 		Cfg.blockFlower = Cfg.getBlock("blockFlower", startBlockID, null); startBlockID++;
 		Cfg.blockFlowerSeed = Cfg.getBlock("blockFlowerSeed", startBlockID, null); startBlockID++;
+
+		Cfg.blockEnderCube = Cfg.getBlock("blockEnderCube", startBlockID, null); startBlockID++;
 
 		// ITEMS
 		Cfg.itemFriedEgg = Cfg.getItem("itemFriedEgg", startItemID, null); startItemID++;
