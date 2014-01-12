@@ -115,16 +115,18 @@ public class AUExtras {
 
 		//////////
 
-		this.blockChromaInfuser = new BlockChromaInfuser(Cfg.blockChromaInfuser, "au.chromaInfuser", "Chroma Infuser")
-			.setHardness(2.0F)
-			.setResistance(10.0F)
-//			.setLightOpacity(191) // 25% transparent
-			.setStepSound(Block.soundMetalFootstep)
-			.setCreativeTab(AUExtras.tabAU);
-		MinecraftForge.setBlockHarvestLevel(this.blockChromaInfuser, "pickaxe", 0); // wooden pickaxe
+		if(Cfg.enableChromaInfuser){
+			this.blockChromaInfuser = new BlockChromaInfuser(Cfg.blockChromaInfuser, "au.chromaInfuser", "Chroma Infuser")
+				.setHardness(2.0F)
+				.setResistance(10.0F)
+//				.setLightOpacity(191) // 25% transparent
+				.setStepSound(Block.soundMetalFootstep)
+				.setCreativeTab(AUExtras.tabAU);
+			MinecraftForge.setBlockHarvestLevel(this.blockChromaInfuser, "pickaxe", 0); // wooden pickaxe
 
-		// CRAFT cauldron + 4 glass -> 1 chroma infuser
-		GameRegistry.addRecipe(new ItemStack(this.blockChromaInfuser), " g ", "gcg", " g ", 'g', glass, 'c', new ItemStack(Item.cauldron));
+			// CRAFT cauldron + 4 glass -> 1 chroma infuser
+			GameRegistry.addRecipe(new ItemStack(this.blockChromaInfuser), " g ", "gcg", " g ", 'g', glass, 'c', new ItemStack(Item.cauldron));
+		}
 
 		//////////
 

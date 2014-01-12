@@ -5,6 +5,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import com.qzx.au.core.Config;
 
 public class Cfg extends Config {
+	public static boolean enableChromaInfuser;
+
 	public static boolean enableCobble;
 	public static boolean enableStone;
 	public static boolean enableStoneBrick;
@@ -70,6 +72,8 @@ public class Cfg extends Config {
 		Cfg.loadConfig(event);
 
 		//////////
+
+		Cfg.enableChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChromaInfuser", true, "enable chroma infuser (uses 1 block ID)");
 
 		Cfg.enableCobble = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCobble", true, "enable colored cobblestone (uses 1 block ID)");
 		Cfg.enableStone = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStone", true, "enable colored stone (uses 1 block ID)");
