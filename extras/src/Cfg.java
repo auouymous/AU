@@ -6,6 +6,7 @@ import com.qzx.au.core.Config;
 
 public class Cfg extends Config {
 	public static boolean enableChromaInfuser;
+	public static boolean rainResetsChromaInfuser;
 
 	public static boolean enableCobble;
 	public static boolean enableStone;
@@ -74,6 +75,7 @@ public class Cfg extends Config {
 		//////////
 
 		Cfg.enableChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableChromaInfuser", true, "enable chroma infuser (uses 1 block ID)");
+		Cfg.rainResetsChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "rainResetsChromaInfuser", true, "rain resets chroma infuser");
 
 		Cfg.enableCobble = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableCobble", true, "enable colored cobblestone (uses 1 block ID)");
 		Cfg.enableStone = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "enableStone", true, "enable colored stone (uses 1 block ID)");

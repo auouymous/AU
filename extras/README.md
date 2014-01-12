@@ -18,6 +18,7 @@ Place dye in UI to color the water, can be inserted via pipes from sides.
 Place blocks in top UI slot and click one of the four recipe buttons.
 Click the downward arrow in UI to begin crafting, click again to stop.
 Items can be piped in from top and extracted from bottom.
+Rain can set the water supply and clear dye, put a roof over them or disable this in the config. :)
 
 The Ender Cube is used to teleport players and entities to othere Cubes above or below.
 Ender Cubes can only have air blocks between them, and must have two air blocks above each cube.
