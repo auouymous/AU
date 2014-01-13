@@ -15,6 +15,7 @@ import net.minecraftforge.common.ForgeDirection;
 
 import java.util.Random;
 
+import com.qzx.au.core.RenderUtils;
 import com.qzx.au.core.SidedBlockInfo;
 import com.qzx.au.core.SidedSlotInfo;
 import com.qzx.au.core.TileEntityAU;
@@ -72,8 +73,10 @@ public class TileEntityEnderCube extends TileEntityAU {
 		switch(eventID){
 		case TileEntityEnderCube.CLIENT_EVENT_TELEPORT:
 			Random random = new Random();
-			TileEntityEnderCube.spawnParticles(this.worldObj, this.xCoord, this.yCoord + 1, this.zCoord, random, 1.0F, true);
-			TileEntityEnderCube.spawnParticles(this.worldObj, this.xCoord, value + 1, this.zCoord, random, 1.0F, true);
+			RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 2.0F, (float)this.zCoord + 0.5F,
+										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
+			RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)value + 1.5F, (float)this.zCoord + 0.5F,
+										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
 			return true;
 		default:
 			return false;
@@ -101,17 +104,6 @@ public class TileEntityEnderCube extends TileEntityAU {
 					this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_TELEPORT, y);
 				}
 			break;
-		}
-	}
-
-	public static void spawnParticles(World world, int x, int y, int z, Random random, float deviation, boolean stretch_up){
-		short nr_particles = 128;
-		for(int p = 0; p < nr_particles; p++){
-			double h = (stretch_up ? (double)p / ((double)nr_particles - 1.0D) : 0.0D);
-			double xx = (x + 0.5F) + (random.nextDouble()*deviation - (double)deviation/2.0D);
-			double yy = (y + 0.5F) + h + (random.nextDouble()*deviation - (double)deviation/2.0D);
-			double zz = (z + 0.5F) + (random.nextDouble()*deviation - (double)deviation/2.0D);
-			world.spawnParticle("portal", xx, yy, zz, 0.0D, 0.0D, 0.0D);
 		}
 	}
 

@@ -27,9 +27,12 @@ import net.minecraftforge.common.ForgeDirection;
 
 import java.util.Random;
 
+import com.qzx.au.core.RenderUtils;
 import com.qzx.au.core.TileEntityAU;
 
 public class BlockEnderCube extends Block implements ITileEntityProvider {
+	public static final int nrPortalParticles = 128;
+
 	public BlockEnderCube(int id, String name, String readableName){
 		super(id, Material.rock);
 		this.setUnlocalizedName(name);
@@ -135,12 +138,12 @@ else Debug.print("entity on ender cube");
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack){
 	#endif
 		if(world.isRemote)
-			TileEntityEnderCube.spawnParticles(world, x, y, z, new Random(), 2.0F, false);
+			RenderUtils.spawnParticles(world, (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F, new Random(), BlockEnderCube.nrPortalParticles, "portal", 2.0F, 2.0F, 2.0F);
 	}
 	@Override
 	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int par5){
 		if(world.isRemote)
-			TileEntityEnderCube.spawnParticles(world, x, y, z, new Random(), 2.0F, false);
+			RenderUtils.spawnParticles(world, (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F, new Random(), BlockEnderCube.nrPortalParticles, "portal", 2.0F, 2.0F, 2.0F);
 	}
 
 	@Override
