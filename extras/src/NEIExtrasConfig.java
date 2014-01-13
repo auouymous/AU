@@ -1,9 +1,7 @@
-package com.qzx.au.extras.nei;
+package com.qzx.au.extras;
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
-
-import com.qzx.au.extras.Cfg;
 
 public class NEIExtrasConfig implements IConfigureNEI {
 	@Override
@@ -16,8 +14,8 @@ public class NEIExtrasConfig implements IConfigureNEI {
 			}
 
 			// chroma recipes
-//			API.registerRecipeHandler(new ChromaRecipesNEI());
-//			API.registerUsageHandler(new ChromaRecipesNEI());
+			API.registerRecipeHandler(new NEIChromaRecipeHandler());
+			API.registerUsageHandler(new NEIChromaRecipeHandler());
 		} catch (Exception e){
 			e.printStackTrace();
 		}

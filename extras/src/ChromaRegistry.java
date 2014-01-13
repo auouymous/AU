@@ -8,10 +8,10 @@ import java.util.List;
 import com.qzx.au.core.ItemUtils;
 
 public class ChromaRegistry {
-	private static ChromaRegistry registry = new ChromaRegistry();
+	public static ChromaRegistry registry = new ChromaRegistry();
 
-	private List<ChromaRecipe> recipes = new ArrayList<ChromaRecipe>();
-	private int nr_recipes = 0;
+	public List<ChromaRecipe> recipes = new ArrayList<ChromaRecipe>();
+	public int nr_recipes = 0;
 
 	private ChromaRegistry(){}
 
