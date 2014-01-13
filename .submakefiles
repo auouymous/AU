@@ -20,7 +20,7 @@ ifdef DEBUG
 endif
 
 	@(cp _mcmod.info mcmod.info)
-	@(sed -E -i "s:, version=\"0.0.0\"\):, version=\"$(VER)-$(NOW)\"\):" $(SRC)/com/qzx/au/$(MOD)/$(AUMOD).java)
+	@(sed -E -i "s: modVersion = \"0.0.0\": modVersion = \"$(VER)-$(NOW)\":" $(SRC)/com/qzx/au/$(MOD)/$(AUMOD).java)
 	@(sed -E -i "s:\"version\"\: \"0.0.0\":\"version\"\: \"$(VER)-$(NOW)\":" mcmod.info)
 	@(sed -E -i "s:\"mcversion\"\: \"0.0.0\":\"mcversion\"\: \"$(DOTVER)\":" mcmod.info)
 

@@ -28,7 +28,7 @@ import com.qzx.au.core.Color;
 import com.qzx.au.core.Light;
 
 
-@Mod(modid="AUExtras", name="Altered Unification EXTRAS", version="0.0.0")
+@Mod(modid="AUExtras", name="Altered Unification EXTRAS", version=AUExtras.modVersion)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true,
 //	clientPacketHandlerSpec = @SidedPacketHandler(channels = { AUExtras.packetChannel }, packetHandler = PacketHandlerClient.class),
 	serverPacketHandlerSpec = @SidedPacketHandler(channels = { AUExtras.packetChannel }, packetHandler = PacketHandlerServer.class))
@@ -39,6 +39,7 @@ public class AUExtras {
 	@SidedProxy(clientSide="com.qzx.au.extras.ClientProxy", serverSide="com.qzx.au.extras.CommonProxy")
 	public static CommonProxy proxy;
 
+	public static final String modVersion = "0.0.0";
 	public static final String packetChannel = "AUExtras";
 
 	#ifdef MC152

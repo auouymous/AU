@@ -28,6 +28,6 @@ public class NEIExtrasConfig implements IConfigureNEI {
 
 	@Override
 	public String getVersion(){
-		return "0.0.0";
+		return AUExtras.modVersion;
 	}
 }

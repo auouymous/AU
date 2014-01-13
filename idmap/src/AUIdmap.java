@@ -20,11 +20,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-@Mod(modid="AUIdmap", name="Altered Unification ID Map", version="0.0.0")
+@Mod(modid="AUIdmap", name="Altered Unification ID Map", version=AUIdmap.modVersion)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class AUIdmap {
 	@Instance("AUIdmap")
 	public static AUIdmap instance;
+
+	public static final String modVersion = "0.0.0";
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){}
