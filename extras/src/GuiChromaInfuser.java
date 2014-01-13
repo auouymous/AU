@@ -77,15 +77,12 @@ public class GuiChromaInfuser extends GuiContainerAU {
 		UI.setColor(1.0F, 1.0F, 1.0F, 1.0F);
 		int arrow_y_offset = tileEntity.getLocked() ? 0 : (int)(12.0F*tileEntity.getOutputTick());
 		// white arrow image from input to output
-		if(!tileEntity.getLocked()){
-			UI.bindTexture(this.mc, "au_extras", AUExtras.texturePath+"/gui/container.png");
+		UI.bindTexture(this.mc, "au_extras", AUExtras.texturePath+"/gui/container.png");
+		if(!tileEntity.getLocked())
 			UI.drawTexturedRect(this.upperX+1*18+4, this.upperY+2*18-3, 10, 0, 10, arrow_y_offset, 0.0F);
-		}
 		// arrow image from input to output
-		if(arrow_y_offset < 12){
-			UI.bindTexture(this.mc, "au_extras", AUExtras.texturePath+"/gui/container.png");
+		if(arrow_y_offset < 12)
 			UI.drawTexturedRect(this.upperX+1*18+4, this.upperY+2*18-3+arrow_y_offset, 0, arrow_y_offset, 10, 12-arrow_y_offset, 0.0F);
-		}
 
 		// output patterns for each recipe button
 		RenderItem itemRenderer = new RenderItem();

@@ -29,3 +29,7 @@ powercrystals
 SpaceToad
 	https://github.com/BuildCraft/BuildCraft/blob/master/common/buildcraft/core/gui/BuildCraftContainer.java
 	- shift clicking and phantom slots
+
+OpenMods Team
+	https://github.com/OpenMods/OpenBlocks
+	- sneaking/jumping events on blocks (ender cube)

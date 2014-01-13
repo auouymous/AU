@@ -118,8 +118,8 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 	@Override
 	public void onEntityWalking(World world, int x, int y, int z, Entity entity){
 		if(!world.isRemote){
-if(entity instanceof EntityPlayer) Debug.print("player on ender block");
-else Debug.print("entity on ender block");
+if(entity instanceof EntityPlayer) Debug.print("player on ender cube");
+else Debug.print("entity on ender cube");
 		}
 	}
 
