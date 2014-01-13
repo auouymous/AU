@@ -108,10 +108,6 @@ public class AUExtras {
 		ItemStack[] dyes = new ItemStack[16];
 		for(int c = 0; c < 16; c++)
 			dyes[c] = new ItemStack(Item.dyePowder, 1, c);
-		String[] oreDyes = {
-			"dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray",
-			"dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite"
-		};
 
 		//////////
 
@@ -394,13 +390,13 @@ public class AUExtras {
 
 			// CRAFT 6 glass panes + dye + glowstone + redstone -> <colored> lamp
 			for(int c = 0; c < 16; c++)
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstone, '-', oreDyes[c], 'r', redstoneDust));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstone, '-', Color.oreDyes[c], 'r', redstoneDust));
 			// CRAFT <colored> lamp + dye -> <colored> lamp
 			for(int g = 0; g < 16; g++){
 				ItemStack anyLamp = new ItemStack(this.blockLamp, 1, g);
 				for(int c = 0; c < 16; c++)
 					if(g != c)
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(this.blockLamp, 1, c), anyLamp, oreDyes[c]));
+						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(this.blockLamp, 1, c), anyLamp, Color.oreDyes[c]));
 			}
 
 			//////////
@@ -418,13 +414,13 @@ public class AUExtras {
 
 			// CRAFT 6 glass panes + dye + glowstone + redstone torch -> <colored> inverted lamp
 			for(int c = 0; c < 16; c++)
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockInvertedLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstone, '-', oreDyes[c], 'r', redstoneTorch));
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockInvertedLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstone, '-', Color.oreDyes[c], 'r', redstoneTorch));
 			// CRAFT <colored> inverted lamp + dye -> <colored> inverted lamp
 			for(int g = 0; g < 16; g++){
 				ItemStack anyInvertedLamp = new ItemStack(this.blockInvertedLamp, 1, g);
 				for(int c = 0; c < 16; c++)
 					if(g != c)
-						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(this.blockInvertedLamp, 1, c), anyInvertedLamp, oreDyes[c]));
+						GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(this.blockInvertedLamp, 1, c), anyInvertedLamp, Color.oreDyes[c]));
 			}
 
 			//////////

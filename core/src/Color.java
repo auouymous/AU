@@ -52,6 +52,11 @@ public class Color {
 		"lightBlue", "magenta", "orange", "white"
 	};
 
+	public static final String[] oreDyes = {
+		"dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray",
+		"dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue", "dyeMagenta", "dyeOrange", "dyeWhite"
+	};
+
 	// net.minecraft.item.ItemDye
 	// ItemDye.dyeColors
 }
