@@ -20,7 +20,9 @@ class BlockStairsColored extends BlockStairs {
 
 		// hack to fix lighting glitch
 		if(Cfg.enableLightingHack)
-			this.setLightValue(Light.level[1]);
+			this.setLightValue(Light.level[1]); // stairs "glow" and can aborb and emit higher light levels
+		else
+			this.setLightOpacity(0); // stairs allow light sources to pass through them but don't suffer from "glow" and don't emit higher light levels
 
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 0); // wooden pickaxe
 
