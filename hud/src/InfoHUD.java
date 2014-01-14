@@ -659,12 +659,15 @@ public class InfoHUD {
 										int brightness = block.getLightValue(world, inspectX, inspectY, inspectZ);
 										float hardness = block.getBlockHardness(world, inspectX, inspectY, inspectZ);
 										float resistance = block.getExplosionResistance(null);
+										int opacity = block.getLightOpacity(world, inspectX, inspectY, inspectZ);
 										this.ui.drawString("   b: ", 0xaaaaaa);
 										this.ui.drawString((brightness > 0 ? String.format("%d", brightness) : "_"), 0xffffff);
 										this.ui.drawString(" h: ", 0xaaaaaa);
 										this.ui.drawString((hardness == -1 ? "unbreakable" : String.format("%.1f", hardness)), 0xffffff);
 										this.ui.drawString(" r: ", 0xaaaaaa);
 										this.ui.drawString(String.format("%.1f", resistance), 0xffffff);
+										this.ui.drawString(" o: ", 0xaaaaaa);
+										this.ui.drawString(String.format("%d%%", 100*opacity/255), 0xffffff);
 										this.ui.lineBreak();
 									} catch(Exception e){
 										Failure.log("advanced block inspector, b.h.r.");

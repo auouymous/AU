@@ -45,7 +45,7 @@ Block Inspector
 * silkable
 * in:redstone input level, out:redstone output level weak/strong [1.4.7 only shows on or off]
 Advanced Block Inspector
-* b:brightness, h:hardness, r:explosion resistance
+* b:brightness, h:hardness, r:explosion resistance, o:light opacity
 * n:normal, o:opaque, s:solid
 * e:has tile entity, r:has random ticks, t:has ticking tile entity, b:tile entities in block, a:all loaded tile entities (all ticking tile entities)
 * hides silverfish blocks, can be changed in the config file
