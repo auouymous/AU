@@ -27,7 +27,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import com.qzx.au.core.Color;
 import com.qzx.au.core.Light;
 
-
 @Mod(modid="AUExtras", name="Altered Unification EXTRAS", version=AUExtras.modVersion)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true,
 //	clientPacketHandlerSpec = @SidedPacketHandler(channels = { AUExtras.packetChannel }, packetHandler = PacketHandlerClient.class),
@@ -530,6 +529,10 @@ public class AUExtras {
 			GameRegistry.addShapelessRecipe(dyes[13], new ItemStack(this.blockFlower, 1, 13)); // magenta
 			GameRegistry.addShapelessRecipe(dyes[14], new ItemStack(this.blockFlower, 1, 14)); // orange
 			GameRegistry.addShapelessRecipe(new ItemStack(this.itemFlowerDye, 1, 15), new ItemStack(this.blockFlower, 1, 15)); // white
+
+			// generate flowers in world
+			if(Cfg.enableFlowerWorldGen)
+				GameRegistry.registerWorldGenerator(new WorldGenFlowers(this.blockFlower.blockID));
 		}
 
 		//////////

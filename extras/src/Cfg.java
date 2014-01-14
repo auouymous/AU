@@ -23,6 +23,7 @@ public class Cfg extends Config {
 	public static boolean enableStoneBrickStairs;
 	public static boolean enableSmoothBrickStairs;
 	public static boolean enableFlowers;
+	public static boolean enableFlowerWorldGen;
 	public static boolean enableEnderCube;
 	public static int enderCubeDistance;
 
@@ -95,6 +96,7 @@ public class Cfg extends Config {
 		Cfg.enableSmoothBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.smoothBrick.stairs.enable", true, "enable colored smooth brick stairs (uses 16 block IDs)");
 
 		Cfg.enableFlowers = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.flowers.enable", true, "enable colored flowers (uses 2 block IDs and 1 item ID)");
+		Cfg.enableFlowerWorldGen = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.flowers.worldgen", true, "generate colored flowers in the world");
 
 		Cfg.enableEnderCube = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enable", true, "enable ender cube (uses 1 block ID)");
 		Cfg.enderCubeDistance = Cfg.getInt(Cfg.CATEGORY_GENERAL, "block.enderCube.distance", 16, "maximum distance between ender cubes");
