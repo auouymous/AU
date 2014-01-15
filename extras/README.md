@@ -25,6 +25,8 @@ Ender Cubes can only have air blocks between them, and must have two air blocks 
 Stand on an Ender Cube and sneak to teleport down, jump to teleport up.
 Maximum distance between Cubes is 16, adjustable in the config.
 
+Flower seeds produce biome-specific flowers 75% of the time and all flowers the other 25%.
+
 ***
 
 Recipes
@@ -96,7 +98,7 @@ Recipes
 * PLANT [colored] flower ON grass, dirt, mycellium, sand, endstone, netherrack or soul sand (podzol and red sand in 1.7.x)
 * BONEMEAL grass TO GET [colored] flowers
 * BREAK grass plant TO GET flower seeds
-* PLANT flower seeds ON hydrated farmland (bonemeal to grow, sheer to get flower, break to get seeds)
+* PLANT flower seeds ON hydrated farmland (bonemeal to grow, shear to get flower, break to get seeds)
 * 
 * CRAFT 2 stone brick slabs TO 1 chiseled stone bricks (same as 1.8)
 * CRAFT 1 stone brick + 1 vine TO 1 mossy stone bricks (same as 1.8)

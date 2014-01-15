@@ -89,14 +89,8 @@ public class BlockFlowerSeed extends Block implements IPlantable {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int getRenderBlockPass(){
-		return 1;
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
 	public boolean canRenderInPass(int pass){
-		return (pass == 1 ? true : false);
+		return (pass == 0);
 	}
 
 	@Override

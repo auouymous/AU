@@ -60,29 +60,26 @@ public class RendererFlower implements ISimpleBlockRenderingHandler {
 			y2 -= BlockFlowerSeed.y_offset;
 		}
 
-// TODO: display texture 4 times like vanilla flowers
-//		- back side textures are bleeding through, they don't with vanilla flowers
-
 		// SW sides
 		tessellator.addVertexWithUV(x1, y2, z1, minU, minV);
 		tessellator.addVertexWithUV(x1, y1, z1, minU, maxV);
 		tessellator.addVertexWithUV(x2, y1, z2, maxU, maxV);
 		tessellator.addVertexWithUV(x2, y2, z2, maxU, minV);
 		// NE sides
-//		tessellator.addVertexWithUV(x2, y2, z2, minU, minV);
-//		tessellator.addVertexWithUV(x2, y1, z2, minU, maxV);
-//		tessellator.addVertexWithUV(x1, y1, z1, maxU, maxV);
-//		tessellator.addVertexWithUV(x1, y2, z1, maxU, minV);
+		tessellator.addVertexWithUV(x2, y2, z2, minU, minV);
+		tessellator.addVertexWithUV(x2, y1, z2, minU, maxV);
+		tessellator.addVertexWithUV(x1, y1, z1, maxU, maxV);
+		tessellator.addVertexWithUV(x1, y2, z1, maxU, minV);
 		// SE sides
 		tessellator.addVertexWithUV(x1, y2, z2, minU, minV);
 		tessellator.addVertexWithUV(x1, y1, z2, minU, maxV);
 		tessellator.addVertexWithUV(x2, y1, z1, maxU, maxV);
 		tessellator.addVertexWithUV(x2, y2, z1, maxU, minV);
 		// NW sides
-//		tessellator.addVertexWithUV(x2, y2, z1, minU, minV);
-//		tessellator.addVertexWithUV(x2, y1, z1, minU, maxV);
-//		tessellator.addVertexWithUV(x1, y1, z2, maxU, maxV);
-//		tessellator.addVertexWithUV(x1, y2, z2, maxU, minV);
+		tessellator.addVertexWithUV(x2, y2, z1, minU, minV);
+		tessellator.addVertexWithUV(x2, y1, z1, minU, maxV);
+		tessellator.addVertexWithUV(x1, y1, z2, maxU, maxV);
+		tessellator.addVertexWithUV(x1, y2, z2, maxU, minV);
 
 		return true;
 	}
