@@ -78,7 +78,7 @@ public class GuiChromaInfuser extends GuiContainerAU {
 		int arrow_y_offset = tileEntity.getLocked() ? 0 : (int)(12.0F*tileEntity.getOutputTick());
 		// white arrow image from input to output
 		UI.bindTexture(this.mc, "au_extras", AUExtras.texturePath+"/gui/container.png");
-		if(!tileEntity.getLocked())
+		if(!tileEntity.getLocked() && arrow_y_offset > 0)
 			UI.drawTexturedRect(this.upperX+1*18+4, this.upperY+2*18-3, 10, 0, 10, arrow_y_offset, 0.0F);
 		// arrow image from input to output
 		if(arrow_y_offset < 12)
@@ -173,12 +173,4 @@ public class GuiChromaInfuser extends GuiContainerAU {
 			);
 		}
 	}
-
-/*
-	protected void mouseClicked(int x, int y, int button){
-		int x = this.upperX + 5*18;
-		int y = this.upperY + 1*18+9 + 1 - 5;
-
-	}
-*/
 }

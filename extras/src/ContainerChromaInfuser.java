@@ -1,7 +1,6 @@
 package com.qzx.au.extras;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
@@ -101,17 +100,5 @@ public class ContainerChromaInfuser extends ContainerAU {
 
 		// player's inventory
 		this.addPlayerInventorySlotsToContainer(inventoryPlayer, y_offset+5*18 -6);
-	}
-
-	@Override
-	public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex){
-		// player inventory
-//		if(slotIndex != TileEntityChromaInfuser.SLOT_ITEM_OUTPUT)
-			return super.transferStackInSlot(player, slotIndex);
-
-		// result
-//		return null;
-// TODO: this will decrement from input and return the dyed item
-
 	}
 }
