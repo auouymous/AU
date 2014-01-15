@@ -3,6 +3,9 @@
 	cpw.mods.fml.common.Mod.Init			@Init
 	cpw.mods.fml.common.Mod.PostInit		@PostInit
 
+~ MC18x
+	- silverfish chiseled bricks?
+
 OPTION MENU
 	- fine grained control over info HUD elements
 		- move elements to different lines and different positions within each line

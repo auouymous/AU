@@ -1,67 +1,87 @@
-~ FIX: flower rendering
-
-~ FIX: stairs and slabs absorb other light sources and emit that light when the sources are removed
-	- the lighting hack causes this
-
-
-
-
-
-~ FIX: prevent powered lamps from appearing in NEI
-
-~ FIX: ChromaRegistry.addRecipe() can't get localized names for input/output itemstacks from AU Extras
-
------
-
-- NEI support for chroma infuser recipes
-
-- chroma infuser shouldn't process a colored item with the same color, unless converting item IDs for it
-	- need to add a colored flag to ChromeRecipe and set in all conversion recipes
-
-- add tooltip to recipe button output images
-
-- add flowers to world gen
-	http://www.minecraftforum.net/topic/2203069-164-forge-how-do-i-get-my-chunk-provider-to-call-on-my-biome-decorator/
-	http://www.minecraftforum.net/topic/2200810-wold-generation-structure-help/
-	http://www.minecraftforum.net/topic/2177959-ore-generation-solved/
-	black			hot(1.0+)	- [end], desert, nether
-	red							- forests
-	green						- jungle, swamp
-	brown						- jungle
-	blue						- forests
-	purple						- [end], mushroom island
-	cyan						- forests
-	light gray		cold(0.3-)	-
-	dark gray		hot(1.0+)	- desert, nether
-	pink						- plains/meadows
-	lime						- swamp, plains/meadows
-	yellow						- plains/meadows
-	light blue					- plains/meadows
-	magenta						- mushroom island
-	orange						- jungle
-	white			cold(0.3-)	-
-- check biome when growing flowers and decrease odds for colors not in current biome
-	- option to only grow colors for current biome
-
-- display bubbles in chroma infuser's water and play a sound when processing items
-
-- add a flower pot that supports these flowers
-	- maybe use a tile entity and support all flowers
-
-~ forge multipart support
-	- OR colored slabs
+~ DEPRECATED
+	cpw.mods.fml.common.Mod.PreInit			@PreInit
+	cpw.mods.fml.common.Mod.Init			@Init
+	cpw.mods.fml.common.Mod.PostInit		@PostInit
 
 - MC174
 	- glass/pane + BLANK_BUTTON -> stained glass/pane
+- MC18x
+	- remove recipe to craft chiseled stone bricks
+
+-----
+
+- FIX: ChromaRegistry.addRecipe() can't get localized names for input/output itemstacks from AU Extras
+
+- chroma infuser shouldn't process a colored item with the same color, unless converting item IDs for it
+	- need to add a colored flag to ChromeRecipe and set in all conversion recipes
+	- the item input slot should reject the item if chroma infuser has dye, if no dye, processing should reject it
+	- NEI plugin merges conversion recipes and will need to handle the missing color
+
+- add tooltip to recipe button output images
+
+- optimize TileEntityChromaInfuser.updateEntity()
+
+- forge multipart support
+
+-----
+
+- display 4 chroma recipes per NEI page (2 might be max)
+
+- display bubbles in chroma infuser's water and play a sound when processing items
+
+- itemChromaSprayer
+	- CRAFT 1 piston + 1 chroma infuser + 1 wool
+	- right click on a block to change its color
+	- right click with empty sprayer to remove color, for most blocks
+	- fill or empty sprayers in chroma infuser
+	- each sprayers holds 256 uses (32 dye)
 
 - lamp and inverted lamp that light up but don't emit light, use glowstone dust instead of glowstone block
 
-- config option to add additional block IDs that should receive the lighting hack (stairs and slabs from other mods)
+- colored sand, won't obey gravity
+
+- walls
+	- for all au_extras blocks
+	- for sandstone, nether brick and quartz
+- fences and gates
+	- for all au_extras blocks
+	- for sandstone and quartz, cobble?
+
+- colored glass panes, 3 types
+- colored glow glass and panes, 3 types (6 block IDs)
+	- crafted with any colored glass and 1 glowstone dust per
+	- would connect to its non-glow variant
+
+- lamp buttons and levers
+	- the buttons will be colored and glow briefly when pressed (they wont emit light)
+	- the levers will have a colored base that glows when active
+		- will have a flush two position switch on the front instead of a lever
+
+- colored signs
+	- 16 colors but they also support block camo
+	- IRotatableBlock
+		- flat and stick positions
+	- support colored text on the signs
+
+- sign editor
+	- this could bypass protection, need to check if player can break the sign
+	- item that can record sign text by shift right clicking one
+	- right click item in air to open editor
+		- option to set text color and block camo (for colored signs)
+	- right click a sign to apply text
 
 - grated floor
 	- frame around outside edge, connected textures
 	- near top of block, similar to trapdoors
 
+- connected textures for vanilla blocks?
+	- option to disable if something like optifine does it
+	- this would allow all clients to see the same thing
+
 - key or item to feign death
 	- lay down as if on a bed
 	- make mobs ignore player
+
+-----
+
+= painter's flower pot mod has a flower pot that can hold modded flowers
