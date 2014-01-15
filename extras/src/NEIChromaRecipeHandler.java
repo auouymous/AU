@@ -38,11 +38,11 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 	//////////
 
 	private final int SLOT_Y = 15;
-	private final int SLOT_X_DYE	= 37 + 1;
-	private final int SLOT_X_INPUT	= 37 + 21;
-	private final int SLOT_X_BUTTON	= 37 + 40;
-	private final int SLOT_X_ARROW	= 37 + 54;
-	private final int SLOT_X_OUTPUT	= 37 + 71;
+	private final int SLOT_X_DYE	= 27 + 1;
+	private final int SLOT_X_INPUT	= 27 + 21;
+	private final int SLOT_X_BUTTON	= 27 + 40;
+	private final int SLOT_X_ARROW	= 27 + 59;
+	private final int SLOT_X_OUTPUT	= 27 + 81;
 
 	@Override
 	#ifdef MC152
@@ -85,8 +85,12 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 		case 3: UI.drawTexturedRect(SLOT_X_BUTTON, SLOT_Y+2, 20+7*12,0, 12,12, 0.0F); break;
 		}
 
-		// white arrow
-		UI.drawTexturedRect(SLOT_X_ARROW, SLOT_Y+3, 0,12, 12,10, 0.0F);
+		// animated arrow
+		int arrow_x_offset = 12*NEIChromaRecipeHandler.cycle_color/15;
+		if(arrow_x_offset > 0)
+			UI.drawTexturedRect(SLOT_X_ARROW, SLOT_Y+3, 20+11*12,0, arrow_x_offset,10, 0.0F); // white
+		if(arrow_x_offset < 12)
+			UI.drawTexturedRect(SLOT_X_ARROW+arrow_x_offset, SLOT_Y+3, 20+10*12+arrow_x_offset,0, 12-arrow_x_offset,10, 0.0F); // gray
 	}
 
 	//////////
