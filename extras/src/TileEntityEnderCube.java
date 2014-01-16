@@ -170,8 +170,15 @@ public class TileEntityEnderCube extends TileEntityAU {
 			Random random = new Random();
 			RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 2.0F, (float)this.zCoord + 0.5F,
 										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
-			RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)value + 1.5F, (float)this.zCoord + 0.5F,
-										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
+			if(this.playerDirection == 0) // up/down
+				RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)value + 1.5F, (float)this.zCoord + 0.5F,
+											random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
+			else if(this.playerDirection == 1) // north/south
+				RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 1.5F, (float)value + 0.5F,
+											random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
+			else // east/west
+				RenderUtils.spawnParticles(this.worldObj, (float)value + 0.5F, (float)this.yCoord + 1.5F, (float)this.zCoord + 0.5F,
+											random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
 			return true;
 		case TileEntityEnderCube.CLIENT_EVENT_PLAYER_DIRECTION:
 			// set player direction button
@@ -203,24 +210,54 @@ public class TileEntityEnderCube extends TileEntityAU {
 	//////////
 
 	public void teleportPlayer(EntityPlayer player, boolean teleport_up){
+		if(this.playerControl == false) return;
+
 		// scan for nearby ender cube
 		int delta = (teleport_up ? 1 : -1);
-		int y = this.yCoord + delta;
-		int limit = y + (Cfg.enderCubeDistance * delta);
-		if(limit < 1) limit = 1; else if(limit > 255) limit = 255;
-		for(; y != limit; y += delta){
-			if(this.worldObj.isAirBlock(this.xCoord, y, this.zCoord)) continue;
-
-			TileEntity tileEntity = this.worldObj.getBlockTileEntity(this.xCoord, y, this.zCoord);
-			if(tileEntity instanceof TileEntityEnderCube)
-				if(this.worldObj.isAirBlock(this.xCoord, y+1, this.zCoord) && this.worldObj.isAirBlock(this.xCoord, y+2, this.zCoord)){
-					this.worldObj.playSoundAtEntity(player, "mob.endermen.portal", 1.0F, 1.0F);
-					player.setPositionAndUpdate(this.xCoord + 0.5F, y + 1.1F, this.zCoord + 0.5F);
-					this.worldObj.playSoundAtEntity(player, "mob.endermen.portal", 1.0F, 1.0F);
-
-					this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_SPAWN_PARTICLES, y);
+		if(this.playerDirection == 0){
+			// scan up/down
+			int y = this.yCoord + delta;
+			int limit = y + (Cfg.enderCubeDistance * delta);
+			if(limit < 1) limit = 1; else if(limit > 255) limit = 255;
+			for(; y != limit; y += delta){
+				TileEntity tileEntity = this.worldObj.getBlockTileEntity(this.xCoord, y, this.zCoord);
+				if(tileEntity instanceof TileEntityEnderCube){
+					this._teleportPlayer(this.worldObj, this.xCoord, y, this.zCoord, player, y);
+					break;
 				}
-			break;
+			}
+		} else if(this.playerDirection == 1){
+			// scan north/south
+			int z = this.zCoord + delta;
+			int limit = z + (Cfg.enderCubeDistance * delta);
+			for(; z != limit; z += delta){
+				TileEntity tileEntity = this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, z);
+				if(tileEntity instanceof TileEntityEnderCube){
+					this._teleportPlayer(this.worldObj, this.xCoord, this.yCoord, z, player, z);
+					break;
+				}
+			}
+		} else {
+			// scan east/west
+			int x = this.xCoord + delta;
+			int limit = x + (Cfg.enderCubeDistance * delta);
+			for(; x != limit; x += delta){
+				TileEntity tileEntity = this.worldObj.getBlockTileEntity(x, this.yCoord, this.zCoord);
+				if(tileEntity instanceof TileEntityEnderCube){
+					this._teleportPlayer(this.worldObj, x, this.yCoord, this.zCoord, player, x);
+					break;
+				}
+			}
+		}
+	}
+
+	private void _teleportPlayer(World world, int x, int y, int z, EntityPlayer player, int direction_coord){
+		if(world.isAirBlock(x, y+1, z) && world.isAirBlock(x, y+2, z)){ // 2 air blocks above destination cube
+			world.playSoundAtEntity(player, "mob.endermen.portal", 1.0F, 1.0F);
+			player.setPositionAndUpdate(x + 0.5F, y + 1.1F, z + 0.5F);
+			world.playSoundAtEntity(player, "mob.endermen.portal", 1.0F, 1.0F);
+
+			world.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_SPAWN_PARTICLES, direction_coord);
 		}
 	}
 
