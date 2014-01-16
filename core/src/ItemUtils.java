@@ -14,12 +14,16 @@ public class ItemUtils {
 		} catch(Exception e){
 			// this can happen
 		}
-		if(s == null || s.equals(""))
-			#ifdef MC147
-			s = itemstack.getItem().getItemNameIS(itemstack);
-			#else
-			s = itemstack.getItem().getUnlocalizedName(itemstack);
-			#endif
+		try {
+			if(s == null || s.equals(""))
+				#ifdef MC147
+				s = itemstack.getItem().getItemNameIS(itemstack);
+				#else
+				s = itemstack.getItem().getUnlocalizedName(itemstack);
+				#endif
+		} catch(Exception e){
+			// this can happen
+		}
 		return s;
 	}
 
