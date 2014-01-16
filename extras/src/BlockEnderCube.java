@@ -69,14 +69,8 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int getRenderBlockPass(){
-		return 1; // block camo
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
 	public boolean canRenderInPass(int pass){
-		return (pass == 1); // block camo
+		return (pass == 0);
 	}
 
 	@Override
@@ -110,13 +104,14 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 		return true;
 	}
 
-//	@Override
-//	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ){
-//		if(!world.isRemote){
-//Debug.print("open ender block UI");
-//		}
-//		return true;
-//	}
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ){
+		if(player.isSneaking()) return false;
+		if(world.isRemote) return true;
+
+		player.openGui(AUExtras.instance, Guis.TILE_GUI, world, x, y, z);
+		return true;
+	}
 
 	@Override
 	public void onEntityWalking(World world, int x, int y, int z, Entity entity){

@@ -22,7 +22,7 @@ public class PacketHandlerServer implements IPacketHandler {
 		int id = PacketUtils.getPacketID(data);
 		if(id == -1){ Debug.error("Invalid packet ID"); return; }
 
-		if(id == Packets.RECIPE_BUTTON){
+		if(id == Packets.CHROMA_RECIPE_BUTTON){
 			// chroma infuser recipe buttons
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
 			if(values == null){ Debug.error("Invalid recipe button packet"); return; }
@@ -30,7 +30,7 @@ public class PacketHandlerServer implements IPacketHandler {
 			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityChromaInfuser)
 				((TileEntityChromaInfuser)te).setRecipeButton(ChromaButton.values()[(Byte)values[3]]);;
-		} else if(id == Packets.LOCKED_BUTTON){
+		} else if(id == Packets.CHROMA_LOCKED_BUTTON){
 			// chroma infuser locked button
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Boolean.class);
 			if(values == null){ Debug.error("Invalid locked button packet"); return; }
@@ -46,6 +46,39 @@ public class PacketHandlerServer implements IPacketHandler {
 			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube)
 				((TileEntityEnderCube)te).teleportPlayer((EntityPlayer)player, ((Byte)values[3] == 1));
+		} else if(id == Packets.ENDER_BUTTON){
+			// ender cube buttons
+			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
+			if(values == null){ Debug.error("Invalid player movement packet"); return; }
+
+			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			if(te instanceof TileEntityEnderCube){
+				EnderButton button = EnderButton.values()[(Byte)values[3]];
+				switch(button){
+				case BUTTON_PLAYER_UD:
+				case BUTTON_PLAYER_NS:
+				case BUTTON_PLAYER_EW:
+					((TileEntityEnderCube)te).setPlayerDirection(button);
+					break;
+				case BUTTON_DOWN:
+				case BUTTON_UP:
+				case BUTTON_NORTH:
+				case BUTTON_SOUTH:
+				case BUTTON_WEST:
+				case BUTTON_EAST:
+					((TileEntityEnderCube)te).setTeleportDirection(button);
+					break;
+				case BUTTON_CONTROL_PLAYER:
+					((TileEntityEnderCube)te).togglePlayerControl();
+					break;
+				case BUTTON_CONTROL_CONTACT:
+					((TileEntityEnderCube)te).toggleContactControl();
+					break;
+				case BUTTON_CONTROL_REDSTONE:
+					((TileEntityEnderCube)te).toggleRedstoneControl();
+					break;
+				}
+			}
 		}
 	}
 }

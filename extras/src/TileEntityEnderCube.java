@@ -21,13 +21,51 @@ import com.qzx.au.core.SidedSlotInfo;
 import com.qzx.au.core.TileEntityAU;
 
 public class TileEntityEnderCube extends TileEntityAU {
+	private byte playerDirection; // NBT
+	private byte teleportDirection; // NBT
+	private boolean playerControl; // NBT
+	private boolean contactControl; // NBT
+	private boolean redstoneControl; // NBT
+
 	public TileEntityEnderCube(){
 		super();
+
+		this.playerDirection = 0;
+		this.teleportDirection = 0;
+		this.playerControl = false;
+		this.contactControl = false;
+		this.redstoneControl = false;
 	}
 
 	//////////
 
-/*
+	@Override
+	public void readFromNBT(NBTTagCompound nbt){
+		super.readFromNBT(nbt);
+
+		short buttons = nbt.getShort("settings");
+
+		this.playerDirection = (byte)(buttons & 0x3);			// 0000 0011
+		this.teleportDirection = (byte)((buttons>>2) & 0x7);	// 0001 1100
+		this.playerControl = (buttons & 0x20) != 0;				// 0010 0000
+		this.contactControl = (buttons & 0x40) != 0;			// 0100 0000
+		this.redstoneControl = (buttons & 0x80) != 0;			// 1000 0000
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound nbt){
+		super.writeToNBT(nbt);
+
+		short buttons = (short)(this.playerDirection | (this.teleportDirection<<2));
+		if(this.playerControl) buttons |= 0x20;
+		if(this.contactControl) buttons |= 0x40;
+		if(this.redstoneControl) buttons |= 0x80;
+
+		nbt.setShort("settings", buttons);
+	}
+
+	//////////
+
 	@Override
 	public ContainerEnderCube getContainer(InventoryPlayer inventory){
 		return new ContainerEnderCube(inventory, this);
@@ -38,7 +76,6 @@ public class TileEntityEnderCube extends TileEntityAU {
 	public GuiEnderCube getGuiContainer(InventoryPlayer inventory){
 		return new GuiEnderCube(inventory, this);
 	}
-*/
 
 	//////////
 
@@ -59,7 +96,64 @@ public class TileEntityEnderCube extends TileEntityAU {
 
 	//////////
 
-	private static final int CLIENT_EVENT_TELEPORT = 100;
+	private static final int CLIENT_EVENT_SPAWN_PARTICLES		= 100;
+	private static final int CLIENT_EVENT_PLAYER_DIRECTION		= 101;
+	private static final int CLIENT_EVENT_TELEPORT_DIRECTION	= 102;
+	private static final int CLIENT_EVENT_PLAYER_CONTROL		= 103;
+	private static final int CLIENT_EVENT_CONTACT_CONTROL		= 104;
+	private static final int CLIENT_EVENT_REDSTONE_CONTROL		= 105;
+
+	public EnderButton getPlayerDirection(){
+		return EnderButton.values()[EnderButton.BUTTON_PLAYER_UD.ordinal() + this.playerDirection];
+	}
+	public void setPlayerDirection(EnderButton button){
+		this.playerDirection = (byte)(button.ordinal() - EnderButton.BUTTON_PLAYER_UD.ordinal());
+
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_PLAYER_DIRECTION, this.playerDirection);
+		this.markChunkModified();
+	}
+
+	public EnderButton getTeleportDirection(){
+		return EnderButton.values()[EnderButton.BUTTON_DOWN.ordinal() + this.teleportDirection];
+	}
+	public void setTeleportDirection(EnderButton button){
+		this.teleportDirection = (byte)(button.ordinal() - EnderButton.BUTTON_DOWN.ordinal());
+
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_TELEPORT_DIRECTION, this.teleportDirection);
+		this.markChunkModified();
+	}
+
+	public boolean getPlayerControl(){
+		return this.playerControl;
+	}
+	public void togglePlayerControl(){
+		this.playerControl = this.playerControl ? false : true;
+		if(this.playerControl) this.contactControl = false; // can't have both
+
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_PLAYER_CONTROL, this.playerControl ? 1 : 0);
+		this.markChunkModified();
+	}
+
+	public boolean getContactControl(){
+		return this.contactControl;
+	}
+	public void toggleContactControl(){
+		this.contactControl = this.contactControl ? false : true;
+		if(this.contactControl) this.playerControl = false; // can't have both
+
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_CONTACT_CONTROL, this.contactControl ? 1 : 0);
+		this.markChunkModified();
+	}
+
+	public boolean getRedstoneControl(){
+		return this.redstoneControl;
+	}
+	public void toggleRedstoneControl(){
+		this.redstoneControl = this.redstoneControl ? false : true;
+
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_REDSTONE_CONTROL, this.redstoneControl ? 1 : 0);
+		this.markChunkModified();
+	}
 
 	@Override
 	public boolean canUpdate(){
@@ -71,12 +165,35 @@ public class TileEntityEnderCube extends TileEntityAU {
 		if(super.receiveClientEvent(eventID, value)) return true;
 
 		switch(eventID){
-		case TileEntityEnderCube.CLIENT_EVENT_TELEPORT:
+		case TileEntityEnderCube.CLIENT_EVENT_SPAWN_PARTICLES:
+			// display particles above both ender cubes
 			Random random = new Random();
 			RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 2.0F, (float)this.zCoord + 0.5F,
 										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
 			RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)value + 1.5F, (float)this.zCoord + 0.5F,
 										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
+			return true;
+		case TileEntityEnderCube.CLIENT_EVENT_PLAYER_DIRECTION:
+			// set player direction button
+			this.playerDirection = (byte)value;
+			return true;
+		case TileEntityEnderCube.CLIENT_EVENT_TELEPORT_DIRECTION:
+			// set direction button
+			this.teleportDirection = (byte)value;
+			return true;
+		case TileEntityEnderCube.CLIENT_EVENT_PLAYER_CONTROL:
+			// set player control button
+			this.playerControl = (value == 1);
+			if(this.playerControl) this.contactControl = false; // can't have both
+			return true;
+		case TileEntityEnderCube.CLIENT_EVENT_CONTACT_CONTROL:
+			// set contact control button
+			this.contactControl = (value == 1);
+			if(this.contactControl) this.playerControl = false; // can't have both
+			return true;
+		case TileEntityEnderCube.CLIENT_EVENT_REDSTONE_CONTROL:
+			// set redstone control button
+			this.redstoneControl = (value == 1);
 			return true;
 		default:
 			return false;
@@ -101,7 +218,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 					player.setPositionAndUpdate(this.xCoord + 0.5F, y + 1.1F, this.zCoord + 0.5F);
 					this.worldObj.playSoundAtEntity(player, "mob.endermen.portal", 1.0F, 1.0F);
 
-					this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_TELEPORT, y);
+					this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_SPAWN_PARTICLES, y);
 				}
 			break;
 		}
