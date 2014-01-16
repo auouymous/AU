@@ -22,7 +22,7 @@ public class ItemUtils {
 				s = itemstack.getItem().getUnlocalizedName(itemstack);
 				#endif
 		} catch(Exception e){
-			// this can happen
+			s = "<Unknown>";
 		}
 		return s;
 	}
