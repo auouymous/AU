@@ -89,7 +89,7 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getRenderType(){
-		return ClientProxy.glassRenderType;
+		return (this.style == 0 ? 0 : ClientProxy.glassRenderType);
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 	@SideOnly(Side.CLIENT)
 	public boolean canRenderInPass(int pass){
 		ClientProxy.renderPass = pass;
-		return true;
+		return (this.style == 0 && pass == 0) || (this.style != 0 && pass != 0);
 	}
 
 	@Override
