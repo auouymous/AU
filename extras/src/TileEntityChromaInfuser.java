@@ -21,14 +21,14 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	private ChromaButton recipeButton;
 	private boolean isLocked;
 	private boolean hasWater;
-	private int dyeColor;
-	private int dyeVolume; // 0-8
+	private byte dyeColor;
+	private byte dyeVolume; // 0-8
 
-	private int outputTick;
+	private byte outputTick;
 	private ItemStack processingItem;
 	private ChromaRecipe processingRecipe;
 
-	public static final int outputTickMax = 20;
+	public static final byte outputTickMax = 20;
 
 	public TileEntityChromaInfuser(){
 		super();
@@ -75,11 +75,14 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	public void readFromNBT(NBTTagCompound nbt){
 		super.readFromNBT(nbt);
 
-		this.recipeButton = ChromaButton.values()[nbt.getByte("recipeButton")];
-		this.isLocked = nbt.getBoolean("isLocked");
-		this.hasWater = nbt.getBoolean("hasWater");
-		this.dyeColor = nbt.getByte("dyeColor");
-		this.dyeVolume = nbt.getByte("dyeVolume");
+		short settings = nbt.getShort("settings");
+
+		this.recipeButton = ChromaButton.values()[settings & 0x3];	// 0000 0000 0011
+		this.dyeColor = (byte)((settings>>2) & 0xf);				// 0000 0011 1100
+		this.dyeVolume = (byte)((settings>>6) & 0xf);				// 0011 1100 0000
+		this.hasWater = (settings & 0x400) != 0;					// 0100 0000 0000
+		this.isLocked = (settings & 0x800) != 0;					// 1000 0000 0000
+
 		this.processingItem = this.getInput();
 		this.processingRecipe = ChromaRegistry.getRecipe(this.recipeButton, this.getInput());
 	}
@@ -88,11 +91,11 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	public void writeToNBT(NBTTagCompound nbt){
 		super.writeToNBT(nbt);
 
-		nbt.setByte("recipeButton", (byte)this.recipeButton.ordinal());
-		nbt.setBoolean("isLocked", this.isLocked);
-		nbt.setBoolean("hasWater", this.hasWater);
-		nbt.setByte("dyeColor", (byte)this.dyeColor);
-		nbt.setByte("dyeVolume", (byte)this.dyeVolume);
+		short settings = (short)(this.recipeButton.ordinal() | (this.dyeColor<<2) | ((short)this.dyeVolume<<6));
+		if(this.hasWater) settings |= 0x400;
+		if(this.isLocked) settings |= 0x800;
+
+		nbt.setShort("settings", settings);
 	}
 
 	//////////
@@ -177,10 +180,10 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	}
 
 	public int getDyeColor(){
-		return this.dyeColor;
+		return (int)this.dyeColor;
 	}
 	public int getDyeVolume(){
-		return this.dyeVolume;
+		return (int)this.dyeVolume;
 	}
 	public void consumeDye(){
 		this.outputTick = 0;
@@ -190,7 +193,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 			if(itemstack != null){
 				int color = itemstack.getItemDamage();
 				this.dyeVolume = 8;
-				this.dyeColor = color;
+				this.dyeColor = (byte)color;
 
 				itemstack.stackSize--;
 				if(itemstack.stackSize == 0) this.slotContents[TileEntityChromaInfuser.SLOT_DYE_INPUT] = null;
@@ -304,7 +307,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		case TileEntityChromaInfuser.CLIENT_EVENT_SET_COLOR:
 			// set dye color
 			this.dyeVolume = 8;
-			this.dyeColor = value;
+			this.dyeColor = (byte)value;
 			this.outputTick = 0;
 			return true;
 		case TileEntityChromaInfuser.CLIENT_EVENT_UPDATE_OUTPUT:
