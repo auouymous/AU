@@ -30,14 +30,6 @@ public class ContainerChromaInfuser extends ContainerAU {
 		// input slot
 		this.addSlotToContainer(new SlotInventory(tileEntity, TileEntityChromaInfuser.SLOT_ITEM_INPUT, x_offset+1*18, y_offset+1*18){
 				@Override
-				public void onSlotChanged(){
-					this.inventory.onInventoryChanged();
-
-//					TileEntityChromaInfuser te = (TileEntityChromaInfuser)this.inventory;
-//					if(!te.worldObj.isRemote)
-//						te.resetOutputSlot(true);
-				}
-				@Override
 				public boolean isItemValid(ItemStack itemstack){
 					return ChromaRegistry.hasRecipe(itemstack);
 				}

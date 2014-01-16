@@ -165,11 +165,11 @@ public class GuiChromaInfuser extends GuiContainerAU {
 		if(button.id == GuiChromaInfuser.BUTTON_LOCKED){
 			((Button)button).active = ((Button)button).active ? false : true;
 			PacketDispatcher.sendPacketToServer(
-				PacketUtils.createPacket(AUExtras.packetChannel, Packets.LOCKED_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, ((Button)button).active)
+				PacketUtils.createPacket(AUExtras.packetChannel, Packets.CHROMA_LOCKED_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, ((Button)button).active)
 			);
 		} else if(!((Button)button).active){
 			PacketDispatcher.sendPacketToServer(
-				PacketUtils.createPacket(AUExtras.packetChannel, Packets.RECIPE_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
+				PacketUtils.createPacket(AUExtras.packetChannel, Packets.CHROMA_RECIPE_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
 			);
 		}
 	}
