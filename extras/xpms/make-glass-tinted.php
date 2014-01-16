@@ -9,10 +9,15 @@ if($path == ""){
 
 ////////////////////
 
+$colors = "1e1b1b b3312c 3b511a 51301a 253192 7b2fbe 287697 ababab 434343 d88198 41cd34 decf2a 6689d3 c354cd eb8844 f0f0f0";
+$colors = explode(' ', $colors);
+
+function fade_color($color){
+	$fade = 0.80;
+	return substr("000000".dechex((floor(hexdec(substr($color,0,2))*$fade)<<16)+(floor(hexdec(substr($color,2,2))*$fade)<<8)+floor(hexdec(substr($color,4,2))*$fade)),-6);
+}
+
 function get_color($image, $color, $alpha){
-	$colors = "1e1b1b b3312c 3b511a 51301a 253192 7b2fbe 287697 ababab 434343 d88198 41cd34 decf2a 6689d3 c354cd eb8844 f0f0f0";
-	$colors = explode(' ', $colors);
-	$color = $colors[$color];
 	if($alpha == 0)
 		return imagecolorallocate($image, hexdec(substr($color, 0, 2)), hexdec(substr($color, 2, 2)), hexdec(substr($color, 4, 2)));
 	else
@@ -20,14 +25,14 @@ function get_color($image, $color, $alpha){
 }
 
 function drawCT($c, $ct, $t, $r, $b, $l, $tl, $tr, $br, $bl){
-	global $path, $item_icon;
+	global $path, $item_icon, $colors;
 
 	$image = imagecreatetruecolor(16, 16);
 	imagealphablending($image, true);
-	imagefill($image, 0,0, get_color($image, $c, 0.5)); // 50% transparent
+	imagefill($image, 0,0, get_color($image, $colors[$c], 0.5)); // 50% transparent
 	imagesavealpha($image, true);
-	$color = get_color($image, $c, 0);
-	$gray = imagecolorallocate($image, 68, 68, 68); // #444444
+	$color = get_color($image, $colors[$c], 0);
+	$gray = get_color($image, fade_color($colors[$c]), 0);
 
 	// sides
 	if($t) imageline($image, 1,0, 14,0, $color);

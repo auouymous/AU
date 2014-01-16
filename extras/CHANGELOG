@@ -8,6 +8,7 @@
 		- color vanilla wool in chroma infuser (1 dye per 8 wool)
 		- color vanilla carpet in chroma infuser (1 dye per 8 carpet) (1.6.x and up)
 		- color vanilla hardened clay and stained clay in chroma infuser (1 dye per 8 clay) (1.6.x and up)
+	- changed glass corners from dark gray to a slightly darker variant of the glass color
 	- handled a missing connected texture case on glass
 	- torches and levers can now be placed on glass
 	- lighting hack for all vanilla stairs and slabs
