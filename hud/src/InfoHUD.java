@@ -51,6 +51,7 @@ import com.qzx.au.core.UI;
 @SideOnly(Side.CLIENT)
 public class InfoHUD {
 	private UI ui = new UI();
+	private Random random = new Random();
 
 	public InfoHUD(){}
 
@@ -582,7 +583,7 @@ public class InfoHUD {
 
 								// item dropped when broken
 								try {
-									int droppedID = block.idDropped(blockMetadata, new Random(), 0);
+									int droppedID = block.idDropped(blockMetadata, this.random, 0);
 									if(droppedID > 0){
 										int droppedMetadata = block.damageDropped(blockMetadata);
 										ItemStack stackDropped = new ItemStack(droppedID, 1, droppedMetadata);
