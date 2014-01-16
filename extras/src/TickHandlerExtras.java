@@ -8,15 +8,19 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 
 import java.util.EnumSet;
 
 import com.qzx.au.core.PacketUtils;
+import com.qzx.au.core.UI;
 
 @SideOnly(Side.CLIENT)
 public class TickHandlerExtras implements ITickHandler {
+	private UI ui = new UI();
 	private boolean playerJumping = false;
 	private boolean playerSneaking = false;
 
@@ -36,6 +40,37 @@ public class TickHandlerExtras implements ITickHandler {
 
 			TileEntity tileEntity = (TileEntity)mc.theWorld.getBlockTileEntity(pos_x, pos_y, pos_z);
 			if(tileEntity instanceof TileEntityEnderCube){
+				TileEntityEnderCube te = (TileEntityEnderCube)tileEntity;
+				if(te.getPlayerControl() && !mc.gameSettings.showDebugInfo && (mc.inGameHasFocus || mc.currentScreen == null || mc.currentScreen instanceof GuiChat)){
+					// show message below cursor
+					EnderButton directions = te.getPlayerDirection();
+					String action_jump;
+					String action_sneak;
+					if(directions == EnderButton.BUTTON_PLAYER_UD){
+						action_jump = "up";
+						action_sneak = "down";
+					} else {
+						int heading = MathHelper.floor_double((double)(player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3; // SWNE = 0123
+						String[][][] headings = {
+							// NS							EW
+							{{"forward",	"backward"},	{"left",		"right"}},		// S
+							{{"left",		"right"},		{"backward",	"forward"}},	// W
+							{{"backward",	"forward"},		{"right",		"left"}},		// N
+							{{"right",		"left"},		{"forward",		"backward"}}	// E
+						};
+						String[] h = headings[heading][directions.ordinal()-1];
+						action_jump = h[0];
+						action_sneak = h[1];
+					}
+					ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+					this.ui.setCursor(screen.getScaledWidth()/2-10, screen.getScaledHeight()/2+10);
+					this.ui.drawString(UI.ALIGN_RIGHT, action_jump, 0xffffff, 0);
+					this.ui.drawString(UI.ALIGN_RIGHT, "JUMP to go ", 0xaaaaaa, 0);
+					this.ui.setCursor(screen.getScaledWidth()/2+10, screen.getScaledHeight()/2+10);
+					this.ui.drawString(UI.ALIGN_LEFT, "SNEAK to go ", 0xaaaaaa, 0);
+					this.ui.drawString(UI.ALIGN_LEFT, action_sneak, 0xffffff, 0);
+				}
+
 				if(player.movementInput.sneak && !playerSneaking)
 					PacketDispatcher.sendPacketToServer(
 						PacketUtils.createPacket(AUExtras.packetChannel, Packets.PLAYER_MOVEMENT, pos_x, pos_y, pos_z, (byte)0));
