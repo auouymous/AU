@@ -464,11 +464,11 @@ public class InfoHUD {
 								// block variable is reset after getting picked ID:META below
 							}
 
-							if(blockID != lastBlockID || blockMetadata != lastBlockMetadata){
+							if(blockID != this.lastBlockID || blockMetadata != this.lastBlockMetadata){
 								// reset drops
-								lastBlockID = blockID;
-								lastBlockMetadata = blockMetadata;
-								lastDrops.clear();
+								this.lastBlockID = blockID;
+								this.lastBlockMetadata = blockMetadata;
+								this.lastDrops.clear();
 							}
 
 							// name and ID if block is picked
@@ -592,13 +592,13 @@ public class InfoHUD {
 										if(droppedID == 0 || droppedName != null){
 											// add to drops list, if not already
 											LastDrop thisDrop = new LastDrop(droppedID, droppedMetadata, droppedName);
-											if(!lastDrops.contains(thisDrop))
-												lastDrops.add(thisDrop);
+											if(!this.lastDrops.contains(thisDrop))
+												this.lastDrops.add(thisDrop);
 										}
-										int nr_drops = lastDrops.size();
+										int nr_drops = this.lastDrops.size();
 										boolean dropSelf = true;
 										for(int i = 0; i < nr_drops; i++){
-											LastDrop drop = lastDrops.get(i);
+											LastDrop drop = this.lastDrops.get(i);
 											if(drop.id == 0){
 												this.ui.drawString("   no drop", 0xaaaaaa);
 												dropSelf = false;
