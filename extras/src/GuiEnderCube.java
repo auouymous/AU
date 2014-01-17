@@ -45,6 +45,10 @@ public class GuiEnderCube extends GuiContainerAU {
 		UI.bindTexture(this.mc, "au_extras", AUExtras.texturePath+"/gui/container.png");
 		UI.drawTexturedRect(this.playerButtons[0].xPosition-17, this.playerButtons[0].yPosition, 2*12,2*12, 12,12, 0.0F);
 		UI.drawTexturedRect(this.directionButtons[0].xPosition-17, this.directionButtons[0].yPosition, 2*12,2*12, 12,12, 0.0F);
+
+		// obstructed warning
+		if(tileEntity.isObstructed(tileEntity.worldObj, tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord))
+			this.fontRenderer.drawString("teleport area is obstructed", this.upperX, this.upperY, 0xff0000);
 	}
 
 	private Button addPlayerButton(EnderButton id, int textureX, int textureXactive, String tooltip){

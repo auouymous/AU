@@ -367,7 +367,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 			world.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_SPAWN_PARTICLES, direction_coord);
 	}
 
-	private boolean isObstructed(World world, int x, int y, int z){
+	public boolean isObstructed(World world, int x, int y, int z){
 		if(world.isAirBlock(x, y+1, z) && world.isAirBlock(x, y+2, z)) return false; // 2 air blocks
 		Block block = Block.blocksList[world.getBlockId(x, y+1, z)];
 		if(!this.checkBlockForObstructions(block)){
