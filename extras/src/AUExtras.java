@@ -449,6 +449,10 @@ public class AUExtras {
 			// CRAFT cobblestone + vine -> mossy cobble
 			GameRegistry.addShapelessRecipe(new ItemStack(Block.cobblestoneMossy), cobblestone, new ItemStack(Block.vine));
 		}
+		if(Cfg.enableCrackedBrickCrafting){
+			// CRAFT stoneBrick + ice -> cracked stone brick
+			GameRegistry.addShapelessRecipe(new ItemStack(Block.stoneBrick, 1, 2), stoneBrick, new ItemStack(Block.ice));
+		}
 		if(Cfg.enableGrassBlockCrafting){
 			// CRAFT tall grass + dirt -> grass block
 			GameRegistry.addShapelessRecipe(grassBlock, new ItemStack(Block.tallGrass, 1, 1), new ItemStack(Block.dirt));

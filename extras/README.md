@@ -105,6 +105,7 @@ Recipes
 * CRAFT 2 stone brick slabs TO 1 chiseled stone bricks (same as 1.8)
 * CRAFT 1 stone brick + 1 vine TO 1 mossy stone bricks (same as 1.8)
 * CRAFT 1 cobblestone + 1 vine TO 1 moss stone
+* CRAFT 1 stone brick + 1 ice TO 1 cracked brick
 * CRAFT 1 tall grass + 1 dirt TO 1 grass block
 * CRAFT 1 brown mushroom + 1 red mushroom + 1 grass block TO 1 mycelium
 *
