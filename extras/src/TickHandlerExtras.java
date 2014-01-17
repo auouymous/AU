@@ -69,6 +69,11 @@ public class TickHandlerExtras implements ITickHandler {
 					this.ui.setCursor(screen.getScaledWidth()/2+10, screen.getScaledHeight()/2+10);
 					this.ui.drawString(UI.ALIGN_LEFT, "SNEAK to go ", 0xaaaaaa, 0);
 					this.ui.drawString(UI.ALIGN_LEFT, action_sneak, 0xffffff, 0);
+
+					if(te.getPlayerRedstoneControl()){
+						this.ui.setCursor(screen.getScaledWidth()/2, screen.getScaledHeight()/2+20);
+						this.ui.drawString(UI.ALIGN_CENTER, "redstone signal required", 0xff6666, 0);
+					}
 				}
 
 				if(player.movementInput.sneak && !playerSneaking)
