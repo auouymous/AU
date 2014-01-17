@@ -3,6 +3,7 @@ package com.qzx.au.extras;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -45,7 +46,7 @@ public class PacketHandlerServer implements IPacketHandler {
 
 			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube)
-				((TileEntityEnderCube)te).teleportPlayer((EntityPlayer)player, ((Byte)values[3] == 1));
+				((TileEntityEnderCube)te).teleportEntity((EntityLiving)player, ((Byte)values[3] == 1));
 		} else if(id == Packets.ENDER_BUTTON){
 			// ender cube buttons
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
@@ -70,9 +71,6 @@ public class PacketHandlerServer implements IPacketHandler {
 					break;
 				case BUTTON_CONTROL_PLAYER:
 					((TileEntityEnderCube)te).togglePlayerControl();
-					break;
-				case BUTTON_CONTROL_CONTACT:
-					((TileEntityEnderCube)te).toggleContactControl();
 					break;
 				case BUTTON_CONTROL_REDSTONE:
 					((TileEntityEnderCube)te).toggleRedstoneControl();

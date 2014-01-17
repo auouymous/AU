@@ -68,7 +68,6 @@ public class GuiEnderCube extends GuiContainerAU {
 	private Button[] playerButtons = new Button[3];
 	private Button[] directionButtons = new Button[6];
 	private Button playerButton = null;
-	private Button contactButton = null;
 	private Button redstoneButton = null;
 
 	private void updateButtons(){
@@ -83,7 +82,6 @@ public class GuiEnderCube extends GuiContainerAU {
 			this.directionButtons[i].active = (this.directionButtons[i].id == button ? true : false);
 
 		this.playerButton.active = tileEntity.getPlayerControl();
-		this.contactButton.active = tileEntity.getContactControl();
 		this.redstoneButton.active = tileEntity.getRedstoneControl();
 	}
 
@@ -112,8 +110,6 @@ public class GuiEnderCube extends GuiContainerAU {
 
 		// controls
 		this.ui.drawSpace(17);
-		contactButton = this.addControlButton(EnderButton.BUTTON_CONTROL_CONTACT,	2*12, 3*12,		tileEntity.getContactControl());
-		this.ui.drawSpace(5);
 		redstoneButton = this.addControlButton(EnderButton.BUTTON_CONTROL_REDSTONE,	4*12, 5*12,		tileEntity.getRedstoneControl());
 		this.ui.lineBreak(17);
 
@@ -155,11 +151,6 @@ public class GuiEnderCube extends GuiContainerAU {
 				);
 			break;
 		case BUTTON_CONTROL_PLAYER:
-			PacketDispatcher.sendPacketToServer(
-				PacketUtils.createPacket(AUExtras.packetChannel, Packets.ENDER_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
-			);
-			break;
-		case BUTTON_CONTROL_CONTACT:
 			PacketDispatcher.sendPacketToServer(
 				PacketUtils.createPacket(AUExtras.packetChannel, Packets.ENDER_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
 			);

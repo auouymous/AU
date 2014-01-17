@@ -95,6 +95,37 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 
 	//////////
 
+    @Override
+    public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID){
+		if(world.isRemote) return;
+
+		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+		if(tileEntity instanceof TileEntityEnderCube){
+			TileEntityEnderCube te = (TileEntityEnderCube)tileEntity;
+			boolean is_powered = world.isBlockIndirectlyGettingPowered(x, y, z);
+			boolean was_powered = te.isPowered();
+
+			if(is_powered && !was_powered){
+				te.teleportAll();
+				te.setPowered(true);
+			} else if(!is_powered && was_powered)
+				te.setPowered(false);
+		}
+    }
+
+	@Override
+	public void onPostBlockPlaced(World world, int x, int y, int z, int par5){
+		if(world.isRemote) return;
+
+		// set initial powered state
+		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+		if(tileEntity instanceof TileEntityEnderCube)
+			if(world.isBlockIndirectlyGettingPowered(x, y, z))
+				((TileEntityEnderCube)tileEntity).setPowered(true);
+	}
+
+	//////////
+
 	@Override
 	public boolean onBlockEventReceived(World world, int x, int y, int z, int eventID, int value){
 		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
@@ -111,14 +142,6 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 
 		player.openGui(AUExtras.instance, Guis.TILE_GUI, world, x, y, z);
 		return true;
-	}
-
-	@Override
-	public void onEntityWalking(World world, int x, int y, int z, Entity entity){
-		if(!world.isRemote){
-if(entity instanceof EntityPlayer) Debug.print("player on ender cube");
-else Debug.print("entity on ender cube");
-		}
 	}
 
 	@Override

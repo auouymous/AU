@@ -20,9 +20,11 @@ Click the downward arrow in UI to begin crafting, click again to stop.
 Items can be piped in from top and extracted from bottom.
 Rain can set the water supply and clear dye, put a roof over them or disable this in the config. :)
 
-The Ender Cube is used to teleport players and entities to othere Cubes in any direction.
-Ender Cubes must have at least two air blocks above each cube.
+The Ender Cube is used to teleport players and entities to other cubes, in any direction.
+Ender Cubes must have at least two air blocks above each cube, although some blocks are allowed:
+	pressure plates, buttons, levers, rails, signs, torches and trip wires.
 Stand on an Ender Cube and sneak to teleport down/north/west, jump to teleport up/south/east.
+A redstone signal may also be used to teleport all entities above the cube to another cube.
 Maximum distance between Cubes is 16, adjustable in the config.
 
 Flower seeds produce biome-specific flowers 75% of the time and all flowers the other 25%.
