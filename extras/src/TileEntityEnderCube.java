@@ -34,6 +34,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 	private byte playerDirection; // NBT
 	private byte teleportDirection; // NBT
 	private boolean playerControl; // NBT
+	private boolean playerRedstoneControl; // NBT
 	private boolean redstoneControl; // NBT
 	private boolean isPowered; // NBT
 
@@ -43,6 +44,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 		this.playerDirection = 0;
 		this.teleportDirection = 0;
 		this.playerControl = false;
+		this.playerRedstoneControl = false;
 		this.redstoneControl = false;
 		this.isPowered = false;
 	}
@@ -55,13 +57,15 @@ public class TileEntityEnderCube extends TileEntityAU {
 
 		short settings = nbt.getShort("settings");
 
-		this.playerDirection = (byte)(settings & 0x3);			// 0000 0011
-		this.teleportDirection = (byte)((settings>>2) & 0x7);	// 0001 1100
-		this.playerControl = (settings & 0x20) != 0;			// 0010 0000
-		this.redstoneControl = (settings & 0x40) != 0;			// 0100 0000
-		this.isPowered = (settings & 0x80) != 0;				// 1000 0000
+		this.playerDirection = (byte)(settings & 0x3);			// 0000 0000 0011
+		this.teleportDirection = (byte)((settings>>2) & 0x7);	// 0000 0001 1100
+		this.playerControl = (settings & 0x20) != 0;			// 0000 0010 0000
+		this.playerRedstoneControl = (settings & 0x40) != 0;	// 0000 0100 0000
+		this.redstoneControl = (settings & 0x80) != 0;			// 0000 1000 0000
+		this.isPowered = (settings & 0x100) != 0;				// 0001 0000 0000
 
 		if(this.redstoneControl) this.playerControl = false; // can't use both
+		if(!this.playerControl) this.playerRedstoneControl = false;
 	}
 
 	@Override
@@ -70,8 +74,9 @@ public class TileEntityEnderCube extends TileEntityAU {
 
 		short settings = (short)(this.playerDirection | (this.teleportDirection<<2));
 		if(this.playerControl) settings |= 0x20;
-		if(this.redstoneControl) settings |= 0x40;
-		if(this.isPowered) settings |= 0x80;
+		if(this.playerRedstoneControl) settings |= 0x40;
+		if(this.redstoneControl) settings |= 0x80;
+		if(this.isPowered) settings |= 0x100;
 
 		nbt.setShort("settings", settings);
 	}
@@ -112,8 +117,9 @@ public class TileEntityEnderCube extends TileEntityAU {
 	private static final int CLIENT_EVENT_PLAYER_DIRECTION		= 101;
 	private static final int CLIENT_EVENT_TELEPORT_DIRECTION	= 102;
 	private static final int CLIENT_EVENT_PLAYER_CONTROL		= 103;
-	private static final int CLIENT_EVENT_REDSTONE_CONTROL		= 104;
-	private static final int CLIENT_EVENT_IS_POWERED			= 105;
+	private static final int CLIENT_EVENT_PLAYER_RS_CONTROL		= 104;
+	private static final int CLIENT_EVENT_REDSTONE_CONTROL		= 105;
+	private static final int CLIENT_EVENT_IS_POWERED			= 106;
 
 	public EnderButton getPlayerDirection(){
 		return EnderButton.values()[EnderButton.BUTTON_PLAYER_UD.ordinal() + this.playerDirection];
@@ -141,8 +147,20 @@ public class TileEntityEnderCube extends TileEntityAU {
 	public void togglePlayerControl(){
 		this.playerControl = this.playerControl ? false : true;
 		if(this.playerControl) this.redstoneControl = false; // can't use both
+		else this.playerRedstoneControl = false;
 
 		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_PLAYER_CONTROL, this.playerControl ? 1 : 0);
+		this.markChunkModified();
+	}
+
+	public boolean getPlayerRedstoneControl(){
+		return this.playerRedstoneControl;
+	}
+	public void togglePlayerRedstoneControl(){
+		this.playerRedstoneControl = this.playerRedstoneControl ? false : true;
+		if(!this.playerControl) this.playerRedstoneControl = false;
+
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_PLAYER_RS_CONTROL, this.playerRedstoneControl ? 1 : 0);
 		this.markChunkModified();
 	}
 
@@ -151,7 +169,10 @@ public class TileEntityEnderCube extends TileEntityAU {
 	}
 	public void toggleRedstoneControl(){
 		this.redstoneControl = this.redstoneControl ? false : true;
-		if(this.redstoneControl) this.playerControl = false; // can't use both
+		if(this.redstoneControl){
+			this.playerControl = false; // can't use both
+			this.playerRedstoneControl = false;
+		}
 
 		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_REDSTONE_CONTROL, this.redstoneControl ? 1 : 0);
 		this.markChunkModified();
@@ -208,10 +229,18 @@ public class TileEntityEnderCube extends TileEntityAU {
 			this.playerControl = (value == 1);
 			if(this.playerControl) this.redstoneControl = false; // can't use both
 			return true;
+		case TileEntityEnderCube.CLIENT_EVENT_PLAYER_RS_CONTROL:
+			// set player redstone control button
+			this.playerRedstoneControl = (value == 1);
+			if(!this.playerControl) this.playerRedstoneControl = false;
+			return true;
 		case TileEntityEnderCube.CLIENT_EVENT_REDSTONE_CONTROL:
 			// set redstone control button
 			this.redstoneControl = (value == 1);
-			if(this.redstoneControl) this.playerControl = false; // can't use both
+			if(this.redstoneControl){
+				this.playerControl = false; // can't use both
+				this.playerRedstoneControl = false;
+			}
 			return true;
 		case TileEntityEnderCube.CLIENT_EVENT_IS_POWERED:
 			// set redstone power state
@@ -287,8 +316,8 @@ public class TileEntityEnderCube extends TileEntityAU {
 		}
 	}
 
-	public void teleportEntity(EntityLiving entity, boolean teleport_up){
-		if(this.playerControl == false) return;
+	public void teleportPlayer(EntityLiving player, boolean teleport_up){
+		if(this.playerControl == false || (this.playerRedstoneControl == true && this.isPowered == false)) return;
 
 		// scan for nearby ender cube
 		int delta = (teleport_up ? 1 : -1);
@@ -300,7 +329,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 			for(; y != limit; y += delta){
 				if(this.worldObj.getBlockId(this.xCoord, y, this.zCoord) == AUExtras.blockEnderCube.blockID){
 					if(!this.isObstructed(this.worldObj, this.xCoord, y, this.zCoord))
-						this._teleportEntity(this.worldObj, this.xCoord, y, this.zCoord, entity, y, true);
+						this._teleportEntity(this.worldObj, this.xCoord, y, this.zCoord, player, y, true);
 					break;
 				}
 			}
@@ -311,7 +340,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 			for(; z != limit; z += delta){
 				if(this.worldObj.getBlockId(this.xCoord, this.yCoord, z) == AUExtras.blockEnderCube.blockID){
 					if(!this.isObstructed(this.worldObj, this.xCoord, this.yCoord, z))
-						this._teleportEntity(this.worldObj, this.xCoord, this.yCoord, z, entity, z, true);
+						this._teleportEntity(this.worldObj, this.xCoord, this.yCoord, z, player, z, true);
 					break;
 				}
 			}
@@ -322,7 +351,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 			for(; x != limit; x += delta){
 				if(this.worldObj.getBlockId(x, this.yCoord, this.zCoord) == AUExtras.blockEnderCube.blockID){
 					if(!this.isObstructed(this.worldObj, x, this.yCoord, this.zCoord))
-						this._teleportEntity(this.worldObj, x, this.yCoord, this.zCoord, entity, x, true);
+						this._teleportEntity(this.worldObj, x, this.yCoord, this.zCoord, player, x, true);
 					break;
 				}
 			}

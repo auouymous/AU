@@ -46,7 +46,7 @@ public class PacketHandlerServer implements IPacketHandler {
 
 			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube)
-				((TileEntityEnderCube)te).teleportEntity((EntityLiving)player, ((Byte)values[3] == 1));
+				((TileEntityEnderCube)te).teleportPlayer((EntityLiving)player, ((Byte)values[3] == 1));
 		} else if(id == Packets.ENDER_BUTTON){
 			// ender cube buttons
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
@@ -71,6 +71,9 @@ public class PacketHandlerServer implements IPacketHandler {
 					break;
 				case BUTTON_CONTROL_PLAYER:
 					((TileEntityEnderCube)te).togglePlayerControl();
+					break;
+				case BUTTON_CONTROL_PLAYER_RS:
+					((TileEntityEnderCube)te).togglePlayerRedstoneControl();
 					break;
 				case BUTTON_CONTROL_REDSTONE:
 					((TileEntityEnderCube)te).toggleRedstoneControl();

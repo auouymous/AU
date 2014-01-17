@@ -9,14 +9,18 @@ public class ContainerEnderCube extends ContainerAU {
 	public ContainerEnderCube(InventoryPlayer inventoryPlayer, TileEntityEnderCube tileEntity){
 		this.tileEntity = tileEntity;
 
-		this.centerUpperLowerWindows(7*18, 5*18 + 4);
+		//	buttons
+		//	buttons
+		//	[text] camo
+
+		this.centerUpperLowerWindows(9*18, 4*18);
 		int x_offset = this.upperOffsetX + 1;
 		int y_offset = this.upperOffsetY + 1;
 
 		// block camo
-		this.addSlotToContainer(new SlotBlockCamo(tileEntity, 0, x_offset+6*18-10, y_offset+4*18));
+		this.addSlotToContainer(new SlotBlockCamo(tileEntity, 0, x_offset+8*18-4, y_offset+3*18-4));
 
 		// player's inventory
-		this.addPlayerInventorySlotsToContainer(inventoryPlayer, y_offset+5*18 + 4);
+		this.addPlayerInventorySlotsToContainer(inventoryPlayer, y_offset+4*18);
 	}
 }

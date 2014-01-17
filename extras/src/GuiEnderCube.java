@@ -41,6 +41,10 @@ public class GuiEnderCube extends GuiContainerAU {
 		TileEntityEnderCube tileEntity = (TileEntityEnderCube)this.tileEntity;
 
 		this.updateButtons();
+
+		UI.bindTexture(this.mc, "au_extras", AUExtras.texturePath+"/gui/container.png");
+		UI.drawTexturedRect(this.playerButtons[0].xPosition-17, this.playerButtons[0].yPosition, 2*12,2*12, 12,12, 0.0F);
+		UI.drawTexturedRect(this.directionButtons[0].xPosition-17, this.directionButtons[0].yPosition, 2*12,2*12, 12,12, 0.0F);
 	}
 
 	private Button addPlayerButton(EnderButton id, int textureX, int textureXactive){
@@ -68,6 +72,7 @@ public class GuiEnderCube extends GuiContainerAU {
 	private Button[] playerButtons = new Button[3];
 	private Button[] directionButtons = new Button[6];
 	private Button playerButton = null;
+	private Button playerRedstoneButton = null;
 	private Button redstoneButton = null;
 
 	private void updateButtons(){
@@ -82,6 +87,7 @@ public class GuiEnderCube extends GuiContainerAU {
 			this.directionButtons[i].active = (this.directionButtons[i].id == button ? true : false);
 
 		this.playerButton.active = tileEntity.getPlayerControl();
+		this.playerRedstoneButton.active = tileEntity.getPlayerRedstoneControl();
 		this.redstoneButton.active = tileEntity.getRedstoneControl();
 	}
 
@@ -94,7 +100,9 @@ public class GuiEnderCube extends GuiContainerAU {
 
 		this.ui.setCursor(this.upperX + 10, this.upperY + 10);
 
-		// directions
+		// redstone control directions
+		redstoneButton = this.addControlButton(EnderButton.BUTTON_CONTROL_REDSTONE,	4*12, 5*12,		tileEntity.getRedstoneControl());
+		this.ui.drawSpace(22);
 		directionButtons[0] = this.addDirectionButton(EnderButton.BUTTON_DOWN,	0*12, 1*12);
 		this.ui.drawSpace(5);
 		directionButtons[1] = this.addDirectionButton(EnderButton.BUTTON_UP,	2*12, 3*12);
@@ -108,22 +116,16 @@ public class GuiEnderCube extends GuiContainerAU {
 		directionButtons[5] = this.addDirectionButton(EnderButton.BUTTON_EAST,	10*12, 11*12);
 		this.ui.lineBreak(17);
 
-		// controls
-		this.ui.drawSpace(17);
-		redstoneButton = this.addControlButton(EnderButton.BUTTON_CONTROL_REDSTONE,	4*12, 5*12,		tileEntity.getRedstoneControl());
-		this.ui.lineBreak(17);
-
-		// player directions
+		// player control directions
+		playerButton = this.addControlButton(EnderButton.BUTTON_CONTROL_PLAYER,				0*12, 1*12,		tileEntity.getPlayerControl());
+		this.ui.drawSpace(5);
+		playerRedstoneButton = this.addControlButton(EnderButton.BUTTON_CONTROL_PLAYER_RS,	4*12, 5*12,		tileEntity.getPlayerRedstoneControl());
+		this.ui.drawSpace(22);
 		playerButtons[0] = this.addPlayerButton(EnderButton.BUTTON_PLAYER_UD,	6*12, 7*12);
 		this.ui.drawSpace(5);
 		playerButtons[1] = this.addPlayerButton(EnderButton.BUTTON_PLAYER_NS,	8*12, 9*12);
 		this.ui.drawSpace(5);
 		playerButtons[2] = this.addPlayerButton(EnderButton.BUTTON_PLAYER_EW,	10*12, 11*12);
-		this.ui.lineBreak(17);
-
-		// controls
-		this.ui.drawSpace(17);
-		playerButton = this.addControlButton(EnderButton.BUTTON_CONTROL_PLAYER,		0*12, 1*12,		tileEntity.getPlayerControl());
 	}
 
 	@Override
@@ -151,6 +153,11 @@ public class GuiEnderCube extends GuiContainerAU {
 				);
 			break;
 		case BUTTON_CONTROL_PLAYER:
+			PacketDispatcher.sendPacketToServer(
+				PacketUtils.createPacket(AUExtras.packetChannel, Packets.ENDER_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
+			);
+			break;
+		case BUTTON_CONTROL_PLAYER_RS:
 			PacketDispatcher.sendPacketToServer(
 				PacketUtils.createPacket(AUExtras.packetChannel, Packets.ENDER_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
 			);
