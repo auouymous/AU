@@ -18,6 +18,7 @@ public class SlotBlockCamo extends SlotPattern {
 	public SlotBlockCamo(IInventory inventory, int slot, int x, int y){
 		super(inventory, slot, x, y, 1);
 		this.setFilterItemStack(new ItemStack(Block.dirt));
+		this.setTooltip("block camo");
 	}
 
 	@Override

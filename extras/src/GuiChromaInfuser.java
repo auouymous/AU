@@ -12,6 +12,8 @@ import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 
+import java.util.ArrayList;
+
 import org.lwjgl.opengl.GL11;
 
 import com.qzx.au.core.Button;
@@ -33,6 +35,8 @@ public class GuiChromaInfuser extends GuiContainerAU {
 //		super.drawGuiContainerForegroundLayer(cursor_x, cursor_y);
 //	}
 
+	private int water_x = 0, water_y = 0, water_w = 0, water_h = 0;
+
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int cursor_x, int cursor_y){
 		super.drawGuiContainerBackgroundLayer(f, cursor_x, cursor_y);
@@ -45,6 +49,7 @@ public class GuiChromaInfuser extends GuiContainerAU {
 		int y = this.upperY + 1*18+9 + 1 - 5;
 		int width = 18;
 		int height = 33;
+		this.water_x = x; this.water_y = y; this.water_w = width; this.water_h = height;
 		UI.drawBorder(x, y, width, height, 0xff373737, 0xffffffff, 0xff8b8b8);
 		// draw water
 		if(tileEntity.getWater()){
@@ -96,7 +101,11 @@ public class GuiChromaInfuser extends GuiContainerAU {
 		this.updateRecipeButtons();
 	}
 
+	private ItemStack[] recipePatternItems = new ItemStack[4];
+	private int[][] recipePatternCoords = new int[4][2];
+
 	private void drawOutputPattern(TileEntityChromaInfuser te, ChromaButton recipeButton, Button button){
+		recipePatternItems[recipeButton.ordinal()] = null;
 		ItemStack input = te.getInput();
 		if(input != null){
 			// lookup recipe
@@ -107,6 +116,11 @@ public class GuiChromaInfuser extends GuiContainerAU {
 				: new ItemStack(recipe.output.getItem().itemID, recipe.output.stackSize, recipe.getOutputColor(te.getDyeColor())));
 			// draw itemstack
 			if(output != null){
+				// set tooltip coordinates
+				recipePatternItems[recipeButton.ordinal()] = output;
+				recipePatternCoords[recipeButton.ordinal()][0] = button.xPosition+15;
+				recipePatternCoords[recipeButton.ordinal()][1] = button.yPosition-2;
+
 				RenderItem itemRenderer = new RenderItem();
 				itemRenderer.zLevel = 200.0F;
 				try {
@@ -118,17 +132,19 @@ public class GuiChromaInfuser extends GuiContainerAU {
 		}
 	}
 
-	private Button addRecipeButton(ChromaButton id, int textureX, int textureXactive){
+	private Button addRecipeButton(ChromaButton id, int textureX, int textureXactive, String tooltip){
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
 						.initState(((TileEntityChromaInfuser)this.tileEntity).getRecipeButton() == id)
-						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 0, textureXactive, 0);
+						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 0, textureXactive, 0)
+						.initTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
 	}
-	private Button addLockButton(int id, int textureX, int textureXactive){
+	private Button addLockButton(int id, int textureX, int textureXactive, String tooltip){
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id, null, 12, 12, 0)
 						.initState(!((TileEntityChromaInfuser)this.tileEntity).getLocked())
-						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 0, textureXactive, 0);
+						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 0, textureXactive, 0)
+						.initTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
 	}
@@ -148,16 +164,16 @@ public class GuiChromaInfuser extends GuiContainerAU {
 		this.buttonList.clear();
 
 		this.ui.setCursor(this.upperX + 2*18 + 9, this.upperY + 10);
-		recipeButtons[0] = this.addRecipeButton(ChromaButton.BUTTON_BLANK,		20+0*12, 20+1*12);
+		recipeButtons[0] = this.addRecipeButton(ChromaButton.BUTTON_BLANK,		20+0*12, 20+1*12,		"'blank' recipe style");
 		this.ui.lineBreak(17);
-		recipeButtons[1] = this.addRecipeButton(ChromaButton.BUTTON_SQUARE,		20+2*12, 20+3*12);
+		recipeButtons[1] = this.addRecipeButton(ChromaButton.BUTTON_SQUARE,		20+2*12, 20+3*12,		"'square' recipe style");
 		this.ui.lineBreak(17);
-		recipeButtons[2] = this.addRecipeButton(ChromaButton.BUTTON_SQUARE_DOT,	20+4*12, 20+5*12);
+		recipeButtons[2] = this.addRecipeButton(ChromaButton.BUTTON_SQUARE_DOT,	20+4*12, 20+5*12,		"'square dot' recipe style");
 		this.ui.lineBreak(17);
-		recipeButtons[3] = this.addRecipeButton(ChromaButton.BUTTON_DOT,		20+6*12, 20+7*12);
+		recipeButtons[3] = this.addRecipeButton(ChromaButton.BUTTON_DOT,		20+6*12, 20+7*12,		"'dot' recipe style");
 
 		this.ui.setCursor(this.upperX+2, this.upperY+2*18-3);
-		this.addLockButton(GuiChromaInfuser.BUTTON_LOCKED,						20+8*12, 20+9*12);
+		this.addLockButton(GuiChromaInfuser.BUTTON_LOCKED,						20+8*12, 20+9*12,		"enable to begin infusing items");
 	}
 
 	@Override
@@ -172,5 +188,36 @@ public class GuiChromaInfuser extends GuiContainerAU {
 				PacketUtils.createPacket(AUExtras.packetChannel, Packets.CHROMA_RECIPE_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
 			);
 		}
+	}
+
+	@Override
+	protected void drawTooltips(int x, int y){
+		// water guage tooltip
+		if(x >= this.water_x && x < this.water_x+this.water_w && y >= this.water_y && y < this.water_y+this.water_h){
+			TileEntityChromaInfuser tileEntity = (TileEntityChromaInfuser)this.tileEntity;
+			ArrayList tooltip = new ArrayList();
+			if(!tileEntity.getWater()){
+				tooltip.add("wait for rain");
+				tooltip.add("or add a bucket of water");
+			} else if(tileEntity.getDyeVolume() > 0)
+				tooltip.add(String.format("%d units of %s dye", tileEntity.getDyeVolume(), Color.readableColors[tileEntity.getDyeColor()]));
+			else
+				tooltip.add("add dye to color the water");
+			this.drawHoveringText(tooltip, x, y, this.fontRenderer);
+			return;
+		}
+
+		// recipe patterns
+		for(int i = 0; i < 4; i++)
+			if(recipePatternItems[i] != null){
+				int rp_x = recipePatternCoords[i][0];
+				int rp_y = recipePatternCoords[i][1];
+				if(x >= rp_x && x < rp_x+16 && y >= rp_y && y < rp_y+16){
+					this.drawItemStackTooltip(recipePatternItems[i], x, y);
+					return;
+				}
+			}
+
+		super.drawTooltips(x, y);
 	}
 }

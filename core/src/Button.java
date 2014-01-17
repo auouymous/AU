@@ -23,10 +23,13 @@ public class Button extends GuiButton {
 	private int imageXactive;
 	private int imageYactive;
 
+	private String tooltip;
+
 	public Button(int id, int x, int y, int width, int height, String s){
 		super(id, x, y, width, height, s);
 		this.style = Button.DEFAULT_STYLE;
 		this.active = false;
+		this.tooltip = null;
 	}
 
 	public Button initState(boolean active){
@@ -43,6 +46,11 @@ public class Button extends GuiButton {
 		this.imageY = textureY;
 		this.imageXactive = textureXactive;
 		this.imageYactive = textureYactive;
+		return this;
+	}
+
+	public Button initTooltip(String tooltip){
+		this.tooltip = tooltip;
 		return this;
 	}
 
@@ -94,5 +102,13 @@ public class Button extends GuiButton {
 			if(this.displayString != null)
 				this.drawCenteredString(mc.fontRenderer, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, text_color);
 		}
+	}
+
+	public String getTooltip(){
+		return this.tooltip;
+	}
+
+	public boolean isMouseOver(){
+		return this.getHoverState(this.field_82253_i) == 2; // 0:disabled, 1:normal, 2:hover
 	}
 }

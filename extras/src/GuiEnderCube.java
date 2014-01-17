@@ -47,24 +47,27 @@ public class GuiEnderCube extends GuiContainerAU {
 		UI.drawTexturedRect(this.directionButtons[0].xPosition-17, this.directionButtons[0].yPosition, 2*12,2*12, 12,12, 0.0F);
 	}
 
-	private Button addPlayerButton(EnderButton id, int textureX, int textureXactive){
+	private Button addPlayerButton(EnderButton id, int textureX, int textureXactive, String tooltip){
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
 						.initState(((TileEntityEnderCube)this.tileEntity).getPlayerDirection() == id)
-						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 2*12, textureXactive, 2*12);
+						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 2*12, textureXactive, 2*12)
+						.initTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
 	}
-	private Button addDirectionButton(EnderButton id, int textureX, int textureXactive){
+	private Button addDirectionButton(EnderButton id, int textureX, int textureXactive, String tooltip){
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
 						.initState(((TileEntityEnderCube)this.tileEntity).getTeleportDirection() == id)
-						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 1*12, textureXactive, 1*12);
+						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 1*12, textureXactive, 1*12)
+						.initTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
 	}
-	private Button addControlButton(EnderButton id, int textureX, int textureXactive, boolean state){
+	private Button addControlButton(EnderButton id, int textureX, int textureXactive, boolean state, String tooltip){
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
 						.initState(state)
-						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 2*12, textureXactive, 2*12);
+						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 2*12, textureXactive, 2*12)
+						.initTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
 	}
@@ -101,31 +104,31 @@ public class GuiEnderCube extends GuiContainerAU {
 		this.ui.setCursor(this.upperX + 10, this.upperY + 10);
 
 		// redstone control directions
-		redstoneButton = this.addControlButton(EnderButton.BUTTON_CONTROL_REDSTONE,	4*12, 5*12,		tileEntity.getRedstoneControl());
+		redstoneButton = this.addControlButton(EnderButton.BUTTON_CONTROL_REDSTONE,	4*12, 5*12,		tileEntity.getRedstoneControl(),	"redstone signal teleports all entities above block");
 		this.ui.drawSpace(22);
-		directionButtons[0] = this.addDirectionButton(EnderButton.BUTTON_DOWN,	0*12, 1*12);
+		directionButtons[0] = this.addDirectionButton(EnderButton.BUTTON_DOWN,	0*12, 1*12,		"teleport down");
 		this.ui.drawSpace(5);
-		directionButtons[1] = this.addDirectionButton(EnderButton.BUTTON_UP,	2*12, 3*12);
+		directionButtons[1] = this.addDirectionButton(EnderButton.BUTTON_UP,	2*12, 3*12,		"teleport up");
 		this.ui.drawSpace(5);
-		directionButtons[2] = this.addDirectionButton(EnderButton.BUTTON_NORTH,	4*12, 5*12);
+		directionButtons[2] = this.addDirectionButton(EnderButton.BUTTON_NORTH,	4*12, 5*12,		"teleport north");
 		this.ui.drawSpace(5);
-		directionButtons[3] = this.addDirectionButton(EnderButton.BUTTON_SOUTH,	6*12, 7*12);
+		directionButtons[3] = this.addDirectionButton(EnderButton.BUTTON_SOUTH,	6*12, 7*12,		"teleport south");
 		this.ui.drawSpace(5);
-		directionButtons[4] = this.addDirectionButton(EnderButton.BUTTON_WEST,	8*12, 9*12);
+		directionButtons[4] = this.addDirectionButton(EnderButton.BUTTON_WEST,	8*12, 9*12,		"teleport west");
 		this.ui.drawSpace(5);
-		directionButtons[5] = this.addDirectionButton(EnderButton.BUTTON_EAST,	10*12, 11*12);
+		directionButtons[5] = this.addDirectionButton(EnderButton.BUTTON_EAST,	10*12, 11*12,	"teleport east");
 		this.ui.lineBreak(17);
 
 		// player control directions
-		playerButton = this.addControlButton(EnderButton.BUTTON_CONTROL_PLAYER,				0*12, 1*12,		tileEntity.getPlayerControl());
+		playerButton = this.addControlButton(EnderButton.BUTTON_CONTROL_PLAYER,				0*12, 1*12,		tileEntity.getPlayerControl(),	"player controls teleport with JUMP and SNEAK");
 		this.ui.drawSpace(5);
-		playerRedstoneButton = this.addControlButton(EnderButton.BUTTON_CONTROL_PLAYER_RS,	4*12, 5*12,		tileEntity.getPlayerRedstoneControl());
+		playerRedstoneButton = this.addControlButton(EnderButton.BUTTON_CONTROL_PLAYER_RS,	4*12, 5*12,		tileEntity.getPlayerRedstoneControl(),	"require redstone signal for player control");
 		this.ui.drawSpace(22);
-		playerButtons[0] = this.addPlayerButton(EnderButton.BUTTON_PLAYER_UD,	6*12, 7*12);
+		playerButtons[0] = this.addPlayerButton(EnderButton.BUTTON_PLAYER_UD,	6*12, 7*12,		"up/down directions");
 		this.ui.drawSpace(5);
-		playerButtons[1] = this.addPlayerButton(EnderButton.BUTTON_PLAYER_NS,	8*12, 9*12);
+		playerButtons[1] = this.addPlayerButton(EnderButton.BUTTON_PLAYER_NS,	8*12, 9*12,		"north/south directions");
 		this.ui.drawSpace(5);
-		playerButtons[2] = this.addPlayerButton(EnderButton.BUTTON_PLAYER_EW,	10*12, 11*12);
+		playerButtons[2] = this.addPlayerButton(EnderButton.BUTTON_PLAYER_EW,	10*12, 11*12,	"east/west directions");
 	}
 
 	@Override

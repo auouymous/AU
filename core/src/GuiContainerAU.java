@@ -128,6 +128,44 @@ public class GuiContainerAU extends GuiContainer {
 		}
 	}
 
+	@Override
+	public void drawScreen(int x, int y, float f){
+		super.drawScreen(x, y, f);
+		this.drawTooltips(x, y);
+	}
+
+	protected void drawTooltips(int x, int y){
+		// find any buttons below cursor
+		for(int i = 0; i < this.buttonList.size(); i++){
+			Button button = (Button)this.buttonList.get(i);
+			if(button.isMouseOver()){
+				String text = button.getTooltip();
+				if(text != null){
+					ArrayList tooltip = new ArrayList();
+					tooltip.add(text);
+					this.drawHoveringText(tooltip, x, y, this.fontRenderer);
+				}
+				return;
+			}
+		}
+		// find any slots below cursor
+		ArrayList slots = (ArrayList)this.containerAU.inventorySlots;
+		for(int s = 0; s < slots.size(); s++){
+			SlotAU slot = (SlotAU)slots.get(s);
+			if(slot.isMouseOver(x - this.guiLeft, y - this.guiTop)){
+				String text = slot.getTooltip();
+				if(slot.getStack() == null && text != null){
+					ArrayList tooltip = new ArrayList();
+					tooltip.add(text);
+					this.drawHoveringText(tooltip, x, y, this.fontRenderer);
+				}
+				return;
+			}
+		}
+
+		// override this to add more tooltips
+	}
+
 // TODO: methods to render tab pages and handle actions
 
 }

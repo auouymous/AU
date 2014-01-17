@@ -28,12 +28,14 @@ public class ContainerChromaInfuser extends ContainerAU {
 		int y_offset = this.upperOffsetY + 1 - 5;
 
 		// input slot
-		this.addSlotToContainer(new SlotInventory(tileEntity, TileEntityChromaInfuser.SLOT_ITEM_INPUT, x_offset+1*18, y_offset+1*18){
+		SlotInventory slotInput = (new SlotInventory(tileEntity, TileEntityChromaInfuser.SLOT_ITEM_INPUT, x_offset+1*18, y_offset+1*18){
 				@Override
 				public boolean isItemValid(ItemStack itemstack){
 					return ChromaRegistry.hasRecipe(itemstack);
 				}
 			});
+		slotInput.setTooltip("item input");
+		this.addSlotToContainer(slotInput);
 
 		// output slot
 		SlotInventory slotOutput = (new SlotInventory(tileEntity, TileEntityChromaInfuser.SLOT_ITEM_OUTPUT, x_offset+1*18, y_offset+3*18){
@@ -43,6 +45,7 @@ public class ContainerChromaInfuser extends ContainerAU {
 				}
 			});
 		slotOutput.borderPadding = 4;
+		slotOutput.setTooltip("item output");
 		this.addSlotToContainer(slotOutput);
 
 		// dye input slot
@@ -60,6 +63,7 @@ public class ContainerChromaInfuser extends ContainerAU {
 				}
 			};
 		slotDye.setFilterItemStack(new ItemStack(Item.dyePowder, 1, 8));
+		slotDye.setTooltip("dye input");
 		this.addSlotToContainer(slotDye);
 
 		// water bucket slot
@@ -88,6 +92,7 @@ public class ContainerChromaInfuser extends ContainerAU {
 				}
 			};
 		slotBucket.setFilterItemStack(new ItemStack(Item.bucketWater));
+		slotBucket.setTooltip("water bucket fills water or resets dye");
 		this.addSlotToContainer(slotBucket);
 
 		// player's inventory
