@@ -9,8 +9,6 @@ import net.minecraft.item.ItemStack;
 
 import net.minecraftforge.common.MinecraftForge;
 
-import com.qzx.au.core.Light;
-
 class BlockStairsColored extends BlockStairs {
 	public BlockStairsColored(int id, String name, String readableName, Block block, int blockMeta){
 		super(id, block, blockMeta);
@@ -19,10 +17,7 @@ class BlockStairsColored extends BlockStairs {
 		LanguageRegistry.addName(this, readableName);
 
 		// hack to fix lighting glitch
-		if(Cfg.enableLightingHack)
-			this.setLightValue(Light.level[1]); // stairs "glow" and can aborb and emit higher light levels
-		else
-			this.setLightOpacity(0); // stairs allow light sources to pass through them but don't suffer from "glow" and don't emit higher light levels
+		this.setLightOpacity(0); // stairs allow light sources to pass through them
 
 		MinecraftForge.setBlockHarvestLevel(this, "pickaxe", 0); // wooden pickaxe
 

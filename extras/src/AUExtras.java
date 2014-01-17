@@ -466,26 +466,27 @@ public class AUExtras {
 
 		if(Cfg.enableLightingHack){
 			// stairs
-			Block.stairsWoodOak.setLightValue(Light.level[1]);
-			Block.stairsCobblestone.setLightValue(Light.level[1]);
-			Block.stairsBrick.setLightValue(Light.level[1]);
-			Block.stairsStoneBrick.setLightValue(Light.level[1]);
-			Block.stairsNetherBrick.setLightValue(Light.level[1]);
-			Block.stairsSandStone.setLightValue(Light.level[1]);
-			Block.stairsWoodSpruce.setLightValue(Light.level[1]);
-			Block.stairsWoodBirch.setLightValue(Light.level[1]);
-			Block.stairsWoodJungle.setLightValue(Light.level[1]);
-			Block.stairsNetherQuartz.setLightValue(Light.level[1]);
+			Block.stairsWoodOak.setLightOpacity(0);
+			Block.stairsCobblestone.setLightOpacity(0);
+			Block.stairsBrick.setLightOpacity(0);
+			Block.stairsStoneBrick.setLightOpacity(0);
+			Block.stairsNetherBrick.setLightOpacity(0);
+			Block.stairsSandStone.setLightOpacity(0);
+			Block.stairsWoodSpruce.setLightOpacity(0);
+			Block.stairsWoodBirch.setLightOpacity(0);
+			Block.stairsWoodJungle.setLightOpacity(0);
+			Block.stairsNetherQuartz.setLightOpacity(0);
 			// slabs
-			Block.stoneSingleSlab.setLightValue(Light.level[1]);
-			Block.woodSingleSlab.setLightValue(Light.level[1]);
-			// additional
-			if(Cfg.additionalLightingHack != null)
-				for(int i = 0; i < Cfg.additionalLightingHack.length; i++){
-					Block block = Block.blocksList[Cfg.additionalLightingHack[i]];
-					if(block != null) block.setLightValue(Light.level[1]);
-				}
+			Block.stoneSingleSlab.setLightOpacity(0);
+			Block.woodSingleSlab.setLightOpacity(0);
 		}
+
+		// additional lighting hack
+		if(Cfg.additionalLightingHack != null)
+			for(int i = 0; i < Cfg.additionalLightingHack.length; i++){
+				Block block = Block.blocksList[Cfg.additionalLightingHack[i]];
+				if(block != null) block.setLightOpacity(0);
+			}
 
 		//////////
 
