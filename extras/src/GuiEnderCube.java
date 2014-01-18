@@ -18,6 +18,7 @@ import com.qzx.au.core.Button;
 import com.qzx.au.core.Color;
 import com.qzx.au.core.GuiContainerAU;
 import com.qzx.au.core.PacketUtils;
+import com.qzx.au.core.TextField;
 import com.qzx.au.core.UI;
 
 @SideOnly(Side.CLIENT)
@@ -55,7 +56,7 @@ public class GuiEnderCube extends GuiContainerAU {
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
 						.initState(((TileEntityEnderCube)this.tileEntity).getPlayerDirection() == id)
 						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 2*12, textureXactive, 2*12)
-						.initTooltip(tooltip);
+						.setTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
 	}
@@ -63,7 +64,7 @@ public class GuiEnderCube extends GuiContainerAU {
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
 						.initState(((TileEntityEnderCube)this.tileEntity).getTeleportDirection() == id)
 						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 1*12, textureXactive, 1*12)
-						.initTooltip(tooltip);
+						.setTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
 	}
@@ -71,7 +72,7 @@ public class GuiEnderCube extends GuiContainerAU {
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
 						.initState(state)
 						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 2*12, textureXactive, 2*12)
-						.initTooltip(tooltip);
+						.setTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
 	}
@@ -81,6 +82,7 @@ public class GuiEnderCube extends GuiContainerAU {
 	private Button playerButton = null;
 	private Button playerRedstoneButton = null;
 	private Button redstoneButton = null;
+	private TextField playerList = null;
 
 	private void updateButtons(){
 		TileEntityEnderCube tileEntity = (TileEntityEnderCube)this.tileEntity;
@@ -133,6 +135,20 @@ public class GuiEnderCube extends GuiContainerAU {
 		playerButtons[1] = this.addPlayerButton(EnderButton.BUTTON_PLAYER_NS,	8*12, 9*12,		"north/south directions");
 		this.ui.drawSpace(5);
 		playerButtons[2] = this.addPlayerButton(EnderButton.BUTTON_PLAYER_EW,	10*12, 11*12,	"east/west directions");
+		this.ui.lineBreak(17);
+
+		// player list
+		this.ui.lineBreak(11);
+		this.ui.x -= 6;
+		playerList = this.ui.newTextField("auouymous", 1000, 120, TextField.DEFAULT_STYLE);
+		playerList.setTooltip("allowed players (commas between names)");
+		this.textFieldList.add(playerList);
+	}
+
+	@Override
+	public void onTextFieldChanged(TextField field){
+		
+Debug.print("onTextFieldChange = \""+field.getText().trim()+"\"");
 	}
 
 	@Override

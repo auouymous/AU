@@ -37,6 +37,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 	private boolean playerRedstoneControl; // NBT
 	private boolean redstoneControl; // NBT
 	private boolean isPowered; // NBT
+	private String playerAccessList; // NBT
 
 	public TileEntityEnderCube(){
 		super();
@@ -47,6 +48,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 		this.playerRedstoneControl = false;
 		this.redstoneControl = false;
 		this.isPowered = false;
+		this.playerAccessList = null;
 	}
 
 	//////////
@@ -66,6 +68,12 @@ public class TileEntityEnderCube extends TileEntityAU {
 
 		if(this.redstoneControl) this.playerControl = false; // can't use both
 		if(!this.playerControl) this.playerRedstoneControl = false;
+
+		String pal = nbt.getString("tpAccess");
+		if(pal != null && !pal.equals(""))
+			this.playerAccessList = pal;
+		else
+			this.playerAccessList = null;
 	}
 
 	@Override
@@ -79,6 +87,9 @@ public class TileEntityEnderCube extends TileEntityAU {
 		if(this.isPowered) settings |= 0x100;
 
 		nbt.setShort("settings", settings);
+
+		if(this.playerAccessList != null)
+			nbt.setString("tpAccess", this.playerAccessList);
 	}
 
 	//////////
@@ -316,8 +327,19 @@ public class TileEntityEnderCube extends TileEntityAU {
 		}
 	}
 
+	private boolean isPlayerAllowed(EntityLiving player){
+		if(this.playerAccessList == null) return true;
+
+		String[] players = this.playerAccessList.split(",");
+		for(int i = 0; i < players.length; i++)
+			if(players[i].trim().equals(player.getEntityName())) return true;
+		return false;
+	}
+
 	public void teleportPlayer(EntityLiving player, boolean teleport_up){
 		if(this.playerControl == false || (this.playerRedstoneControl == true && this.isPowered == false)) return;
+
+		if(!isPlayerAllowed(player)) return;
 
 		// scan for nearby ender cube
 		int delta = (teleport_up ? 1 : -1);
