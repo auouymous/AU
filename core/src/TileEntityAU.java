@@ -248,8 +248,13 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		return true;
 	}
 
-	public void setCamoBlock(Block block, int metadata){
-		if((this.camoBlock.blockID == block.blockID && this.camoMeta == metadata) || !this.canCamo()) return;
+	public void setCamoBlock(ItemStack itemstack){
+		int blockID = (itemstack == null ? 0 : itemstack.getItem().itemID);
+		Block block = (itemstack == null ? null : Block.blocksList[blockID]);
+		int metadata = (itemstack == null ? 0 : itemstack.getItemDamage());
+		int currentID = (this.camoBlock == null ? 0 : this.camoBlock.blockID);
+
+		if((currentID == blockID && this.camoMeta == metadata) || !this.canCamo()) return;
 		this.camoBlock = block;
 		this.camoMeta = (byte)metadata;
 
@@ -346,6 +351,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	}
 
 	public ItemStack getStackInSlot(int slotIndex){
+		if(this.canCamo() && slotIndex == -1) return (this.camoBlock == null ? null : new ItemStack(this.camoBlock, 1, this.camoMeta));
 		return slotIndex >= 0 && slotIndex < this.nrSlots ? this.slotContents[slotIndex] : null;
 	}
 	public ItemStack decrStackSize(int slotIndex, int amount){
@@ -380,7 +386,13 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		return (info == null ? false : info.isItemValid(itemstack)); // ignore itemstack size
 	}
 	public void setInventorySlotContents(int slotIndex, ItemStack itemstack){
-		if(slotIndex < 0 || slotIndex >= this.nrSlots) return;
+		if(this.canCamo() && slotIndex == -1){
+			// camo block
+			if(itemstack != null)
+				itemstack.stackSize = 1;
+			this.onInventoryChanged();
+			return;
+		} else if(slotIndex < 0 || slotIndex >= this.nrSlots) return;
 
 // TODO: return if fake slot? (SlotPattern, SlotResult, etc)
 

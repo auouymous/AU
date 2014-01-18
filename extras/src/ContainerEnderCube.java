@@ -18,7 +18,7 @@ public class ContainerEnderCube extends ContainerAU {
 		int y_offset = this.upperOffsetY + 1;
 
 		// block camo
-		this.addSlotToContainer(new SlotBlockCamo(tileEntity, 0, x_offset+8*18-4, y_offset+3*18-4));
+		this.addSlotToContainer(new SlotBlockCamo(tileEntity, -1, x_offset+8*18-4, y_offset+3*18-4));
 
 		// player's inventory
 		this.addPlayerInventorySlotsToContainer(inventoryPlayer, y_offset+4*18);
