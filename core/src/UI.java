@@ -1,7 +1,6 @@
 package com.qzx.au.core;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -122,11 +121,10 @@ public class UI {
 
 	//////////
 
-	public GuiTextField newTextField(String s, int max_length, int width, int height, boolean draw_background){
-		GuiTextField t = new GuiTextField(this.mc.fontRenderer, this.x, this.y, width, height);
+	public TextField newTextField(String s, int max_length, int width, int style){
+		TextField t = new TextField(this.mc.fontRenderer, this.x, this.y, width, style);
 		t.setText(s);
 		t.setMaxStringLength(max_length);
-		t.setEnableBackgroundDrawing(draw_background);
 		this.x += width;
 		return t;
 	}

@@ -32,6 +32,8 @@ public class GuiContainerAU extends GuiContainer {
 	protected int upperX, upperY;
 	protected int lowerX, lowerY;
 
+	protected ArrayList<TextField> textFieldList;
+
 	public GuiContainerAU(InventoryPlayer inventoryPlayer, TileEntityAU tileEntity){
 		super(tileEntity.getContainer(inventoryPlayer));
 		this.ui = new UI();
@@ -39,6 +41,7 @@ public class GuiContainerAU extends GuiContainer {
 		this.tileEntity = tileEntity;
 		this.xSize = (ContainerAU.borderThickness<<1) + (this.containerAU.upperWidth > ContainerAU.lowerWidth ? this.containerAU.upperWidth : ContainerAU.lowerWidth);
 		this.ySize = this.containerAU.lowerOffsetY + ContainerAU.lowerHeight + ContainerAU.borderThickness;
+		this.textFieldList = new ArrayList();
 	}
 
 	@Override
@@ -60,16 +63,13 @@ public class GuiContainerAU extends GuiContainer {
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_LIGHTING);
 		this.zLevel = 201.0F;
-		ArrayList slots = (ArrayList)this.containerAU.inventorySlots;
 		int mask = 0x3f8b8b8b;
-		for(int s = 0; s < slots.size(); s++){
-			SlotAU slot = (SlotAU)slots.get(s);
+		for(SlotAU slot : (ArrayList<SlotAU>)this.containerAU.inventorySlots)
 			if(slot.shaded){
 				int x = slot.xDisplayPosition;
 				int y = slot.yDisplayPosition;
 				this.drawGradientRect(x, y, x+16, y+16, mask, mask); // background
 			}
-		}
 		this.zLevel = 0.0F;
 		GL11.glPopMatrix();
 */
@@ -102,9 +102,7 @@ public class GuiContainerAU extends GuiContainer {
 // TODO: draw tabs on upper left side
 
 		// slot borders
-		ArrayList slots = (ArrayList)this.containerAU.inventorySlots;
-		for(int s = 0; s < slots.size(); s++){
-			SlotAU slot = (SlotAU)slots.get(s);
+		for(SlotAU slot : (ArrayList<SlotAU>)this.containerAU.inventorySlots){
 			x = this.guiLeft + slot.xDisplayPosition - 1 - (slot.borderPadding>>1);
 			y = this.guiTop + slot.yDisplayPosition - 1 - (slot.borderPadding>>1);
 			int size = 18 + slot.borderPadding;
@@ -126,6 +124,10 @@ public class GuiContainerAU extends GuiContainer {
 				UI.drawRect(x+1, y+1, size-2, size-2, 0xbb8b8b8b);
 			}
 		}
+
+		// text fields
+		for(TextField field : this.textFieldList)
+			field.drawTextBox();
 	}
 
 	@Override
@@ -136,8 +138,7 @@ public class GuiContainerAU extends GuiContainer {
 
 	protected void drawTooltips(int x, int y){
 		// find any buttons below cursor
-		for(int i = 0; i < this.buttonList.size(); i++){
-			Button button = (Button)this.buttonList.get(i);
+		for(Button button : (ArrayList<Button>)this.buttonList)
 			if(button.isMouseOver()){
 				String text = button.getTooltip();
 				if(text != null){
@@ -147,11 +148,19 @@ public class GuiContainerAU extends GuiContainer {
 				}
 				return;
 			}
-		}
+		// find any text fields below cursor
+		for(TextField field : this.textFieldList)
+			if(field.isMouseOver(x, y)){
+				String text = field.getTooltip();
+				if(text != null){
+					ArrayList tooltip = new ArrayList();
+					tooltip.add(text);
+					this.drawHoveringText(tooltip, x, y, this.fontRenderer);
+				}
+				return;
+			}
 		// find any slots below cursor
-		ArrayList slots = (ArrayList)this.containerAU.inventorySlots;
-		for(int s = 0; s < slots.size(); s++){
-			SlotAU slot = (SlotAU)slots.get(s);
+		for(SlotAU slot : (ArrayList<SlotAU>)this.containerAU.inventorySlots)
 			if(slot.isMouseOver(x - this.guiLeft, y - this.guiTop)){
 				String text = slot.getTooltip();
 				if(slot.getStack() == null && text != null){
@@ -161,9 +170,55 @@ public class GuiContainerAU extends GuiContainer {
 				}
 				return;
 			}
-		}
 
 		// override this to add more tooltips
+	}
+
+	@Override
+	public void updateScreen(){
+		for(TextField field : this.textFieldList)
+			field.updateCursorCounter();
+		super.updateScreen();
+	}
+
+	@Override
+    protected void mouseClicked(int par1, int par2, int par3){
+		super.mouseClicked(par1, par2, par3);
+		for(TextField field : this.textFieldList)
+			field.mouseClicked(par1, par2, par3);
+	}
+
+	@Override
+	protected void keyTyped(char par1, int par2){
+		TextField current = null;
+		TextField next = null;
+		boolean focused = false;
+		for(TextField field : this.textFieldList){
+			if(current != null && next == null) next = field;
+			field.textboxKeyTyped(par1, par2);
+			if(field.isFocused()){
+				current = field;
+				focused = true;
+				if(par1 == 13) // enter key
+					this.onTextFieldChanged(field);
+			}
+		}
+
+		if(par1 == 9){
+			if(next == null) next = this.textFieldList.get(0);
+			if(current != null && current.canLoseFocus()){ current.setFocused(false); focused = false; }
+			if(current == null && next != null){ next.setFocused(true); focused = true; }
+		}
+
+		if(par2 == this.mc.gameSettings.keyBindInventory.keyCode){
+			if(!focused)
+				this.mc.thePlayer.closeScreen();
+		} else
+			super.keyTyped(par1, par2);
+	}
+
+	public void onTextFieldChanged(TextField field){
+		// .getText()
 	}
 
 // TODO: methods to render tab pages and handle actions
