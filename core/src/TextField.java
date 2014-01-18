@@ -39,7 +39,7 @@ public class TextField extends Gui {
 	public static int DEFAULT_STYLE = 1;
 	private int borderPadding = 4;
 
-	private String tooltip = null;
+	private String[] tooltip = null;
 
 	public TextField(FontRenderer fontRenderer, int x, int y, int width, int style){
 		this.fontRenderer = fontRenderer;
@@ -132,11 +132,11 @@ public class TextField extends Gui {
 
 	//////////
 
-	public String getTooltip(){
+	public String[] getTooltip(){
 		return this.tooltip;
 	}
 	public TextField setTooltip(String tooltip){
-		this.tooltip = tooltip;
+		this.tooltip = tooltip.split("\n");
 		return this;
 	}
 

@@ -23,7 +23,7 @@ public class Button extends GuiButton {
 	private int imageXactive;
 	private int imageYactive;
 
-	private String tooltip = null;
+	private String[] tooltip = null;
 
 	public Button(int id, int x, int y, int width, int height, String s){
 		super(id, x, y, width, height, s);
@@ -96,11 +96,11 @@ public class Button extends GuiButton {
 		}
 	}
 
-	public String getTooltip(){
+	public String[] getTooltip(){
 		return this.tooltip;
 	}
 	public Button setTooltip(String tooltip){
-		this.tooltip = tooltip;
+		this.tooltip = tooltip.split("\n");
 		return this;
 	}
 

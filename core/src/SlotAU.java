@@ -14,7 +14,7 @@ public class SlotAU extends Slot {
 
 	private ItemStack filterItemStack;
 
-	private String tooltip;
+	private String[] tooltip = null;
 
 	public SlotAU(IInventory inventory, int slot, int x, int y, int maxStackSize){
 		super(inventory, slot, x, y);
@@ -22,7 +22,6 @@ public class SlotAU extends Slot {
 		this.borderPadding = 0;
 		this.shaded = false;
 		this.filterItemStack = null;
-		this.tooltip = null;
 	}
 
 	public void setFilterItemStack(ItemStack itemstack){
@@ -41,11 +40,11 @@ public class SlotAU extends Slot {
 		return true;
 	}
 
-	public String getTooltip(){
+	public String[] getTooltip(){
 		return this.tooltip;
 	}
 	public SlotAU setTooltip(String tooltip){
-		this.tooltip = tooltip;
+		this.tooltip = tooltip.split("\n");
 		return this;
 	}
 

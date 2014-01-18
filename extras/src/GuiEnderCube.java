@@ -141,7 +141,7 @@ public class GuiEnderCube extends GuiContainerAU {
 		this.ui.lineBreak(11);
 		this.ui.x -= 6;
 		playerList = this.ui.newTextField("auouymous", 1000, 120, TextField.DEFAULT_STYLE);
-		playerList.setTooltip("allowed players (commas between names)");
+		playerList.setTooltip("allowed players\n(commas between names)");
 		this.textFieldList.add(playerList);
 	}
 

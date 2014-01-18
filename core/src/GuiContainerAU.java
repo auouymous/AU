@@ -140,38 +140,36 @@ public class GuiContainerAU extends GuiContainer {
 		// find any buttons below cursor
 		for(Button button : (ArrayList<Button>)this.buttonList)
 			if(button.isMouseOver()){
-				String text = button.getTooltip();
-				if(text != null){
-					ArrayList tooltip = new ArrayList();
-					tooltip.add(text);
-					this.drawHoveringText(tooltip, x, y, this.fontRenderer);
-				}
+				this.drawTooltip(button.getTooltip(), x, y);
 				return;
 			}
 		// find any text fields below cursor
 		for(TextField field : this.textFieldList)
 			if(field.isMouseOver(x, y)){
-				String text = field.getTooltip();
-				if(text != null){
-					ArrayList tooltip = new ArrayList();
-					tooltip.add(text);
-					this.drawHoveringText(tooltip, x, y, this.fontRenderer);
-				}
+				this.drawTooltip(field.getTooltip(), x, y);
 				return;
 			}
 		// find any slots below cursor
 		for(SlotAU slot : (ArrayList<SlotAU>)this.containerAU.inventorySlots)
 			if(slot.isMouseOver(x - this.guiLeft, y - this.guiTop)){
-				String text = slot.getTooltip();
-				if(slot.getStack() == null && text != null){
-					ArrayList tooltip = new ArrayList();
-					tooltip.add(text);
-					this.drawHoveringText(tooltip, x, y, this.fontRenderer);
-				}
+				if(slot.getStack() == null)
+					this.drawTooltip(slot.getTooltip(), x, y);
 				return;
 			}
 
 		// override this to add more tooltips
+	}
+
+	private void drawTooltip(String[] lines, int x, int y){
+		if(lines != null){
+			ArrayList tooltip = new ArrayList();
+			y += 10;
+			for(String line : lines){
+				tooltip.add(line);
+				y -= 10;
+			}
+			this.drawHoveringText(tooltip, x, y, this.fontRenderer);
+		}
 	}
 
 	@Override
