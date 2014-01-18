@@ -35,6 +35,8 @@ public class TextField extends Gui {
 	private boolean isEnabled = true;
 	private int enabledColor;
 	private int disabledColor;
+	private int cursorColor;
+	private int selectionColor;
 	private int style;
 	public static int DEFAULT_STYLE = 1;
 	private int borderPadding = 4;
@@ -48,8 +50,10 @@ public class TextField extends Gui {
 		this.width = width-this.borderPadding; // inner width
 		this.height = fontRenderer.FONT_HEIGHT; // inner height (outer height is height+4)
 		this.style = style;
-		this.enabledColor = 0x333333;
+		this.enabledColor = 0x000000;
 		this.disabledColor = 0x777777;
+		this.cursorColor = 0xffffffff;
+		this.selectionColor = 0xff0000ff;
 	}
 
 	//////////
@@ -60,44 +64,48 @@ public class TextField extends Gui {
 			UI.drawRect(this.xPos-(this.borderPadding>>2), this.yPos-(this.borderPadding>>2), this.width+(this.borderPadding>>1), this.height+(this.borderPadding>>1), 0xffaaaaaa);
 
 			int text_color = this.isEnabled ? this.enabledColor : this.disabledColor;
-			int j = this.cursorPosition - this.lineScrollOffset;
-			int k = this.selectionEnd - this.lineScrollOffset;
+			int cursor = this.cursorPosition - this.lineScrollOffset;
+			int selection_end = this.selectionEnd - this.lineScrollOffset;
 			String s = this.fontRenderer.trimStringToWidth(this.text.substring(this.lineScrollOffset), this.width);
-			boolean flag = j >= 0 && j <= s.length();
-			boolean flag1 = this.isFocused && this.cursorCounter / 6 % 2 == 0 && flag;
+			boolean valid_cursor = cursor >= 0 && cursor <= s.length();
+			boolean draw_cursor = this.isFocused && this.cursorCounter / 6 % 2 == 0 && valid_cursor;
 			int x = this.xPos;
 
-			if(k > s.length())
-				k = s.length();
+			if(selection_end > s.length())
+				selection_end = s.length();
 
+			// draw text left of cursor
 			if(s.length() > 0){
-				String s1 = flag ? s.substring(0, j) : s;
+				String s1 = valid_cursor ? s.substring(0, cursor) : s;
 				x = this.fontRenderer.drawString(s1, this.xPos, this.yPos, text_color);
 			}
 
-			boolean flag2 = this.cursorPosition < this.text.length() || this.text.length() >= this.getMaxStringLength();
+			boolean vertical_cursor = this.cursorPosition < this.text.length() || this.text.length() >= this.getMaxStringLength();
 			int xx = x;
 
-			if(!flag){
-				xx = j > 0 ? this.xPos + this.width : this.xPos;
-			} else if(flag2){
+			if(!valid_cursor){
+				xx = cursor > 0 ? this.xPos + this.width : this.xPos;
+			} else if(vertical_cursor){
 				xx = x - 1;
-				x--;
+//				x--;
 			}
 
-			if(s.length() > 0 && flag && j < s.length())
-				this.fontRenderer.drawString(s.substring(j), x, this.yPos, text_color);
+			// draw text right of cursor
+			if(s.length() > 0 && valid_cursor && cursor < s.length())
+				this.fontRenderer.drawString(s.substring(cursor), x, this.yPos, text_color);
 
-			if(flag1){
-				if(flag2)
-					UI.drawRect(xx, this.yPos - 1, xx + 1, this.yPos + 1 + this.fontRenderer.FONT_HEIGHT, 0xffd0d0d0);
+			// blinking cursor
+			if(draw_cursor){
+				if(vertical_cursor)
+					UI.drawRect(xx, this.yPos - (this.borderPadding>>2), 1, (this.borderPadding>>1) + this.fontRenderer.FONT_HEIGHT, this.cursorColor);
 				else
 					this.fontRenderer.drawString("_", xx, this.yPos, text_color);
 			}
 
-			if(k != j){
-				int cursor_x2 = this.xPos + this.fontRenderer.getStringWidth(s.substring(0, k));
-				this.drawCursorVertical(xx, this.yPos - 1, cursor_x2 - 1, this.yPos + 1 + this.fontRenderer.FONT_HEIGHT);
+			// highlight selection
+			if(selection_end != cursor){
+				int end_x = this.xPos + this.fontRenderer.getStringWidth(s.substring(0, selection_end));
+				this.drawCursorVertical(xx, this.yPos - 1, end_x - 1, this.yPos + 1 + this.fontRenderer.FONT_HEIGHT);
 			}
 		}
 	}
@@ -116,7 +124,7 @@ public class TextField extends Gui {
 		}
 
 		Tessellator tessellator = Tessellator.instance;
-		GL11.glColor4f(0.0F, 0.0F, 255.0F, 255.0F); // blue
+		UI.setColor(this.selectionColor);
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glEnable(GL11.GL_COLOR_LOGIC_OP);
 		GL11.glLogicOp(GL11.GL_OR_REVERSE);
@@ -152,9 +160,9 @@ public class TextField extends Gui {
 	}
 
 	public String getSelectedText(){
-		int i = this.cursorPosition < this.selectionEnd ? this.cursorPosition : this.selectionEnd;
-		int j = this.cursorPosition < this.selectionEnd ? this.selectionEnd : this.cursorPosition;
-		return this.text.substring(i, j);
+		int start = this.cursorPosition < this.selectionEnd ? this.cursorPosition : this.selectionEnd;
+		int end = this.cursorPosition < this.selectionEnd ? this.selectionEnd : this.cursorPosition;
+		return this.text.substring(start, end);
 	}
 // TODO: setSelectedText ?
 
