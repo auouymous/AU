@@ -136,7 +136,7 @@ public class GuiChromaInfuser extends GuiContainerAU {
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
 						.initState(((TileEntityChromaInfuser)this.tileEntity).getRecipeButton() == id)
 						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 0, textureXactive, 0)
-						.initTooltip(tooltip);
+						.setTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
 	}
@@ -144,7 +144,7 @@ public class GuiChromaInfuser extends GuiContainerAU {
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id, null, 12, 12, 0)
 						.initState(!((TileEntityChromaInfuser)this.tileEntity).getLocked())
 						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 0, textureXactive, 0)
-						.initTooltip(tooltip);
+						.setTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
 	}
