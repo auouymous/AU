@@ -37,7 +37,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 	private boolean playerRedstoneControl; // NBT
 	private boolean redstoneControl; // NBT
 	private boolean isPowered; // NBT
-	private String playerAccessList; // NBT
+	private String playerControlWhitelist; // NBT
 
 	public TileEntityEnderCube(){
 		super();
@@ -48,7 +48,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 		this.playerRedstoneControl = false;
 		this.redstoneControl = false;
 		this.isPowered = false;
-		this.playerAccessList = null;
+		this.playerControlWhitelist = null;
 	}
 
 	//////////
@@ -57,39 +57,39 @@ public class TileEntityEnderCube extends TileEntityAU {
 	public void readFromNBT(NBTTagCompound nbt){
 		super.readFromNBT(nbt);
 
-		short settings = nbt.getShort("settings");
+		short cfg = nbt.getShort("_cfg");
 
-		this.playerDirection = (byte)(settings & 0x3);			// 0000 0000 0011
-		this.teleportDirection = (byte)((settings>>2) & 0x7);	// 0000 0001 1100
-		this.playerControl = (settings & 0x20) != 0;			// 0000 0010 0000
-		this.playerRedstoneControl = (settings & 0x40) != 0;	// 0000 0100 0000
-		this.redstoneControl = (settings & 0x80) != 0;			// 0000 1000 0000
-		this.isPowered = (settings & 0x100) != 0;				// 0001 0000 0000
+		this.playerDirection = (byte)(cfg & 0x3);			// 0000 0000 0011
+		this.teleportDirection = (byte)((cfg>>2) & 0x7);	// 0000 0001 1100
+		this.playerControl = (cfg & 0x20) != 0;				// 0000 0010 0000
+		this.playerRedstoneControl = (cfg & 0x40) != 0;		// 0000 0100 0000
+		this.redstoneControl = (cfg & 0x80) != 0;			// 0000 1000 0000
+		this.isPowered = (cfg & 0x100) != 0;				// 0001 0000 0000
 
 		if(this.redstoneControl) this.playerControl = false; // can't use both
 		if(!this.playerControl) this.playerRedstoneControl = false;
 
-		String pal = nbt.getString("tpAccess");
-		if(pal != null && !pal.equals(""))
-			this.playerAccessList = pal;
+		String pcl = nbt.getString("_pcl");
+		if(pcl != null && !pcl.trim().equals(""))
+			this.playerControlWhitelist = pcl;
 		else
-			this.playerAccessList = null;
+			this.playerControlWhitelist = null;
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound nbt){
 		super.writeToNBT(nbt);
 
-		short settings = (short)(this.playerDirection | (this.teleportDirection<<2));
-		if(this.playerControl) settings |= 0x20;
-		if(this.playerRedstoneControl) settings |= 0x40;
-		if(this.redstoneControl) settings |= 0x80;
-		if(this.isPowered) settings |= 0x100;
+		short cfg = (short)(this.playerDirection | (this.teleportDirection<<2));
+		if(this.playerControl) cfg |= 0x20;
+		if(this.playerRedstoneControl) cfg |= 0x40;
+		if(this.redstoneControl) cfg |= 0x80;
+		if(this.isPowered) cfg |= 0x100;
 
-		nbt.setShort("settings", settings);
+		nbt.setShort("_cfg", cfg);
 
-		if(this.playerAccessList != null)
-			nbt.setString("tpAccess", this.playerAccessList);
+		if(this.playerControlWhitelist != null)
+			nbt.setString("_pcl", this.playerControlWhitelist);
 	}
 
 	//////////
@@ -327,10 +327,10 @@ public class TileEntityEnderCube extends TileEntityAU {
 		}
 	}
 
-	private boolean isPlayerAllowed(EntityLiving player){
-		if(this.playerAccessList == null) return true;
+	private boolean canPlayerControl(EntityLiving player){
+		if(this.playerControlWhitelist == null) return false;
 
-		String[] players = this.playerAccessList.split(",");
+		String[] players = this.playerControlWhitelist.split(",");
 		for(int i = 0; i < players.length; i++)
 			if(players[i].trim().equals(player.getEntityName())) return true;
 		return false;
@@ -339,7 +339,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 	public void teleportPlayer(EntityLiving player, boolean teleport_up){
 		if(this.playerControl == false || (this.playerRedstoneControl == true && this.isPowered == false)) return;
 
-		if(!isPlayerAllowed(player)) return;
+		if(!canPlayerControl(player)) return;
 
 		// scan for nearby ender cube
 		int delta = (teleport_up ? 1 : -1);

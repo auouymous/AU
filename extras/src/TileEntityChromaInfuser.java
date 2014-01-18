@@ -75,13 +75,13 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	public void readFromNBT(NBTTagCompound nbt){
 		super.readFromNBT(nbt);
 
-		short settings = nbt.getShort("settings");
+		short cfg = nbt.getShort("_cfg");
 
-		this.recipeButton = ChromaButton.values()[settings & 0x3];	// 0000 0000 0011
-		this.dyeColor = (byte)((settings>>2) & 0xf);				// 0000 0011 1100
-		this.dyeVolume = (byte)((settings>>6) & 0xf);				// 0011 1100 0000
-		this.hasWater = (settings & 0x400) != 0;					// 0100 0000 0000
-		this.isLocked = (settings & 0x800) != 0;					// 1000 0000 0000
+		this.recipeButton = ChromaButton.values()[cfg & 0x3];	// 0000 0000 0011
+		this.dyeColor = (byte)((cfg>>2) & 0xf);					// 0000 0011 1100
+		this.dyeVolume = (byte)((cfg>>6) & 0xf);				// 0011 1100 0000
+		this.hasWater = (cfg & 0x400) != 0;						// 0100 0000 0000
+		this.isLocked = (cfg & 0x800) != 0;						// 1000 0000 0000
 
 		this.processingItem = this.getInput();
 		this.processingRecipe = ChromaRegistry.getRecipe(this.recipeButton, this.getInput());
@@ -91,11 +91,11 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	public void writeToNBT(NBTTagCompound nbt){
 		super.writeToNBT(nbt);
 
-		short settings = (short)(this.recipeButton.ordinal() | (this.dyeColor<<2) | ((short)this.dyeVolume<<6));
-		if(this.hasWater) settings |= 0x400;
-		if(this.isLocked) settings |= 0x800;
+		short cfg = (short)(this.recipeButton.ordinal() | (this.dyeColor<<2) | ((short)this.dyeVolume<<6));
+		if(this.hasWater) cfg |= 0x400;
+		if(this.isLocked) cfg |= 0x800;
 
-		nbt.setShort("settings", settings);
+		nbt.setShort("_cfg", cfg);
 	}
 
 	//////////
