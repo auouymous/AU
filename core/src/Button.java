@@ -9,12 +9,12 @@ import net.minecraft.client.gui.GuiButton;
 @SideOnly(Side.CLIENT)
 public class Button extends GuiButton {
 	// width, height, xPosition, yPosition, displayString, enabled, drawButton
-	private int style;
+	private int style = Button.DEFAULT_STYLE;
 	private static int DEFAULT_STYLE = 0;
 	private static int ON_OFF_STYLE = 1;
 	private static int IMAGE_STYLE = 2;
 
-	public boolean active; // ON_OFF_STYLE
+	public boolean active = false; // ON_OFF_STYLE
 
 	private String imageMod;
 	private String imageTexture;
@@ -23,13 +23,10 @@ public class Button extends GuiButton {
 	private int imageXactive;
 	private int imageYactive;
 
-	private String tooltip;
+	private String tooltip = null;
 
 	public Button(int id, int x, int y, int width, int height, String s){
 		super(id, x, y, width, height, s);
-		this.style = Button.DEFAULT_STYLE;
-		this.active = false;
-		this.tooltip = null;
 	}
 
 	public Button initState(boolean active){
@@ -46,11 +43,6 @@ public class Button extends GuiButton {
 		this.imageY = textureY;
 		this.imageXactive = textureXactive;
 		this.imageYactive = textureYactive;
-		return this;
-	}
-
-	public Button initTooltip(String tooltip){
-		this.tooltip = tooltip;
 		return this;
 	}
 
@@ -106,6 +98,10 @@ public class Button extends GuiButton {
 
 	public String getTooltip(){
 		return this.tooltip;
+	}
+	public Button setTooltip(String tooltip){
+		this.tooltip = tooltip;
+		return this;
 	}
 
 	public boolean isMouseOver(){
