@@ -1,19 +1,23 @@
 package com.qzx.au.MOD_LOWER;
 
+import cpw.mods.fml.common.FMLLog;
+
 import net.minecraft.tileentity.TileEntity;
 
 public class Debug {
 	private static final String mod = "AU MOD_UPPER: ";
 
 	public static void error(String text){
-		System.err.println(Debug.mod+text);
+		FMLLog.severe(Debug.mod+text);
 	}
 
 	public static void print(String text){
-		System.out.println(Debug.mod+text);
+		// use warning since these should only be used in DEBUG code
+		FMLLog.warning(Debug.mod+text);
 	}
 
 	public static void print(TileEntity te, String text){
-		System.out.println(Debug.mod+(te.worldObj == null ? "------ " : (te.worldObj.isRemote ? "client " : "server "))+text);
+		// use warning since these should only be used in DEBUG code
+		FMLLog.warning(Debug.mod+(te.worldObj == null ? "------ " : (te.worldObj.isRemote ? "client " : "server "))+text);
 	}
 }
