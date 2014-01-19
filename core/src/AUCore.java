@@ -11,7 +11,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid="AUCore", name="Altered Unification CORE", version="0.0.0")
+@Mod(modid="AUCore", name="Altered Unification CORE", version=AUCore.modVersion)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
 public class AUCore {
 	@Instance("AUCore")
@@ -19,6 +19,8 @@ public class AUCore {
 
 //	@SidedProxy(clientSide="com.qzx.au.core.ClientProxy", serverSide="com.qzx.au.core.CommonProxy")
 //	public static CommonProxy proxy;
+
+	public static final String modVersion = "0.0.0";
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){}
