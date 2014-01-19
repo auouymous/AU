@@ -86,7 +86,7 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 	//////////
 
 	public TileEntity createNewTileEntity(World world){
-		return new TileEntityEnderCube();
+		return null;
 	}
 	@Override
 	public TileEntity createTileEntity(World world, int metadata){

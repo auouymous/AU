@@ -81,7 +81,7 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 	//////////
 
 	public TileEntity createNewTileEntity(World world){
-		return new TileEntityChromaInfuser();
+		return null;
 	}
 	@Override
 	public TileEntity createTileEntity(World world, int metadata){
