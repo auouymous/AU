@@ -50,7 +50,7 @@ public class PacketHandlerServer implements IPacketHandler {
 		} else if(id == Packets.ENDER_BUTTON){
 			// ender cube buttons
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
-			if(values == null){ Debug.error("Invalid player movement packet"); return; }
+			if(values == null){ Debug.error("Invalid ender cube button packet"); return; }
 
 			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube){
@@ -80,6 +80,14 @@ public class PacketHandlerServer implements IPacketHandler {
 					break;
 				}
 			}
+		} else if(id == Packets.UPDATE_PCL){
+			// ender cube player control whitelist
+			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, String.class);
+			if(values == null){ Debug.error("Invalid player control whitelist packet"); return; }
+
+			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			if(te instanceof TileEntityEnderCube)
+				((TileEntityEnderCube)te).setPlayerControlWhitelist((String)values[3]);
 		}
 	}
 }

@@ -157,6 +157,12 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 	#endif
 		if(world.isRemote)
 			RenderUtils.spawnParticles(world, (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F, new Random(), BlockEnderCube.nrPortalParticles, "portal", 2.0F, 2.0F, 2.0F);
+
+		else {
+			TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+			if(tileEntity instanceof TileEntityEnderCube)
+				((TileEntityEnderCube)tileEntity).setPlayerControlWhitelist(entity.getEntityName());
+		}
 	}
 	@Override
 	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int par5){

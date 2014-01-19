@@ -41,7 +41,9 @@ public class TickHandlerExtras implements ITickHandler {
 			TileEntity tileEntity = (TileEntity)mc.theWorld.getBlockTileEntity(pos_x, pos_y, pos_z);
 			if(tileEntity instanceof TileEntityEnderCube){
 				TileEntityEnderCube te = (TileEntityEnderCube)tileEntity;
-				if(te.getPlayerControl() && !mc.gameSettings.showDebugInfo && (mc.inGameHasFocus || mc.currentScreen == null || mc.currentScreen instanceof GuiChat)){
+				if(te.getPlayerControl() && te.canPlayerControl(player.getEntityName())
+				&& !mc.gameSettings.showDebugInfo && (mc.inGameHasFocus || mc.currentScreen == null || mc.currentScreen instanceof GuiChat)
+				){
 					// show message below cursor
 					EnderButton directions = te.getPlayerDirection();
 					String action_jump;

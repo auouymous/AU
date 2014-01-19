@@ -131,6 +131,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 	private static final int CLIENT_EVENT_PLAYER_RS_CONTROL		= 104;
 	private static final int CLIENT_EVENT_REDSTONE_CONTROL		= 105;
 	private static final int CLIENT_EVENT_IS_POWERED			= 106;
+	private static final int CLIENT_EVENT_UPDATE_PCL			= 107;
 
 	public EnderButton getPlayerDirection(){
 		return EnderButton.values()[EnderButton.BUTTON_PLAYER_UD.ordinal() + this.playerDirection];
@@ -199,6 +200,18 @@ public class TileEntityEnderCube extends TileEntityAU {
 		this.markChunkModified();
 	}
 
+	public String getPlayerControlWhitelist(){
+		return this.playerControlWhitelist == null ? "" : this.playerControlWhitelist;
+	}
+	public void setPlayerControlWhitelist(String pcl){
+		if(pcl != null && pcl.trim().equals("")) pcl = null;
+		if(pcl == null && this.playerControlWhitelist == null) return;
+		this.playerControlWhitelist = pcl;
+
+		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_UPDATE_PCL, 0);
+		this.markChunkModified();
+	}
+
 	@Override
 	public boolean canUpdate(){
 		return false;
@@ -256,6 +269,10 @@ public class TileEntityEnderCube extends TileEntityAU {
 		case TileEntityEnderCube.CLIENT_EVENT_IS_POWERED:
 			// set redstone power state
 			this.isPowered = (value == 1);
+			return true;
+		case TileEntityEnderCube.CLIENT_EVENT_UPDATE_PCL:
+			// update player control whitelist
+			GuiEnderCube.update_pcl = true;
 			return true;
 		default:
 			return false;
@@ -327,19 +344,19 @@ public class TileEntityEnderCube extends TileEntityAU {
 		}
 	}
 
-	private boolean canPlayerControl(EntityLiving player){
+	public boolean canPlayerControl(String playerName){
 		if(this.playerControlWhitelist == null) return false;
 
 		String[] players = this.playerControlWhitelist.split(",");
 		for(int i = 0; i < players.length; i++)
-			if(players[i].trim().equals(player.getEntityName())) return true;
+			if(players[i].trim().equals(playerName)) return true;
 		return false;
 	}
 
 	public void teleportPlayer(EntityLiving player, boolean teleport_up){
 		if(this.playerControl == false || (this.playerRedstoneControl == true && this.isPowered == false)) return;
 
-		if(!canPlayerControl(player)) return;
+		if(!canPlayerControl(player.getEntityName())) return;
 
 		// scan for nearby ender cube
 		int delta = (teleport_up ? 1 : -1);

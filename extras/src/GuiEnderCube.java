@@ -24,6 +24,7 @@ import com.qzx.au.core.UI;
 @SideOnly(Side.CLIENT)
 public class GuiEnderCube extends GuiContainerAU {
 	private UI ui = new UI();
+	public static boolean update_pcl;
 
 	public GuiEnderCube(InventoryPlayer inventoryPlayer, TileEntityEnderCube tileEntity){
 		super(inventoryPlayer, tileEntity);
@@ -42,6 +43,11 @@ public class GuiEnderCube extends GuiContainerAU {
 		TileEntityEnderCube tileEntity = (TileEntityEnderCube)this.tileEntity;
 
 		this.updateButtons();
+
+		if(GuiEnderCube.update_pcl){
+			this.playerList.setText(tileEntity.getPlayerControlWhitelist());
+			GuiEnderCube.update_pcl = false;
+		}
 
 		UI.bindTexture(this.mc, "au_extras", AUExtras.texturePath+"/gui/container.png");
 		UI.drawTexturedRect(this.playerButtons[0].xPosition-17, this.playerButtons[0].yPosition, 2*12,2*12, 12,12, 0.0F);
@@ -140,15 +146,23 @@ public class GuiEnderCube extends GuiContainerAU {
 		// player list
 		this.ui.lineBreak(11);
 		this.ui.x -= 6;
-		playerList = this.ui.newTextField("auouymous", 1000, 120, TextField.DEFAULT_STYLE);
-		playerList.setTooltip("player control whitelist\n(commas between names)");
+		String pcl = tileEntity.getPlayerControlWhitelist();
+		playerList = this.ui.newTextField(pcl == null ? "" : pcl, 1000, 120, TextField.DEFAULT_STYLE);
+		playerList.setTooltip("player control whitelist\npress ENTER to update\n(commas between names)");
 		this.textFieldList.add(playerList);
+		GuiEnderCube.update_pcl = false;
 	}
 
 	@Override
 	public void onTextFieldChanged(TextField field){
-		
-Debug.print("onTextFieldChange = \""+field.getText().trim()+"\"");
+		TileEntityEnderCube tileEntity = (TileEntityEnderCube)this.tileEntity;
+		String newPCL = field.getText().trim();
+		String oldPCL = tileEntity.getPlayerControlWhitelist();
+		if(oldPCL != null) oldPCL = oldPCL.trim();
+		if(!oldPCL.equals(newPCL))
+			PacketDispatcher.sendPacketToServer(
+				PacketUtils.createPacket(AUExtras.packetChannel, Packets.UPDATE_PCL, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (String)newPCL)
+			);
 	}
 
 	@Override
