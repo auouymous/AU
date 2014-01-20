@@ -67,7 +67,6 @@ public class BlockFlower extends BlockColored implements IPlantable {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public int getRenderType(){
 		return ClientProxy.flowerRenderType;
 	}

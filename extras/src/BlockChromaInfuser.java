@@ -121,7 +121,6 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 	}
 
 	@Override
-	@SideOnly(Side.CLIENT)
 	public int getRenderType(){
 		return ClientProxy.infuserRenderType;
 	}
