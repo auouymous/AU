@@ -147,7 +147,7 @@ public class GuiEnderCube extends GuiContainerAU {
 		this.ui.x -= 6;
 		String pcl = tileEntity.getPlayerControlWhitelist();
 		playerList = this.ui.newTextField(pcl == null ? "" : pcl, 1000, 120, TextField.DEFAULT_STYLE);
-		playerList.setTooltip("player control whitelist\npress ENTER to update\n(commas between names)");
+		playerList.setTooltip("player control whitelist\n- press ENTER to update -\n- leave blank to allow all -\n(commas between names)");
 		this.textFieldList.add(playerList);
 		Guis.update_pcl = false;
 	}
