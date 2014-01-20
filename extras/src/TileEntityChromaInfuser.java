@@ -105,12 +105,6 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		return new ContainerChromaInfuser(inventory, this);
 	}
 
-	@Override
-	@SideOnly(Side.CLIENT)
-	public GuiChromaInfuser getGuiContainer(InventoryPlayer inventory){
-		return new GuiChromaInfuser(inventory, this);
-	}
-
 	//////////
 
 	@Override

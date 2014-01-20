@@ -24,7 +24,6 @@ import com.qzx.au.core.UI;
 @SideOnly(Side.CLIENT)
 public class GuiEnderCube extends GuiContainerAU {
 	private UI ui = new UI();
-	public static boolean update_pcl;
 
 	public GuiEnderCube(InventoryPlayer inventoryPlayer, TileEntityEnderCube tileEntity){
 		super(inventoryPlayer, tileEntity);
@@ -44,9 +43,9 @@ public class GuiEnderCube extends GuiContainerAU {
 
 		this.updateButtons();
 
-		if(GuiEnderCube.update_pcl){
+		if(Guis.update_pcl){
 			this.playerList.setText(tileEntity.getPlayerControlWhitelist());
-			GuiEnderCube.update_pcl = false;
+			Guis.update_pcl = false;
 		}
 
 		UI.bindTexture(this.mc, "au_extras", AUExtras.texturePath+"/gui/container.png");
@@ -150,7 +149,7 @@ public class GuiEnderCube extends GuiContainerAU {
 		playerList = this.ui.newTextField(pcl == null ? "" : pcl, 1000, 120, TextField.DEFAULT_STYLE);
 		playerList.setTooltip("player control whitelist\npress ENTER to update\n(commas between names)");
 		this.textFieldList.add(playerList);
-		GuiEnderCube.update_pcl = false;
+		Guis.update_pcl = false;
 	}
 
 	@Override

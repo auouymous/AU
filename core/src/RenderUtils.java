@@ -16,8 +16,8 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
-@SideOnly(Side.CLIENT)
 public class RenderUtils {
+	@SideOnly(Side.CLIENT)
 	public static void renderInventoryBlock(Block block, RenderBlocks renderer, Icon iconYNeg, Icon iconYPos, Icon iconZNeg, Icon iconZPos, Icon iconXNeg, Icon iconXPos){
 		Tessellator tessellator = Tessellator.instance;
 
@@ -48,10 +48,12 @@ public class RenderUtils {
 		tessellator.draw();
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 	}
+	@SideOnly(Side.CLIENT)
 	public static void renderInventoryBlock(Block block, RenderBlocks renderer, Icon icon){
 		RenderUtils.renderInventoryBlock(block, renderer, icon, icon, icon, icon, icon, icon);
 	}
 
+	@SideOnly(Side.CLIENT)
 	public static void renderWorldBlockSide(Block block, RenderBlocks renderer, int x, int y, int z, int side, float offset, Icon icon, int brightness, int colorMultiplier){
 		Tessellator tessellator = Tessellator.instance;
 		if(brightness > -1) tessellator.setBrightness(brightness);

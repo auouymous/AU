@@ -38,12 +38,6 @@ public class CommonProxy implements IGuiHandler {
 
 	@Override
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z){
-		if(id == Guis.TILE_GUI){
-			// all TileEntityAUs that have a gui
-			TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-			if(tileEntity instanceof TileEntityAU)
-				return ((TileEntityAU)tileEntity).getGuiContainer(player.inventory);
-		}
 		return null;
 	}
 }

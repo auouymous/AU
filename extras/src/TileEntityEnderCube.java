@@ -11,7 +11,12 @@ import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockSign;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.BlockTripWire;
+#ifdef MC152
 import net.minecraft.entity.EntityLiving;
+#else
+import net.minecraft.entity.EntityLivingBase;
+#endif
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
@@ -70,7 +75,21 @@ public class TileEntityEnderCube extends TileEntityAU {
 		if(!this.playerControl) this.playerRedstoneControl = false;
 
 		String pcl = nbt.getString("_pcl");
-		if(pcl != null && !pcl.trim().equals(""))
+		if(pcl != null){
+			pcl = pcl.trim();
+			if(pcl.equals("")) pcl = null;
+		}
+
+		// update open containers
+		if(this.worldObj != null && this.worldObj.isRemote){
+			if(pcl != null && this.playerControlWhitelist != null){
+				if(!pcl.equals(this.playerControlWhitelist))
+					Guis.update_pcl = true;
+			} else if((pcl == null && this.playerControlWhitelist != null) || (pcl != null && this.playerControlWhitelist == null))
+				Guis.update_pcl = true;
+		}
+
+		if(pcl != null)
 			this.playerControlWhitelist = pcl;
 		else
 			this.playerControlWhitelist = null;
@@ -97,12 +116,6 @@ public class TileEntityEnderCube extends TileEntityAU {
 	@Override
 	public ContainerEnderCube getContainer(InventoryPlayer inventory){
 		return new ContainerEnderCube(inventory, this);
-	}
-
-	@Override
-	@SideOnly(Side.CLIENT)
-	public GuiEnderCube getGuiContainer(InventoryPlayer inventory){
-		return new GuiEnderCube(inventory, this);
 	}
 
 	//////////
@@ -229,15 +242,15 @@ public class TileEntityEnderCube extends TileEntityAU {
 										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
 			if((this.playerControl && this.playerDirection == 0) || (this.redstoneControl && (this.teleportDirection == 0 || this.teleportDirection == 1)))
 				// up/down
-				RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)value + 1.5F, (float)this.zCoord + 0.5F,
+				RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)value + 2.0F, (float)this.zCoord + 0.5F,
 											random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
 			else if((this.playerControl && this.playerDirection == 1) || (this.redstoneControl && (this.teleportDirection == 2 || this.teleportDirection == 3)))
 				// north/south
-				RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 1.5F, (float)value + 0.5F,
+				RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 2.0F, (float)value + 0.5F,
 											random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
 			else
 				// east/west
-				RenderUtils.spawnParticles(this.worldObj, (float)value + 0.5F, (float)this.yCoord + 1.5F, (float)this.zCoord + 0.5F,
+				RenderUtils.spawnParticles(this.worldObj, (float)value + 0.5F, (float)this.yCoord + 2.0F, (float)this.zCoord + 0.5F,
 											random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
 			return true;
 		case TileEntityEnderCube.CLIENT_EVENT_PLAYER_DIRECTION:
@@ -272,7 +285,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 			return true;
 		case TileEntityEnderCube.CLIENT_EVENT_UPDATE_PCL:
 			// update player control whitelist
-			GuiEnderCube.update_pcl = true;
+//			Guis.update_pcl = true;
 			return true;
 		default:
 			return false;
@@ -333,14 +346,18 @@ public class TileEntityEnderCube extends TileEntityAU {
 
 		if(found_match && !this.isObstructed(this.worldObj, x, y, z)){
 			// get all entities above source cube
-			List entities = this.worldObj.getEntitiesWithinAABB(EntityLiving.class,
+			#ifdef MC152
+			List<EntityLiving> entities = this.worldObj.getEntitiesWithinAABB(EntityLiving.class,
+			#else
+			List<EntityLivingBase> entities = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class,
+			#endif
 					(AxisAlignedBB)(new AABB((double)this.xCoord, (double)this.yCoord + 1.0D, (double)this.zCoord,
 									(double)this.xCoord + 1.0D, (double)this.yCoord + 3.0D, (double)this.zCoord + 1.0D)));
 
 			// teleport all entities to destination cube
 			int nr_entities = entities.size();
 			for(int i = 0; i < nr_entities; i++)
-				this._teleportEntity(this.worldObj, x, y, z, (EntityLiving)entities.get(i), direction_coord, (i == 0));
+				this._teleportEntity(this.worldObj, x, y, z, entities.get(i), direction_coord, (i == 0));
 		}
 	}
 
@@ -353,7 +370,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 		return false;
 	}
 
-	public void teleportPlayer(EntityLiving player, boolean teleport_up){
+	public void teleportPlayer(EntityPlayer player, boolean teleport_up){
 		if(this.playerControl == false || (this.playerRedstoneControl == true && this.isPowered == false)) return;
 
 		if(!canPlayerControl(player.getEntityName())) return;
@@ -397,7 +414,11 @@ public class TileEntityEnderCube extends TileEntityAU {
 		}
 	}
 
+	#ifdef MC152
 	private void _teleportEntity(World world, int x, int y, int z, EntityLiving entity, int direction_coord, boolean spawn_particles){
+	#else
+	private void _teleportEntity(World world, int x, int y, int z, EntityLivingBase entity, int direction_coord, boolean spawn_particles){
+	#endif
 		world.playSoundAtEntity(entity, "mob.endermen.portal", 1.0F, 1.0F);
 		entity.setPositionAndUpdate(x + 0.5F, y + 1.1F, z + 0.5F);
 		world.playSoundAtEntity(entity, "mob.endermen.portal", 1.0F, 1.0F);

@@ -198,13 +198,6 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		return null;
 	}
 
-	@SideOnly(Side.CLIENT)
-	public GuiContainerAU getGuiContainer(InventoryPlayer inventory){
-		// override for custom GUI
-		// return new GuiContainerAU(inventory, this);
-		return null;
-	}
-
 	//////////
 
 	private static final int CLIENT_EVENT_ACCESS_PLAYERS	= 1;
