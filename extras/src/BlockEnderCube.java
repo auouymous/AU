@@ -95,8 +95,8 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 
 	//////////
 
-    @Override
-    public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID){
+	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID){
 		if(world.isRemote) return;
 
 		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
@@ -111,7 +111,7 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 			} else if(!is_powered && was_powered)
 				te.setPowered(false);
 		}
-    }
+	}
 
 	@Override
 	public void onPostBlockPlaced(World world, int x, int y, int z, int par5){

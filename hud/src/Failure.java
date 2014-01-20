@@ -5,7 +5,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import com.qzx.au.core.UI;
 
 public class Failure {
-    private static UI ui = new UI();
+	private static UI ui = new UI();
 	private static int count = 0;
 
 	public static void reset(){

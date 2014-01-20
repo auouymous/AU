@@ -180,7 +180,7 @@ public class GuiContainerAU extends GuiContainer {
 	}
 
 	@Override
-    protected void mouseClicked(int par1, int par2, int par3){
+	protected void mouseClicked(int par1, int par2, int par3){
 		super.mouseClicked(par1, par2, par3);
 		for(TextField field : this.textFieldList)
 			field.mouseClicked(par1, par2, par3);
