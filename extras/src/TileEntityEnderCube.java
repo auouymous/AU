@@ -362,7 +362,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 	}
 
 	public boolean canPlayerControl(String playerName){
-		if(this.playerControlWhitelist == null) return false;
+		if(this.playerControlWhitelist == null) return true;
 
 		String[] players = this.playerControlWhitelist.split(",");
 		for(int i = 0; i < players.length; i++)
