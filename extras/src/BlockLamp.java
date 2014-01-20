@@ -77,6 +77,7 @@ public class BlockLamp extends BlockColored {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getRenderType(){
 		return ClientProxy.lampRenderType;
 	}

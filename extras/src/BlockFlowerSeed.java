@@ -82,6 +82,7 @@ public class BlockFlowerSeed extends Block implements IPlantable {
 	}
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public int getRenderType(){
 		return ClientProxy.flowerRenderType;
 	}
