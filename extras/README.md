@@ -24,6 +24,7 @@ The Ender Cube is used to teleport players and entities to other cubes, in any d
 Ender Cubes must have at least two air blocks above each cube, although some blocks are allowed:
 	pressure plates, buttons, levers, rails, signs, torches and trip wires.
 Stand on an Ender Cube and sneak to teleport down/north/west, jump to teleport up/south/east.
+The jump/sneak actions are limited to players in the whitelist, clear it to allow all.
 A redstone signal may also be used to teleport all entities above the cube to another cube.
 Maximum distance between Cubes is 16, adjustable in the config.
 
