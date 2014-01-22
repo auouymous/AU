@@ -1,8 +1,5 @@
 package com.qzx.au.core;
 
-// no support for 147
-#ifndef MC147
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -222,6 +219,3 @@ public class GuiContainerAU extends GuiContainer {
 // TODO: methods to render tab pages and handle actions
 
 }
-
-#endif
-// no support for 147

@@ -1,8 +1,5 @@
 package com.qzx.au.core;
 
-// no support for 147
-#ifndef MC147
-
 import net.minecraft.inventory.IInventory;
 
 public class SlotInventory extends SlotAU {
@@ -10,6 +7,3 @@ public class SlotInventory extends SlotAU {
 		super(inventory, slot, x, y, 64);
 	}
 }
-
-#endif
-// no support for 147

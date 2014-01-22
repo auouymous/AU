@@ -121,6 +121,7 @@ public class UI {
 
 	//////////
 
+	#ifndef MC147
 	public TextField newTextField(String s, int max_length, int width, int style){
 		TextField t = new TextField(this.mc.fontRenderer, this.x, this.y, width, style);
 		t.setText(s);
@@ -128,6 +129,7 @@ public class UI {
 		this.x += width;
 		return t;
 	}
+	#endif
 
 	//////////
 

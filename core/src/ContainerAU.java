@@ -1,8 +1,5 @@
 package com.qzx.au.core;
 
-// no support for 147
-#ifndef MC147
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -260,6 +257,3 @@ public abstract class ContainerAU extends Container {
 		slot.putStack(patternStack);
 	}
 }
-
-#endif
-// no support for 147

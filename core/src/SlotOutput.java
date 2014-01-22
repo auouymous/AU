@@ -1,8 +1,5 @@
 package com.qzx.au.core;
 
-// no support for 147
-#ifndef MC147
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 
@@ -19,6 +16,3 @@ public class SlotOutput extends SlotAU {
 		return false;
 	}
 }
-
-#endif
-// no support for 147

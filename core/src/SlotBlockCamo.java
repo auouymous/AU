@@ -1,8 +1,5 @@
 package com.qzx.au.core;
 
-// no support for 147
-#ifndef MC147
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -42,6 +39,3 @@ public class SlotBlockCamo extends SlotPattern {
 			te.setCamoBlock(itemstack);
 	}
 }
-
-#endif
-// no support for 147

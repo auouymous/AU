@@ -1,8 +1,5 @@
 package com.qzx.au.core;
 
-// no support for 147
-#ifndef MC147
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -95,6 +92,3 @@ public class RenderUtils {
 		}
 	}
 }
-
-#endif
-// no support for 147

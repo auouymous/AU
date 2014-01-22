@@ -1,8 +1,5 @@
 package com.qzx.au.core;
 
-// no support for 147
-#ifndef MC147
-
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -109,6 +106,3 @@ public class PacketUtils {
 		PacketDispatcher.sendPacketToAllPlayers(PacketUtils.createPacket(channel, id, data));
 	}
 }
-
-#endif
-// no support for 147

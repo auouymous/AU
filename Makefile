@@ -31,7 +31,7 @@ clean:
 	@(cd core ; make clean v=$(VER))
 	@(cd hud ; make clean v=$(VER))
 	@(cd extras ; make clean v=$(VER))
-	@#(cd world ; make clean v=$(VER))
+	@(cd world ; make clean v=$(VER))
 
 	@# clean up MCP files
 	rm -rf $(SRC)/com $(REOBF)/com $(REOBF)/net $(BASE)/logs/*.log

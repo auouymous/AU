@@ -13,6 +13,8 @@ prepare:
 	@(cd src; for j in *.java; do cpp -E -P -DMC$(VER) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done)
 	@(cd src; for d in *; do if [ -d "$$d" ]; then mkdir $(SRC)/com/qzx/au/$(MOD)/$$d; for j in $$d/*.java; do cpp -E -P -DMC$(VER) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done; fi; done)
 
+	@../.only_with.sh $(SRC)/com/qzx/au/$(MOD) $(VER)
+
 ifdef DEBUG
 	@(cp ../Debug.java $(SRC)/com/qzx/au/$(MOD)/)
 	@(sed -E -i "s:MOD_LOWER:$(MOD):" $(SRC)/com/qzx/au/$(MOD)/Debug.java)

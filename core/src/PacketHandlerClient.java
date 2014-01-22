@@ -1,8 +1,5 @@
 package com.qzx.au.core;
 
-// no support for 147
-#ifndef MC147
-
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
@@ -60,6 +57,3 @@ public class PacketHandlerClient implements IPacketHandler {
 		}
 	}
 }
-
-#endif
-// no support for 147

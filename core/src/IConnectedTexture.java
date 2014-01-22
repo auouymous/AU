@@ -1,8 +1,5 @@
 package com.qzx.au.core;
 
-// no support for 147
-#ifndef MC147
-
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 
@@ -25,6 +22,3 @@ public interface IConnectedTexture {
 	public static int ctm_default = 85;
 	public static int ctm_borderless = 0;
 }
-
-#endif
-// no support for 147

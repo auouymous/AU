@@ -1,8 +1,5 @@
 package com.qzx.au.core;
 
-// no support for 147
-#ifndef MC147
-
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
@@ -106,6 +103,3 @@ public class BlockCoord {
 		return this.translateToDiagonal(BlockCoord.getSideAtDirection(face, direction1), BlockCoord.getSideAtDirection(face, direction2));
 	}
 }
-
-#endif
-// no support for 147

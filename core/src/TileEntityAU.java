@@ -1,8 +1,5 @@
 package com.qzx.au.core;
 
-// no support for 147
-#ifndef MC147
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -467,6 +464,3 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 			}
 	}
 }
-
-#endif
-// no support for 147
