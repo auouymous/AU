@@ -421,7 +421,8 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	/////////////////////
 
 	public int[] getAccessibleSlotsFromSide(int side){
-		if(this.sidedBlockInfo == null) return null;
+		// don't return null
+		if(this.sidedBlockInfo == null) return new int[0];
 		return this.sidedBlockInfo.getAccessibleSlotsFromSide((byte)side);
 	}
 	public boolean canInsertItem(int slotIndex, ItemStack itemstack, int side){

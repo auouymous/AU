@@ -53,7 +53,7 @@ public class SidedBlockInfo {
 
 	public int[] getAccessibleSlotsFromSide(byte side){
 		SidedSlotInfo info = this.getSlotInfoFromSide(side);
-		if(info == null) return null;
+		if(info == null) return new int[0]; // don't return null
 		byte first = info.getFirstIndex();
 		int[] slots = new int[1+info.getLastIndex()-first];
 		for(int i = 0; i < slots.length; i++) slots[i] = first+i;

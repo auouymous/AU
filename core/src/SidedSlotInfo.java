@@ -25,7 +25,7 @@ public class SidedSlotInfo {
 		this.name = name;
 		this.color = color;
 		this.firstIndex = firstIndex;
-		this.lastIndex = (byte)(firstIndex + nrSlots - 1);
+		this.lastIndex = (byte)(firstIndex + nrSlots - 1);			if(nrSlots <= 0) Debug.error("SidedSlotInfo needs a positive non-zero slot count");
 		this.canInsert = canInsert;
 		this.canExtract = canExtract;
 	}
