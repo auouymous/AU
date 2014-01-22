@@ -1,8 +1,8 @@
 package com.qzx.au.core;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 // fake pattern block
@@ -21,9 +21,8 @@ public class SlotBlockCamo extends SlotPattern {
 
 	@Override
 	public boolean isItemValid(ItemStack itemstack){
-		int blockID = itemstack.itemID;
-		if(blockID >= Block.blocksList.length) return false;
-		return (Block.blocksList[blockID] != null);
+		if(!(itemstack.getItem() instanceof ItemBlock) || itemstack.itemID >= Block.blocksList.length) return false;
+		return (Block.blocksList[itemstack.itemID] != null);
 	}
 
 	@Override
