@@ -34,12 +34,12 @@ public class ChromaRegistry {
 		if(findInput == null) return false;
 
 		List<ChromaRecipe> recipes = ChromaRegistry.registry.recipes;
-		int findItemID = findInput.getItem().itemID;
+		int findItemID = findInput.itemID;
 		int findDamage = findInput.getItemDamage();
 		for(int i = 0; i < ChromaRegistry.registry.nr_recipes; i++){
 			ChromaRecipe recipe = recipes.get(i);
 			ItemStack recipeInput = recipe.input;
-			if(findItemID == recipeInput.getItem().itemID && findDamage == recipeInput.getItemDamage()){
+			if(findItemID == recipeInput.itemID && findDamage == recipeInput.getItemDamage()){
 				if(findButton == null || findButton == recipe.button)
 					return true;
 			}
@@ -54,12 +54,12 @@ public class ChromaRegistry {
 		if(findButton == null || findInput == null) return null;
 
 		List<ChromaRecipe> recipes = ChromaRegistry.registry.recipes;
-		int findItemID = findInput.getItem().itemID;
+		int findItemID = findInput.itemID;
 		int findDamage = findInput.getItemDamage();
 		for(int i = 0; i < ChromaRegistry.registry.nr_recipes; i++){
 			ChromaRecipe recipe = recipes.get(i);
 			ItemStack recipeInput = recipe.input;
-			if(findItemID == recipeInput.getItem().itemID && findDamage == recipeInput.getItemDamage())
+			if(findItemID == recipeInput.itemID && findDamage == recipeInput.getItemDamage())
 				if(findButton == recipe.button)
 					return recipes.get(i);
 		}

@@ -242,7 +242,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 	public void setCamoBlock(ItemStack itemstack){
 		// server
-		int blockID = (itemstack == null ? 0 : itemstack.getItem().itemID);
+		int blockID = (itemstack == null ? 0 : itemstack.itemID);
 		Block block = (itemstack == null ? null : Block.blocksList[blockID]);
 		byte metadata = (byte)(itemstack == null ? 0 : itemstack.getItemDamage());
 		int currentID = (this.camoBlock == null ? 0 : this.camoBlock.blockID);

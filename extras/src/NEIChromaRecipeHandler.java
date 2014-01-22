@@ -197,8 +197,8 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 		for(int r = 0; r < nr_recipes; r++){
 			CachedChromaRecipe cachedRecipe = (CachedChromaRecipe)this.arecipes.get(r);
 			if(cachedRecipe != null){
-				if(cachedRecipe.input.getItem().itemID == recipe.input.getItem().itemID
-				&& cachedRecipe.output.getItem().itemID == recipe.output.getItem().itemID
+				if(cachedRecipe.input.itemID == recipe.input.itemID
+				&& cachedRecipe.output.itemID == recipe.output.itemID
 				&& cachedRecipe.button == recipe.button
 				){
 					cachedRecipe.addChromaInput(recipe.input);
@@ -215,12 +215,12 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 			ItemStack result = (ItemStack)results[0];
 
 			List<ChromaRecipe> recipes = ChromaRegistry.registry.recipes;
-			int resultItemID = result.getItem().itemID;
+			int resultItemID = result.itemID;
 			int color = result.getItemDamage();
 			for(int i = 0; i < ChromaRegistry.registry.nr_recipes; i++){
 				ChromaRecipe recipe = recipes.get(i);
 				ItemStack recipeOutput = recipe.output;
-				if(resultItemID == recipeOutput.getItem().itemID)
+				if(resultItemID == recipeOutput.itemID)
 					if(!this.mergeInputs(recipe))
 						this.addRecipe(null, Color.oreDyes[color], recipe.input, recipe.button, result);
 			}
@@ -243,12 +243,12 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 				}
 			} else {
 				// item inputs
-				int ingredientItemID = ingredient.getItem().itemID;
+				int ingredientItemID = ingredient.itemID;
 				int ingredientDamage = ingredient.getItemDamage();
 				for(int i = 0; i < ChromaRegistry.registry.nr_recipes; i++){
 					ChromaRecipe recipe = recipes.get(i);
 					ItemStack recipeInput = recipe.input;
-					if(ingredientItemID == recipeInput.getItem().itemID && ingredientDamage == recipeInput.getItemDamage()){
+					if(ingredientItemID == recipeInput.itemID && ingredientDamage == recipeInput.getItemDamage()){
 						CachedChromaRecipe r = this.addRecipe(null, null, ingredient, recipe.button, new ItemStack(recipe.output.getItem(), 1, recipe.getOutputColor(0)));
 						for(int c = 1; c < 16; c++)
 							r.addChromaOutput(new ItemStack(recipe.output.getItem(), 1, recipe.getOutputColor(c)));

@@ -21,7 +21,7 @@ public class SlotBlockCamo extends SlotPattern {
 
 	@Override
 	public boolean isItemValid(ItemStack itemstack){
-		int blockID = itemstack.getItem().itemID;
+		int blockID = itemstack.itemID;
 		if(blockID >= Block.blocksList.length) return false;
 		return (Block.blocksList[blockID] != null);
 	}

@@ -112,7 +112,7 @@ public class GuiChromaInfuser extends GuiContainerAU {
 			ItemStack output
 				= (recipe == null || !te.getWater() || te.getDyeVolume() == 0
 				? null
-				: new ItemStack(recipe.output.getItem().itemID, recipe.output.stackSize, recipe.getOutputColor(te.getDyeColor())));
+				: new ItemStack(recipe.output.itemID, recipe.output.stackSize, recipe.getOutputColor(te.getDyeColor())));
 			// draw itemstack
 			if(output != null){
 				// set tooltip coordinates

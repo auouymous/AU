@@ -224,12 +224,12 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	private boolean canOutput(ItemStack output){
 		if(output == null) return true;
 		if(output.stackSize == output.getMaxStackSize()) return false;
-		return (this.processingRecipe.output.getItem().itemID == output.getItem().itemID && this.processingRecipe.getOutputColor(this.dyeColor) == output.getItemDamage());
+		return (this.processingRecipe.output.itemID == output.itemID && this.processingRecipe.getOutputColor(this.dyeColor) == output.getItemDamage());
 	}
 
 	private void updateOutput(ItemStack input, ItemStack output, ChromaRecipe recipe){
 		// server
-		int recipe_itemID = recipe.output.getItem().itemID;
+		int recipe_itemID = recipe.output.itemID;
 		if(output != null){
 			// output slot has an item in it, abort if not same item
 			output.stackSize += recipe.output.stackSize;
@@ -277,7 +277,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 				if(this.processingItem == null){
 					// new input, reset progress
 					this.updateInput(input);
-				} else if(input.getItem().itemID != this.processingItem.getItem().itemID || input.getItemDamage() != processingItem.getItemDamage()){
+				} else if(input.itemID != this.processingItem.itemID || input.getItemDamage() != processingItem.getItemDamage()){
 					// input item changed, reset progress
 					this.updateInput(input);
 				}

@@ -383,9 +383,9 @@ public class InfoHUD {
 									if(itemstack.isItemStackDamageable()){
 										int max_durability = itemstack.getMaxDamage();
 										int durability = max_durability - itemstack.getItemDamage();
-										this.ui.drawString(String.format("%d  %d/%d", itemstack.getItem().itemID, durability, max_durability), 0xffffff);
+										this.ui.drawString(String.format("%d  %d/%d", itemstack.itemID, durability, max_durability), 0xffffff);
 									} else
-										this.ui.drawString(String.format("%d:%d", itemstack.getItem().itemID, itemstack.getItemDamage()), 0xffffff);
+										this.ui.drawString(String.format("%d:%d", itemstack.itemID, itemstack.getItemDamage()), 0xffffff);
 									this.ui.drawString(")", 0xaaaaaa);
 								}
 								this.ui.lineBreak();
