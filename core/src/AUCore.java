@@ -10,9 +10,15 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 
 @Mod(modid="AUCore", name="Altered Unification CORE", version=AUCore.modVersion)
+#ifdef MC147
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
+#else
+@NetworkMod(clientSideRequired = true, serverSideRequired = true,
+	clientPacketHandlerSpec = @SidedPacketHandler(channels = { AUCore.packetChannel }, packetHandler = PacketHandlerClient.class))
+#endif
 public class AUCore {
 	@Instance("AUCore")
 	public static AUCore instance;
@@ -21,6 +27,7 @@ public class AUCore {
 //	public static CommonProxy proxy;
 
 	public static final String modVersion = "0.0.0";
+	public static final String packetChannel = "AUCore";
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent event){}

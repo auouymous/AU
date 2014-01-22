@@ -1,6 +1,5 @@
 package com.qzx.au.extras;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -180,13 +179,9 @@ public class GuiChromaInfuser extends GuiContainerAU {
 	public void actionPerformed(GuiButton button){
 		if(button.id == GuiChromaInfuser.BUTTON_LOCKED){
 			((Button)button).active = ((Button)button).active ? false : true;
-			PacketDispatcher.sendPacketToServer(
-				PacketUtils.createPacket(AUExtras.packetChannel, Packets.CHROMA_LOCKED_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, ((Button)button).active)
-			);
+			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_CHROMA_SET_LOCK, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, ((Button)button).active);
 		} else if(!((Button)button).active){
-			PacketDispatcher.sendPacketToServer(
-				PacketUtils.createPacket(AUExtras.packetChannel, Packets.CHROMA_RECIPE_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
-			);
+			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_CHROMA_SET_RECIPE, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 		}
 	}
 

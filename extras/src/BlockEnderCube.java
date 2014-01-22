@@ -127,15 +127,6 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 	//////////
 
 	@Override
-	public boolean onBlockEventReceived(World world, int x, int y, int z, int eventID, int value){
-		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
-		if(tileEntity == null) return false;
-		if(!tileEntity.receiveClientEvent(eventID, value)) return false;
-		world.markBlockForUpdate(x, y, z);
-		return true;
-	}
-
-	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ){
 		if(player.isSneaking()) return false;
 		if(world.isRemote) return true;
@@ -161,7 +152,7 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 		else {
 			TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
 			if(tileEntity instanceof TileEntityEnderCube)
-				((TileEntityEnderCube)tileEntity).setPlayerControlWhitelist(entity.getEntityName());
+				((TileEntityEnderCube)tileEntity).setPlayerControlWhitelist(entity.getEntityName(), true);
 		}
 	}
 	@Override

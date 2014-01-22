@@ -16,16 +16,16 @@ public class SidedSlotInfo {
 
 	private String name;
 	private int color;
-	private int firstIndex;
-	private int lastIndex;
+	private byte firstIndex;
+	private byte lastIndex;
 	private boolean canInsert;
 	private boolean canExtract;
 
-	public SidedSlotInfo(String name, int color, int firstIndex, int nrSlots, boolean canInsert, boolean canExtract){
+	public SidedSlotInfo(String name, int color, byte firstIndex, int nrSlots, boolean canInsert, boolean canExtract){
 		this.name = name;
 		this.color = color;
 		this.firstIndex = firstIndex;
-		this.lastIndex = firstIndex + nrSlots - 1;
+		this.lastIndex = (byte)(firstIndex + nrSlots - 1);
 		this.canInsert = canInsert;
 		this.canExtract = canExtract;
 	}
@@ -36,10 +36,10 @@ public class SidedSlotInfo {
 	public int getColor(){
 		return this.color;
 	}
-	public int getFirstIndex(){
+	public byte getFirstIndex(){
 		return this.firstIndex;
 	}
-	public int getLastIndex(){
+	public byte getLastIndex(){
 		return this.lastIndex;
 	}
 	public boolean canInsert(){

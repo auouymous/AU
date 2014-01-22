@@ -30,6 +30,7 @@ import net.minecraftforge.common.ForgeDirection;
 import java.util.List;
 import java.util.Random;
 
+import com.qzx.au.core.PacketUtils;
 import com.qzx.au.core.RenderUtils;
 import com.qzx.au.core.SidedBlockInfo;
 import com.qzx.au.core.SidedSlotInfo;
@@ -80,15 +81,6 @@ public class TileEntityEnderCube extends TileEntityAU {
 			if(pcl.equals("")) pcl = null;
 		}
 
-		// update open containers
-		if(this.worldObj != null && this.worldObj.isRemote){
-			if(pcl != null && this.playerControlWhitelist != null){
-				if(!pcl.equals(this.playerControlWhitelist))
-					Guis.update_pcl = true;
-			} else if((pcl == null && this.playerControlWhitelist != null) || (pcl != null && this.playerControlWhitelist == null))
-				Guis.update_pcl = true;
-		}
-
 		if(pcl != null)
 			this.playerControlWhitelist = pcl;
 		else
@@ -137,23 +129,19 @@ public class TileEntityEnderCube extends TileEntityAU {
 
 	//////////
 
-	private static final int CLIENT_EVENT_SPAWN_PARTICLES		= 100;
-	private static final int CLIENT_EVENT_PLAYER_DIRECTION		= 101;
-	private static final int CLIENT_EVENT_TELEPORT_DIRECTION	= 102;
-	private static final int CLIENT_EVENT_PLAYER_CONTROL		= 103;
-	private static final int CLIENT_EVENT_PLAYER_RS_CONTROL		= 104;
-	private static final int CLIENT_EVENT_REDSTONE_CONTROL		= 105;
-	private static final int CLIENT_EVENT_IS_POWERED			= 106;
-	private static final int CLIENT_EVENT_UPDATE_PCL			= 107;
-
 	public EnderButton getPlayerDirection(){
 		return EnderButton.values()[EnderButton.BUTTON_PLAYER_UD.ordinal() + this.playerDirection];
 	}
 	public void setPlayerDirection(EnderButton button){
 		this.playerDirection = (byte)(button.ordinal() - EnderButton.BUTTON_PLAYER_UD.ordinal());
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_PLAYER_DIRECTION, this.playerDirection);
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_ENDER_SET_PLAYER_DIRECTION,
+									this.xCoord, this.yCoord, this.zCoord, this.playerDirection);
 		this.markChunkModified();
+	}
+	public void setPlayerDirection(byte button){
+		// client
+		this.playerDirection = button;
 	}
 
 	public EnderButton getTeleportDirection(){
@@ -162,8 +150,13 @@ public class TileEntityEnderCube extends TileEntityAU {
 	public void setTeleportDirection(EnderButton button){
 		this.teleportDirection = (byte)(button.ordinal() - EnderButton.BUTTON_DOWN.ordinal());
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_TELEPORT_DIRECTION, this.teleportDirection);
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_ENDER_SET_TELEPORT_DIRECTION,
+									this.xCoord, this.yCoord, this.zCoord, this.teleportDirection);
 		this.markChunkModified();
+	}
+	public void setTeleportDirection(byte button){
+		// client
+		this.teleportDirection = button;
 	}
 
 	public boolean getPlayerControl(){
@@ -174,8 +167,15 @@ public class TileEntityEnderCube extends TileEntityAU {
 		if(this.playerControl) this.redstoneControl = false; // can't use both
 		else this.playerRedstoneControl = false;
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_PLAYER_CONTROL, this.playerControl ? 1 : 0);
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_ENDER_SET_PLAYER_CONTROL,
+									this.xCoord, this.yCoord, this.zCoord, this.playerControl);
 		this.markChunkModified();
+	}
+	public void setPlayerControl(boolean enable){
+		// client
+		this.playerControl = enable;
+		if(this.playerControl) this.redstoneControl = false; // can't use both
+		else this.playerRedstoneControl = false;
 	}
 
 	public boolean getPlayerRedstoneControl(){
@@ -185,8 +185,14 @@ public class TileEntityEnderCube extends TileEntityAU {
 		this.playerRedstoneControl = this.playerRedstoneControl ? false : true;
 		if(!this.playerControl) this.playerRedstoneControl = false;
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_PLAYER_RS_CONTROL, this.playerRedstoneControl ? 1 : 0);
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_ENDER_SET_PLAYER_RS_CONTROL,
+									this.xCoord, this.yCoord, this.zCoord, this.playerRedstoneControl);
 		this.markChunkModified();
+	}
+	public void setPlayerRedstoneControl(boolean enable){
+		// client
+		this.playerRedstoneControl = enable;
+		if(!this.playerControl) this.playerRedstoneControl = false;
 	}
 
 	public boolean getRedstoneControl(){
@@ -199,97 +205,69 @@ public class TileEntityEnderCube extends TileEntityAU {
 			this.playerRedstoneControl = false;
 		}
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_REDSTONE_CONTROL, this.redstoneControl ? 1 : 0);
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_ENDER_SET_REDSTONE_CONTROL,
+									this.xCoord, this.yCoord, this.zCoord, this.redstoneControl);
 		this.markChunkModified();
+	}
+	public void setRedstoneControl(boolean enable){
+		// client
+		this.redstoneControl = enable;
+		if(this.redstoneControl){
+			this.playerControl = false; // can't use both
+			this.playerRedstoneControl = false;
+		}
 	}
 
 	public boolean isPowered(){
 		return this.isPowered;
 	}
 	public void setPowered(boolean isPowered){
+		// not sent to client
 		this.isPowered = isPowered;
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_IS_POWERED, this.isPowered ? 1 : 0);
 		this.markChunkModified();
 	}
 
 	public String getPlayerControlWhitelist(){
 		return this.playerControlWhitelist == null ? "" : this.playerControlWhitelist;
 	}
-	public void setPlayerControlWhitelist(String pcl){
+	public void setPlayerControlWhitelist(String pcl, boolean server){
 		if(pcl != null && pcl.trim().equals("")) pcl = null;
 		if(pcl == null && this.playerControlWhitelist == null) return;
+		if(pcl != null && this.playerControlWhitelist != null && pcl.equals(this.playerControlWhitelist)) return;
+
 		this.playerControlWhitelist = pcl;
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_UPDATE_PCL, 0);
-		this.markChunkModified();
+		if(server){
+			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_ENDER_SET_PCL,
+										this.xCoord, this.yCoord, this.zCoord, this.playerControlWhitelist);
+			this.markChunkModified();
+		} else
+			GuiEnderCube.update_pcl = true;
+	}
+
+	public void spawnParticles(int direction_coord){
+		// display particles above both ender cubes
+		Random random = new Random();
+		RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 2.0F, (float)this.zCoord + 0.5F,
+									random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
+		if((this.playerControl && this.playerDirection == 0) || (this.redstoneControl && (this.teleportDirection == 0 || this.teleportDirection == 1)))
+			// up/down
+			RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)direction_coord + 2.0F, (float)this.zCoord + 0.5F,
+										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
+		else if((this.playerControl && this.playerDirection == 1) || (this.redstoneControl && (this.teleportDirection == 2 || this.teleportDirection == 3)))
+			// north/south
+			RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 2.0F, (float)direction_coord + 0.5F,
+										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
+		else
+			// east/west
+			RenderUtils.spawnParticles(this.worldObj, (float)direction_coord + 0.5F, (float)this.yCoord + 2.0F, (float)this.zCoord + 0.5F,
+										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
 	}
 
 	@Override
 	public boolean canUpdate(){
 		return false;
-	}
-
-	@Override
-	public boolean receiveClientEvent(int eventID, int value){
-		if(super.receiveClientEvent(eventID, value)) return true;
-
-		switch(eventID){
-		case TileEntityEnderCube.CLIENT_EVENT_SPAWN_PARTICLES:
-			// display particles above both ender cubes
-			Random random = new Random();
-			RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 2.0F, (float)this.zCoord + 0.5F,
-										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
-			if((this.playerControl && this.playerDirection == 0) || (this.redstoneControl && (this.teleportDirection == 0 || this.teleportDirection == 1)))
-				// up/down
-				RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)value + 2.0F, (float)this.zCoord + 0.5F,
-											random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
-			else if((this.playerControl && this.playerDirection == 1) || (this.redstoneControl && (this.teleportDirection == 2 || this.teleportDirection == 3)))
-				// north/south
-				RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 2.0F, (float)value + 0.5F,
-											random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
-			else
-				// east/west
-				RenderUtils.spawnParticles(this.worldObj, (float)value + 0.5F, (float)this.yCoord + 2.0F, (float)this.zCoord + 0.5F,
-											random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
-			return true;
-		case TileEntityEnderCube.CLIENT_EVENT_PLAYER_DIRECTION:
-			// set player direction button
-			this.playerDirection = (byte)value;
-			return true;
-		case TileEntityEnderCube.CLIENT_EVENT_TELEPORT_DIRECTION:
-			// set direction button
-			this.teleportDirection = (byte)value;
-			return true;
-		case TileEntityEnderCube.CLIENT_EVENT_PLAYER_CONTROL:
-			// set player control button
-			this.playerControl = (value == 1);
-			if(this.playerControl) this.redstoneControl = false; // can't use both
-			return true;
-		case TileEntityEnderCube.CLIENT_EVENT_PLAYER_RS_CONTROL:
-			// set player redstone control button
-			this.playerRedstoneControl = (value == 1);
-			if(!this.playerControl) this.playerRedstoneControl = false;
-			return true;
-		case TileEntityEnderCube.CLIENT_EVENT_REDSTONE_CONTROL:
-			// set redstone control button
-			this.redstoneControl = (value == 1);
-			if(this.redstoneControl){
-				this.playerControl = false; // can't use both
-				this.playerRedstoneControl = false;
-			}
-			return true;
-		case TileEntityEnderCube.CLIENT_EVENT_IS_POWERED:
-			// set redstone power state
-			this.isPowered = (value == 1);
-			return true;
-		case TileEntityEnderCube.CLIENT_EVENT_UPDATE_PCL:
-			// update player control whitelist
-//			Guis.update_pcl = true;
-			return true;
-		default:
-			return false;
-		}
 	}
 
 	//////////
@@ -424,7 +402,8 @@ public class TileEntityEnderCube extends TileEntityAU {
 		world.playSoundAtEntity(entity, "mob.endermen.portal", 1.0F, 1.0F);
 
 		if(spawn_particles)
-			world.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityEnderCube.CLIENT_EVENT_SPAWN_PARTICLES, direction_coord);
+			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_ENDER_SPAWN_PARTICLES,
+										this.xCoord, this.yCoord, this.zCoord, direction_coord);
 	}
 
 	public boolean isObstructed(World world, int x, int y, int z){

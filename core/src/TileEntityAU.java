@@ -200,12 +200,6 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 	//////////
 
-	private static final int CLIENT_EVENT_ACCESS_PLAYERS	= 1;
-	private static final int CLIENT_EVENT_DIRECTION			= 2;
-	private static final int CLIENT_EVENT_CAMO_ID			= 3;
-	private static final int CLIENT_EVENT_CAMO_META			= 4;
-	private static final int CLIENT_EVENT_TOGGLE_SIDE		= 5;
-
 	/////////////////
 	// directional //
 	/////////////////
@@ -221,12 +215,16 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		return false;
 	}
 
-	public void setDirection(ForgeDirection direction){
+	public void setDirection(ForgeDirection direction, boolean server){
 		if(direction == this.direction || !this.canRotate()) return;
 		this.direction = direction;
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_DIRECTION, direction.ordinal());
-		this.markChunkModified();
+		if(server){
+			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUCore.packetChannel, Packets.CLIENT_DIRECTION,
+										this.xCoord, this.yCoord, this.zCoord, direction.ordinal());
+			this.markChunkModified();
+		} else
+			this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
 
 	public ForgeDirection getDirection(){
@@ -241,19 +239,31 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		return true;
 	}
 
+	public ItemStack getCamoBlock(){
+		return (this.canCamo() && this.camoBlock != null ? new ItemStack(this.camoBlock, 1, this.camoMeta) : null);
+	}
+
 	public void setCamoBlock(ItemStack itemstack){
+		// server
 		int blockID = (itemstack == null ? 0 : itemstack.getItem().itemID);
 		Block block = (itemstack == null ? null : Block.blocksList[blockID]);
-		int metadata = (itemstack == null ? 0 : itemstack.getItemDamage());
+		byte metadata = (byte)(itemstack == null ? 0 : itemstack.getItemDamage());
 		int currentID = (this.camoBlock == null ? 0 : this.camoBlock.blockID);
 
 		if((currentID == blockID && this.camoMeta == metadata) || !this.canCamo()) return;
 		this.camoBlock = block;
-		this.camoMeta = (byte)metadata;
+		this.camoMeta = metadata;
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_CAMO_ID, block.blockID);
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_CAMO_META, metadata);
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUCore.packetChannel, Packets.CLIENT_BLOCK_CAMO,
+									this.xCoord, this.yCoord, this.zCoord, blockID, metadata);
 		this.markChunkModified();
+	}
+	public void setCamoBlock(int blockID, byte metadata){
+		// client
+		this.camoBlock = Block.blocksList[blockID];
+		this.camoMeta = metadata;
+
+		this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
 
 	public Icon getCamoIcon(int side){
@@ -303,26 +313,6 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		#endif
 	}
 
-	@Override
-	public boolean receiveClientEvent(int eventID, int value){
-		switch(eventID){
-		case TileEntityAU.CLIENT_EVENT_ACCESS_PLAYERS:
-			this.nrAccessPlayers = value;
-			return true;
-		case TileEntityAU.CLIENT_EVENT_DIRECTION:
-			this.direction = ForgeDirection.values()[value];
-			return true;
-		case TileEntityAU.CLIENT_EVENT_CAMO_ID:
-			this.camoBlock = Block.blocksList[value];
-			return true;
-		case TileEntityAU.CLIENT_EVENT_CAMO_META:
-			this.camoMeta = (byte)value;
-			return true;
-		default:
-			return false;
-		}
-	}
-
 	// @Override public void onInventoryChanged(){
 
 	// public void onChunkUnload();
@@ -344,7 +334,6 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	}
 
 	public ItemStack getStackInSlot(int slotIndex){
-		if(this.canCamo() && slotIndex == -1) return (this.camoBlock == null ? null : new ItemStack(this.camoBlock, 1, this.camoMeta));
 		return slotIndex >= 0 && slotIndex < this.nrSlots ? this.slotContents[slotIndex] : null;
 	}
 	public ItemStack decrStackSize(int slotIndex, int amount){
@@ -375,17 +364,11 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	public boolean isItemValidForSlot(int slotIndex, ItemStack itemstack){
 	#endif
 		if(this.sidedBlockInfo == null) return false;
-		SidedSlotInfo info = this.sidedBlockInfo.getSlotInfoFromIndex(slotIndex);
+		SidedSlotInfo info = this.sidedBlockInfo.getSlotInfoFromIndex((byte)slotIndex);
 		return (info == null ? false : info.isItemValid(itemstack)); // ignore itemstack size
 	}
 	public void setInventorySlotContents(int slotIndex, ItemStack itemstack){
-		if(this.canCamo() && slotIndex == -1){
-			// camo block
-			if(itemstack != null)
-				itemstack.stackSize = 1;
-			this.onInventoryChanged();
-			return;
-		} else if(slotIndex < 0 || slotIndex >= this.nrSlots) return;
+		if(slotIndex < 0 || slotIndex >= this.nrSlots) return;
 
 // TODO: return if fake slot? (SlotPattern, SlotResult, etc)
 
@@ -401,7 +384,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	}
 
 	public int getInventoryStackLimit(){
-		return 64;
+		return 64; // handled by SlotAU
 	}
 
 	public boolean isUseableByPlayer(EntityPlayer player){
@@ -410,18 +393,27 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		return player.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
 	}
 
+	public void setAccessPlayers(int value){
+		// client
+		this.nrAccessPlayers = value;
+
+		this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+	}
+
 	public void openChest(){
-		if(this.worldObj == null) return;
+		if(this.worldObj == null || this.worldObj.isRemote) return;
 		this.nrAccessPlayers++;
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_ACCESS_PLAYERS, this.nrAccessPlayers);
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUCore.packetChannel, Packets.CLIENT_ACCESS_PLAYERS,
+									this.xCoord, this.yCoord, this.zCoord, this.nrAccessPlayers);
 	}
 
 	public void closeChest(){
-		if(this.worldObj == null) return;
+		if(this.worldObj == null || this.worldObj.isRemote) return;
 		this.nrAccessPlayers--;
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_ACCESS_PLAYERS, this.nrAccessPlayers);
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUCore.packetChannel, Packets.CLIENT_ACCESS_PLAYERS,
+									this.xCoord, this.yCoord, this.zCoord, this.nrAccessPlayers);
 	}
 
 	/////////////////////
@@ -430,15 +422,15 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 	public int[] getAccessibleSlotsFromSide(int side){
 		if(this.sidedBlockInfo == null) return null;
-		return this.sidedBlockInfo.getAccessibleSlotsFromSide(side);
+		return this.sidedBlockInfo.getAccessibleSlotsFromSide((byte)side);
 	}
 	public boolean canInsertItem(int slotIndex, ItemStack itemstack, int side){
 		if(this.sidedBlockInfo == null) return false;
-		return this.sidedBlockInfo.canInsert(slotIndex, side);
+		return this.sidedBlockInfo.canInsert((byte)slotIndex, (byte)side);
 	}
 	public boolean canExtractItem(int slotIndex, ItemStack itemstack, int side){
 		if(this.sidedBlockInfo == null) return false;
-		return this.sidedBlockInfo.canExtract(slotIndex, side);
+		return this.sidedBlockInfo.canExtract((byte)slotIndex, (byte)side);
 	}
 
 	//////////////////////
@@ -451,16 +443,27 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	public Class<? extends ISidedRenderer> getSidedRenderer(){
 		return null;
 	}
-	public void toggleSide(int side){
+	public void toggleSide(byte side){
+		if(this.worldObj == null || this.worldObj.isRemote) return;
 		SidedBlockInfo info = this.sidedBlockInfo;
 		if(info != null)
 			if(info.canToggle(side)){
-				int old_slot = info.getSlot(side);
-				int new_slot = info.toggleSide(side);
+				byte old_slot = info.getSlot(side);
+				byte new_slot = info.toggleSide(side);
 				if(old_slot != new_slot){
-					this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityAU.CLIENT_EVENT_TOGGLE_SIDE, new_slot);
+					PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUCore.packetChannel, Packets.CLIENT_SIDED_IO,
+												this.xCoord, this.yCoord, this.zCoord, side, new_slot);
 					this.markChunkModified();
 				}
+			}
+	}
+	public void setSide(byte side, byte slot){
+		// client
+		SidedBlockInfo info = this.sidedBlockInfo;
+		if(info != null)
+			if(info.canToggle(side)){
+				info.setSide(side, slot);
+				this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 			}
 	}
 }

@@ -29,7 +29,7 @@ import com.qzx.au.core.Light;
 
 @Mod(modid="AUExtras", name="Altered Unification EXTRAS", version=AUExtras.modVersion)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true,
-//	clientPacketHandlerSpec = @SidedPacketHandler(channels = { AUExtras.packetChannel }, packetHandler = PacketHandlerClient.class),
+	clientPacketHandlerSpec = @SidedPacketHandler(channels = { AUExtras.packetChannel }, packetHandler = PacketHandlerClient.class),
 	serverPacketHandlerSpec = @SidedPacketHandler(channels = { AUExtras.packetChannel }, packetHandler = PacketHandlerServer.class))
 public class AUExtras {
 	@Instance("AUExtras")

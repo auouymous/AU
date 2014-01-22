@@ -17,25 +17,29 @@ import net.minecraft.item.ItemStack;
 public class SlotBlockCamo extends SlotPattern {
 	public SlotBlockCamo(IInventory inventory, int slot, int x, int y){
 		super(inventory, slot, x, y, 1);
-//		this.setFilterItemStack(new ItemStack(Block.dirt));
+//		this.setFilterItemStack(new ItemStack(Block.stone));
 		this.setTooltip("block camo");
 		if(slot != -1) Debug.error("SlotBlockCamo needs slotIndex == -1");
 	}
 
 	@Override
 	public boolean isItemValid(ItemStack itemstack){
-		Block block = Block.blocksList[itemstack.getItem().itemID];
-		if(block == null) return false;
-		return block.getRenderType() == 0 && block.getRenderBlockPass() == 0;
+		int blockID = itemstack.getItem().itemID;
+		if(blockID >= Block.blocksList.length) return false;
+		return (Block.blocksList[blockID] != null);
 	}
 
 	@Override
-	public void onSlotChanged(){
-		this.inventory.onInventoryChanged();
+	public ItemStack getStack(){
+		TileEntityAU te = (TileEntityAU)this.inventory;
+		return (te.canCamo() ? te.getCamoBlock() : null);
+	}
+
+	@Override
+    public void putStack(ItemStack itemstack){
 		TileEntityAU te = (TileEntityAU)this.inventory;
 		if(!te.worldObj.isRemote && te.canCamo())
-
-			te.setCamoBlock(this.getStack());
+			te.setCamoBlock(itemstack);
 	}
 }
 

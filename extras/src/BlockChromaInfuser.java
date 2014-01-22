@@ -147,21 +147,12 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 	//////////
 
 	@Override
-	public boolean onBlockEventReceived(World world, int x, int y, int z, int eventID, int value){
-		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
-		if(tileEntity == null) return false;
-		if(!tileEntity.receiveClientEvent(eventID, value)) return false;
-		world.markBlockForUpdate(x, y, z);
-		return true;
-	}
-
-	@Override
 	public void fillWithRain(World world, int x, int y, int z){
 		if(!world.isRemote){
 			TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 			if(tileEntity instanceof TileEntityChromaInfuser)
 				if(Cfg.rainResetsChromaInfuser || !((TileEntityChromaInfuser)tileEntity).getWater())
-					((TileEntityChromaInfuser)tileEntity).resetWater();
+					((TileEntityChromaInfuser)tileEntity).resetWater(true);
 		}
 	}
 

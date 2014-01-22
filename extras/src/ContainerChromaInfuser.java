@@ -75,11 +75,11 @@ public class ContainerChromaInfuser extends ContainerAU {
 						if(itemstack.itemID == Item.bucketWater.itemID){
 							TileEntityChromaInfuser te = (TileEntityChromaInfuser)this.inventory;
 							if(!te.worldObj.isRemote)
-								te.resetWater();
+								te.resetWater(true);
 							// replace water bucket with empty bucket
 							this.putStack(new ItemStack(Item.bucketEmpty, 1));
 //						} else if(itemstack.itemID == Block.waterMoving.blockID || itemstack.itemID == Block.waterStill.blockID){
-//							((TileEntityChromaInfuser)this.inventory).resetWater();
+//							((TileEntityChromaInfuser)this.inventory).resetWater(true);
 //							// clear the slot
 //							this.putStack(null);
 						}

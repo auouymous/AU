@@ -1,6 +1,5 @@
 package com.qzx.au.extras;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -24,6 +23,7 @@ import com.qzx.au.core.UI;
 @SideOnly(Side.CLIENT)
 public class GuiEnderCube extends GuiContainerAU {
 	private UI ui = new UI();
+	public static boolean update_pcl;
 
 	public GuiEnderCube(InventoryPlayer inventoryPlayer, TileEntityEnderCube tileEntity){
 		super(inventoryPlayer, tileEntity);
@@ -43,9 +43,9 @@ public class GuiEnderCube extends GuiContainerAU {
 
 		this.updateButtons();
 
-		if(Guis.update_pcl){
+		if(GuiEnderCube.update_pcl){
 			this.playerList.setText(tileEntity.getPlayerControlWhitelist());
-			Guis.update_pcl = false;
+			GuiEnderCube.update_pcl = false;
 		}
 
 		UI.bindTexture(this.mc, "au_extras", AUExtras.texturePath+"/gui/container.png");
@@ -147,9 +147,9 @@ public class GuiEnderCube extends GuiContainerAU {
 		this.ui.x -= 6;
 		String pcl = tileEntity.getPlayerControlWhitelist();
 		playerList = this.ui.newTextField(pcl == null ? "" : pcl, 1000, 120, TextField.DEFAULT_STYLE);
-		playerList.setTooltip("player control whitelist\n- press ENTER to update -\n- leave blank to allow all -\n(commas between names)");
+		playerList.setTooltip("player control whitelist\n- leave blank to allow all\n- commas between names\n- press ENTER to save");
 		this.textFieldList.add(playerList);
-		Guis.update_pcl = false;
+		GuiEnderCube.update_pcl = false;
 	}
 
 	@Override
@@ -159,9 +159,7 @@ public class GuiEnderCube extends GuiContainerAU {
 		String oldPCL = tileEntity.getPlayerControlWhitelist();
 		if(oldPCL != null) oldPCL = oldPCL.trim();
 		if(!oldPCL.equals(newPCL))
-			PacketDispatcher.sendPacketToServer(
-				PacketUtils.createPacket(AUExtras.packetChannel, Packets.UPDATE_PCL, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (String)newPCL)
-			);
+			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_PCL, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (String)newPCL);
 	}
 
 	@Override
@@ -173,9 +171,7 @@ public class GuiEnderCube extends GuiContainerAU {
 		case BUTTON_PLAYER_NS:
 		case BUTTON_PLAYER_EW:
 			if(tileEntity.getPlayerDirection().ordinal() != button.id)
-				PacketDispatcher.sendPacketToServer(
-					PacketUtils.createPacket(AUExtras.packetChannel, Packets.ENDER_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
-				);
+				PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 			break;
 		case BUTTON_DOWN:
 		case BUTTON_UP:
@@ -184,24 +180,16 @@ public class GuiEnderCube extends GuiContainerAU {
 		case BUTTON_WEST:
 		case BUTTON_EAST:
 			if(tileEntity.getTeleportDirection().ordinal() != button.id)
-				PacketDispatcher.sendPacketToServer(
-					PacketUtils.createPacket(AUExtras.packetChannel, Packets.ENDER_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
-				);
+				PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 			break;
 		case BUTTON_CONTROL_PLAYER:
-			PacketDispatcher.sendPacketToServer(
-				PacketUtils.createPacket(AUExtras.packetChannel, Packets.ENDER_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
-			);
+			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 			break;
 		case BUTTON_CONTROL_PLAYER_RS:
-			PacketDispatcher.sendPacketToServer(
-				PacketUtils.createPacket(AUExtras.packetChannel, Packets.ENDER_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
-			);
+			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 			break;
 		case BUTTON_CONTROL_REDSTONE:
-			PacketDispatcher.sendPacketToServer(
-				PacketUtils.createPacket(AUExtras.packetChannel, Packets.ENDER_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id)
-			);
+			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 			break;
 		}
 	}

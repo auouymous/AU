@@ -1,7 +1,6 @@
 package com.qzx.au.extras;
 
 import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -79,11 +78,9 @@ public class TickHandlerExtras implements ITickHandler {
 				}
 
 				if(player.movementInput.sneak && !playerSneaking)
-					PacketDispatcher.sendPacketToServer(
-						PacketUtils.createPacket(AUExtras.packetChannel, Packets.PLAYER_MOVEMENT, pos_x, pos_y, pos_z, (byte)0));
+					PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_PLAYER_MOVEMENT, pos_x, pos_y, pos_z, (byte)0);
 				if(player.movementInput.jump && !playerJumping)
-					PacketDispatcher.sendPacketToServer(
-						PacketUtils.createPacket(AUExtras.packetChannel, Packets.PLAYER_MOVEMENT, pos_x, pos_y, pos_z, (byte)1));
+					PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_PLAYER_MOVEMENT, pos_x, pos_y, pos_z, (byte)1);
 			}
 			playerJumping = player.movementInput.jump;
 			playerSneaking = player.movementInput.sneak;

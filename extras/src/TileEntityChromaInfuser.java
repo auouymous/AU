@@ -8,15 +8,16 @@ import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import com.qzx.au.core.PacketUtils;
 import com.qzx.au.core.SidedBlockInfo;
 import com.qzx.au.core.SidedSlotInfo;
 import com.qzx.au.core.TileEntityAU;
 
 public class TileEntityChromaInfuser extends TileEntityAU {
-	public static int SLOT_ITEM_INPUT = 0;
-	public static int SLOT_ITEM_OUTPUT = 1;
-	public static int SLOT_DYE_INPUT = 2;
-	public static int SLOT_WATER_BUCKET = 3;
+	public static byte SLOT_ITEM_INPUT = 0;
+	public static byte SLOT_ITEM_OUTPUT = 1;
+	public static byte SLOT_DYE_INPUT = 2;
+	public static byte SLOT_WATER_BUCKET = 3;
 
 	private ChromaButton recipeButton;
 	private boolean isLocked;
@@ -51,7 +52,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	}
 
 	private static final SidedSlotInfo[] sidedSlotInfo = {
-		(new SidedSlotInfo("Item Input",		SidedSlotInfo.BLUE_COLOR,	TileEntityChromaInfuser.SLOT_ITEM_INPUT,	1,	true, true){
+		(new SidedSlotInfo("Item Input",	SidedSlotInfo.BLUE_COLOR,	TileEntityChromaInfuser.SLOT_ITEM_INPUT,	1,	true, true){
 				@Override
 				public boolean isItemValid(ItemStack itemstack){
 					return ChromaRegistry.hasRecipe(itemstack);
@@ -65,7 +66,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 			}),
 		new SidedSlotInfo("Item Output",	SidedSlotInfo.ORANGE_COLOR,	TileEntityChromaInfuser.SLOT_ITEM_OUTPUT,	1,	false, true)
 	};
-	private static final int[] sidedSlots = {2, 0, 1, 1, 1, 1}; // bottom:itemOutput, top:itemInput, sides:dyeInput
+	private static final byte[] sidedSlots = {2, 0, 1, 1, 1, 1}; // bottom:itemOutput, top:itemInput, sides:dyeInput
 	private static final boolean[] sidedCanToggle = {false, false, false, false, false, false};
 	private static final boolean[] sidedIsVisible = {false, false, false, false, false, false};
 
@@ -124,12 +125,6 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 
 	//////////
 
-	private static final int CLIENT_EVENT_RECIPE_BUTTON			= 100;
-	private static final int CLIENT_EVENT_LOCKED_BUTTON			= 101;
-	private static final int CLIENT_EVENT_RESET_WATER			= 102;
-	private static final int CLIENT_EVENT_SET_COLOR				= 103;
-	private static final int CLIENT_EVENT_UPDATE_OUTPUT			= 104;
-
 	public ItemStack getInput(){
 		return this.slotContents[TileEntityChromaInfuser.SLOT_ITEM_INPUT];
 	}
@@ -137,24 +132,29 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	public ChromaButton getRecipeButton(){
 		return this.recipeButton;
 	}
-	public void setRecipeButton(ChromaButton button){
+	public void setRecipeButton(ChromaButton button, boolean server){
 		this.recipeButton = button;
 		this.updateInput(this.getInput());
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityChromaInfuser.CLIENT_EVENT_RECIPE_BUTTON, button.ordinal());
-		this.markChunkModified();
+		if(server){
+			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_SET_RECIPE,
+										this.xCoord, this.yCoord, this.zCoord, (byte)button.ordinal());
+			this.markChunkModified();
+		}
 	}
 
 	public boolean getLocked(){
 		return this.isLocked;
 	}
-	public void setLocked(boolean locked){
+	public void setLocked(boolean locked, boolean server){
 		this.isLocked = locked;
+		this.outputTick = 0;
 
-		if(locked) this.outputTick = 0;
-
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityChromaInfuser.CLIENT_EVENT_LOCKED_BUTTON, locked ? 1 : 0);
-		this.markChunkModified();
+		if(server){
+			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_SET_LOCK,
+										this.xCoord, this.yCoord, this.zCoord, locked);
+			this.markChunkModified();
+		}
 	}
 	public float getOutputTick(){
 		return (float)this.outputTick / (float)TileEntityChromaInfuser.outputTickMax;
@@ -163,14 +163,20 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	public boolean getWater(){
 		return this.hasWater;
 	}
-	public void resetWater(){
+	public void resetWater(boolean server){
 		this.hasWater = true;
 		this.dyeVolume = 0;
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityChromaInfuser.CLIENT_EVENT_RESET_WATER, 0);
-		this.markChunkModified();
+		if(server){
+			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_RESET_WATER,
+										this.xCoord, this.yCoord, this.zCoord);
+			this.markChunkModified();
 
-		this.consumeDye();
+			this.consumeDye();
+		} else {
+			this.outputTick = 0;
+			this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+		}
 	}
 
 	public int getDyeColor(){
@@ -192,10 +198,19 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 				itemstack.stackSize--;
 				if(itemstack.stackSize == 0) this.slotContents[TileEntityChromaInfuser.SLOT_DYE_INPUT] = null;
 
-				this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityChromaInfuser.CLIENT_EVENT_SET_COLOR, color);
+				PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_SET_COLOR,
+											this.xCoord, this.yCoord, this.zCoord, (byte)color);
 				this.markChunkModified();
 			}
 		}
+	}
+	public void setDyeColor(byte color){
+		// client
+		this.dyeVolume = 8;
+		this.dyeColor = color;
+		this.outputTick = 0;
+
+		this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
 
 	//////////
@@ -213,6 +228,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	}
 
 	private void updateOutput(ItemStack input, ItemStack output, ChromaRecipe recipe){
+		// server
 		int recipe_itemID = recipe.output.getItem().itemID;
 		if(output != null){
 			// output slot has an item in it, abort if not same item
@@ -228,10 +244,19 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		this.dyeVolume--;
 		this.consumeDye();
 		if(this.dyeVolume == 0)
-			this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityChromaInfuser.CLIENT_EVENT_RESET_WATER, 0);
+			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_RESET_WATER,
+										this.xCoord, this.yCoord, this.zCoord);
 
-		this.worldObj.addBlockEvent(this.xCoord, this.yCoord, this.zCoord, this.getBlockType().blockID, TileEntityChromaInfuser.CLIENT_EVENT_UPDATE_OUTPUT, 0);
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_UPDATE_OUTPUT,
+									this.xCoord, this.yCoord, this.zCoord);
 		this.markChunkModified();
+	}
+	public void updateOutput(){
+		// client
+		this.outputTick = 0;
+
+// TODO: display particle effect on block?
+
 	}
 
 	//////////
@@ -275,41 +300,6 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 					}
 				}
 			}
-		}
-	}
-
-	@Override
-	public boolean receiveClientEvent(int eventID, int value){
-		if(super.receiveClientEvent(eventID, value)) return true;
-
-		switch(eventID){
-		case TileEntityChromaInfuser.CLIENT_EVENT_RECIPE_BUTTON:
-			// set recipe button
-			this.recipeButton = ChromaButton.values()[value];
-			return true;
-		case TileEntityChromaInfuser.CLIENT_EVENT_LOCKED_BUTTON:
-			// set locked button
-			this.isLocked = (value == 0 ? false : true);
-			this.outputTick = 0;
-			return true;
-		case TileEntityChromaInfuser.CLIENT_EVENT_RESET_WATER:
-			// set water, reset dye
-			this.hasWater = true;
-			this.dyeVolume = 0;
-			this.outputTick = 0;
-			return true;
-		case TileEntityChromaInfuser.CLIENT_EVENT_SET_COLOR:
-			// set dye color
-			this.dyeVolume = 8;
-			this.dyeColor = (byte)value;
-			this.outputTick = 0;
-			return true;
-		case TileEntityChromaInfuser.CLIENT_EVENT_UPDATE_OUTPUT:
-			// update output slot, reset tick counter on client
-			this.outputTick = 0;
-			return true;
-		default:
-			return false;
 		}
 	}
 

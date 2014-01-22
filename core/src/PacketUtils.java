@@ -3,7 +3,10 @@ package com.qzx.au.core;
 // no support for 147
 #ifndef MC147
 
+import cpw.mods.fml.common.network.PacketDispatcher;
+
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.world.World;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -32,13 +35,16 @@ public class PacketUtils {
 				Class t = types[i];
 				     if(t == Boolean.class)		objects[i] = (Boolean)in.readBoolean();
 				else if(t == Byte.class)		objects[i] = (Byte)in.readByte();
+//				else if(t == Short.class)		objects[i] = (Short)in.readShort();
 				else if(t == Integer.class)		objects[i] = (Integer)in.readInt();
+//				else if(t == Long.class)		objects[i] = (Long)in.readLong();
 				else if(t == String.class)		objects[i] = (String)in.readUTF();
+//				else if(t == Float.class)		objects[i] = (Float)in.readFloat();
+//				else if(t == Double.class)		objects[i] = (Double)in.readDouble();
 				else {
-					Debug.error("Invalid packet class");
+					Debug.error("Unsupported packet data class");
 					return null;
 				}
-				// float, double, long, short
 			}
 		} catch(Exception e){
 			Debug.error("Unable to read packet data");
@@ -72,6 +78,35 @@ public class PacketUtils {
 		packet.data = baos.toByteArray();
 		packet.length = baos.size();
 		return packet;
+	}
+
+	public static void sendToServer(String channel, int id, Object... data){
+		PacketDispatcher.sendPacketToServer(PacketUtils.createPacket(channel, id, data));
+	}
+
+	public static int MAX_RANGE = 160; // 10 chunks
+//	public static int ACCESS_RANGE = 9; // 9 blocks
+
+	public static void sendToAllAround(World world, int range, String channel, int id, Object... data){
+		// first three data values must be coordinates
+		if(data.length >= 3){
+			int x = (Integer)data[0];
+			int y = (Integer)data[1];
+			int z = (Integer)data[2];
+			PacketDispatcher.sendPacketToAllAround(x, y, z, range, world.provider.dimensionId, PacketUtils.createPacket(channel, id, data));
+		}
+	}
+	public static void sendToAllAround(World world, int range, int x, int y, int z, String channel, int id, Object... data){
+		// send packet without tileEntity coordinates in data
+		PacketDispatcher.sendPacketToAllAround(x, y, z, range, world.provider.dimensionId, PacketUtils.createPacket(channel, id, data));
+	}
+
+	public static void sendToAllInDimension(int dimensionID, String channel, int id, Object... data){
+		PacketDispatcher.sendPacketToAllInDimension(PacketUtils.createPacket(channel, id, data), dimensionID);
+	}
+
+	public static void sendToAllPlayers(String channel, int id, Object... data){
+		PacketDispatcher.sendPacketToAllPlayers(PacketUtils.createPacket(channel, id, data));
 	}
 }
 
