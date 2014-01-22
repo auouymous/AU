@@ -35,7 +35,6 @@ REOBF := $(BASE)/reobf/minecraft
 P := $(PWD)
 
 JC := javac -encoding UTF-8
-JFLAGS := -Xlint:deprecation
 
 ifneq ($(r),)
 	NOW := $(shell /bin/date +%Y)$(shell /bin/date +%m)$(shell /bin/date +%d)-r$(r)

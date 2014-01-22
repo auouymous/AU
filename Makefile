@@ -9,7 +9,7 @@ all:
 	@(cd hud ; make prepare v=$(VER))
 ifneq ($(VER),147)
 	@(cd extras ; make prepare v=$(VER))
-	@#(cd world ; make prepare v=$(VER))
+#	@(cd world ; make prepare v=$(VER))
 endif
 
 	@# compile all modules
@@ -22,7 +22,7 @@ endif
 	@(cd hud ; make jar v=$(VER))
 ifneq ($(VER),147)
 	@(cd extras ; make jar v=$(VER))
-	@#(cd world ; make jar v=$(VER))
+#	@(cd world ; make jar v=$(VER))
 endif
 
 clean:
@@ -34,4 +34,4 @@ clean:
 	@#(cd world ; make clean v=$(VER))
 
 	@# clean up MCP files
-	rm -rf $(SRC)/com $(REOBF)/com $(REOBF)/net
+	rm -rf $(SRC)/com $(REOBF)/com $(REOBF)/net $(BASE)/logs/*.log
