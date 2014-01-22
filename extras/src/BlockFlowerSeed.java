@@ -128,7 +128,9 @@ public class BlockFlowerSeed extends Block implements IPlantable {
 		if(stage == 2){
 			// change to a flower block
 			Random random = new Random();
-			int color = (random.nextInt(4) == 0 ? random.nextInt(16) : WorldGenFlowers.getBiomeColor(world, x, z, random)); // 25% chance to produce non-biome specific colors
+			int color = (Cfg.enableFlowerSeed100 || random.nextInt(4) == 0
+						? random.nextInt(16)
+						: WorldGenFlowers.getBiomeColor(world, x, z, random)); // 25% chance to produce non-biome specific colors
 			world.setBlock(x, y, z, AUExtras.blockFlower.blockID, color, 2);
 		} else {
 			// increment stage
