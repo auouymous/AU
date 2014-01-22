@@ -27,6 +27,7 @@ Stand on an Ender Cube and sneak to teleport down/north/west, jump to teleport u
 The jump/sneak actions are limited to players in the whitelist, clear it to allow all.
 A redstone signal may also be used to teleport all entities above the cube to another cube.
 Maximum distance between Cubes is 16, adjustable in the config.
+Drop any block in the slot to camouflage the Ender Cube as that block.
 
 Flower seeds produce biome-specific flowers 75% of the time and all flowers the other 25%.
 
