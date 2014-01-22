@@ -31,11 +31,11 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	private Block camoBlock; // NBT
 	private byte camoMeta; // NBT
 	private String owner; // NBT
-	protected int nrUpgrades; // NBT
+	protected byte nrUpgrades; // NBT
 	protected ItemStack[] upgradeContents; // NBT
-	protected int nrSlots; // NBT
+	protected byte nrSlots; // NBT
 	protected ItemStack[] slotContents; // NBT
-	protected int firstValidSlot;
+	protected byte firstValidSlot;
 
 	protected SidedBlockInfo sidedBlockInfo;
 
