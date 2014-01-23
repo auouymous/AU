@@ -1,0 +1,1 @@
+- need to create and store ResourceLocation objects and pass to UI.bindTexture() instead of allocating on each call
