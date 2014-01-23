@@ -53,7 +53,7 @@ public class RenderUtils {
 	@SideOnly(Side.CLIENT)
 	public static void renderWorldBlockSide(Block block, RenderBlocks renderer, int x, int y, int z, int side, float offset, Icon icon, int brightness, int colorMultiplier){
 		Tessellator tessellator = Tessellator.instance;
-		if(brightness > -1) tessellator.setBrightness(brightness);
+		if(brightness > -1) tessellator.setBrightness(brightness<<20 | brightness<<4);
 		Color color = (new Color(colorMultiplier)).anaglyph();
 		tessellator.setColorOpaque_F(color.r, color.g, color.b);
 
