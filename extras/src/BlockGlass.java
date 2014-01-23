@@ -58,12 +58,10 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		return this.blockIcons[color][this.style == 2 ? 0 : IConnectedTexture.ctm_default];
 	}
 
-	#ifdef MC152
 	@SideOnly(Side.CLIENT)
 	public boolean isTintedWithFrame(){
 		return (this.style == 1);
 	}
-	#endif
 
 	@Override
 	public boolean isOpaqueCube(){

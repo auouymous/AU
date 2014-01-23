@@ -22,11 +22,9 @@ public class RendererGlass implements ISimpleBlockRenderingHandler {
 		RenderUtils.renderInventoryBlock(block, renderer, ((BlockGlass)block).getIcon(0, metadata));
 		GL11.glDisable(GL11.GL_BLEND);
 
-		#ifdef MC152
 		// render untinted frame over the tinted glass
 		if(((BlockGlass)block).isTintedWithFrame())
 			RenderUtils.renderInventoryBlock(block, renderer, AUExtras.blockGlass.getIcon(0, metadata));
-		#endif
 	}
 
 	@Override
