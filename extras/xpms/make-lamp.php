@@ -15,7 +15,7 @@ function mult_color($color, $multiplier, $s1, $s2){
 }
 
 function get_color($image, $color, $alpha, $multiplier){
-	$colors = "1e1b1b b3312c 3b511a 51301a 253192 7b2fbe 287697 ababab 434343 d88198 41cd34 decf2a 6689d3 c354cd eb8844 f0f0f0";
+	$colors = "1e1b1b b3312c 3b511a 51301a 253192 7b2fbe 287697 ababab 434343 d88198 41cd34 decf2a 6689d3 c354cd eb8844 ffffff";
 	$colors = explode(' ', $colors);
 	$color = $colors[$color];
 	if($alpha == 0)
@@ -34,12 +34,12 @@ function drawCT($c, $alpha, $tag, $multiplier){
 
 	// sides
 	if($alpha == 0){
-		$edge = get_color($image, $c, 0, $multiplier*0.9); // 90% outer
+		$edge = get_color($image, $c, 0, $multiplier*($c == 0 ? 1.40 : 0.80)); // 80% outer, 140% for black
 		imageline($image, 0,0, 15,0, $edge);
 		imageline($image, 15,0, 15,15, $edge);
 		imageline($image, 0,15, 15,15, $edge);
 		imageline($image, 0,0, 0,15, $edge);
-		$edge = get_color($image, $c, 0, $multiplier*0.95); // 95% inner
+		$edge = get_color($image, $c, 0, $multiplier*($c == 0 ? 1.10 : 0.95)); // 95% inner, 110% if black
 		imageline($image, 1,1, 14,1, $edge);
 		imageline($image, 14,1, 14,14, $edge);
 		imageline($image, 1,14, 14,14, $edge);
