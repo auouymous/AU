@@ -10,6 +10,6 @@ public class ItemBlockGlass extends ItemBlockColored {
 
 	@Override
 	public Icon getIconFromDamage(int color){
-		return ((BlockGlass)AUExtras.blockGlass).getItemIcon(color);
+		return ((BlockGlass)AUExtras.blockGlass).getIcon(0, color);
 	}
 }

@@ -20,8 +20,6 @@ import com.qzx.au.core.IConnectedTexture;
 public class BlockGlass extends BlockColored implements IConnectedTexture {
 	@SideOnly(Side.CLIENT)
 	private Icon[][] blockIcons;
-	@SideOnly(Side.CLIENT)
-	private Icon[] itemIcons;
 
 	private int style;
 
@@ -42,20 +40,14 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 			break;
 		case 1: // tinted
 			this.blockIcons = new Icon[16][IConnectedTexture.ctm_icons];
-			this.itemIcons = new Icon[16];
-			for(int c = 0; c < 16; c++){
+			for(int c = 0; c < 16; c++)
 				for(int t = 0; t < 47; t++)
 					this.blockIcons[c][IConnectedTexture.ctm[t]] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c+"-"+t);
-				this.itemIcons[c] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c+"-item");
-			}
 			break;
 		case 2: // tinted frameless
 			this.blockIcons = new Icon[16][1];
-			this.itemIcons = new Icon[16];
-			for(int c = 0; c < 16; c++){
+			for(int c = 0; c < 16; c++)
 				this.blockIcons[c][0] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c);
-				this.itemIcons[c] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c+"-item");
-			}
 			break;
 		}
 	}
@@ -66,10 +58,12 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		return this.blockIcons[color][this.style == 2 ? 0 : IConnectedTexture.ctm_default];
 	}
 
+	#ifdef MC152
 	@SideOnly(Side.CLIENT)
-	public Icon getItemIcon(int color){
-		return (this.style == 0 ? this.blockIcons[color][IConnectedTexture.ctm_default] : this.itemIcons[color]);
+	public boolean isTintedWithFrame(){
+		return (this.style == 1);
 	}
+	#endif
 
 	@Override
 	public boolean isOpaqueCube(){
