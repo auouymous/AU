@@ -141,11 +141,13 @@ public class BlockFlower extends BlockColored implements IPlantable {
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ){
 		if(!world.isRemote && player.getHeldItem().getItem() instanceof ItemShears){
 			if(world.getBlockId(x, y - 1, z) == Block.tilledField.blockID){
+				int color = world.getBlockMetadata(x, y, z);
+
 				// revert to stage 0
 				world.setBlock(x, y, z, AUExtras.blockFlowerSeed.blockID, 0, 2);
 
 				// drop flower
-				ItemUtils.dropItemAsEntity(world, x, y, z, new ItemStack(AUExtras.blockFlower, 1, world.getBlockMetadata(x, y, z)));
+				ItemUtils.dropItemAsEntity(world, x, y, z, new ItemStack(AUExtras.blockFlower, 1, color));
 			}
 		}
 		return false;
