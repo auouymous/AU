@@ -243,17 +243,15 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 
 		this.dyeVolume--;
 		this.consumeDye();
-		if(this.dyeVolume == 0)
-			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_RESET_WATER,
-										this.xCoord, this.yCoord, this.zCoord);
 
 		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_UPDATE_OUTPUT,
-									this.xCoord, this.yCoord, this.zCoord);
+									this.xCoord, this.yCoord, this.zCoord, this.dyeVolume);
 		this.markChunkModified();
 	}
-	public void updateOutput(){
+	public void updateOutput(byte dyeVolume){
 		// client
 		this.outputTick = 0;
+		this.dyeVolume = dyeVolume;
 
 // TODO: display particle effect on block?
 

@@ -13,7 +13,7 @@ public class Packets {
 	public static final int CLIENT_CHROMA_SET_LOCK				= 101;	// boolean
 	public static final int CLIENT_CHROMA_RESET_WATER			= 102;	// -
 	public static final int CLIENT_CHROMA_SET_COLOR				= 103;	// byte
-	public static final int CLIENT_CHROMA_UPDATE_OUTPUT			= 104;	// -
+	public static final int CLIENT_CHROMA_UPDATE_OUTPUT			= 104;	// byte
 
 	public static final int CLIENT_ENDER_SPAWN_PARTICLES		= 110;	// integer
 	public static final int CLIENT_ENDER_SET_PLAYER_DIRECTION	= 111;	// byte

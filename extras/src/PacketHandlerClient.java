@@ -56,12 +56,12 @@ public class PacketHandlerClient implements IPacketHandler {
 				((TileEntityChromaInfuser)te).setDyeColor((Byte)values[3]);
 		} else if(id == Packets.CLIENT_CHROMA_UPDATE_OUTPUT){
 			// update chroma output
-			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class);
+			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
 			if(values == null){ Debug.error("CLIENT: Invalid update chroma output packet"); return; }
 
 			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityChromaInfuser)
-				((TileEntityChromaInfuser)te).updateOutput();
+				((TileEntityChromaInfuser)te).updateOutput((Byte)values[3]);
 
 		//////////
 
