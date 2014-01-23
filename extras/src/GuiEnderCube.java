@@ -92,17 +92,17 @@ public class GuiEnderCube extends GuiContainerAU {
 	private void updateButtons(){
 		TileEntityEnderCube tileEntity = (TileEntityEnderCube)this.tileEntity;
 
-		int button = tileEntity.getPlayerDirection().ordinal();
-		for(int i = 0; i < this.playerButtons.length; i++)
-			this.playerButtons[i].active = (this.playerButtons[i].id == button ? true : false);
-
-		button = tileEntity.getTeleportDirection().ordinal();
-		for(int i = 0; i < this.directionButtons.length; i++)
-			this.directionButtons[i].active = (this.directionButtons[i].id == button ? true : false);
-
 		this.playerButton.active = tileEntity.getPlayerControl();
 		this.playerRedstoneButton.active = tileEntity.getPlayerRedstoneControl();
 		this.redstoneButton.active = tileEntity.getRedstoneControl();
+
+		int button = tileEntity.getPlayerDirection().ordinal();
+		for(int i = 0; i < this.playerButtons.length; i++)
+			this.playerButtons[i].active = (this.playerButton.active && this.playerButtons[i].id == button ? true : false);
+
+		button = tileEntity.getTeleportDirection().ordinal();
+		for(int i = 0; i < this.directionButtons.length; i++)
+			this.directionButtons[i].active = (this.redstoneButton.active && this.directionButtons[i].id == button ? true : false);
 	}
 
 	@Override
@@ -170,7 +170,7 @@ public class GuiEnderCube extends GuiContainerAU {
 		case BUTTON_PLAYER_UD:
 		case BUTTON_PLAYER_NS:
 		case BUTTON_PLAYER_EW:
-			if(tileEntity.getPlayerDirection().ordinal() != button.id)
+			if(tileEntity.getPlayerControl() && tileEntity.getPlayerDirection().ordinal() != button.id)
 				PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 			break;
 		case BUTTON_DOWN:
@@ -179,7 +179,7 @@ public class GuiEnderCube extends GuiContainerAU {
 		case BUTTON_SOUTH:
 		case BUTTON_WEST:
 		case BUTTON_EAST:
-			if(tileEntity.getTeleportDirection().ordinal() != button.id)
+			if(tileEntity.getRedstoneControl() && tileEntity.getTeleportDirection().ordinal() != button.id)
 				PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 			break;
 		case BUTTON_CONTROL_PLAYER:
