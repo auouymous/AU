@@ -19,7 +19,7 @@ import com.qzx.au.core.RenderUtils;
 @SideOnly(Side.CLIENT)
 public class RendererChromaInfuser implements ISimpleBlockRenderingHandler {
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer){
-		block.setBlockBoundsForItemRender();
+		renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		Icon side = block.getIcon(2, metadata);
 		RenderUtils.renderInventoryBlock(block, renderer,
 			block.getIcon(0, metadata),

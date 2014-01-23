@@ -102,11 +102,7 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
 		this.setBlockBounds(0.0F, 0.0F, BlockCoord.SUB_1_8, 1.0F, 1.0F, 1.0F);
 		super.addCollisionBoxesToList(world, x, y, z, axisAlignedBB, list, entity);
-		this.setBlockBoundsForItemRender();
-	}
 
-	@Override
-	public void setBlockBoundsForItemRender(){
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 

@@ -15,7 +15,7 @@ import com.qzx.au.core.RenderUtils;
 public class RendererGlass implements ISimpleBlockRenderingHandler {
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer){
-		block.setBlockBoundsForItemRender();
+		renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 		RenderUtils.renderInventoryBlock(block, renderer, ((BlockGlass)block).getItemIcon(metadata));
 	}
 
