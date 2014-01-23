@@ -446,7 +446,7 @@ public class AUExtras {
 			GameRegistry.addShapelessRecipe(new ItemStack(Block.stoneBrick, 1, 1), stoneBrick, new ItemStack(Block.vine));
 		}
 		if(Cfg.enableMossyCobbleCrafting){
-			// CRAFT cobblestone + vine -> mossy cobble
+			// CRAFT cobblestone + vine -> mossy cobble (1.8 recipe)
 			GameRegistry.addShapelessRecipe(new ItemStack(Block.cobblestoneMossy), cobblestone, new ItemStack(Block.vine));
 		}
 		if(Cfg.enableCrackedBrickCrafting){
