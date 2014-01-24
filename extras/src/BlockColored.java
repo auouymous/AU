@@ -23,11 +23,11 @@ public class BlockColored extends Block {
 	@SideOnly(Side.CLIENT)
 	private Icon[] blockIcons;
 
-	public BlockColored(int id, String name, String readableName, Class<? extends ItemBlock> itemclass, Material material){
+	public BlockColored(int id, String name, String readableName, Class<? extends ItemBlock> itemblockclass, Material material){
 		super(id, material);
 		this.setUnlocalizedName(name);
-		if(itemclass != null)
-			GameRegistry.registerBlock(this, itemclass, name);
+		if(itemblockclass != null)
+			GameRegistry.registerBlock(this, itemblockclass, name);
 		else
 			GameRegistry.registerBlock(this, name);
 		for(int c = 0; c < 16; c++){
