@@ -17,6 +17,9 @@ public class Cfg extends Config {
 	public static boolean enableGlass;
 	public static boolean enableGlassTinted;
 	public static boolean enableGlassTintedNoFrame;
+	public static boolean enableGlassPane;
+	public static boolean enableGlassPaneTinted;
+	public static boolean enableGlassPaneTintedNoFrame;
 	public static boolean enableLamps;
 	public static boolean enableCobbleStairs;
 	public static boolean enableStoneStairs;
@@ -56,6 +59,9 @@ public class Cfg extends Config {
 	public static int blockGlass;
 	public static int blockGlassTinted;
 	public static int blockGlassTintedNoFrame;
+	public static int blockGlassPane;
+	public static int blockGlassPaneTinted;
+	public static int blockGlassPaneTintedNoFrame;
 	public static int blockLamp;
 	public static int blockInvertedLamp;
 	public static int blockLampPowered;
@@ -87,9 +93,21 @@ public class Cfg extends Config {
 		Cfg.enableChiseledBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.chiseledBrick.enable", true, "enable colored chiseled brick (uses 1 block ID)");
 		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.smoothBrick.enable", true, "enable colored smooth brick (uses 1 block ID)");
 		Cfg.enableGravel = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.gravel.enable", true, "enable colored gravel (uses 1 block ID)");
+
 		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glass.enable", true, "enable colored glass (uses 1 block ID)");
-		Cfg.enableGlassTinted = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glassTinted.enable", true, "enable colored glass w/ tint (uses 1 block ID)");
+		Cfg.enableGlassTinted = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glassTinted.enable", true,
+												"enable colored glass w/ tint (uses 1 block ID)\nNEEDS colored.glass");
 		Cfg.enableGlassTintedNoFrame = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glassTintedNoFrame.enable", true, "enable frameless glass w/ tint (uses 1 block ID)");
+		Cfg.enableGlassPane = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glass.pane.enable", true,
+												"enable colored glass pane (uses 1 block ID)\nNEEDS colored.glass");
+		Cfg.enableGlassPaneTinted = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glassTinted.pane.enable", true,
+												"enable colored glass pane w/ tint (uses 1 block ID)\nNEEDS colored.glassTinted AND colored.glass");
+		Cfg.enableGlassPaneTintedNoFrame = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glassTintedNoFrame.pane.enable", true,
+												"enable frameless glass pane w/ tint (uses 1 block ID)\nNEEDS colored.glassTintedNoFrame");
+		if(!Cfg.enableGlass){ Cfg.enableGlassTinted = false; Cfg.enableGlassPaneTinted = false; }
+		if(!Cfg.enableGlassTinted) Cfg.enableGlassPaneTinted = false;
+		if(!Cfg.enableGlassTintedNoFrame) Cfg.enableGlassPaneTintedNoFrame = false;
+
 		Cfg.enableLamps = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.lamps.enable", true, "enable colored lamps (uses 4 block IDs)");
 
 		Cfg.enableCobbleStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.cobble.stairs.enable", true, "enable colored cobblestone stairs (uses 16 block IDs)");
@@ -158,6 +176,10 @@ public class Cfg extends Config {
 		Cfg.blockFlowerSeed = Cfg.getBlock("block.colored.flowerSeed.id", startBlockID, null); startBlockID++;
 
 		Cfg.blockEnderCube = Cfg.getBlock("block.enderCube.id", startBlockID, null); startBlockID++;
+
+		Cfg.blockGlassPane = Cfg.getBlock("block.colored.glass.pane.id", startBlockID, null); startBlockID++;
+		Cfg.blockGlassPaneTinted = Cfg.getBlock("block.colored.glassTinted.pane.id", startBlockID, null); startBlockID++;
+		Cfg.blockGlassPaneTintedNoFrame = Cfg.getBlock("block.colored.glassTintedNoFrame.pane.id", startBlockID, null); startBlockID++;
 
 		// ITEMS
 		Cfg.itemFriedEgg = Cfg.getItem("item.friedEgg.id", startItemID, null); startItemID++;

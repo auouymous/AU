@@ -51,8 +51,8 @@ for($c = 0; $c < 16; $c++){
 	$item_icon = 0;
 	drawCT($c);
 
-//	$item_icon = 1;
-//	drawCT($c);
+	$item_icon = 1;
+	drawCT($c);
 }
 
 ?>

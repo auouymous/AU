@@ -59,6 +59,11 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 	}
 
 	@SideOnly(Side.CLIENT)
+	public Icon[] getBlockIcons(int color){
+		return this.blockIcons[color];
+	}
+
+	@SideOnly(Side.CLIENT)
 	public boolean isTintedWithFrame(){
 		return (this.style == 1);
 	}
@@ -117,12 +122,9 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 
 		int neighbor_id = neighbor.getBlockID();
 		Block neighbor_block = neighbor.getBlock();
-		int neighbor_style = (neighbor_block instanceof BlockGlass ? ((BlockGlass)neighbor_block).style : -1);
 
 		// connect to same color of glass on sides
-		if(neighbor_id != id || neighbor.getBlockMetadata() != metadata && neighbor_style == this.style) return false;
-
-		//////////
+		if(neighbor_id != id || neighbor.getBlockMetadata() != metadata) return false;
 
 		/*
 			A
@@ -135,10 +137,9 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		BlockCoord diagonal = (new BlockCoord(neighbor)).translateToSide(side);
 		int diagonal_id = diagonal.getBlockID();
 		Block diagonal_block = diagonal.getBlock();
-		int diagonal_style = (diagonal_block instanceof BlockGlass ? ((BlockGlass)diagonal_block).style : -1);
 
 		// must not have same color of glass on this side (to render inner frames)
-		if(diagonal_id == id && diagonal.getBlockMetadata() == metadata && diagonal_style == this.style) return false;
+		if(diagonal_id == id && diagonal.getBlockMetadata() == metadata) return false;
 
 		return true;
 	}
@@ -149,9 +150,9 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 
 		int diagonal_id = diagonal.getBlockID();
 		Block diagonal_block = diagonal.getBlock();
-		int diagonal_style = (diagonal_block instanceof BlockGlass ? ((BlockGlass)diagonal_block).style : -1);
 
-		//////////
+		// connect to same color glass (corners)
+		if(diagonal_id != id || diagonal.getBlockMetadata() != metadata) return false;
 
 		/*
 			AB
@@ -163,15 +164,11 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 		BlockCoord diagonal_diagonal = (new BlockCoord(diagonal)).translateToSide(side);
 		int diagonal_diagonal_id = diagonal_diagonal.getBlockID();
 		Block diagonal_diagonal_block = diagonal_diagonal.getBlock();
-		int diagonal_diagonal_style = (diagonal_diagonal_block instanceof BlockGlass ? ((BlockGlass)diagonal_diagonal_block).style : -1);
 
 		// must not have same color of glass on this corner (to render inner frames)
-		if(diagonal_diagonal_id == id && diagonal_diagonal.getBlockMetadata() == metadata && diagonal_diagonal_style == this.style) return false;
+		if(diagonal_diagonal_id == id && diagonal_diagonal.getBlockMetadata() == metadata) return false;
 
-		//////////
-
-		// connect to same color glass (corners)
-		return (diagonal_id == id && diagonal.getBlockMetadata() == metadata && diagonal_style == this.style);
+		return true;
 	}
 
 	@Override

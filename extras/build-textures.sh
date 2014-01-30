@@ -25,6 +25,7 @@ done
 php make-glass.php $TEXTURES/blocks/
 php make-glass-tinted.php $TEXTURES/blocks/
 php make-glass-tinted-noframe.php $TEXTURES/blocks/
+php make-panes.php $TEXTURES/blocks/
 php make-lamp.php $TEXTURES/blocks/
 php make-enderCube.php $TEXTURES/blocks/
 

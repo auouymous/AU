@@ -59,6 +59,9 @@ public class AUExtras {
 	public static Block blockGlass;
 	public static Block blockGlassTinted;
 	public static Block blockGlassTintedNoFrame;
+	public static Block blockGlassPane;
+	public static Block blockGlassPaneTinted;
+	public static Block blockGlassPaneTintedNoFrame;
 	public static Block blockLamp;
 	public static Block blockInvertedLamp;
 	public static Block blockLampPowered;
@@ -325,6 +328,74 @@ public class AUExtras {
 
 		//////////
 
+		if(Cfg.enableGlassPane){
+			this.blockGlassPane = new BlockColoredPane(Cfg.blockGlassPane, "au.colorGlassPane", " Glass Pane", ItemBlockGlassPane.class, this.blockGlass, true)
+				.setHardness(0.3F)
+				.setResistance(1.5F)
+				.setStepSound(Block.soundGlassFootstep)
+				.setCreativeTab(AUExtras.tabAU);
+			ItemStack coloredGlassPane = new ItemStack(this.blockGlassPane);
+
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, glassPane, coloredGlassPane);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(this.blockGlassPane, 1, c), coloredGlassPane);
+			// SMELT <colored> glass pane -> glass pane
+			GameRegistry.addSmelting(coloredGlassPane.itemID, glassPane, 1.0f);
+
+			// CRAFT 6 <colored> glass -> 16 <colored> glass panes
+			for(int c = 0; c < 16; c++)
+				GameRegistry.addShapedRecipe(new ItemStack(this.blockGlassPane, 16, c), "ggg", "ggg", "   ", 'g', new ItemStack(this.blockGlass, 1, c));
+		}
+
+		//////////
+
+		if(Cfg.enableGlassPaneTinted){
+			this.blockGlassPaneTinted = new BlockColoredPane(Cfg.blockGlassPaneTinted, "au.colorGlassPaneTinted", " Tinted Glass Pane",
+																ItemBlockGlassPaneTinted.class, this.blockGlassTinted, true)
+				.setHardness(0.3F)
+				.setResistance(1.5F)
+				.setStepSound(Block.soundGlassFootstep)
+				.setCreativeTab(AUExtras.tabAU);
+			ItemStack coloredGlassPaneTinted = new ItemStack(this.blockGlassPaneTinted);
+
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, glassPane, coloredGlassPaneTinted);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(this.blockGlassPaneTinted, 1, c), coloredGlassPaneTinted);
+			// SMELT <colored tinted> glass pane -> glass pane
+			GameRegistry.addSmelting(coloredGlassPaneTinted.itemID, glassPane, 1.0f);
+
+			// CRAFT 6 <colored> glass -> 16 <colored> glass panes
+			for(int c = 0; c < 16; c++)
+				GameRegistry.addShapedRecipe(new ItemStack(this.blockGlassPaneTinted, 16, c), "ggg", "ggg", "   ", 'g', new ItemStack(this.blockGlassTinted, 1, c));
+		}
+
+		//////////
+
+		if(Cfg.enableGlassPaneTintedNoFrame){
+			this.blockGlassPaneTintedNoFrame = new BlockColoredPane(Cfg.blockGlassPaneTintedNoFrame, "au.colorGlassPaneTintedNoFrame", " Tinted Glass Pane (Frameless)",
+																	ItemBlockGlassPaneTintedNoFrame.class, this.blockGlassTintedNoFrame, false)
+				.setHardness(0.3F)
+				.setResistance(1.5F)
+				.setStepSound(Block.soundGlassFootstep)
+				.setCreativeTab(AUExtras.tabAU);
+			ItemStack coloredGlassPaneTintedNoFrame = new ItemStack(this.blockGlassPaneTintedNoFrame);
+
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, glassPane, coloredGlassPaneTintedNoFrame);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(this.blockGlassPaneTintedNoFrame, 1, c), coloredGlassPaneTintedNoFrame);
+			// SMELT <tinted frameless> glass pane -> glass pane
+			GameRegistry.addSmelting(coloredGlassPaneTintedNoFrame.itemID, glassPane , 1.0f);
+
+			// CRAFT 6 <colored> glass -> 16 <colored> glass panes
+			for(int c = 0; c < 16; c++)
+				GameRegistry.addShapedRecipe(new ItemStack(this.blockGlassPaneTintedNoFrame, 16, c), "ggg", "ggg", "   ", 'g', new ItemStack(this.blockGlassTintedNoFrame, 1, c));
+		}
+
+		//////////
+
 		// convert any colored glass to any other colored glass
 		if(Cfg.enableGlass && Cfg.enableGlassTinted){
 			ItemStack coloredGlass = new ItemStack(this.blockGlass);
@@ -348,6 +419,32 @@ public class AUExtras {
 			for(int c = 0; c < 16; c++){
 				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(this.blockGlassTintedNoFrame, 1, c), coloredGlassTinted);
 				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(this.blockGlassTinted, 1, c), coloredGlassTintedNoFrame);
+			}
+		}
+
+		// convert any colored glass pane to any other colored glass pane
+		if(Cfg.enableGlassPane && Cfg.enableGlassPaneTinted){
+			ItemStack coloredGlassPane = new ItemStack(this.blockGlassPane);
+			ItemStack coloredGlassPaneTinted = new ItemStack(this.blockGlassPaneTinted);
+			for(int c = 0; c < 16; c++){
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(this.blockGlassPaneTinted, 1, c), coloredGlassPane);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(this.blockGlassPane, 1, c), coloredGlassPaneTinted);
+			}
+		}
+		if(Cfg.enableGlassPane && Cfg.enableGlassPaneTintedNoFrame){
+			ItemStack coloredGlassPane = new ItemStack(this.blockGlassPane);
+			ItemStack coloredGlassPaneTintedNoFrame = new ItemStack(this.blockGlassPaneTintedNoFrame);
+			for(int c = 0; c < 16; c++){
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(this.blockGlassPaneTintedNoFrame, 1, c), coloredGlassPane);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(this.blockGlassPane, 1, c), coloredGlassPaneTintedNoFrame);
+			}
+		}
+		if(Cfg.enableGlassPaneTinted && Cfg.enableGlassPaneTintedNoFrame){
+			ItemStack coloredGlassPaneTinted = new ItemStack(this.blockGlassPaneTinted);
+			ItemStack coloredGlassPaneTintedNoFrame = new ItemStack(this.blockGlassPaneTintedNoFrame);
+			for(int c = 0; c < 16; c++){
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(this.blockGlassPaneTintedNoFrame, 1, c), coloredGlassPaneTinted);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(this.blockGlassPaneTinted, 1, c), coloredGlassPaneTintedNoFrame);
 			}
 		}
 
@@ -388,9 +485,17 @@ public class AUExtras {
 				.setStepSound(Block.soundGlassFootstep);
 			ItemStack coloredLamp = new ItemStack(this.blockLamp);
 
-			// CRAFT 6 glass panes + dye + glowstone + redstone -> <colored> lamp
-			for(int c = 0; c < 16; c++)
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstone, '-', Color.oreDyes[c], 'r', redstoneDust));
+			if(Cfg.enableGlassPaneTinted){
+				// CRAFT 6 tinted glass panes + dye + glowstone + redstone -> <colored> lamp
+				for(int c = 0; c < 16; c++)
+					GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockLamp, 1, c), "pgp", "p-p", "prp",
+											'p', new ItemStack(this.blockGlassPaneTinted, 1, c), 'g', glowstone, '-', Color.oreDyes[c], 'r', redstoneDust));
+			} else {
+				// CRAFT 6 glass panes + dye + glowstone + redstone -> <colored> lamp
+				for(int c = 0; c < 16; c++)
+					GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockLamp, 1, c), "pgp", "p-p", "prp",
+											'p', glassPane, 'g', glowstone, '-', Color.oreDyes[c], 'r', redstoneDust));
+			}
 			// CRAFT <colored> lamp + dye -> <colored> lamp
 			for(int g = 0; g < 16; g++){
 				ItemStack anyLamp = new ItemStack(this.blockLamp, 1, g);
@@ -412,9 +517,17 @@ public class AUExtras {
 				.setStepSound(Block.soundGlassFootstep);
 			ItemStack coloredInvertedLamp = new ItemStack(this.blockInvertedLamp);
 
-			// CRAFT 6 glass panes + dye + glowstone + redstone torch -> <colored> inverted lamp
-			for(int c = 0; c < 16; c++)
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockInvertedLamp, 1, c), "pgp", "p-p", "prp", 'p', glassPane, 'g', glowstone, '-', Color.oreDyes[c], 'r', redstoneTorch));
+			if(Cfg.enableGlassPaneTinted){
+				// CRAFT 6 glass panes + dye + glowstone + redstone torch -> <colored> inverted lamp
+				for(int c = 0; c < 16; c++)
+					GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockInvertedLamp, 1, c), "pgp", "p-p", "prp",
+											'p', new ItemStack(this.blockGlassPaneTinted, 1, c), 'g', glowstone, '-', Color.oreDyes[c], 'r', redstoneTorch));
+			} else {
+				// CRAFT 6 glass panes + dye + glowstone + redstone torch -> <colored> inverted lamp
+				for(int c = 0; c < 16; c++)
+					GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockInvertedLamp, 1, c), "pgp", "p-p", "prp",
+											'p', glassPane, 'g', glowstone, '-', Color.oreDyes[c], 'r', redstoneTorch));
+			}
 			// CRAFT <colored> inverted lamp + dye -> <colored> inverted lamp
 			for(int g = 0; g < 16; g++){
 				ItemStack anyInvertedLamp = new ItemStack(this.blockInvertedLamp, 1, g);

@@ -81,6 +81,27 @@ Recipes
 * CHROMA INFUSER [colored tinted] glass TO [tinted frameless] glass (dot: 8 per dye)
 * CHROMA INFUSER [tinted frameless] glass TO [tinted frameless] glass (dot: 8 per dye)
 * SMELT [tinted frameless] glass TO glass
+*
+* CHROMA INFUSER glass pane TO [colored] glass pane (square: 8 per dye)
+* CHROMA INFUSER [colored] glass pane TO [colored] glass (square: 8 per dye)
+* CHROMA INFUSER [colored tinted] glass pane TO [colored] glass pane (square: 8 per dye)
+* CHROMA INFUSER [tinted frameless] glass pane TO [colored] glass pane (square: 8 per dye)
+* CRAFT 6 [colored] glass TO 16 [colored] glass panes
+* SMELT [colored] glass pane TO glass pane
+* 
+* CHROMA INFUSER glass pane TO [colored tinted] glass pane (square dot: 8 per dye)
+* CHROMA INFUSER [colored] glass pane TO [colored tinted] glass pane (square dot: 8 per dye)
+* CHROMA INFUSER [colored tinted] glass pane TO [colored tinted] glass pane (square dot: 8 per dye)
+* CHROMA INFUSER [tinted frameless] glass pane TO [colored tinted] glass pane (square dot: 8 per dye)
+* CRAFT 6 [colored tinted] glass TO 16 [colored tinted] glass panes
+* SMELT [colored tinted] glass pane TO glass pane
+* 
+* CHROMA INFUSER glass pane TO [tinted frameless] glass pane (dot: 8 per dye)
+* CHROMA INFUSER [colored] glass pane TO [tinted frameless] glass pane (dot: 8 per dye)
+* CHROMA INFUSER [colored tinted] glass pane TO [tinted frameless] glass pane (dot: 8 per dye)
+* CHROMA INFUSER [tinted frameless] glass pane TO [tinted frameless] glass pane (dot: 8 per dye)
+* CRAFT 6 [tinted frameless] glass TO 16 [tinted frameless] glass panes
+* SMELT [tinted frameless] glass pane TO glass pane
 * 
 * CHROMA INFUSER [vanilla] wool TO [vanilla] wool (blank: 8 per dye)
 * CHROMA INFUSER [vanilla] hardened clay TO [vanilla] stained clay (blank: 8 per dye - 1.6.x and up)
@@ -92,8 +113,8 @@ Recipes
 * CRAFT 6 [colored] stone brick TO 4 [colored] stone brick stairs
 * CRAFT 6 [colored] smooth brick TO 4 [colored] smooth brick stairs
 * 
-* CRAFT 6 glass panes + dye + glowstone block + redstone dust TO [colored] lamp
-* CRAFT 6 glass panes + dye + glowstone block + redstone torch TO [colored] inverted lamp
+* CRAFT 6 glass panes + dye + glowstone block + redstone dust TO [colored] lamp (requires tinted panes if enabled)
+* CRAFT 6 glass panes + dye + glowstone block + redstone torch TO [colored] inverted lamp (requires tinted panes if enabled)
 * CRAFT [colored] lamp + dye TO [colored] lamp
 * CRAFT [colored] inverted lamp + dye TO [colored] inverted lamp
 * CRAFT [colored] lamp + redstone torch TO [colored] inverted lamp
