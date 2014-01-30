@@ -66,6 +66,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 		Icon icon_side = ((BlockColoredPane)block).getSidesIcon();
 		float sx1 = (float)world.getBlockMetadata(x,y,z) * BlockCoord.ADD_1_16 + BlockCoord.ADD_1_64, sx2 = sx1 + BlockCoord.ADD_1_16 - BlockCoord.ADD_1_32;
 		final float sy1 = 0.0F, sy2 = BlockCoord.ADD_1_16;
+		final float side_inset = BlockCoord.ADD_1_64/4;
 
 		if(draw_y){
 			Icon icon_y = ((BlockColoredPane)block).getBlockTextureHorizontal(world, x, y, z, 0);
@@ -75,13 +76,13 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 			float SIDE_N = y + 0.5F - BlockCoord.ADD_1_32;
 			float SIDE_P = y + 0.5F + BlockCoord.ADD_1_32;
 			if(this.shouldSideBeRendered(block, world, x, y, z, 2))
-				RenderUtils.renderSideFace(x+1.0F, SIDE_N, z, x, SIDE_P, z, icon_side, sx1, sy1, sx2, sy2);
+				RenderUtils.renderSideFace(x+1.0F, SIDE_N, z+side_inset, x, SIDE_P, z+side_inset, icon_side, sx1, sy1, sx2, sy2);
 			if(this.shouldSideBeRendered(block, world, x, y, z, 3))
-				RenderUtils.renderSideFace(x, SIDE_N, z+1.0F, x+1.0F, SIDE_P, z+1.0F, icon_side, sx1, sy1, sx2, sy2);
+				RenderUtils.renderSideFace(x, SIDE_N, z+1.0F-side_inset, x+1.0F, SIDE_P, z+1.0F-side_inset, icon_side, sx1, sy1, sx2, sy2);
 			if(this.shouldSideBeRendered(block, world, x, y, z, 4))
-				RenderUtils.renderSideFace(x, SIDE_N, z, x, SIDE_P, z+1.0F, icon_side, sx1, sy1, sx2, sy2);
+				RenderUtils.renderSideFace(x+side_inset, SIDE_N, z, x+side_inset, SIDE_P, z+1.0F, icon_side, sx1, sy1, sx2, sy2);
 			if(this.shouldSideBeRendered(block, world, x, y, z, 5))
-				RenderUtils.renderSideFace(x+1.0F, SIDE_N, z+1.0F, x+1.0F, SIDE_P, z, icon_side, sx1, sy1, sx2, sy2);
+				RenderUtils.renderSideFace(x+1.0F-side_inset, SIDE_N, z+1.0F, x+1.0F-side_inset, SIDE_P, z, icon_side, sx1, sy1, sx2, sy2);
 		}
 		if(draw_n || draw_s){
 			Icon[] icon_x = ((BlockColoredPane)block).getBlockTextureVertical(world, x, y, z, 4);
@@ -112,15 +113,15 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 			float SIDE_N = x + 0.5F - BlockCoord.ADD_1_32;
 			float SIDE_P = x + 0.5F + BlockCoord.ADD_1_32;
 			if(this.shouldSideBeRendered(block, world, x, y, z, 0))
-				RenderUtils.renderBottomFace(SIDE_N, y, z+(draw_n ? 0.0F : 0.5F), SIDE_P, y, z+(draw_s ? 1.0F : 0.5F), icon_side, sx1, sy1, sx2, sy2, false);
+				RenderUtils.renderBottomFace(SIDE_N, y+side_inset, z+(draw_n ? 0.0F : 0.5F), SIDE_P, y+side_inset, z+(draw_s ? 1.0F : 0.5F), icon_side, sx1, sy1, sx2, sy2, false);
 			if(this.shouldSideBeRendered(block, world, x, y, z, 1))
-				RenderUtils.renderTopFace(SIDE_N, y+1.0F, z+(draw_n ? 0.0F : 0.5F), SIDE_P, y+1.0F, z+(draw_s ? 1.0F : 0.5F), icon_side, sx1, sy1, sx2, sy2, false);
+				RenderUtils.renderTopFace(SIDE_N, y+1.0F-side_inset, z+(draw_n ? 0.0F : 0.5F), SIDE_P, y+1.0F-side_inset, z+(draw_s ? 1.0F : 0.5F), icon_side, sx1, sy1, sx2, sy2, false);
 			if((draw_n || (!draw_w && !draw_e)) && this.shouldSideBeRendered(block, world, x, y, z, 2)){
-				float z_side = z + (draw_n ? 0.0F : 0.5F);
+				float z_side = z + (draw_n ? 0.0F : 0.5F)+side_inset;
 				RenderUtils.renderSideFace(SIDE_P, y, z_side, SIDE_N, y+1.0F, z_side, icon_side, sx1, sy1, sx2, sy2);
 			}
 			if((draw_s || (!draw_w && !draw_e)) && this.shouldSideBeRendered(block, world, x, y, z, 3)){
-				float z_side = z + (draw_s ? 1.0F : 0.5F);
+				float z_side = z + (draw_s ? 1.0F : 0.5F)-side_inset;
 				RenderUtils.renderSideFace(SIDE_N, y, z_side, SIDE_P, y+1.0F, z_side, icon_side, sx1, sy1, sx2, sy2);
 			}
 		}
@@ -153,15 +154,15 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 			float SIDE_N = z + 0.5F - BlockCoord.ADD_1_32;
 			float SIDE_P = z + 0.5F + BlockCoord.ADD_1_32;
 			if(this.shouldSideBeRendered(block, world, x, y, z, 0))
-				RenderUtils.renderBottomFace(x+(draw_w ? 0.0F : 0.5F), y, SIDE_N, x+(draw_e ? 1.0F : 0.5F), y, SIDE_P, icon_side, sx1, sy1, sx2, sy2, false);
+				RenderUtils.renderBottomFace(x+(draw_w ? 0.0F : 0.5F), y+side_inset, SIDE_N, x+(draw_e ? 1.0F : 0.5F), y+side_inset, SIDE_P, icon_side, sx1, sy1, sx2, sy2, false);
 			if(this.shouldSideBeRendered(block, world, x, y, z, 1))
-				RenderUtils.renderTopFace(x+(draw_w ? 0.0F : 0.5F), y+1.0F, SIDE_N, x+(draw_e ? 1.0F : 0.5F), y+1.0F, SIDE_P, icon_side, sx1, sy1, sx2, sy2, false);
+				RenderUtils.renderTopFace(x+(draw_w ? 0.0F : 0.5F), y+1.0F-side_inset, SIDE_N, x+(draw_e ? 1.0F : 0.5F), y+1.0F-side_inset, SIDE_P, icon_side, sx1, sy1, sx2, sy2, false);
 			if((draw_w || (!draw_n && !draw_s)) && this.shouldSideBeRendered(block, world, x, y, z, 4)){
-				float x_side = x + (draw_w ? 0.0F : 0.5F);
+				float x_side = x + (draw_w ? 0.0F : 0.5F)+side_inset;
 				RenderUtils.renderSideFace(x_side, y, SIDE_N, x_side, y+1.0F, SIDE_P, icon_side, sx1, sy1, sx2, sy2);
 			}
 			if((draw_e || (!draw_n && !draw_s)) && this.shouldSideBeRendered(block, world, x, y, z, 5)){
-				float x_side = x + (draw_e ? 1.0F : 0.5F);
+				float x_side = x + (draw_e ? 1.0F : 0.5F)-side_inset;
 				RenderUtils.renderSideFace(x_side, y, SIDE_P, x_side, y+1.0F, SIDE_N, icon_side, sx1, sy1, sx2, sy2);
 			}
 		}
