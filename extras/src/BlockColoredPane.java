@@ -170,7 +170,7 @@ public class BlockColoredPane extends BlockColored {
 		return true;
 	}
 
-	private int getPaneWidthOnSide(IBlockAccess access, int x, int y, int z, int side){
+	public int getPaneWidthOnSide(IBlockAccess access, int x, int y, int z, int side){
 		final float SIDE_N = 0.5F - BlockColoredPane.SIDE_WIDTH;
 		final float SIDE_P = 0.5F + BlockColoredPane.SIDE_WIDTH;
 		boolean connect_d = this.canPaneConnectTo(access, x, y, z, ForgeDirection.DOWN);

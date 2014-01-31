@@ -68,6 +68,8 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 		final float sy1 = 0.0F, sy2 = BlockCoord.ADD_1_16;
 		final float side_inset = BlockCoord.ADD_1_64/4;
 
+		int panes_d_ns = 0, panes_d_we = 0, panes_u_ns = 0, panes_u_we = 0;
+
 		if(draw_y){
 			Icon icon_y = ((BlockColoredPane)block).getBlockTextureHorizontal(world, x, y, z, 0);
 			RenderUtils.renderBottomFace(x, Y_CENTER_N, z, x+1.0F, Y_CENTER_N, z+1.0F, icon_y, 0.0F, 0.0F, 1.0F, 1.0F, false);
@@ -83,6 +85,16 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 				RenderUtils.renderSideFace(x+side_inset, SIDE_N, z, x+side_inset, SIDE_P, z+1.0F, icon_side, sx1, sy1, sx2, sy2);
 			if(this.shouldSideBeRendered(block, world, x, y, z, 5))
 				RenderUtils.renderSideFace(x+1.0F-side_inset, SIDE_N, z+1.0F, x+1.0F-side_inset, SIDE_P, z, icon_side, sx1, sy1, sx2, sy2);
+		} else {
+			// get connections to panes above and below for vertical panes
+			if(!this.shouldSideBeRendered(block, world, x, y, z, 0)){
+				panes_d_ns = ((BlockColoredPane)block).getPaneWidthOnSide(world, x, y-1, z, 4);
+				panes_d_we = ((BlockColoredPane)block).getPaneWidthOnSide(world, x, y-1, z, 2);
+			}
+			if(!this.shouldSideBeRendered(block, world, x, y, z, 1)){
+				panes_u_ns = ((BlockColoredPane)block).getPaneWidthOnSide(world, x, y+1, z, 4);
+				panes_u_we = ((BlockColoredPane)block).getPaneWidthOnSide(world, x, y+1, z, 2);
+			}
 		}
 		if(draw_n || draw_s){
 			Icon[] icon_x = ((BlockColoredPane)block).getBlockTextureVertical(world, x, y, z, 4);
@@ -112,10 +124,14 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 
 			float SIDE_N = x + 0.5F - BlockColoredPane.SIDE_WIDTH;
 			float SIDE_P = x + 0.5F + BlockColoredPane.SIDE_WIDTH;
-			if(this.shouldSideBeRendered(block, world, x, y, z, 0))
-				RenderUtils.renderBottomFace(SIDE_N, y+side_inset, z+(draw_n ? 0.0F : 0.5F), SIDE_P, y+side_inset, z+(draw_s ? 1.0F : 0.5F), icon_side, sx1, sy1, sx2, sy2, false);
-			if(this.shouldSideBeRendered(block, world, x, y, z, 1))
-				RenderUtils.renderTopFace(SIDE_N, y+1.0F-side_inset, z+(draw_n ? 0.0F : 0.5F), SIDE_P, y+1.0F-side_inset, z+(draw_s ? 1.0F : 0.5F), icon_side, sx1, sy1, sx2, sy2, false);
+			if(panes_d_ns != 3)
+				
+				RenderUtils.renderBottomFace(SIDE_N, y+side_inset, z+(draw_n && (panes_d_ns&2)==0 ? 0.0F : 0.5F),
+											 SIDE_P, y+side_inset, z+(draw_s && (panes_d_ns&1)==0 ? 1.0F : 0.5F), icon_side, sx1, sy1, sx2, sy2, false);
+			if(panes_u_ns != 3)
+				
+				RenderUtils.renderTopFace(SIDE_N, y+1.0F-side_inset, z+(draw_n && (panes_u_ns&2)==0 ? 0.0F : 0.5F),
+										  SIDE_P, y+1.0F-side_inset, z+(draw_s && (panes_u_ns&1)==0 ? 1.0F : 0.5F), icon_side, sx1, sy1, sx2, sy2, false);
 			if((draw_n || (!draw_w && !draw_e)) && this.shouldSideBeRendered(block, world, x, y, z, 2)){
 				float z_side = z + (draw_n ? 0.0F : 0.5F)+side_inset;
 				RenderUtils.renderSideFace(SIDE_P, y, z_side, SIDE_N, y+1.0F, z_side, icon_side, sx1, sy1, sx2, sy2);
@@ -153,10 +169,14 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 
 			float SIDE_N = z + 0.5F - BlockColoredPane.SIDE_WIDTH;
 			float SIDE_P = z + 0.5F + BlockColoredPane.SIDE_WIDTH;
-			if(this.shouldSideBeRendered(block, world, x, y, z, 0))
-				RenderUtils.renderBottomFace(x+(draw_w ? 0.0F : 0.5F), y+side_inset, SIDE_N, x+(draw_e ? 1.0F : 0.5F), y+side_inset, SIDE_P, icon_side, sx1, sy1, sx2, sy2, false);
-			if(this.shouldSideBeRendered(block, world, x, y, z, 1))
-				RenderUtils.renderTopFace(x+(draw_w ? 0.0F : 0.5F), y+1.0F-side_inset, SIDE_N, x+(draw_e ? 1.0F : 0.5F), y+1.0F-side_inset, SIDE_P, icon_side, sx1, sy1, sx2, sy2, false);
+			if(panes_d_we != 3)
+				
+				RenderUtils.renderBottomFace(x+(draw_w && (panes_d_we&1)==0 ? 0.0F : 0.5F), y+side_inset, SIDE_N,
+											 x+(draw_e && (panes_d_we&2)==0 ? 1.0F : 0.5F), y+side_inset, SIDE_P, icon_side, sx1, sy1, sx2, sy2, false);
+			if(panes_u_we != 3)
+				
+				RenderUtils.renderTopFace(x+(draw_w && (panes_u_we&1)==0 ? 0.0F : 0.5F), y+1.0F-side_inset, SIDE_N,
+										  x+(draw_e && (panes_u_we&2)==0 ? 1.0F : 0.5F), y+1.0F-side_inset, SIDE_P, icon_side, sx1, sy1, sx2, sy2, false);
 			if((draw_w || (!draw_n && !draw_s)) && this.shouldSideBeRendered(block, world, x, y, z, 4)){
 				float x_side = x + (draw_w ? 0.0F : 0.5F)+side_inset;
 				RenderUtils.renderSideFace(x_side, y, SIDE_N, x_side, y+1.0F, SIDE_P, icon_side, sx1, sy1, sx2, sy2);
