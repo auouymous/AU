@@ -232,7 +232,10 @@ public class TileEntityEnderCube extends TileEntityAU {
 		return this.playerControlWhitelist == null ? "" : this.playerControlWhitelist;
 	}
 	public void setPlayerControlWhitelist(String pcl, boolean server){
-		if(pcl != null && pcl.trim().equals("")) pcl = null;
+		if(pcl != null){
+			pcl = pcl.trim();
+			if(pcl.equals("")) pcl = null;
+		}
 		if(pcl == null && this.playerControlWhitelist == null) return;
 		if(pcl != null && this.playerControlWhitelist != null && pcl.equals(this.playerControlWhitelist)) return;
 
@@ -240,7 +243,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 
 		if(server){
 			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_ENDER_SET_PCL,
-										this.xCoord, this.yCoord, this.zCoord, this.playerControlWhitelist);
+										this.xCoord, this.yCoord, this.zCoord, this.playerControlWhitelist == null ? "" : this.playerControlWhitelist);
 			this.markChunkModified();
 		} else
 			GuiEnderCube.update_pcl = true;

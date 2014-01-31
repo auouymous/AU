@@ -157,7 +157,6 @@ public class GuiEnderCube extends GuiContainerAU {
 		TileEntityEnderCube tileEntity = (TileEntityEnderCube)this.tileEntity;
 		String newPCL = field.getText().trim();
 		String oldPCL = tileEntity.getPlayerControlWhitelist();
-		if(oldPCL != null) oldPCL = oldPCL.trim();
 		if(!oldPCL.equals(newPCL))
 			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_PCL, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (String)newPCL);
 	}
