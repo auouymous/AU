@@ -120,7 +120,13 @@ public class BlockColoredPane extends BlockColored {
 	public boolean shouldSideBeRendered(IBlockAccess access, int x, int y, int z, int side){
 		// coordinates are the block at each side, not the block being rendered
 
-		return Block.blocksList[access.getBlockId(x, y, z)] instanceof BlockColoredPane ? false : super.shouldSideBeRendered(access, x, y, z, side);
+		if(!(Block.blocksList[access.getBlockId(x, y, z)] instanceof BlockColoredPane))
+			return super.shouldSideBeRendered(access, x, y, z, side);
+
+		boolean thisVertical = (this.minY == 0.0F);
+		boolean neighborVertical = (this.canPaneConnectTo(access, x, y, z, ForgeDirection.UP) || this.canPaneConnectTo(access, x, y, z, ForgeDirection.DOWN));
+
+		return thisVertical != neighborVertical;
 	}
 
 	@SideOnly(Side.CLIENT)
