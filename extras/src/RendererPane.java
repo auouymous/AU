@@ -73,8 +73,8 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 			RenderUtils.renderBottomFace(x, Y_CENTER_N, z, x+1.0F, Y_CENTER_N, z+1.0F, icon_y, 0.0F, 0.0F, 1.0F, 1.0F, false);
 //			RenderUtils.renderTopFace(	 x, Y_CENTER_P, z, x+1.0F, Y_CENTER_P, z+1.0F, icon_y, 0.0F, 0.0F, 1.0F, 1.0F, false);
 
-			float SIDE_N = y + 0.5F - BlockCoord.ADD_1_32;
-			float SIDE_P = y + 0.5F + BlockCoord.ADD_1_32;
+			float SIDE_N = y + 0.5F - BlockColoredPane.SIDE_WIDTH;
+			float SIDE_P = y + 0.5F + BlockColoredPane.SIDE_WIDTH;
 			if(this.shouldSideBeRendered(block, world, x, y, z, 2))
 				RenderUtils.renderSideFace(x+1.0F, SIDE_N, z+side_inset, x, SIDE_P, z+side_inset, icon_side, sx1, sy1, sx2, sy2);
 			if(this.shouldSideBeRendered(block, world, x, y, z, 3))
@@ -110,8 +110,8 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 //				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.75F,	X_CENTER_P, y+1.0F, z+0.50F,	icon_x[0], 0.25F, 0.0F, 0.00F, 1.0F); // east face:  left half - texture right
 			}
 
-			float SIDE_N = x + 0.5F - BlockCoord.ADD_1_32;
-			float SIDE_P = x + 0.5F + BlockCoord.ADD_1_32;
+			float SIDE_N = x + 0.5F - BlockColoredPane.SIDE_WIDTH;
+			float SIDE_P = x + 0.5F + BlockColoredPane.SIDE_WIDTH;
 			if(this.shouldSideBeRendered(block, world, x, y, z, 0))
 				RenderUtils.renderBottomFace(SIDE_N, y+side_inset, z+(draw_n ? 0.0F : 0.5F), SIDE_P, y+side_inset, z+(draw_s ? 1.0F : 0.5F), icon_side, sx1, sy1, sx2, sy2, false);
 			if(this.shouldSideBeRendered(block, world, x, y, z, 1))
@@ -151,8 +151,8 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 //				RenderUtils.renderSideFace(x+0.75F, y, Z_CENTER_P,	x+1.00F, y+1.0F, Z_CENTER_P,	icon_z[0], 0.25F, 0.0F, 0.00F, 1.0F); // south face:  left half - texture right
 			}
 
-			float SIDE_N = z + 0.5F - BlockCoord.ADD_1_32;
-			float SIDE_P = z + 0.5F + BlockCoord.ADD_1_32;
+			float SIDE_N = z + 0.5F - BlockColoredPane.SIDE_WIDTH;
+			float SIDE_P = z + 0.5F + BlockColoredPane.SIDE_WIDTH;
 			if(this.shouldSideBeRendered(block, world, x, y, z, 0))
 				RenderUtils.renderBottomFace(x+(draw_w ? 0.0F : 0.5F), y+side_inset, SIDE_N, x+(draw_e ? 1.0F : 0.5F), y+side_inset, SIDE_P, icon_side, sx1, sy1, sx2, sy2, false);
 			if(this.shouldSideBeRendered(block, world, x, y, z, 1))

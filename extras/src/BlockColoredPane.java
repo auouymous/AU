@@ -22,6 +22,8 @@ import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.IConnectedTexture;
 
 public class BlockColoredPane extends BlockColored {
+	public static final float SIDE_WIDTH = BlockCoord.ADD_1_32; // two times this
+
 	@SideOnly(Side.CLIENT)
 	private Icon sidesIcon;
 	@SideOnly(Side.CLIENT)
@@ -169,8 +171,8 @@ public class BlockColoredPane extends BlockColored {
 	}
 
 	private int getPaneWidthOnSide(IBlockAccess access, int x, int y, int z, int side){
-		final float SIDE_N = 0.5F - BlockCoord.ADD_1_16;
-		final float SIDE_P = 0.5F + BlockCoord.ADD_1_16;
+		final float SIDE_N = 0.5F - BlockColoredPane.SIDE_WIDTH;
+		final float SIDE_P = 0.5F + BlockColoredPane.SIDE_WIDTH;
 		boolean connect_d = this.canPaneConnectTo(access, x, y, z, ForgeDirection.DOWN);
 		boolean connect_u = this.canPaneConnectTo(access, x, y, z, ForgeDirection.UP);
 
@@ -363,8 +365,8 @@ public class BlockColoredPane extends BlockColored {
 	// modified from net.minecraft.block.BlockPane
 	@Override
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity){
-		final float SIDE_N = 0.5F - BlockCoord.ADD_1_16;
-		final float SIDE_P = 0.5F + BlockCoord.ADD_1_16;
+		final float SIDE_N = 0.5F - BlockColoredPane.SIDE_WIDTH;
+		final float SIDE_P = 0.5F + BlockColoredPane.SIDE_WIDTH;
 		boolean connect_d = this.canPaneConnectTo(world, x, y, z, ForgeDirection.DOWN);
 		boolean connect_u = this.canPaneConnectTo(world, x, y, z, ForgeDirection.UP);
 
@@ -408,8 +410,8 @@ public class BlockColoredPane extends BlockColored {
 	// modified from net.minecraft.block.BlockPane
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess access, int x, int y, int z){
-		final float SIDE_N = 0.5F - BlockCoord.ADD_1_16;
-		final float SIDE_P = 0.5F + BlockCoord.ADD_1_16;
+		final float SIDE_N = 0.5F - BlockColoredPane.SIDE_WIDTH;
+		final float SIDE_P = 0.5F + BlockColoredPane.SIDE_WIDTH;
 		boolean connect_d = this.canPaneConnectTo(access, x, y, z, ForgeDirection.DOWN);
 		boolean connect_u = this.canPaneConnectTo(access, x, y, z, ForgeDirection.UP);
 
