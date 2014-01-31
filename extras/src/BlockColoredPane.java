@@ -365,8 +365,8 @@ public class BlockColoredPane extends BlockColored {
 	// modified from net.minecraft.block.BlockPane
 	@Override
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity){
-		final float SIDE_N = 0.5F - BlockColoredPane.SIDE_WIDTH;
-		final float SIDE_P = 0.5F + BlockColoredPane.SIDE_WIDTH;
+		final float SIDE_N = 0.5F;// - BlockColoredPane.SIDE_WIDTH;
+		final float SIDE_P = 0.5F;// + BlockColoredPane.SIDE_WIDTH;
 		boolean connect_d = this.canPaneConnectTo(world, x, y, z, ForgeDirection.DOWN);
 		boolean connect_u = this.canPaneConnectTo(world, x, y, z, ForgeDirection.UP);
 
