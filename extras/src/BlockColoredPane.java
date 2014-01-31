@@ -252,16 +252,15 @@ public class BlockColoredPane extends BlockColored {
 		boolean pane_r = (side == 2 ? this.minX == 0.0F : this.maxZ == 1.0F);
 
 		// disconnect T-panes
-		boolean connect_panes = true;
 		if(pane_l && pane_r)
 			if((side == 4 ? this.maxX == 1.0F : this.minZ == 0.0F) || (side == 4 ? this.minX == 0.0F : this.maxZ == 1.0F))
-				connect_panes = false;
+				pane_l = pane_r = false;
 
 		// left pane
 		int textureL = 0;
 		if((panes_t&2) != 2) textureL |= 1<<0;								// T
 			else if(connect_l && (panes_tl&1) != 1) textureL |= 2<<0;		// tl
-		if(!pane_r || !connect_panes) textureL |= 1<<2;						// R
+		if(!pane_r) textureL |= 1<<2;										// R
 			else if((panes_t&2) == 2 && (panes_t&1) != 1) textureL |= 2<<2;	// tr
 		if((panes_b&2) != 2) textureL |= 1<<4;								// B
 			else if(pane_r && (panes_b&1) != 1) textureL |= 2<<4;			// br
@@ -277,7 +276,7 @@ public class BlockColoredPane extends BlockColored {
 			else if((panes_t&1) == 1 && (panes_tr&2) != 2) textureR |= 2<<2;// tr
 		if((panes_b&1) != 1) textureR |= 1<<4;								// B
 			else if(connect_r && (panes_br&2) != 2) textureR |= 2<<4;		// br
-		if(!pane_l || !connect_panes) textureR |= 1<<6;						// L
+		if(!pane_l) textureR |= 1<<6;										// L
 			else if((panes_b&1) == 1 && (panes_b&2) != 2) textureR |= 2<<6;	// bl
 		halves[1] = this.getBlockIcons(blockColor)[textureR];
 
