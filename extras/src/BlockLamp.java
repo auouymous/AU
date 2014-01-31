@@ -35,6 +35,8 @@ public class BlockLamp extends BlockColored {
 			this.setLightValue(Light.level[15]);
 		this.inverted = inverted;
 		this.powered = powered;
+
+		this.disableStats();
 	}
 
 	@Override

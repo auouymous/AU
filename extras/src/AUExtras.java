@@ -120,8 +120,7 @@ public class AUExtras {
 				.setResistance(10.0F)
 //				.setLightOpacity(191) // 25% transparent
 				.setStepSound(Block.soundMetalFootstep)
-				.setCreativeTab(AUExtras.tabAU)
-				.disableStats();
+				.setCreativeTab(AUExtras.tabAU);
 			MinecraftForge.setBlockHarvestLevel(this.blockChromaInfuser, "pickaxe", 0); // wooden pickaxe
 
 			// CRAFT cauldron + 4 glass -> 1 chroma infuser
@@ -479,13 +478,11 @@ public class AUExtras {
 				.setHardness(0.6F)
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGlassFootstep)
-				.setCreativeTab(AUExtras.tabAU)
-				.disableStats();
+				.setCreativeTab(AUExtras.tabAU);
 			this.blockLampPowered = new BlockLamp(Cfg.blockLampPowered, "au.colorLampPowered", " Lamp", false, true)
 				.setHardness(0.6F)
 				.setResistance(3.0F)
-				.setStepSound(Block.soundGlassFootstep)
-				.disableStats();
+				.setStepSound(Block.soundGlassFootstep);
 			ItemStack coloredLamp = new ItemStack(this.blockLamp);
 
 			if(Cfg.enableGlassPaneTinted){
@@ -513,13 +510,11 @@ public class AUExtras {
 				.setHardness(0.6F)
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGlassFootstep)
-				.setCreativeTab(AUExtras.tabAU)
-				.disableStats();
+				.setCreativeTab(AUExtras.tabAU);
 			this.blockInvertedLampPowered = new BlockLamp(Cfg.blockInvertedLampPowered, "au.colorInvertedLampPowered", " Inverted Lamp", true, true)
 				.setHardness(0.6F)
 				.setResistance(3.0F)
-				.setStepSound(Block.soundGlassFootstep)
-				.disableStats();
+				.setStepSound(Block.soundGlassFootstep);
 			ItemStack coloredInvertedLamp = new ItemStack(this.blockInvertedLamp);
 
 			if(Cfg.enableGlassPaneTinted){
@@ -666,8 +661,7 @@ public class AUExtras {
 				.setResistance(25.0F)
 				.setLightValue(Light.level[15])
 				.setStepSound(Block.soundStoneFootstep)
-				.setCreativeTab(AUExtras.tabAU)
-				.disableStats();
+				.setCreativeTab(AUExtras.tabAU);
 			MinecraftForge.setBlockHarvestLevel(this.blockEnderCube, "pickaxe", 3); // diamond pickaxe
 
 			// CRAFT glass + 3 eye of ender + redstone dust + 4 gold ingots -> ender cube

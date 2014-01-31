@@ -38,6 +38,8 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 		this.setUnlocalizedName(name);
 		GameRegistry.registerBlock(this, name);
 		LanguageRegistry.addName(this, readableName);
+
+		this.disableStats();
 	}
 
 	@Override
