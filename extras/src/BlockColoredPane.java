@@ -25,7 +25,7 @@ public class BlockColoredPane extends BlockColored {
 	@SideOnly(Side.CLIENT)
 	private Icon sidesIcon;
 	@SideOnly(Side.CLIENT)
-	private Icon[][] blockIcons = null;
+	private Icon[][] blockIcons;
 
 	private Block parentBlock;
 	private boolean hasConnectedTextures;
@@ -52,8 +52,11 @@ public class BlockColoredPane extends BlockColored {
 			this.blockIcons = new Icon[16][1];
 			for(int c = 0; c < 16; c++)
 				this.blockIcons[c][0] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "").replace("Pane", "")+c+"-item");
-		}
+		} else
+			this.blockIcons = null;
 	}
+
+	@SideOnly(Side.CLIENT)
 	private Icon[] getBlockIcons(int color){
 		// glass panes use their parnet icons
 		if(this.parentBlock instanceof BlockGlass) return ((BlockGlass)this.parentBlock).getBlockIcons(color);
