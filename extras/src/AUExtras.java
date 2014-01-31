@@ -329,7 +329,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableGlassPane){
-			this.blockGlassPane = new BlockColoredPane(Cfg.blockGlassPane, "au.colorGlassPane", " Glass Pane", ItemBlockGlassPane.class, this.blockGlass, true)
+			this.blockGlassPane = new BlockColoredPane(Cfg.blockGlassPane, "au.colorGlassPane", " Glass Pane", ItemBlockGlassPane.class, Material.glass, this.blockGlass, true)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -352,7 +352,7 @@ public class AUExtras {
 
 		if(Cfg.enableGlassPaneTinted){
 			this.blockGlassPaneTinted = new BlockColoredPane(Cfg.blockGlassPaneTinted, "au.colorGlassPaneTinted", " Tinted Glass Pane",
-																ItemBlockGlassPaneTinted.class, this.blockGlassTinted, true)
+																ItemBlockGlassPaneTinted.class, Material.glass, this.blockGlassTinted, true)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -375,7 +375,7 @@ public class AUExtras {
 
 		if(Cfg.enableGlassPaneTintedNoFrame){
 			this.blockGlassPaneTintedNoFrame = new BlockColoredPane(Cfg.blockGlassPaneTintedNoFrame, "au.colorGlassPaneTintedNoFrame", " Tinted Glass Pane (Frameless)",
-																	ItemBlockGlassPaneTintedNoFrame.class, this.blockGlassTintedNoFrame, false)
+																	ItemBlockGlassPaneTintedNoFrame.class, Material.glass, this.blockGlassTintedNoFrame, false)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
