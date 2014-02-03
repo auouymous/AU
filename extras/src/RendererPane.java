@@ -51,17 +51,14 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 		boolean draw_s = (!draw_y && maxZ == 1.0F);
 		boolean draw_w = (!draw_y && minX == 0.0F);
 		boolean draw_e = (!draw_y && maxX == 1.0F);
-		final float X_CENTER_N = x + 0.5F;// - BlockCoord.ADD_1_64/4;
-		final float X_CENTER_P = x + 0.5F;// + BlockCoord.ADD_1_64/4;
-		final float Y_CENTER_N = y + 0.5F;// - BlockCoord.ADD_1_64/4;
-		final float Y_CENTER_P = y + 0.5F;// + BlockCoord.ADD_1_64/4;
-		final float Z_CENTER_N = z + 0.5F;// - BlockCoord.ADD_1_64/4;
-		final float Z_CENTER_P = z + 0.5F;// + BlockCoord.ADD_1_64/4;
+		final float X_CENTER_N = x + 0.5F - BlockCoord.ADD_1_64/8;
+		final float X_CENTER_P = x + 0.5F + BlockCoord.ADD_1_64/8;
+		final float Y_CENTER_N = y + 0.5F - BlockCoord.ADD_1_64/8;
+		final float Y_CENTER_P = y + 0.5F + BlockCoord.ADD_1_64/8;
+		final float Z_CENTER_N = z + 0.5F - BlockCoord.ADD_1_64/8;
+		final float Z_CENTER_P = z + 0.5F + BlockCoord.ADD_1_64/8;
 
-		Tessellator tessellator = Tessellator.instance;
-		tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
-		Color color = (new Color(0xffffff)).anaglyph();
-		tessellator.setColorOpaque_F(color.r, color.g, color.b);
+		RenderUtils.initLighting(world, block, x, y, z);
 
 		Icon icon_side = ((BlockColoredPane)block).getSidesIcon();
 		float sx1 = (float)world.getBlockMetadata(x,y,z) * BlockCoord.ADD_1_16 + BlockCoord.ADD_1_64, sx2 = sx1 + BlockCoord.ADD_1_16 - BlockCoord.ADD_1_32;
@@ -73,7 +70,8 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 		if(draw_y){
 			Icon icon_y = ((BlockColoredPane)block).getBlockTextureHorizontal(world, x, y, z, 0);
 			RenderUtils.renderBottomFace(x, Y_CENTER_N, z, x+1.0F, Y_CENTER_N, z+1.0F, icon_y, 0.0F, 0.0F, 1.0F, 1.0F, false);
-//			RenderUtils.renderTopFace(	 x, Y_CENTER_P, z, x+1.0F, Y_CENTER_P, z+1.0F, icon_y, 0.0F, 0.0F, 1.0F, 1.0F, false);
+			RenderUtils.renderTopFace(	 x, Y_CENTER_P, z, x+1.0F, Y_CENTER_P, z+1.0F, icon_y, 0.0F, 0.0F, 1.0F, 1.0F, false);
+			// render top and bottom since each are drawn with different color multipliers
 
 			float SIDE_N = y + 0.5F - BlockColoredPane.SIDE_WIDTH;
 			float SIDE_P = y + 0.5F + BlockColoredPane.SIDE_WIDTH;
@@ -125,11 +123,9 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 			float SIDE_N = x + 0.5F - BlockColoredPane.SIDE_WIDTH;
 			float SIDE_P = x + 0.5F + BlockColoredPane.SIDE_WIDTH;
 			if(panes_d_ns != 3)
-				
 				RenderUtils.renderBottomFace(SIDE_N, y+side_inset, z+(draw_n && (panes_d_ns&2)==0 ? 0.0F : 0.5F),
 											 SIDE_P, y+side_inset, z+(draw_s && (panes_d_ns&1)==0 ? 1.0F : 0.5F), icon_side, sx1, sy1, sx2, sy2, false);
 			if(panes_u_ns != 3)
-				
 				RenderUtils.renderTopFace(SIDE_N, y+1.0F-side_inset, z+(draw_n && (panes_u_ns&2)==0 ? 0.0F : 0.5F),
 										  SIDE_P, y+1.0F-side_inset, z+(draw_s && (panes_u_ns&1)==0 ? 1.0F : 0.5F), icon_side, sx1, sy1, sx2, sy2, false);
 			if((draw_n || (!draw_w && !draw_e)) && this.shouldSideBeRendered(block, world, x, y, z, 2)){
@@ -170,11 +166,9 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 			float SIDE_N = z + 0.5F - BlockColoredPane.SIDE_WIDTH;
 			float SIDE_P = z + 0.5F + BlockColoredPane.SIDE_WIDTH;
 			if(panes_d_we != 3)
-				
 				RenderUtils.renderBottomFace(x+(draw_w && (panes_d_we&1)==0 ? 0.0F : 0.5F), y+side_inset, SIDE_N,
 											 x+(draw_e && (panes_d_we&2)==0 ? 1.0F : 0.5F), y+side_inset, SIDE_P, icon_side, sx1, sy1, sx2, sy2, false);
 			if(panes_u_we != 3)
-				
 				RenderUtils.renderTopFace(x+(draw_w && (panes_u_we&1)==0 ? 0.0F : 0.5F), y+1.0F-side_inset, SIDE_N,
 										  x+(draw_e && (panes_u_we&2)==0 ? 1.0F : 0.5F), y+1.0F-side_inset, SIDE_P, icon_side, sx1, sy1, sx2, sy2, false);
 			if((draw_w || (!draw_n && !draw_s)) && this.shouldSideBeRendered(block, world, x, y, z, 4)){

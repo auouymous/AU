@@ -4,9 +4,11 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.Icon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -97,6 +99,95 @@ public class RenderUtils {
 
 	//////////
 
+	private static boolean enableAO;					// both
+	private static final float colorTop = 1.0F;			// both
+	private static final float colorSide = 0.80F;		// both
+	private static final float colorBottom = 0.5F;		// both
+	private static int color;							// both
+	private static float x;
+	private static float y;
+	private static float z;
+	private static int mb_block;						// both
+	private static int mb_d;
+	private static int mb_u;
+	private static int mb_n;
+	private static int mb_s;
+	private static int mb_w;
+	private static int mb_e;
+	private static float ao_block;
+	private static float ao_d;
+	private static float ao_u;
+	private static float ao_n;
+	private static float ao_s;
+	private static float ao_w;
+	private static float ao_e;
+
+	public static void initLighting(IBlockAccess access, Block block, int x, int y, int z){
+		RenderUtils.mb_block = block.getMixedBrightnessForBlock(access, x, y, z);
+		RenderUtils.color = block.colorMultiplier(access, x, y, z);
+		if(Minecraft.isAmbientOcclusionEnabled() && block.getLightValue(access, x, y, z) == 0){
+			RenderUtils.enableAO = true;
+			RenderUtils.x = (float)x;
+			RenderUtils.y = (float)y;
+			RenderUtils.z = (float)z;
+
+			#define AVG_MB(mb, x, y, z) mb = block.getMixedBrightnessForBlock(access, x, y, z); if(mb == 0) mb = RenderUtils.mb_block;
+			AVG_MB(RenderUtils.mb_d, x, y-1, z);
+			AVG_MB(RenderUtils.mb_u, x, y+1, z);
+			AVG_MB(RenderUtils.mb_n, x, y, z-1);
+			AVG_MB(RenderUtils.mb_s, x, y, z+1);
+			AVG_MB(RenderUtils.mb_w, x-1, y, z);
+			AVG_MB(RenderUtils.mb_e, x+1, y, z);
+
+			RenderUtils.ao_block = block.getAmbientOcclusionLightValue(access, x, y, z);
+			#define AVG_AO(ao, x, y, z) ao = block.getAmbientOcclusionLightValue(access, x, y, z); if(ao == 0.0F) ao = RenderUtils.ao_block;
+			AVG_AO(RenderUtils.ao_d, x, y-1, z);
+			AVG_AO(RenderUtils.ao_u, x, y+1, z);
+			AVG_AO(RenderUtils.ao_n, x, y, z-1);
+			AVG_AO(RenderUtils.ao_s, x, y, z+1);
+			AVG_AO(RenderUtils.ao_w, x-1, y, z);
+			AVG_AO(RenderUtils.ao_e, x+1, y, z);
+		} else
+			RenderUtils.enableAO = false;
+	}
+
+	private static void setFaceLighting(float colorMultiplier){
+		Tessellator tessellator = Tessellator.instance;
+		tessellator.setBrightness(RenderUtils.mb_block);
+		Color color = (new Color(RenderUtils.color)).multiplier(colorMultiplier).anaglyph();
+		tessellator.setColorOpaque_F(color.r, color.g, color.b);
+	}
+
+	private static void setVertexLighting(float fx, float fy, float fz, float colorMultiplier, int side){
+		Tessellator tessellator = Tessellator.instance;
+
+		float dx = fx - RenderUtils.x, dy = fy - RenderUtils.y, dz = fz - RenderUtils.z;
+
+		// select MB sides
+		int mb_x = (dx < 0.5F ? RenderUtils.mb_w : (dx > 0.5F ? RenderUtils.mb_e : RenderUtils.mb_block));
+		int mb_y = (dy < 0.5F ? RenderUtils.mb_d : (dy > 0.5F ? RenderUtils.mb_u : RenderUtils.mb_block));
+		int mb_z = (dz < 0.5F ? RenderUtils.mb_n : (dz > 0.5F ? RenderUtils.mb_s : RenderUtils.mb_block));
+		// select AO sides
+		float ao_x = (dx < 0.5F ? RenderUtils.ao_w : (dx > 0.5F ? RenderUtils.ao_e : RenderUtils.ao_block));
+		float ao_y = (dy < 0.5F ? RenderUtils.ao_d : (dy > 0.5F ? RenderUtils.ao_u : RenderUtils.ao_block));
+		float ao_z = (dz < 0.5F ? RenderUtils.ao_n : (dz > 0.5F ? RenderUtils.ao_s : RenderUtils.ao_block));
+
+		#define GET_SIDE(d, mb_side, ao_side)\
+			if(d < 0.5F){ d *= 2.0F;					mb_side = (int)(mb_side*(1.0F-d) + RenderUtils.mb_block*d) & 0x00ff00ff;		ao_side = ao_side*(1.0F-d) + RenderUtils.ao_block*d; }\
+			else if(d > 0.5F){ d = (d - 0.5F) * 2.0F;	mb_side = (int)(RenderUtils.mb_block*(1.0F-d) + mb_side*d) & 0x00ff00ff;		ao_side = RenderUtils.ao_block*(1.0F-d) + ao_side*d; }\
+			else {										mb_side = RenderUtils.mb_block;													ao_side = RenderUtils.ao_block; }
+		GET_SIDE(dx, mb_x, ao_x);
+		GET_SIDE(dy, mb_y, ao_y);
+		GET_SIDE(dz, mb_z, ao_z);
+
+		int mb   = ((side == -1 ? mb_z : mb_x) + (side == 0 ? mb_x : mb_y) + (side == 1 ? mb_x : mb_z) + RenderUtils.mb_block) >> 2 & 0x00ff00ff;
+		float ao = ((side == -1 ? ao_z : ao_x) + (side == 0 ? ao_x : ao_y) + (side == 1 ? ao_x : ao_z) + RenderUtils.ao_block) / 4.0F;
+
+		tessellator.setBrightness(mb);
+		Color color = (new Color(RenderUtils.color)).multiplier(colorMultiplier * ao).anaglyph();
+		tessellator.setColorOpaque_F(color.r, color.g, color.b);
+	}
+
 	// texture origin is upper left corner, tx/ty uses a lower left origin
 	public static void renderSideFace(float x1, float y1, float z1, float x2, float y2, float z2, Icon icon, float tx1, float ty1, float tx2, float ty2){
 		// xyz1 is bottom left corner
@@ -110,11 +201,13 @@ public class RenderUtils {
 		double t = icon.getInterpolatedV(16.0D - ty2 * 16.0D);
 		double b = icon.getInterpolatedV(16.0D - ty1 * 16.0D);
 		Tessellator tessellator = Tessellator.instance;
+		if(!RenderUtils.enableAO) RenderUtils.setFaceLighting(RenderUtils.colorSide);
+		int side = (RenderUtils.enableAO ? (Math.abs(x2 - x1) > Math.abs(z2 - z1) ? 1 : -1) : 0);
 		// face is always vertical, use top/bottom methods for slopes
-		tessellator.addVertexWithUV(x2, y2, z2,  r, t);
-		tessellator.addVertexWithUV(x1, y2, z1,  l, t);
-		tessellator.addVertexWithUV(x1, y1, z1,  l, b);
-		tessellator.addVertexWithUV(x2, y1, z2,  r, b);
+		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y2, z2, RenderUtils.colorSide, side);		tessellator.addVertexWithUV(x2, y2, z2,  r, t);
+		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y2, z1, RenderUtils.colorSide, side);		tessellator.addVertexWithUV(x1, y2, z1,  l, t);
+		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y1, z1, RenderUtils.colorSide, side);		tessellator.addVertexWithUV(x1, y1, z1,  l, b);
+		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y1, z2, RenderUtils.colorSide, side);		tessellator.addVertexWithUV(x2, y1, z2,  r, b);
 	}
 	public static void renderTopFace(float x1, float y1, float z1, float x2, float y2, float z2, Icon icon, float tx1, float ty1, float tx2, float ty2, boolean slope_NS){
 		// xyz1 is SE corner
@@ -125,16 +218,17 @@ public class RenderUtils {
 		double t = icon.getInterpolatedV(16.0D - ty2 * 16.0D);
 		double b = icon.getInterpolatedV(16.0D - ty1 * 16.0D);
 		Tessellator tessellator = Tessellator.instance;
+		if(!RenderUtils.enableAO) RenderUtils.setFaceLighting(RenderUtils.colorTop);
 		if(slope_NS){
-			tessellator.addVertexWithUV(x2, y2, z2,  r, b);
-			tessellator.addVertexWithUV(x2, y1, z1,  r, t);
-			tessellator.addVertexWithUV(x1, y1, z1,  l, t);
-			tessellator.addVertexWithUV(x1, y2, z2,  l, b);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y2, z2, RenderUtils.colorTop, 0);		tessellator.addVertexWithUV(x2, y2, z2,  r, b);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y1, z1, RenderUtils.colorTop, 0);		tessellator.addVertexWithUV(x2, y1, z1,  r, t);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y1, z1, RenderUtils.colorTop, 0);		tessellator.addVertexWithUV(x1, y1, z1,  l, t);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y2, z2, RenderUtils.colorTop, 0);		tessellator.addVertexWithUV(x1, y2, z2,  l, b);
 		} else { // slope_WE
-			tessellator.addVertexWithUV(x2, y2, z2,  r, b);
-			tessellator.addVertexWithUV(x2, y2, z1,  r, t);
-			tessellator.addVertexWithUV(x1, y1, z1,  l, t);
-			tessellator.addVertexWithUV(x1, y1, z2,  l, b);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y2, z2, RenderUtils.colorTop, 0);		tessellator.addVertexWithUV(x2, y2, z2,  r, b);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y2, z1, RenderUtils.colorTop, 0);		tessellator.addVertexWithUV(x2, y2, z1,  r, t);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y1, z1, RenderUtils.colorTop, 0);		tessellator.addVertexWithUV(x1, y1, z1,  l, t);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y1, z2, RenderUtils.colorTop, 0);		tessellator.addVertexWithUV(x1, y1, z2,  l, b);
 		}
 	}
 	public static void renderBottomFace(float x1, float y1, float z1, float x2, float y2, float z2, Icon icon, float tx1, float ty1, float tx2, float ty2, boolean slope_NS){
@@ -146,16 +240,17 @@ public class RenderUtils {
 		double t = icon.getInterpolatedV(16.0D - ty2 * 16.0D);
 		double b = icon.getInterpolatedV(16.0D - ty1 * 16.0D);
 		Tessellator tessellator = Tessellator.instance;
+		if(!RenderUtils.enableAO) RenderUtils.setFaceLighting(RenderUtils.colorBottom);
 		if(slope_NS){
-			tessellator.addVertexWithUV(x1, y2, z2,  l, b);
-			tessellator.addVertexWithUV(x1, y1, z1,  l, t);
-			tessellator.addVertexWithUV(x2, y1, z1,  r, t);
-			tessellator.addVertexWithUV(x2, y2, z2,  r, b);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y2, z2, RenderUtils.colorBottom, 0);		tessellator.addVertexWithUV(x1, y2, z2,  l, b);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y1, z1, RenderUtils.colorBottom, 0);		tessellator.addVertexWithUV(x1, y1, z1,  l, t);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y1, z1, RenderUtils.colorBottom, 0);		tessellator.addVertexWithUV(x2, y1, z1,  r, t);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y2, z2, RenderUtils.colorBottom, 0);		tessellator.addVertexWithUV(x2, y2, z2,  r, b);
 		} else { // slope_WE
-			tessellator.addVertexWithUV(x1, y1, z2,  l, b);
-			tessellator.addVertexWithUV(x1, y1, z1,  l, t);
-			tessellator.addVertexWithUV(x2, y2, z1,  r, t);
-			tessellator.addVertexWithUV(x2, y2, z2,  r, b);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y1, z2, RenderUtils.colorBottom, 0);		tessellator.addVertexWithUV(x1, y1, z2,  l, b);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y1, z1, RenderUtils.colorBottom, 0);		tessellator.addVertexWithUV(x1, y1, z1,  l, t);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y2, z1, RenderUtils.colorBottom, 0);		tessellator.addVertexWithUV(x2, y2, z1,  r, t);
+			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y2, z2, RenderUtils.colorBottom, 0);		tessellator.addVertexWithUV(x2, y2, z2,  r, b);
 		}
 	}
 
