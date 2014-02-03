@@ -23,6 +23,7 @@ import com.qzx.au.core.IConnectedTexture;
 
 public class BlockColoredPane extends BlockColored {
 	public static final float SIDE_WIDTH = BlockCoord.ADD_1_32; // two times this
+	public static final float SIDE_WIDTH_BOUNDS = BlockCoord.ADD_1_16; // two times this (easy to build from at this size)
 
 	@SideOnly(Side.CLIENT)
 	private Icon sidesIcon;
@@ -409,8 +410,8 @@ public class BlockColoredPane extends BlockColored {
 	// modified from net.minecraft.block.BlockPane
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess access, int x, int y, int z){
-		final float SIDE_N = 0.5F - BlockColoredPane.SIDE_WIDTH;
-		final float SIDE_P = 0.5F + BlockColoredPane.SIDE_WIDTH;
+		final float SIDE_N = 0.5F - BlockColoredPane.SIDE_WIDTH_BOUNDS;
+		final float SIDE_P = 0.5F + BlockColoredPane.SIDE_WIDTH_BOUNDS;
 		boolean connect_d = this.canPaneConnectTo(access, x, y, z, ForgeDirection.DOWN);
 		boolean connect_u = this.canPaneConnectTo(access, x, y, z, ForgeDirection.UP);
 
