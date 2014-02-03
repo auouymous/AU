@@ -23,6 +23,13 @@ public class Color {
 		this.b = b;
 	}
 
+	public Color multiplier(float multiplier){
+		this.r *= multiplier;
+		this.g *= multiplier;
+		this.b *= multiplier;
+		return this;
+	}
+
 	public Color anaglyph(){
 		if(EntityRenderer.anaglyphEnable){
 			float rr = (this.r * 30.0F + this.g * 59.0F + this.b * 11.0F) / 100.0F;
