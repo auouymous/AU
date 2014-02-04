@@ -102,22 +102,22 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 				RenderUtils.renderSideFace(X_CENTER_N, y, z+0.25F,	X_CENTER_N, y+1.0F, z+0.50F,	icon_x[0], 0.75F, 0.0F, 1.00F, 1.0F); // west face:  left half - texture right
 				RenderUtils.renderSideFace(X_CENTER_N, y, z+0.50F,	X_CENTER_N, y+1.0F, z+0.75F,	icon_x[1], 0.00F, 0.0F, 0.25F, 1.0F); // west face: right half - texture left
 				RenderUtils.renderSideFace(X_CENTER_N, y, z+0.75F,	X_CENTER_N, y+1.0F, z+1.00F,	icon_x[1], 0.75F, 0.0F, 1.00F, 1.0F); // west face: right half - texture right
-//				RenderUtils.renderSideFace(X_CENTER_P, y, z+1.00F,	X_CENTER_P, y+1.0F, z+0.75F,	icon_x[0], 1.00F, 0.0F, 0.75F, 1.0F); // east face:  left half - texture left
-//				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.75F,	X_CENTER_P, y+1.0F, z+0.50F,	icon_x[0], 0.25F, 0.0F, 0.00F, 1.0F); // east face:  left half - texture right
-//				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.50F,	X_CENTER_P, y+1.0F, z+0.25F,	icon_x[1], 0.25F, 0.0F, 0.00F, 1.0F); // east face: right half - texture left
-//				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.25F,	X_CENTER_P, y+1.0F, z+0.00F,	icon_x[1], 1.00F, 0.0F, 0.75F, 1.0F); // east face: right half - texture right
+				RenderUtils.renderSideFace(X_CENTER_P, y, z+1.00F,	X_CENTER_P, y+1.0F, z+0.75F,	icon_x[1], 1.00F, 0.0F, 0.75F, 1.0F); // east face: right half - texture right
+				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.75F,	X_CENTER_P, y+1.0F, z+0.50F,	icon_x[1], 0.25F, 0.0F, 0.00F, 1.0F); // east face: right half - texture left
+				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.50F,	X_CENTER_P, y+1.0F, z+0.25F,	icon_x[0], 1.00F, 0.0F, 0.75F, 1.0F); // east face:  left half - texture right
+				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.25F,	X_CENTER_P, y+1.0F, z+0.00F,	icon_x[0], 0.25F, 0.0F, 0.00F, 1.0F); // east face:  left half - texture left
 			} else if(draw_n){
 				// NORTH PANE ONLY
 				RenderUtils.renderSideFace(X_CENTER_N, y, z+0.00F,	X_CENTER_N, y+1.0F, z+0.25F,	icon_x[0], 0.00F, 0.0F, 0.25F, 1.0F); // west face:  left half - texture left
 				RenderUtils.renderSideFace(X_CENTER_N, y, z+0.25F,	X_CENTER_N, y+1.0F, z+0.50F,	icon_x[0], 0.75F, 0.0F, 1.00F, 1.0F); // west face:  left half - texture right
-//				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.50F,	X_CENTER_P, y+1.0F, z+0.25F,	icon_x[1], 1.00F, 0.0F, 0.75F, 1.0F); // east face: right half - texture left
-//				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.25F,	X_CENTER_P, y+1.0F, z+0.00F,	icon_x[1], 0.25F, 0.0F, 0.00F, 1.0F); // east face: right half - texture right
+				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.50F,	X_CENTER_P, y+1.0F, z+0.25F,	icon_x[0], 1.00F, 0.0F, 0.75F, 1.0F); // east face:  left half - texture right
+				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.25F,	X_CENTER_P, y+1.0F, z+0.00F,	icon_x[0], 0.25F, 0.0F, 0.00F, 1.0F); // east face:  left half - texture left
 			} else {
 				// SOUTH PANE ONLY
 				RenderUtils.renderSideFace(X_CENTER_N, y, z+0.50F,	X_CENTER_N, y+1.0F, z+0.75F,	icon_x[1], 0.00F, 0.0F, 0.25F, 1.0F); // west face: right half - texture left
 				RenderUtils.renderSideFace(X_CENTER_N, y, z+0.75F,	X_CENTER_N, y+1.0F, z+1.00F,	icon_x[1], 0.75F, 0.0F, 1.00F, 1.0F); // west face: right half - texture right
-//				RenderUtils.renderSideFace(X_CENTER_P, y, z+1.00F,	X_CENTER_P, y+1.0F, z+0.75F,	icon_x[0], 1.00F, 0.0F, 0.75F, 1.0F); // east face:  left half - texture left
-//				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.75F,	X_CENTER_P, y+1.0F, z+0.50F,	icon_x[0], 0.25F, 0.0F, 0.00F, 1.0F); // east face:  left half - texture right
+				RenderUtils.renderSideFace(X_CENTER_P, y, z+1.00F,	X_CENTER_P, y+1.0F, z+0.75F,	icon_x[1], 1.00F, 0.0F, 0.75F, 1.0F); // east face: right half - texture right
+				RenderUtils.renderSideFace(X_CENTER_P, y, z+0.75F,	X_CENTER_P, y+1.0F, z+0.50F,	icon_x[1], 0.25F, 0.0F, 0.00F, 1.0F); // east face: right half - texture left
 			}
 
 			float SIDE_N = x + 0.5F - BlockColoredPane.SIDE_WIDTH;
@@ -142,25 +142,25 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 			if(draw_w && draw_e){
 				// FULL PANE
 				RenderUtils.renderSideFace(x+1.00F, y, Z_CENTER_N,	x+0.75F, y+1.0F, Z_CENTER_N,	icon_z[0], 0.00F, 0.0F, 0.25F, 1.0F); // north face:  left half - texture left
-				RenderUtils.renderSideFace(x+0.75F, y, Z_CENTER_N,	x+0.50F, y+1.0F, Z_CENTER_N,	icon_z[0], 0.75F, 0.0F, 1.00F, 1.0F); // north face: right half - texture right
-				RenderUtils.renderSideFace(x+0.50F, y, Z_CENTER_N,	x+0.25F, y+1.0F, Z_CENTER_N,	icon_z[1], 0.00F, 0.0F, 0.25F, 1.0F); // north face:  left half - texture left
+				RenderUtils.renderSideFace(x+0.75F, y, Z_CENTER_N,	x+0.50F, y+1.0F, Z_CENTER_N,	icon_z[0], 0.75F, 0.0F, 1.00F, 1.0F); // north face:  left half - texture right
+				RenderUtils.renderSideFace(x+0.50F, y, Z_CENTER_N,	x+0.25F, y+1.0F, Z_CENTER_N,	icon_z[1], 0.00F, 0.0F, 0.25F, 1.0F); // north face: right half - texture left
 				RenderUtils.renderSideFace(x+0.25F, y, Z_CENTER_N,	x+0.00F, y+1.0F, Z_CENTER_N,	icon_z[1], 0.75F, 0.0F, 1.00F, 1.0F); // north face: right half - texture right
-//				RenderUtils.renderSideFace(x+0.00F, y, Z_CENTER_P,	x+0.25F, y+1.0F, Z_CENTER_P,	icon_z[0], 1.00F, 0.0F, 0.75F, 1.0F); // south face:  left half - texture left
-//				RenderUtils.renderSideFace(x+0.25F, y, Z_CENTER_P,	x+0.50F, y+1.0F, Z_CENTER_P,	icon_z[0], 0.25F, 0.0F, 0.00F, 1.0F); // south face: right half - texture right
-//				RenderUtils.renderSideFace(x+0.50F, y, Z_CENTER_P,	x+0.75F, y+1.0F, Z_CENTER_P,	icon_z[1], 0.25F, 0.0F, 0.00F, 1.0F); // south face:  left half - texture left
-//				RenderUtils.renderSideFace(x+0.75F, y, Z_CENTER_P,	x+1.00F, y+1.0F, Z_CENTER_P,	icon_z[1], 1.00F, 0.0F, 0.75F, 1.0F); // south face: right half - texture right
+				RenderUtils.renderSideFace(x+0.00F, y, Z_CENTER_P,	x+0.25F, y+1.0F, Z_CENTER_P,	icon_z[1], 1.00F, 0.0F, 0.75F, 1.0F); // south face: right half - texture right
+				RenderUtils.renderSideFace(x+0.25F, y, Z_CENTER_P,	x+0.50F, y+1.0F, Z_CENTER_P,	icon_z[1], 0.25F, 0.0F, 0.00F, 1.0F); // south face: right half - texture left
+				RenderUtils.renderSideFace(x+0.50F, y, Z_CENTER_P,	x+0.75F, y+1.0F, Z_CENTER_P,	icon_z[0], 1.00F, 0.0F, 0.75F, 1.0F); // south face:  left half - texture right
+				RenderUtils.renderSideFace(x+0.75F, y, Z_CENTER_P,	x+1.00F, y+1.0F, Z_CENTER_P,	icon_z[0], 0.25F, 0.0F, 0.00F, 1.0F); // south face:  left half - texture left
 			} else if(draw_w){
 				// WEST PANE ONLY
-				RenderUtils.renderSideFace(x+0.50F, y, Z_CENTER_N,	x+0.25F, y+1.0F, Z_CENTER_N,	icon_z[1], 0.00F, 0.0F, 0.25F, 1.0F); // north face:  left half - texture left
-				RenderUtils.renderSideFace(x+0.25F, y, Z_CENTER_N,	x+0.00F, y+1.0F, Z_CENTER_N,	icon_z[1], 0.75F, 0.0F, 1.00F, 1.0F); // north face:  left half - texture right
-//				RenderUtils.renderSideFace(x+0.00F, y, Z_CENTER_P,	x+0.25F, y+1.0F, Z_CENTER_P,	icon_z[1], 1.00F, 0.0F, 0.75F, 1.0F); // south face: right half - texture left
-//				RenderUtils.renderSideFace(x+0.25F, y, Z_CENTER_P,	x+0.50F, y+1.0F, Z_CENTER_P,	icon_z[1], 0.25F, 0.0F, 0.00F, 1.0F); // south face: right half - texture right
+				RenderUtils.renderSideFace(x+0.50F, y, Z_CENTER_N,	x+0.25F, y+1.0F, Z_CENTER_N,	icon_z[1], 0.00F, 0.0F, 0.25F, 1.0F); // north face: right half - texture left
+				RenderUtils.renderSideFace(x+0.25F, y, Z_CENTER_N,	x+0.00F, y+1.0F, Z_CENTER_N,	icon_z[1], 0.75F, 0.0F, 1.00F, 1.0F); // north face: right half - texture right
+				RenderUtils.renderSideFace(x+0.00F, y, Z_CENTER_P,	x+0.25F, y+1.0F, Z_CENTER_P,	icon_z[1], 1.00F, 0.0F, 0.75F, 1.0F); // south face: right half - texture right
+				RenderUtils.renderSideFace(x+0.25F, y, Z_CENTER_P,	x+0.50F, y+1.0F, Z_CENTER_P,	icon_z[1], 0.25F, 0.0F, 0.00F, 1.0F); // south face: right half - texture left
 			} else {
 				// EAST PANE ONLY
-				RenderUtils.renderSideFace(x+1.00F, y, Z_CENTER_N,	x+0.75F, y+1.0F, Z_CENTER_N,	icon_z[0], 0.00F, 0.0F, 0.25F, 1.0F); // north face: right half - texture left
-				RenderUtils.renderSideFace(x+0.75F, y, Z_CENTER_N,	x+0.50F, y+1.0F, Z_CENTER_N,	icon_z[0], 0.75F, 0.0F, 1.00F, 1.0F); // north face: right half - texture right
-//				RenderUtils.renderSideFace(x+0.50F, y, Z_CENTER_P,	x+0.75F, y+1.0F, Z_CENTER_P,	icon_z[0], 1.00F, 0.0F, 0.75F, 1.0F); // south face:  left half - texture left
-//				RenderUtils.renderSideFace(x+0.75F, y, Z_CENTER_P,	x+1.00F, y+1.0F, Z_CENTER_P,	icon_z[0], 0.25F, 0.0F, 0.00F, 1.0F); // south face:  left half - texture right
+				RenderUtils.renderSideFace(x+1.00F, y, Z_CENTER_N,	x+0.75F, y+1.0F, Z_CENTER_N,	icon_z[0], 0.00F, 0.0F, 0.25F, 1.0F); // north face:  left half - texture left
+				RenderUtils.renderSideFace(x+0.75F, y, Z_CENTER_N,	x+0.50F, y+1.0F, Z_CENTER_N,	icon_z[0], 0.75F, 0.0F, 1.00F, 1.0F); // north face:  left half - texture right
+				RenderUtils.renderSideFace(x+0.50F, y, Z_CENTER_P,	x+0.75F, y+1.0F, Z_CENTER_P,	icon_z[0], 1.00F, 0.0F, 0.75F, 1.0F); // south face:  left half - texture right
+				RenderUtils.renderSideFace(x+0.75F, y, Z_CENTER_P,	x+1.00F, y+1.0F, Z_CENTER_P,	icon_z[0], 0.25F, 0.0F, 0.00F, 1.0F); // south face:  left half - texture left
 			}
 
 			float SIDE_N = z + 0.5F - BlockColoredPane.SIDE_WIDTH;
