@@ -1,3 +1,4 @@
+	- zoom is now 5x, similar to OptiFine, and works on all versions
 	- add light opacity on brightness inspector line
 	- option to hide silverfish blocks in inspector (default: enabled - only accessible from config file)
 	- experience inspector

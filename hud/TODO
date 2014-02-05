@@ -18,8 +18,6 @@ OPTION MENU
 	- allow player to add command buttons to hud options
 
 	- add a few useful settings from OptiFine for those who don't use it
-		- redo zoom to be more like optifine
-			https://github.com/Hurricaaane/MC-Client/blob/master/mc-src/net/minecraft/src/MinapticsHaddon.java
 		- fog: on/off
 		- depth fog: on/off
 		- rain & snow: on/off

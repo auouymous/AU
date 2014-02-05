@@ -2,6 +2,7 @@ package com.qzx.au.hud;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.lang.reflect.Field;
@@ -104,47 +105,46 @@ public class Hacks {
 
 	//////////
 
-	// Copyright (c) MachineMuse, 2013 http://machinemuse.net
-	public static void setFOVMult(EntityPlayer player, float fovmult){
-		Field movementFactor = Hacks.getMovementFactorField();
+	public static void setCameraZoom(double zoom){
+		Field cameraZoom = Hacks.getCameraZoomField();
 		try {
-			movementFactor.set(player, fovmult);
+			cameraZoom.set(Minecraft.getMinecraft().entityRenderer, zoom);
 		} catch(IllegalAccessException e){
-			Failure.log("hacks, setFOVMult");
+			Failure.log("hacks, setCameraZoom");
 		}
 	}
 
-	private static Field movementFactorFieldInstance = null;
-	private static Field getMovementFactorField(){
-		if(Hacks.movementFactorFieldInstance == null){
+	private static Field cameraZoomFieldInstance = null;
+	private static Field getCameraZoomField(){
+		if(Hacks.cameraZoomFieldInstance == null){
 			try {
-				Hacks.movementFactorFieldInstance = EntityPlayer.class.getDeclaredField("speedOnGround");
-				Hacks.movementFactorFieldInstance.setAccessible(true);
+				Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("cameraZoom");
+				Hacks.cameraZoomFieldInstance.setAccessible(true);
 			} catch(NoSuchFieldException e){
 				try {
-					Hacks.movementFactorFieldInstance = EntityPlayer.class.getDeclaredField("field_71108_cd");
-					Hacks.movementFactorFieldInstance.setAccessible(true);
+					Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("field_78503_V");
+					Hacks.cameraZoomFieldInstance.setAccessible(true);
 				} catch(NoSuchFieldException e1){
 					try {
 						#ifdef MC147
-						Hacks.movementFactorFieldInstance = EntityPlayer.class.getDeclaredField("ch");
+						Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("X");
 						#elif defined MC152
-						Hacks.movementFactorFieldInstance = EntityPlayer.class.getDeclaredField("ci");
+						Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("X");
 						#elif defined MC162
-						Hacks.movementFactorFieldInstance = EntityPlayer.class.getDeclaredField("bK");
+						Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("Y");
 						#elif defined MC164
-						Hacks.movementFactorFieldInstance = EntityPlayer.class.getDeclaredField("bK");
+						Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("Y");
 						#else
-						Failure.log("hacks, unsupported minecraft version in getMovementFactorField");
+						Failure.log("hacks, unsupported minecraft version in getCameraZoomField");
 						return null;
 						#endif
-						Hacks.movementFactorFieldInstance.setAccessible(true);
+						Hacks.cameraZoomFieldInstance.setAccessible(true);
 					} catch(NoSuchFieldException e2){
-						Failure.log("hacks, getMovementFactorField");
+						Failure.log("hacks, getCameraZoomField");
 					}
 				}
 			}
 		}
-		return Hacks.movementFactorFieldInstance;
+		return Hacks.cameraZoomFieldInstance;
 	}
 }

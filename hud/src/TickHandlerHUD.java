@@ -52,10 +52,10 @@ public class TickHandlerHUD implements ITickHandler {
 			// zoom player view
 			if(KeyHandlerHUD.keyZoom.pressed){
 				this.zooming = true;
-				Hacks.setFOVMult(mc.thePlayer, 1.0F);
+				Hacks.setCameraZoom(5.0D);
 			} else if(zooming){
 				this.zooming = false;
-				Hacks.setFOVMult(mc.thePlayer, 0.1F);
+				Hacks.setCameraZoom(1.0D);
 			}
 		}
 	}
