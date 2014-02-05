@@ -3,6 +3,7 @@ package com.qzx.au.extras;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -81,12 +82,21 @@ public class GuiEnderCube extends GuiContainerAU {
 		this.buttonList.add(button);
 		return button;
 	}
+	private Button addPCLButton(EnderButton id, int textureX, String tooltip){
+		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
+						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 1*12, textureX, 1*12)
+						.setTooltip(tooltip);
+		this.buttonList.add(button);
+		return button;
+	}
 
 	private Button[] playerButtons = new Button[3];
 	private Button[] directionButtons = new Button[6];
 	private Button playerButton = null;
 	private Button playerRedstoneButton = null;
 	private Button redstoneButton = null;
+	private Button delPCLButton = null;
+	private Button addPCLButton = null;
 	private TextField playerList = null;
 
 	private void updateButtons(){
@@ -143,7 +153,12 @@ public class GuiEnderCube extends GuiContainerAU {
 		this.ui.lineBreak(17);
 
 		// player list
-		this.ui.lineBreak(11);
+		this.ui.lineBreak(7);
+		this.ui.x -= 6;
+		delPCLButton = this.addPCLButton(EnderButton.BUTTON_CONTROL_PLAYER_DEL,	12*12,		"remove yourself from player control whitelist");
+		this.ui.drawSpace(2);
+		addPCLButton = this.addPCLButton(EnderButton.BUTTON_CONTROL_PLAYER_ADD,	13*12,		"add yourself to player control whitelist");
+		this.ui.lineBreak(14);
 		this.ui.x -= 6;
 		String pcl = tileEntity.getPlayerControlWhitelist();
 		playerList = this.ui.newTextField(pcl == null ? "" : pcl, 1000, 120, TextField.DEFAULT_STYLE);
@@ -155,10 +170,44 @@ public class GuiEnderCube extends GuiContainerAU {
 	@Override
 	public void onTextFieldChanged(TextField field){
 		TileEntityEnderCube tileEntity = (TileEntityEnderCube)this.tileEntity;
-		String newPCL = field.getText().trim();
 		String oldPCL = tileEntity.getPlayerControlWhitelist();
+		String newPCL = field.getText().trim();
+		String[] players = newPCL.split(",");
+		// clean list
+		newPCL = "";
+		for(int i = 0; i < players.length; i++){
+			String player = players[i].trim();
+			if(!player.equals(""))
+				newPCL += (newPCL.length() > 0 ? "," : "")+player;
+		}
 		if(!oldPCL.equals(newPCL))
 			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_PCL, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (String)newPCL);
+		else
+			playerList.setText(newPCL);
+		field.setFocused(false);
+	}
+
+	private void addSelfToPlayerList(boolean add){
+		TileEntityEnderCube tileEntity = (TileEntityEnderCube)this.tileEntity;
+		String playerName = Minecraft.getMinecraft().thePlayer.getEntityName();
+		String oldPCL = tileEntity.getPlayerControlWhitelist();
+		String newPCL = playerList.getText().trim();
+		String[] players = newPCL.split(",");
+		// clean list and remove self
+		newPCL = "";
+		for(int i = 0; i < players.length; i++){
+			String player = players[i].trim();
+			if(!player.equals(playerName) && !player.equals(""))
+				newPCL += (newPCL.length() > 0 ? "," : "")+player;
+		}
+		// add self to list
+		if(add)
+			newPCL = (newPCL.equals("") ? playerName : playerName+","+newPCL);
+		// send changes to server
+		if(!oldPCL.equals(newPCL))
+			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_PCL, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (String)newPCL);
+		else
+			playerList.setText(newPCL);
 	}
 
 	@Override
@@ -189,6 +238,12 @@ public class GuiEnderCube extends GuiContainerAU {
 			break;
 		case BUTTON_CONTROL_REDSTONE:
 			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
+			break;
+		case BUTTON_CONTROL_PLAYER_DEL:
+			addSelfToPlayerList(false);
+			break;
+		case BUTTON_CONTROL_PLAYER_ADD:
+			addSelfToPlayerList(true);
 			break;
 		}
 	}
