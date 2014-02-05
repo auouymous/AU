@@ -81,6 +81,11 @@ public class BlockColoredPane extends BlockColored {
 		return this.sidesIcon;
 	}
 
+	@SideOnly(Side.CLIENT)
+	public boolean hasConnectedTextures(){
+		return this.hasConnectedTextures;
+	}
+
 /*
 	@SideOnly(Side.CLIENT)
 	public boolean isTinted(){
@@ -221,7 +226,6 @@ public class BlockColoredPane extends BlockColored {
 
 		if(!this.hasConnectedTextures){
 			halves[0] = this.getBlockIcons(blockColor)[0];
-			halves[1] = this.getBlockIcons(blockColor)[0];
 			return halves; // no connected textures
 		}
 
