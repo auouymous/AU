@@ -12,6 +12,8 @@
 
 - semi-transparent icons for tinted glass panes
 
+- FIX: Typing a player name that contains 'o' in the Ender Cube will cause NEI to toggle on or off
+
 - FIX: ChromaRegistry.addRecipe() can't get localized names for input/output itemstacks from AU Extras
 
 - chroma infuser shouldn't process a colored item with the same color, unless converting item IDs for it

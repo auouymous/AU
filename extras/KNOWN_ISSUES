@@ -1,5 +1,4 @@
-Stairs and slabs absorb other light sources and emit that light when the sources are removed.
-This is caused by the lighting hack that prevents dark spots.
+Typing a player name that contains 'o' in the Ender Cube will cause NEI to toggle on or off.
 
 -----
 
