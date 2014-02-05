@@ -19,6 +19,7 @@ public class TickHandlerHUD implements ITickHandler {
 	private ShopSignsHUD shopSignsHUD = new ShopSignsHUD();
 
 	private boolean zooming = false;
+	private float mouseSensitivity = 0.5F;
 
 	//////////
 
@@ -51,10 +52,15 @@ public class TickHandlerHUD implements ITickHandler {
 		if(!(mc.currentScreen instanceof GuiChat)){
 			// zoom player view
 			if(KeyHandlerHUD.keyZoom.pressed){
+				if(!zooming){
+					this.mouseSensitivity = mc.gameSettings.mouseSensitivity;
+					mc.gameSettings.mouseSensitivity /= 10.0F;
+				}
 				this.zooming = true;
 				Hacks.setCameraZoom(5.0D);
 			} else if(zooming){
 				this.zooming = false;
+				mc.gameSettings.mouseSensitivity = this.mouseSensitivity;
 				Hacks.setCameraZoom(1.0D);
 			}
 		}
