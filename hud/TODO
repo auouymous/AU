@@ -23,6 +23,7 @@ OPTION MENU
 		- rain & snow: on/off
 		- void particles: on/off
 		- portal particles: on/off
+		- water particles: on/off
 		- more render distance options
 		- SP day only
 		- SP no weather
