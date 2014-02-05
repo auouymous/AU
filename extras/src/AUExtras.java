@@ -62,6 +62,7 @@ public class AUExtras {
 	public static Block blockGlassPane;
 	public static Block blockGlassPaneTinted;
 	public static Block blockGlassPaneTintedNoFrame;
+	public static Block blockIronBars;
 	public static Block blockLamp;
 	public static Block blockInvertedLamp;
 	public static Block blockLampPowered;
@@ -100,6 +101,7 @@ public class AUExtras {
 		ItemStack gravel = new ItemStack(Block.gravel);
 		ItemStack glass = new ItemStack(Block.glass);
 		ItemStack glassPane = new ItemStack(Block.thinGlass);
+		ItemStack ironBars = new ItemStack(Block.fenceIron);
 		ItemStack redstoneTorch = new ItemStack(Block.torchRedstoneActive);
 		ItemStack redstoneDust = new ItemStack(Item.redstone);
 		ItemStack glowstone = new ItemStack(Block.glowStone);
@@ -387,7 +389,7 @@ public class AUExtras {
 			for(int c = 0; c < 16; c++)
 				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(this.blockGlassPaneTintedNoFrame, 1, c), coloredGlassPaneTintedNoFrame);
 			// SMELT <tinted frameless> glass pane -> glass pane
-			GameRegistry.addSmelting(coloredGlassPaneTintedNoFrame.itemID, glassPane , 1.0f);
+			GameRegistry.addSmelting(coloredGlassPaneTintedNoFrame.itemID, glassPane, 1.0f);
 
 			// CRAFT 6 <colored> glass -> 16 <colored> glass panes
 			for(int c = 0; c < 16; c++)
@@ -446,6 +448,24 @@ public class AUExtras {
 				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(this.blockGlassPaneTintedNoFrame, 1, c), coloredGlassPaneTinted);
 				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(this.blockGlassPaneTinted, 1, c), coloredGlassPaneTintedNoFrame);
 			}
+		}
+
+		//////////
+
+		if(Cfg.enableIronBars){
+			this.blockIronBars = new BlockColoredPane(Cfg.blockIronBars, "au.colorIronBars", " Iron Bars", ItemBlockIronBars.class, Material.iron, null, false)
+				.setHardness(5.0F)
+				.setResistance(10.0F)
+				.setStepSound(Block.soundMetalFootstep)
+				.setCreativeTab(AUExtras.tabAU);
+			ItemStack coloredIronBars = new ItemStack(this.blockIronBars);
+
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, ironBars, coloredIronBars);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(this.blockIronBars, 1, c), coloredIronBars);
+			// SMELT <colored> iron bars -> iron bars
+			GameRegistry.addSmelting(coloredIronBars.itemID, ironBars, 1.0f);
 		}
 
 		//////////

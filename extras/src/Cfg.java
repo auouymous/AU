@@ -20,6 +20,7 @@ public class Cfg extends Config {
 	public static boolean enableGlassPane;
 	public static boolean enableGlassPaneTinted;
 	public static boolean enableGlassPaneTintedNoFrame;
+	public static boolean enableIronBars;
 	public static boolean enableLamps;
 	public static boolean enableCobbleStairs;
 	public static boolean enableStoneStairs;
@@ -62,6 +63,7 @@ public class Cfg extends Config {
 	public static int blockGlassPane;
 	public static int blockGlassPaneTinted;
 	public static int blockGlassPaneTintedNoFrame;
+	public static int blockIronBars;
 	public static int blockLamp;
 	public static int blockInvertedLamp;
 	public static int blockLampPowered;
@@ -107,6 +109,7 @@ public class Cfg extends Config {
 		if(!Cfg.enableGlass){ Cfg.enableGlassTinted = false; Cfg.enableGlassPaneTinted = false; }
 		if(!Cfg.enableGlassTinted) Cfg.enableGlassPaneTinted = false;
 		if(!Cfg.enableGlassTintedNoFrame) Cfg.enableGlassPaneTintedNoFrame = false;
+		Cfg.enableIronBars = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.ironBars.enable", true, "enable colored iron bars (uses 1 block ID)");
 
 		Cfg.enableLamps = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.lamps.enable", true, "enable colored lamps (uses 4 block IDs)");
 
@@ -180,6 +183,7 @@ public class Cfg extends Config {
 		Cfg.blockGlassPane = Cfg.getBlock("block.colored.glass.pane.id", startBlockID, null); startBlockID++;
 		Cfg.blockGlassPaneTinted = Cfg.getBlock("block.colored.glassTinted.pane.id", startBlockID, null); startBlockID++;
 		Cfg.blockGlassPaneTintedNoFrame = Cfg.getBlock("block.colored.glassTintedNoFrame.pane.id", startBlockID, null); startBlockID++;
+		Cfg.blockIronBars = Cfg.getBlock("block.colored.ironBars.id", startBlockID, null); startBlockID++;
 
 		// ITEMS
 		Cfg.itemFriedEgg = Cfg.getItem("item.friedEgg.id", startItemID, null); startItemID++;

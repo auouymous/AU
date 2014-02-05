@@ -54,6 +54,7 @@ colorize_blocks vanilla-chiseledbrick.png colorChiseledBrick
 colorize_blocks vanilla-gravel.png colorGravel
 colorize_blocks smoothbrick.png colorSmoothBrick
 colorize_blocks flower-top.xpm colorFlower blocks/flowerStage1.xpm
+colorize_blocks vanilla-iron_bars.png colorIronBars
 
 # items
 rm -f items/colorFlowerDye*

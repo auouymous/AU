@@ -33,7 +33,7 @@ public class ClientProxy extends CommonProxy {
 			glassRenderType = RenderingRegistry.getNextAvailableRenderId();
 			RenderingRegistry.registerBlockHandler(new RendererGlass());
 		}
-		if(Cfg.enableGlassPane || Cfg.enableGlassPaneTinted || Cfg.enableGlassPaneTintedNoFrame){
+		if(Cfg.enableGlassPane || Cfg.enableGlassPaneTinted || Cfg.enableGlassPaneTintedNoFrame || Cfg.enableIronBars){
 			paneRenderType = RenderingRegistry.getNextAvailableRenderId();
 			RenderingRegistry.registerBlockHandler(new RendererPane());
 		}

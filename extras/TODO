@@ -10,14 +10,14 @@
 
 -----
 
+- semi-transparent icons for tinted glass panes
+
 - FIX: ChromaRegistry.addRecipe() can't get localized names for input/output itemstacks from AU Extras
 
 - chroma infuser shouldn't process a colored item with the same color, unless converting item IDs for it
 	- need to add a colored flag to ChromeRecipe and set in all conversion recipes
 	- the item input slot should reject the item if chroma infuser has dye, if no dye, processing should reject it
 	- NEI plugin merges conversion recipes and will need to handle the missing color
-
-- add tooltip to recipe button output images
 
 - optimize TileEntityChromaInfuser.updateEntity()
 
@@ -36,7 +36,29 @@
 	- fill or empty sprayers in chroma infuser
 	- each sprayers holds 256 uses (32 dye)
 
+-----
+
 - lamp and inverted lamp that light up but don't emit light, use glowstone dust instead of glowstone block
+
+- mini lamps that can be placed on walls, ceiling or floor
+	- size of a lamp in an item frame (5x5x4 deep)
+	- redstone control, normal and inverted variants
+	- use a TE to hold orientation and style (right click to change style)
+	- default style is lamp on a base
+	- one style will use the iron bars texture as a cage around the lamp, on a base
+	- some styles will change depth and size of lamp cube
+	- some styles will change style of the base
+
+- lamp buttons and levers
+	- the buttons will be colored and glow briefly when pressed (they wont emit light)
+	- the levers will have a colored base that glows when active
+		- will have a flush two position switch on the front instead of a lever
+
+- colored glow glass and panes, 3 types (6 block IDs)
+	- crafted with any colored glass and 1 glowstone dust per
+	- would connect to its non-glow variant
+
+-----
 
 - colored sand, won't obey gravity
 
@@ -46,16 +68,6 @@
 - fences and gates
 	- for all au_extras blocks
 	- for sandstone and quartz, cobble?
-
-- colored glass panes, 3 types
-- colored glow glass and panes, 3 types (6 block IDs)
-	- crafted with any colored glass and 1 glowstone dust per
-	- would connect to its non-glow variant
-
-- lamp buttons and levers
-	- the buttons will be colored and glow briefly when pressed (they wont emit light)
-	- the levers will have a colored base that glows when active
-		- will have a flush two position switch on the front instead of a lever
 
 - colored signs
 	- 16 colors but they also support block camo
@@ -69,10 +81,6 @@
 	- right click item in air to open editor
 		- option to set text color and block camo (for colored signs)
 	- right click a sign to apply text
-
-- grated floor
-	- frame around outside edge, connected textures
-	- near top of block, similar to trapdoors
 
 - connected textures for vanilla blocks?
 	- option to disable if something like optifine does it

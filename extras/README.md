@@ -32,6 +32,8 @@ Drop any block in the slot to camouflage the Ender Cube as that block.
 Flower seeds produce biome-specific flowers 75% of the time and all flowers the other 25%.
 Can be changed in config to always produce all colors.
 
+Colored glass panes and colored iron bars support vertical and horizontal orientation.
+
 ***
 
 Recipes
@@ -102,6 +104,10 @@ Recipes
 * CHROMA INFUSER [tinted frameless] glass pane TO [tinted frameless] glass pane (dot: 8 per dye)
 * CRAFT 6 [tinted frameless] glass TO 16 [tinted frameless] glass panes
 * SMELT [tinted frameless] glass pane TO glass pane
+* 
+* CHROMA INFUSER iron bars TO [colored] iron bars (square: 8 per dye)
+* CHROMA INFUSER [colored] iron bars TO [colored] iron bars (square: 8 per dye)
+* SMELT [colored] iron bars TO iron bars
 * 
 * CHROMA INFUSER [vanilla] wool TO [vanilla] wool (blank: 8 per dye)
 * CHROMA INFUSER [vanilla] hardened clay TO [vanilla] stained clay (blank: 8 per dye - 1.6.x and up)
