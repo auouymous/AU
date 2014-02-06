@@ -6,6 +6,8 @@
 ~ MC18x
 	- silverfish chiseled bricks?
 
+- change death screen by moving the buttons away from center
+
 OPTION MENU
 	- fine grained control over info HUD elements
 		- move elements to different lines and different positions within each line
@@ -18,16 +20,16 @@ OPTION MENU
 	- allow player to add command buttons to hud options
 
 	- add a few useful settings from OptiFine for those who don't use it
-		- fog: on/off
-		- depth fog: on/off
-		- rain & snow: on/off
-		- void particles: on/off
-		- portal particles: on/off
-		- water particles: on/off
-		- more render distance options
-		- SP day only
-		- SP no weather
-		- connected textures for glass and glass panes (unlikely)
+		- fog: on/off						-- 
+		- depth fog: on/off					-- maybe not, players using this might not know that other players can't see
+		- rain & snow: on/off				-- fps drop? motion sickness
+		- void particles: on/off			-- fps drop?
+		- portal particles: on/off			-- fps drop?
+		- water particles: on/off			-- fps drop?
+		- self potion particles: on/off		-- motion sickness
+		- more render distance options		-- 1.7 already does this
+		- SP day/night only					-- test worlds
+		- SP no weather						-- test worlds
 
 INFO HUD
 	~ FIX: time is incorrect in mystcraft ages
@@ -100,4 +102,4 @@ CHAT HUD
 		- all outgoing messages will be sent as /tc <message>
 
 SERVER INFO
-	- pvp status
+	- pvp status (not available on client)

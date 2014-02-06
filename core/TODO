@@ -1,1 +1,18 @@
 - need to create and store ResourceLocation objects and pass to UI.bindTexture() instead of allocating on each call
+
+- Widget class
+	- adds itself to a list that is automatically handled by GuiContainerAU
+	- TextField will inherit this, all TextField code in GuiContainerAU will become Widget code
+	- Label Class
+		- for displaying static text on Guis
+		- hud options needs this
+
+- icon buttons
+	- displays image to the right or left of the button text
+	- two images for state buttons
+	- hud can display checkmarks to the left of its state buttons
+
+- warning system for protection violating items
+	- chroma sprayer and cube manipulator would use it
+	- display chat message when OPs login, MP only
+	- core mod option to disable message, should only be done once the item is added to the protection plugin
