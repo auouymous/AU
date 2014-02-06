@@ -121,7 +121,7 @@ public class GuiOptions extends GuiScreen {
 		if(this.window_height == 0){
 			// vertically center UI
 			this.ui.lineBreak();
-			this.window_height = this.ui.y;
+			this.window_height = this.ui.getY();
 			this.initGui();
 		}
 	}

@@ -238,12 +238,12 @@ public class InfoHUD {
 						this.invItemTime = time;
 					}
 				} else
-					this.invItemCX = this.ui.base_x;
-				if(this.invItemCX > this.ui.base_x){
-					this.ui.x = this.invItemCX - (int)((float)this.invItemCX * ((float)(time - this.invItemTime) / 4000.0F));
-					if(this.ui.x < this.ui.base_x) this.ui.x = this.ui.base_x;
+					this.invItemCX = this.ui.getBaseX();
+				if(this.invItemCX > this.ui.getBaseX()){
+					this.ui.setX(this.invItemCX - (int)((float)this.invItemCX * ((float)(time - this.invItemTime) / 4000.0F)));
+					if(this.ui.getX() < this.ui.getBaseX()) this.ui.resetX();
 				} else
-					this.ui.x = this.ui.base_x;
+					this.ui.resetX();
 				this.invItemCount = nr_items;
 
 				this.ui.drawString(invText, 0xaaaaaa);

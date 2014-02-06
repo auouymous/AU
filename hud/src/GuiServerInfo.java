@@ -190,7 +190,7 @@ public class GuiServerInfo extends GuiScreen {
 		this.buttonList.clear();
 		#endif
 
-		this.ui.y = this.height - 32;
+		this.ui.setY(this.height - 32);
 		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_DONE, "Done", 100, 20);
 	}
 

@@ -33,25 +33,25 @@ public class GuiPotionOptions extends GuiScreen {
 
 	int posX_x, posX_y;
 	private void drawPositionX(){
-		this.ui.x = posX_x;
-		this.ui.y = posX_y + 5;
-		this.ui.x = this.ui.drawString(UI.ALIGN_CENTER, String.format("x: %d", Cfg.potion_hud_x), 0xffffff, 40);
+		this.ui.setX(posX_x);
+		this.ui.setY(posX_y + 5);
+		this.ui.setX(this.ui.drawString(UI.ALIGN_CENTER, String.format("x: %d", Cfg.potion_hud_x), 0xffffff, 40));
 		this.ui.drawString("x:", 0xaaaaaa);
-		this.ui.x = posX_x - 30;
+		this.ui.setX(posX_x - 30);
 		this.ui.drawString(UI.ALIGN_RIGHT, "right-click by 10", 0x555555, 0);
-		this.ui.x = posX_x + 40;
-		this.ui.y = posX_y;
+		this.ui.setX(posX_x + 40);
+		this.ui.setY(posX_y);
 	}
 	int posY_x, posY_y;
 	private void drawPositionY(){
-		this.ui.x = posY_x;
-		this.ui.y = posY_y + 5;
-		this.ui.x = this.ui.drawString(UI.ALIGN_CENTER, String.format("y: %d", Cfg.potion_hud_y), 0xffffff, 40);
+		this.ui.setX(posY_x);
+		this.ui.setY(posY_y + 5);
+		this.ui.setX(this.ui.drawString(UI.ALIGN_CENTER, String.format("y: %d", Cfg.potion_hud_y), 0xffffff, 40));
 		this.ui.drawString("y:", 0xaaaaaa);
-		this.ui.x = posY_x + 40 + 30;
+		this.ui.setX(posY_x + 40 + 30);
 		this.ui.drawString(UI.ALIGN_LEFT, "middle-click by 20", 0x555555, 0);
-		this.ui.x = posY_x + 40;
-		this.ui.y = posY_y;
+		this.ui.setX(posY_x + 40);
+		this.ui.setY(posY_y);
 	}
 
 	@Override
@@ -111,14 +111,14 @@ public class GuiPotionOptions extends GuiScreen {
 		this.ui.lineBreak(7);
 		this.ui.drawSpace((int)Math.floor((CONFIG_WINDOW_WIDTH - 2*80)/3));
 		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_X_DN, "-", 20, 20);
-		this.posX_x = this.ui.x;
-		this.posX_y = this.ui.y;
+		this.posX_x = this.ui.getX();
+		this.posX_y = this.ui.getY();
 		this.drawPositionX();
 		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_X_UP, "+", 20, 20);
 		this.ui.drawSpace((int)Math.floor((CONFIG_WINDOW_WIDTH - 2*80)/3));
 		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_Y_DN, "-", 20, 20);
-		this.posY_x = this.ui.x;
-		this.posY_y = this.ui.y;
+		this.posY_x = this.ui.getX();
+		this.posY_y = this.ui.getY();
 		this.drawPositionY();
 		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_Y_UP, "+", 20, 20);
 		this.ui.lineBreak();
@@ -135,7 +135,7 @@ public class GuiPotionOptions extends GuiScreen {
 		if(this.window_height == 0){
 			// vertically center UI
 			this.ui.lineBreak();
-			this.window_height = this.ui.y;
+			this.window_height = this.ui.getY();
 			this.initGui();
 		}
 	}

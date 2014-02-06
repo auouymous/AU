@@ -102,7 +102,7 @@ public class ArmorHUD {
 
 			try {
 				if(itemstack.isItemStackDamageable()){
-					if(force_quantity || quantity > 1) this.ui.y -= 4;
+					if(force_quantity || quantity > 1) this.ui.drawVSpace(-4);
 
 					int max_durability = this.getMaxDurability(itemstack);
 					int durability = this.getDurability(itemstack, max_durability);

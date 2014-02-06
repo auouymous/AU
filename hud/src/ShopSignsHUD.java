@@ -133,7 +133,7 @@ public class ShopSignsHUD {
 													String buy = (quantity > 1
 														? String.format("You pay: $%.2f ($%.2f each)", buyPrice, buyPrice/(float)quantity)
 														: String.format("You pay: $%.2f", buyPrice));
-													this.ui.x = centerX - mc.fontRenderer.getStringWidth(buy)/2;
+													this.ui.setX(centerX - mc.fontRenderer.getStringWidth(buy)/2);
 													this.ui.drawString("You pay: $", 0xaaaaaa);
 													this.ui.drawString(String.format("%.2f", buyPrice), 0xff6666);
 													if(quantity > 1){
@@ -147,7 +147,7 @@ public class ShopSignsHUD {
 													String sell = (quantity > 1
 														? String.format("You make: $%.2f ($%.2f each)", sellPrice, sellPrice/(float)quantity)
 														: String.format("You make: $%.2f", sellPrice));
-													this.ui.x = centerX - mc.fontRenderer.getStringWidth(sell)/2;
+													this.ui.setX(centerX - mc.fontRenderer.getStringWidth(sell)/2);
 													this.ui.drawString("You make: $", 0xaaaaaa);
 													this.ui.drawString(String.format("%.2f", sellPrice), 0x66ff66);
 													if(quantity > 1){

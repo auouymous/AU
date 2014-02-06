@@ -154,12 +154,12 @@ public class GuiEnderCube extends GuiContainerAU {
 
 		// player list
 		this.ui.lineBreak(7);
-		this.ui.x -= 6;
+		this.ui.drawSpace(-6);
 		delPCLButton = this.addPCLButton(EnderButton.BUTTON_CONTROL_PLAYER_DEL,	12*12,		"remove yourself from player control whitelist");
 		this.ui.drawSpace(2);
 		addPCLButton = this.addPCLButton(EnderButton.BUTTON_CONTROL_PLAYER_ADD,	13*12,		"add yourself to player control whitelist");
 		this.ui.lineBreak(14);
-		this.ui.x -= 6;
+		this.ui.drawSpace(-6);
 		String pcl = tileEntity.getPlayerControlWhitelist();
 		playerList = this.ui.newTextField(pcl == null ? "" : pcl, 1000, 120, TextField.DEFAULT_STYLE);
 		playerList.setTooltip("player control whitelist\n- leave blank to allow all\n- commas between names\n- press ENTER to save");
