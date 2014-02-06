@@ -22,7 +22,7 @@ public class NEIExtrasConfig implements IConfigureNEI {
 			// chroma recipes
 			API.registerRecipeHandler(new NEIChromaRecipeHandler());
 			API.registerUsageHandler(new NEIChromaRecipeHandler());
-		} catch (Exception e){
+		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
