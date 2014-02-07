@@ -12,7 +12,7 @@ Required: AU CORE
 
 'H' key opens HUD options menu.
 'I' key toggles inspector.
-<none> key zooms player view. (does not work in 1.6.x)
+<none> key zooms player view and reduces mouse sensitivity.
 All keys are configurable in the Controls menu.
 
 Info HUD elements
