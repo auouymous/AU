@@ -32,8 +32,15 @@ public class UI {
 	}
 	public void unscale(){
 		// GL11.glPopMatrix() also takes care of this
+		GL11.glScalef(1.0F / this.scale, 1.0F / this.scale, 1.0F);
 		this.scale = 1.0F;
-		GL11.glScalef(1.0F, 1.0F, 1.0F);
+	}
+
+	public int scaleValue(float value){
+		return Math.round(value / this.scale);
+	}
+	public int unscaleValue(float value){
+		return Math.round(value * this.scale);
 	}
 
 	//////////
@@ -47,19 +54,25 @@ public class UI {
 		this.x = this.base_x;
 	}
 	public int getBaseX(){
-		return Math.round((float)this.base_x * this.scale);
+		return Math.round((float)this.base_x * this.scale); // unscale
 	}
 	public void setBaseX(int x){
 		this.base_x = Math.round((float)x / this.scale);
 	}
+	public int getScaledX(){
+		return this.x;
+	}
 	public int getX(){
-		return Math.round((float)this.x * this.scale);
+		return Math.round((float)this.x * this.scale); // unscale
 	}
 	public void setX(int x){
 		this.x = Math.round((float)x / this.scale);
 	}
+	public int getScaledY(){
+		return this.y;
+	}
 	public int getY(){
-		return Math.round((float)this.y * this.scale);
+		return Math.round((float)this.y * this.scale); // unscale
 	}
 	public void setY(int y){
 		this.y = Math.round((float)y / this.scale);
@@ -92,29 +105,29 @@ public class UI {
 	//////////
 
 	public int drawString(int align, String s, int color, int box_width){
-		if(s == null) return this.getX();
+		if(s == null) return this.getX(); // unscale
 
 		if(align == ALIGN_LEFT){
 			// cursor moved to right side of string
 			this.mc.fontRenderer.drawStringWithShadow(s, this.x, this.y, color);
 			this.x += this.mc.fontRenderer.getStringWidth(s);
-			return this.getX(); // right side of string
+			return this.getX(); // right side of string - unscale
 		}
 		if(align == ALIGN_RIGHT){
 			// cursor moved to left side of string
 			this.x -= (this.mc.fontRenderer.getStringWidth(s) + box_width);
 			this.mc.fontRenderer.drawStringWithShadow(s, this.x, this.y, color);
-			return this.getX(); // left side of string
+			return this.getX(); // left side of string - unscale
 		}
 		if(align == ALIGN_CENTER){
 			// cursor moved to right side of box_width
 			int x = this.x + (box_width/2 - this.mc.fontRenderer.getStringWidth(s)/2);
 			this.mc.fontRenderer.drawStringWithShadow(s, x, this.y, color);
 			this.x += box_width;
-			return Math.round((float)x * this.scale); // left side of string
+			return Math.round((float)x * this.scale); // left side of string - unscale
 		}
 
-		return this.getX();
+		return this.getX(); // unscale
 	}
 
 	public int drawString(String s, int color){
