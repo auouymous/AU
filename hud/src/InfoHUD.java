@@ -150,6 +150,8 @@ public class InfoHUD {
 		Chunk chunk = world.getChunkFromBlockCoords(pos_x, pos_z);
 		if(chunk == null) return;
 
+		this.ui.scale(Cfg.info_hud_scale);
+
 		this.ui.setCursor(Cfg.info_hud_x, Cfg.info_hud_y);
 
 		// world
@@ -741,7 +743,7 @@ public class InfoHUD {
 			if(Cfg.show_inspector && !player.capabilities.isCreativeMode){
 				int armorValue = player.getTotalArmorValue();
 				if(armorValue > 0){
-					this.ui.setCursor(screen.getScaledWidth()/2 - 95, screen.getScaledHeight() - 70);
+					this.ui.setCursor(screen.getScaledWidth()/2 - 95, screen.getScaledHeight() - Math.round(62 + this.ui.unscaleValue(8)));
 					this.ui.drawString(" armor: ", 0xaaaaaa);
 					this.ui.drawString(String.format("%d", armorValue), 0xffffff);
 				}
@@ -797,7 +799,7 @@ public class InfoHUD {
 							// possible? item.getStrVsBlock
 						}
 				}
-				this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - 70);
+				this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - Math.round(62 + this.ui.unscaleValue(8)));
 				this.ui.drawString("damage: ", 0xaaaaaa);
 				this.ui.drawString(String.format("%s%.1f", (entity == null ? "*" : ""), damageEntity), 0xffffff);
 				this.ui.drawString("e ", 0xaaaaaa);
@@ -812,7 +814,7 @@ public class InfoHUD {
 		try {
 			if(Cfg.show_inspector && !player.capabilities.isCreativeMode){
 				FoodStats food = player.getFoodStats();
-				this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - 50);
+				this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - Math.round(42 + this.ui.unscaleValue(8)));
 				this.ui.drawString("f: ", 0xaaaaaa);
 				this.ui.drawString(String.format("%d%%", 100*food.getFoodLevel()/20), 0xffffff);
 				this.ui.drawString("  s: ", 0xaaaaaa);

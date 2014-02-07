@@ -73,6 +73,8 @@ public class GuiInfoOptions extends GuiScreen {
 	public enum ButtonID {
 		BUTTON_X_DN, BUTTON_X_UP, BUTTON_Y_DN, BUTTON_Y_UP,
 
+		BUTTON_SCALE,
+
 		BUTTON_WORLD, BUTTON_BIOME,
 		BUTTON_POSITION, BUTTON_POSITION_EYES,
 		BUTTON_LIGHT, BUTTON_TIME, BUTTON_WEATHER,
@@ -118,6 +120,7 @@ public class GuiInfoOptions extends GuiScreen {
 		this.drawTitle();
 
 		this.ui.lineBreak(7);
+
 		this.ui.drawSpace((int)Math.floor((CONFIG_WINDOW_WIDTH - 2*80)/3));
 		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_X_DN, "-", 20, 20);
 		this.posX_x = this.ui.getX();
@@ -131,47 +134,52 @@ public class GuiInfoOptions extends GuiScreen {
 		this.drawPositionY();
 		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_Y_UP, "+", 20, 20);
 		this.ui.lineBreak();
-		this.ui.lineBreak(7);
 
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_WORLD, "World", Cfg.show_world, 110, 16);
-		this.ui.drawSpace(10);
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_BIOME, "Biome", Cfg.show_biome, 110, 16);
-		this.ui.lineBreak(19);
-
-		this.button_position = this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_POSITION, "Position", Cfg.show_position, 110, 16);
-		this.ui.drawSpace(10);
-		this.button_position_eyes = this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_POSITION_EYES, "At Eyes", Cfg.show_position_eyes, 110, 16);
-		this.ui.lineBreak(19);
-
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_LIGHT, "Light", Cfg.show_light, 70, 16);
-		this.ui.drawSpace(10);
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_TIME, "Time", Cfg.show_time, 70, 16);
-		this.ui.drawSpace(10);
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_WEATHER, "Weather", Cfg.show_weather, 70, 16);
-		this.ui.lineBreak(19);
-
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_USED_INVENTORY, "Used Inventory", Cfg.show_used_inventory, 150, 16);
-		this.ui.drawSpace(10);
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_ANIMATE_USED_INVENTORY, "Animate", Cfg.animate_used_inventory, 70, 16);
-		this.ui.lineBreak(19);
-
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_FPS, "FPS", Cfg.show_fps, 110, 16);
-		this.ui.drawSpace(10);
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_CHUNK_UPDATES, "Chunk Updates", Cfg.show_chunk_updates, 110, 16);
-		this.ui.lineBreak(19);
-
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_ENTITIES, "Entities", Cfg.show_entities, 110, 16);
-		this.ui.drawSpace(10);
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_PARTICLES, "Particles", Cfg.show_particles, 110, 16);
-		this.ui.lineBreak(19);
-
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_TPS, "TPS (Server Lag)", Cfg.show_tps, 230, 16);
-		this.ui.lineBreak(19);
-
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_BLOCK_NAME, "Block/Mob Name", Cfg.show_block_name, 230, 16);
-		this.ui.lineBreak(19);
+        this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_SCALE, Cfg.getScaleName(Cfg.info_hud_scale), 182, 20);
+		this.ui.lineBreak();
 
 		this.ui.lineBreak(7);
+
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_WORLD, "World", Cfg.show_world, 110, 14);
+		this.ui.drawSpace(10);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_BIOME, "Biome", Cfg.show_biome, 110, 14);
+		this.ui.lineBreak(17);
+
+		this.button_position = this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_POSITION, "Position", Cfg.show_position, 110, 14);
+		this.ui.drawSpace(10);
+		this.button_position_eyes = this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_POSITION_EYES, "At Eyes", Cfg.show_position_eyes, 110, 14);
+		this.ui.lineBreak(17);
+
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_LIGHT, "Light", Cfg.show_light, 70, 14);
+		this.ui.drawSpace(10);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_TIME, "Time", Cfg.show_time, 70, 14);
+		this.ui.drawSpace(10);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_WEATHER, "Weather", Cfg.show_weather, 70, 14);
+		this.ui.lineBreak(17);
+
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_USED_INVENTORY, "Used Inventory", Cfg.show_used_inventory, 150, 14);
+		this.ui.drawSpace(10);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_ANIMATE_USED_INVENTORY, "Animate", Cfg.animate_used_inventory, 70, 14);
+		this.ui.lineBreak(17);
+
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_FPS, "FPS", Cfg.show_fps, 110, 14);
+		this.ui.drawSpace(10);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_CHUNK_UPDATES, "Chunk Updates", Cfg.show_chunk_updates, 110, 14);
+		this.ui.lineBreak(17);
+
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_ENTITIES, "Entities", Cfg.show_entities, 110, 14);
+		this.ui.drawSpace(10);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_PARTICLES, "Particles", Cfg.show_particles, 110, 14);
+		this.ui.lineBreak(17);
+
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_TPS, "TPS (Server Lag)", Cfg.show_tps, 230, 14);
+		this.ui.lineBreak(17);
+
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_BLOCK_NAME, "Block/Mob Name", Cfg.show_block_name, 230, 14);
+		this.ui.lineBreak(17);
+
+		this.ui.lineBreak(7);
+
 		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_DONE, "Done", 100, 20);
 
 		if(this.window_height == 0){
@@ -220,10 +228,15 @@ public class GuiInfoOptions extends GuiScreen {
 	public void actionPerformed(GuiButton button){
 		// toggle config state
 		switch(ButtonID.values()[button.id]){
-		case BUTTON_X_DN:		Cfg.info_hud_x -= 1;	break;
-		case BUTTON_X_UP:		Cfg.info_hud_x += 1;	break;
-		case BUTTON_Y_DN:		Cfg.info_hud_y -= 1;	break;
-		case BUTTON_Y_UP:		Cfg.info_hud_y += 1;	break;
+		case BUTTON_X_DN:		Cfg.info_hud_x -= 1;			break;
+		case BUTTON_X_UP:		Cfg.info_hud_x += 1;			break;
+		case BUTTON_Y_DN:		Cfg.info_hud_y -= 1;			break;
+		case BUTTON_Y_UP:		Cfg.info_hud_y += 1;			break;
+
+		case BUTTON_SCALE:
+			Cfg.info_hud_scale = Cfg.toggleScale(Cfg.info_hud_scale);
+			button.displayString = Cfg.getScaleName(Cfg.info_hud_scale);
+			break;
 
 		case BUTTON_WORLD:						((Button)button).active = Cfg.show_world				= (Cfg.show_world				? false : true);	break;
 		case BUTTON_BIOME:						((Button)button).active = Cfg.show_biome				= (Cfg.show_biome				? false : true);	break;

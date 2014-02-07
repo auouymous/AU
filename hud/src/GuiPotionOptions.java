@@ -73,6 +73,7 @@ public class GuiPotionOptions extends GuiScreen {
 	public enum ButtonID {
 		BUTTON_X_DN, BUTTON_X_UP, BUTTON_Y_DN, BUTTON_Y_UP,
 
+		BUTTON_SCALE,
 		BUTTON_CORNER, BUTTON_ALWAYS_SHOW,
 
 		BUTTON_DONE
@@ -109,6 +110,7 @@ public class GuiPotionOptions extends GuiScreen {
 		this.drawTitle();
 
 		this.ui.lineBreak(7);
+
 		this.ui.drawSpace((int)Math.floor((CONFIG_WINDOW_WIDTH - 2*80)/3));
 		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_X_DN, "-", 20, 20);
 		this.posX_x = this.ui.getX();
@@ -123,6 +125,9 @@ public class GuiPotionOptions extends GuiScreen {
 		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_Y_UP, "+", 20, 20);
 		this.ui.lineBreak();
 
+		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_SCALE, Cfg.getScaleName(Cfg.potion_hud_scale), 182, 20);
+		this.ui.lineBreak();
+
 		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_CORNER, Cfg.getCornerName(Cfg.potion_hud_corner), 182, 20);
 		this.ui.lineBreak();
 
@@ -130,6 +135,7 @@ public class GuiPotionOptions extends GuiScreen {
 		this.ui.lineBreak();
 
 		this.ui.lineBreak(7);
+
 		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_DONE, "Done", 100, 20);
 
 		if(this.window_height == 0){
@@ -182,6 +188,11 @@ public class GuiPotionOptions extends GuiScreen {
 		case BUTTON_X_UP:		Cfg.potion_hud_x += 1;	break;
 		case BUTTON_Y_DN:		Cfg.potion_hud_y -= 1;	break;
 		case BUTTON_Y_UP:		Cfg.potion_hud_y += 1;	break;
+
+		case BUTTON_SCALE:
+			Cfg.potion_hud_scale = Cfg.toggleScale(Cfg.potion_hud_scale);
+			button.displayString = Cfg.getScaleName(Cfg.potion_hud_scale);
+			break;
 
 		case BUTTON_CORNER:
 			Cfg.potion_hud_corner = (Cfg.potion_hud_corner < Cfg.corners.length-1 ? Cfg.potion_hud_corner+1 : 0);

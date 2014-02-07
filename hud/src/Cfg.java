@@ -11,6 +11,7 @@ public class Cfg extends Config {
 	public static boolean enable_info_hud;
 	public static int info_hud_x;
 	public static int info_hud_y;
+	public static float info_hud_scale;
 	public static boolean enable_advanced_inspector;
 	public static boolean hide_silverfish_blocks;
 
@@ -18,6 +19,7 @@ public class Cfg extends Config {
 	public static boolean always_show_armor_hud;
 	public static int armor_hud_x;
 	public static int armor_hud_y;
+	public static float armor_hud_scale;
 	public static int armor_hud_corner;
 	public static int armor_hud_durability;
 
@@ -25,9 +27,11 @@ public class Cfg extends Config {
 	public static boolean always_show_potion_hud;
 	public static int potion_hud_x;
 	public static int potion_hud_y;
+	public static float potion_hud_scale;
 	public static int potion_hud_corner;
 
 	public static boolean enable_shop_signs_hud;
+	public static float shop_signs_hud_scale;
 
 	public static boolean show_inspector = false; // always default to off
 
@@ -55,6 +59,7 @@ public class Cfg extends Config {
 		Cfg.enable_info_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.enable", true, null);
 		Cfg.info_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.info.x", 2, null);
 		Cfg.info_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.info.y", 32, null);
+		Cfg.info_hud_scale = (float)Cfg.getDouble(Cfg.CATEGORY_GENERAL, "hud.info.scale", 1.0F, null);
 		Cfg.enable_advanced_inspector = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.advancedInspector.show", false, null);
 		Cfg.hide_silverfish_blocks = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.silverfishBlocks.hide", true, "set to false to see silverfish blocks");
 		// info elements
@@ -79,6 +84,7 @@ public class Cfg extends Config {
 		Cfg.always_show_armor_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.armor.alwaysShow", false, null);
 		Cfg.armor_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.armor.x", 2, null);
 		Cfg.armor_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.armor.y", 2, null);
+		Cfg.armor_hud_scale = (float)Cfg.getDouble(Cfg.CATEGORY_GENERAL, "hud.armor.scale", 1.0F, null);
 		Cfg.armor_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "hud.armor.corner", "BottomRight", null));
 		Cfg.armor_hud_durability = Cfg.clipDurabilityID(Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.armor.durability", Cfg.HUD_DURABILITY_PERCENT, null));
 
@@ -87,28 +93,32 @@ public class Cfg extends Config {
 		Cfg.always_show_potion_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.potion.alwaysShow", false, null);
 		Cfg.potion_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.potion.x", 2, null);
 		Cfg.potion_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.potion.y", 2, null);
+		Cfg.potion_hud_scale = (float)Cfg.getDouble(Cfg.CATEGORY_GENERAL, "hud.potion.scale", 1.0F, null);
 		Cfg.potion_hud_corner = Cfg.getCornerID(Cfg.getString(Cfg.CATEGORY_GENERAL, "hud.potion.corner", "BottomLeft", null));
 
 		// shop signs
 		Cfg.enable_shop_signs_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.shopSigns.enable", true, null);
-
+		Cfg.shop_signs_hud_scale = (float)Cfg.getDouble(Cfg.CATEGORY_GENERAL, "hud.shopSigns.scale", 1.0F, null);
 
 		// fix dependent elements
 		if(Cfg.show_position == false && Cfg.show_position_eyes == true)
 			Cfg.show_position_eyes = false;
 
 		Cfg.clipPositions();
+		Cfg.clipScale();
 
 		Cfg.saveConfig();
 	}
 
 	public static void save(){
 		Cfg.clipPositions();
+		Cfg.clipScale();
 
 		// info
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.enable", Cfg.enable_info_hud, null);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.info.x", Cfg.info_hud_x, null);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.info.y", Cfg.info_hud_y, null);
+		Cfg.setDouble(Cfg.CATEGORY_GENERAL, "hud.info.scale", Cfg.info_hud_scale, null);
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.advancedInspector.show", Cfg.enable_advanced_inspector, null);
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.silverfishBlocks.hide", Cfg.hide_silverfish_blocks, "set to false to see silverfish blocks");
 		// info elements
@@ -133,6 +143,7 @@ public class Cfg extends Config {
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.armor.alwaysShow", Cfg.always_show_armor_hud, null);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.armor.x", Cfg.armor_hud_x, null);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.armor.y", Cfg.armor_hud_y, null);
+		Cfg.setDouble(Cfg.CATEGORY_GENERAL, "hud.armor.scale", Cfg.armor_hud_scale, null);
 		Cfg.setString(Cfg.CATEGORY_GENERAL, "hud.armor.corner", Cfg.getCornerName(Cfg.armor_hud_corner), null);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.armor.durability", Cfg.armor_hud_durability, null);
 
@@ -141,10 +152,12 @@ public class Cfg extends Config {
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.potion.alwaysShow", Cfg.always_show_potion_hud, null);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.potion.x", Cfg.potion_hud_x, null);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.potion.y", Cfg.potion_hud_y, null);
+		Cfg.setDouble(Cfg.CATEGORY_GENERAL, "hud.potion.scale", Cfg.potion_hud_scale, null);
 		Cfg.setString(Cfg.CATEGORY_GENERAL, "hud.potion.corner", Cfg.getCornerName(Cfg.potion_hud_corner), null);
 
 		// shop signs
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.shopSigns.enable", Cfg.enable_shop_signs_hud, null);
+		Cfg.setDouble(Cfg.CATEGORY_GENERAL, "hud.shopSigns.scale", Cfg.shop_signs_hud_scale, null);
 
 		Cfg.saveConfig();
 	}
@@ -185,6 +198,38 @@ public class Cfg extends Config {
 		if(Cfg.potion_hud_x > width) Cfg.potion_hud_x = width;
 		if(Cfg.potion_hud_y < 0) Cfg.potion_hud_y = 0;
 		if(Cfg.potion_hud_y > height) Cfg.potion_hud_y = height;
+	}
+
+	//////////
+
+	private static float clipScale(float scale){
+		for(int i = 0; i < Cfg.scale_values.length; i++)
+			if(scale == Cfg.scale_values[i]) return scale;
+		return Cfg.scale_values[DEFAULT_SCALE_VALUE];
+	}
+	private static void clipScale(){
+		Cfg.info_hud_scale = Cfg.clipScale(Cfg.info_hud_scale);
+		Cfg.armor_hud_scale = Cfg.clipScale(Cfg.armor_hud_scale);
+		Cfg.potion_hud_scale = Cfg.clipScale(Cfg.potion_hud_scale);
+		Cfg.shop_signs_hud_scale = Cfg.clipScale(Cfg.shop_signs_hud_scale);
+	}
+
+	private static int DEFAULT_SCALE_VALUE = 1;
+	private static float[] scale_values = { 0.5F, 1.0F }; // 2.0F
+	private static String[] scale_names = { "Small - 50%", "Normal - 100%" }; // "Large"
+	public static String getScaleName(float scale){
+		for(int i = 0; i < Cfg.scale_values.length; i++)
+			if(scale == Cfg.scale_values[i]) return Cfg.scale_names[i];
+		return Cfg.scale_names[Cfg.DEFAULT_SCALE_VALUE];
+	}
+
+	public static float toggleScale(float scale){
+		int n = Cfg.DEFAULT_SCALE_VALUE;
+		for(int i = 0; i < Cfg.scale_values.length; i++)
+			if(scale == Cfg.scale_values[i]) n = i;
+		n++;
+		if(n >= Cfg.scale_values.length) n = 0;
+		return Cfg.scale_values[n];
 	}
 
 	//////////

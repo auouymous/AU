@@ -54,8 +54,6 @@ public class ShopSignsHUD {
 	}
 
 	public void draw(Minecraft mc, ScaledResolution screen, EntityPlayer player){
-		GL11.glPushMatrix();
-
 		World world = mc.isIntegratedServerRunning() ? mc.getIntegratedServer().worldServerForDimension(player.dimension) : mc.theWorld;
 		if(world == null) return;
 
@@ -101,74 +99,84 @@ public class ShopSignsHUD {
 // TODO: query item by name in signText[3]
 												}
 
-												ItemStack itemstack = new ItemStack(itemID, quantity, itemDamage);
-												int centerX = screen.getScaledWidth()/2;
-												int centerY = screen.getScaledHeight()/2;
-												int offset = 32;
-												this.ui.setCursor(centerX, centerY-offset);
+												GL11.glPushMatrix();
 
-												if(itemID > 0 && itemstack != null){
-													// show item name above sign
-													String itemName = ItemUtils.getDisplayName(itemstack);
-													this.ui.drawString(UI.ALIGN_CENTER, itemName, "<Unknown>", 0xffffff, 0);
+												try {
+													this.ui.scale(Cfg.shop_signs_hud_scale);
 
-													// show item icon above sign
-													RenderItem itemRenderer = new RenderItem();
-													itemRenderer.zLevel = 200.0F;
-													try {
-														UI.drawItemStack(mc, itemRenderer, itemstack, centerX-8, centerY-(offset+19), true);
-													} catch(Exception e){
-														Failure.log("shop signs, render icon");
+													ItemStack itemstack = new ItemStack(itemID, quantity, itemDamage);
+													int centerX = screen.getScaledWidth()/2;
+													int centerY = screen.getScaledHeight()/2;
+													int offset = 32;
+													this.ui.setCursor(centerX, centerY-offset);
+
+													if(itemID > 0 && itemstack != null){
+														// show item name above sign
+														String itemName = ItemUtils.getDisplayName(itemstack);
+														this.ui.drawString(UI.ALIGN_CENTER, itemName, "<Unknown>", 0xffffff, 0);
+
+														// show item icon above sign
+														RenderItem itemRenderer = new RenderItem();
+														itemRenderer.zLevel = 200.0F;
+														try {
+															UI.drawItemStack(mc, itemRenderer, itemstack, this.ui.getScaledX()-8, this.ui.getScaledY()-19, true);
+														} catch(Exception e){
+															Failure.log("shop signs, render icon");
+														}
+													} else {
+														// show item name and quantity above sign
+														this.ui.drawString(UI.ALIGN_CENTER, signText[3], "<Unknown>", 0xffffff, 0);
+														this.ui.lineBreak(-13);
+														this.ui.drawString(UI.ALIGN_CENTER, String.format("%d", quantity), 0xffffff, 0);
 													}
-												} else {
-													// show item name and quantity above sign
-													this.ui.drawString(UI.ALIGN_CENTER, signText[3], "<Unknown>", 0xffffff, 0);
-													this.ui.lineBreak(-13);
-													this.ui.drawString(UI.ALIGN_CENTER, String.format("%d", quantity), 0xffffff, 0);
+
+													// show buy/sell prices below sign, and price per unit
+													this.ui.setCursor(centerX, centerY-(offset+this.ui.unscaleValue(32)));
+													if(buyPrice > 0){
+														String buy = (quantity > 1
+															? String.format("You pay: $%.2f ($%.2f each)", buyPrice, buyPrice/(float)quantity)
+															: String.format("You pay: $%.2f", buyPrice));
+														this.ui.setX(centerX - this.ui.unscaleValue(mc.fontRenderer.getStringWidth(buy)/2));
+														this.ui.drawString("You pay: $", 0xaaaaaa);
+														this.ui.drawString(String.format("%.2f", buyPrice), 0xff6666);
+														if(quantity > 1){
+															this.ui.drawString(" (", 0xaaaaaa);
+															this.ui.drawString(String.format("%.2f", buyPrice/(float)quantity), 0xff6666);
+															this.ui.drawString(" each)", 0xaaaaaa);
+														}
+														this.ui.lineBreak(-10);
+													}
+													if(sellPrice > 0){
+														String sell = (quantity > 1
+															? String.format("You make: $%.2f ($%.2f each)", sellPrice, sellPrice/(float)quantity)
+															: String.format("You make: $%.2f", sellPrice));
+														this.ui.setX(centerX - this.ui.unscaleValue(mc.fontRenderer.getStringWidth(sell)/2));
+														this.ui.drawString("You make: $", 0xaaaaaa);
+														this.ui.drawString(String.format("%.2f", sellPrice), 0x66ff66);
+														if(quantity > 1){
+															this.ui.drawString(" (", 0xaaaaaa);
+															this.ui.drawString(String.format("%.2f", sellPrice/(float)quantity), 0x66ff66);
+															this.ui.drawString(" each)", 0xaaaaaa);
+														}
+													}
+
+													// buy/sell help
+													this.ui.setCursor(centerX, centerY+offset);
+													if(buyPrice > 0){
+														this.ui.drawString(UI.ALIGN_CENTER, "Right-click (use item) to buy", 0xaaaaaa, 0);
+														this.ui.lineBreak(10);
+													}
+													if(sellPrice > 0)
+														this.ui.drawString(UI.ALIGN_CENTER, "Left-click (attack) to sell", 0xaaaaaa, 0);
+												} catch(Exception e){
+													Failure.log("shop signs, display");
 												}
 
-												// show buy/sell prices below sign, and price per unit
-												this.ui.setCursor(centerX, centerY-(offset+32));
-												if(buyPrice > 0){
-													String buy = (quantity > 1
-														? String.format("You pay: $%.2f ($%.2f each)", buyPrice, buyPrice/(float)quantity)
-														: String.format("You pay: $%.2f", buyPrice));
-													this.ui.setX(centerX - mc.fontRenderer.getStringWidth(buy)/2);
-													this.ui.drawString("You pay: $", 0xaaaaaa);
-													this.ui.drawString(String.format("%.2f", buyPrice), 0xff6666);
-													if(quantity > 1){
-														this.ui.drawString(" (", 0xaaaaaa);
-														this.ui.drawString(String.format("%.2f", buyPrice/(float)quantity), 0xff6666);
-														this.ui.drawString(" each)", 0xaaaaaa);
-													}
-													this.ui.lineBreak(-10);
-												}
-												if(sellPrice > 0){
-													String sell = (quantity > 1
-														? String.format("You make: $%.2f ($%.2f each)", sellPrice, sellPrice/(float)quantity)
-														: String.format("You make: $%.2f", sellPrice));
-													this.ui.setX(centerX - mc.fontRenderer.getStringWidth(sell)/2);
-													this.ui.drawString("You make: $", 0xaaaaaa);
-													this.ui.drawString(String.format("%.2f", sellPrice), 0x66ff66);
-													if(quantity > 1){
-														this.ui.drawString(" (", 0xaaaaaa);
-														this.ui.drawString(String.format("%.2f", sellPrice/(float)quantity), 0x66ff66);
-														this.ui.drawString(" each)", 0xaaaaaa);
-													}
-												}
-
-												// buy/sell help
-												this.ui.setCursor(centerX, centerY+offset);
-												if(buyPrice > 0){
-													this.ui.drawString(UI.ALIGN_CENTER, "Right-click (use item) to buy", 0xaaaaaa, 0);
-													this.ui.lineBreak(10);
-												}
-												if(sellPrice > 0)
-													this.ui.drawString(UI.ALIGN_CENTER, "Left-click (attack) to sell", 0xaaaaaa, 0);
+												GL11.glPopMatrix();
 											}
 										}
 									}
-								} catch (Exception e){
+								} catch(Exception e){
 									Failure.log("shop signs");
 								}
 							}
@@ -177,7 +185,5 @@ public class ShopSignsHUD {
 				}
 			}
 		}
-
-		GL11.glPopMatrix();
 	}
 }

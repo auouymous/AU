@@ -47,7 +47,7 @@ public class GuiOptions extends GuiScreen {
 		BUTTON_INFO_HUD, BUTTON_INFO_HUD_OPTIONS,
 		BUTTON_ARMOR_HUD, BUTTON_ARMOR_HUD_OPTIONS,
 		BUTTON_POTION_HUD, BUTTON_POTION_HUD_OPTIONS,
-		BUTTON_SHOP_SIGNS_HUD,
+		BUTTON_SHOP_SIGNS_HUD, BUTTON_SHOP_SIGNS_HUD_OPTIONS,
 
 		BUTTON_INSPECTOR, BUTTON_ADVANCED_INSPECTOR,
 
@@ -106,7 +106,9 @@ public class GuiOptions extends GuiScreen {
 		this.ui.lineBreak();
 
 		this.ui.lineBreak(7);
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_SHOP_SIGNS_HUD, "Shop Signs HUD", Cfg.enable_shop_signs_hud, 230, 20);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_SHOP_SIGNS_HUD, "Shop Signs HUD", Cfg.enable_shop_signs_hud, 180, 20);
+		this.ui.drawSpace(10);
+		this.addButton(UI.ALIGN_LEFT, ButtonID.BUTTON_SHOP_SIGNS_HUD_OPTIONS, "...", 40, 20);
 		this.ui.lineBreak();
 
 		this.ui.lineBreak(7);
@@ -151,6 +153,10 @@ public class GuiOptions extends GuiScreen {
 		case BUTTON_POTION_HUD_OPTIONS:
 			// open potion options
 			this.mc.displayGuiScreen(new GuiPotionOptions(this.player, this));
+			return;
+		case BUTTON_SHOP_SIGNS_HUD_OPTIONS:
+			// open shop signs options
+			this.mc.displayGuiScreen(new GuiShopSignsOptions(this.player, this));
 			return;
 		default:
 			// 'done' button

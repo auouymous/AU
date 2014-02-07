@@ -72,13 +72,13 @@ public class ArmorHUD {
 		RenderHelper.enableStandardItemLighting();
 		RenderHelper.enableGUIStandardItemLighting();
 
+		this.ui.setCursor(x, y);
+
 		try {
-			itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y);
+			itemRenderer.renderItemAndEffectIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, this.ui.getScaledX()+this.icon_offset, this.ui.getScaledY());
 		} catch(Exception e){
 			Failure.log("armor hud, draw itemstack");
 		}
-
-		this.ui.setCursor(x + ((Cfg.armor_hud_corner&1) == 0 ? 18 : -2), y + 4);
 
 		int durability_style = (Cfg.show_inspector ? Cfg.HUD_DURABILITY_VALUE : Cfg.armor_hud_durability);
 
@@ -86,9 +86,9 @@ public class ArmorHUD {
 		if(durability_style == Cfg.HUD_DURABILITY_BAR){
 			try {
 				#ifdef MC147
-				itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y);
+				itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, this.ui.getScaledX()+this.icon_offset, this.ui.getScaledY());
 				#else
-				itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, x, y, (quantity > 1 ? "" : null));
+				itemRenderer.renderItemOverlayIntoGUI(mc.fontRenderer, mc.renderEngine, itemstack, this.ui.getScaledX()+this.icon_offset, this.ui.getScaledY(), (quantity > 1 ? "" : null));
 				#endif
 			} catch(Exception e){
 				Failure.log("armor hud, draw itemstack overlay");
@@ -96,12 +96,19 @@ public class ArmorHUD {
 
 			RenderHelper.disableStandardItemLighting();
 			GL11.glDisable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
+
+			// no durability text, vertically center quantity text
+			this.ui.drawVSpace(4);
 		} else {
 			RenderHelper.disableStandardItemLighting();
 			GL11.glDisable(32826); // GL_RESCALE_NORMAL_EXT + GL_RESCALE_NORMAL_EXT
 
+			// vertically center text, durability or quantity
+			this.ui.drawVSpace(4);
+
 			try {
 				if(itemstack.isItemStackDamageable()){
+					// if quantity text, shift durability text up
 					if(force_quantity || quantity > 1) this.ui.drawVSpace(-4);
 
 					int max_durability = this.getMaxDurability(itemstack);
@@ -109,19 +116,15 @@ public class ArmorHUD {
 					int percent = (int)Math.round(100.0 * (float)durability / (float)max_durability);
 					int color = (percent > 50 ? 0xaaaaaa : (percent < 25 ? 0xff6666 : 0xffff66));
 					if(durability_style == Cfg.HUD_DURABILITY_VALUE){
-						if((Cfg.armor_hud_corner&1) == 0){
-							this.ui.drawString(String.format("/%d", max_durability), 0xaaaaaa);
-							this.ui.drawString(String.format("%d", durability), color);
+						if(this.text_align == UI.ALIGN_LEFT){
+							this.ui.drawString(UI.ALIGN_LEFT, String.format("%d", durability), color, 0);
+							this.ui.drawString(UI.ALIGN_LEFT, String.format("/%d", max_durability), 0xaaaaaa, 0);
 						} else {
 							this.ui.drawString(UI.ALIGN_RIGHT, String.format("/%d", max_durability), 0xaaaaaa, 0);
 							this.ui.drawString(UI.ALIGN_RIGHT, String.format("%d", durability), color, 0);
 						}
-					} else if(durability_style == Cfg.HUD_DURABILITY_PERCENT){
-						if((Cfg.armor_hud_corner&1) == 0)
-							this.ui.drawString(String.format("%d%%", percent), color);
-						else
-							this.ui.drawString(UI.ALIGN_RIGHT, String.format("%d%%", percent), color, 0);
-					}
+					} else // Cfg.HUD_DURABILITY_PERCENT
+						this.ui.drawString(this.text_align, String.format("%d%%", percent), color, 0);
 					this.ui.lineBreak(9);
 				}
 			} catch(Exception e){
@@ -130,12 +133,8 @@ public class ArmorHUD {
 		}
 
 		// quantity below durability value/percent
-		if(force_quantity || quantity > 1){
-			if((Cfg.armor_hud_corner&1) == 0)
-				this.ui.drawString(String.format("%d", quantity), (quantity > 0 ? 0xffffff : 0xff6666));
-			else
-				this.ui.drawString(UI.ALIGN_RIGHT, String.format("%d", quantity), (quantity > 0 ? 0xffffff : 0xff6666), 0);
-		}
+		if(force_quantity || quantity > 1)
+			this.ui.drawString(this.text_align, String.format("%d", quantity), (quantity > 0 ? 0xffffff : 0xff6666), 0);
 	}
 
 	private int countItemsInInventory(EntityPlayer player, int itemID, int itemDamage){
@@ -151,10 +150,11 @@ public class ArmorHUD {
 
 	//////////
 
+	private int text_align;
+	private int icon_offset;
+
 	public void draw(Minecraft mc, ScaledResolution screen, EntityPlayer player){
 		try {
-			GL11.glPushMatrix();
-
 			RenderItem itemRenderer = new RenderItem();
 			itemRenderer.zLevel = 200.0F;
 
@@ -163,40 +163,53 @@ public class ArmorHUD {
 			ItemStack pants = player.getCurrentItemOrArmor(2);
 			ItemStack boots = player.getCurrentItemOrArmor(1);
 			ItemStack hand = player.getHeldItem();
+			if(helmet == null && chest == null && pants == null && boots == null && hand == null) return;
 			ItemStack ammo = null;
 
-			int width = screen.getScaledWidth();
-			int height = screen.getScaledHeight();
-			int x = ((Cfg.armor_hud_corner&1) == 0 ? Cfg.armor_hud_x :  width-16-Cfg.armor_hud_x);
-			int y = ((Cfg.armor_hud_corner&2) == 0 ? Cfg.armor_hud_y : height-80-Cfg.armor_hud_y);
+			GL11.glPushMatrix();
 
-			int nr_hand = 0, nr_ammo = -1;
 			try {
-				if(hand != null){
-					nr_hand = (hand.getMaxStackSize() > 1 ? countItemsInInventory(player, hand.itemID, hand.getItemDamage()) : 1);
+				this.ui.scale(Cfg.armor_hud_scale);
 
-					// bow ammo
-					if(hand.getItem() instanceof ItemBow){
-						nr_ammo = countItemsInInventory(player, Item.arrow.itemID, 0);
-						ammo = new ItemStack(Item.arrow);
+				int width = screen.getScaledWidth();
+				int height = screen.getScaledHeight();
+				int icon_size = this.ui.unscaleValue(16);
+				int gap = this.ui.unscaleValue(2);
+				int x = ((Cfg.armor_hud_corner&1) == 0 ? Cfg.armor_hud_x + icon_size + gap :  width-Cfg.armor_hud_x - icon_size - gap); // left : right
+				int y = ((Cfg.armor_hud_corner&2) == 0 ? Cfg.armor_hud_y : height-Cfg.armor_hud_y - 5*icon_size); // top : bottom
+				this.text_align = ((Cfg.armor_hud_corner&1) == 0 ? UI.ALIGN_LEFT : UI.ALIGN_RIGHT);
+				this.icon_offset = ((Cfg.armor_hud_corner&1) == 0 ? -(16+2) : 2); // left : right (icon size and gap)
+
+				int nr_hand = 0, nr_ammo = -1;
+				try {
+					if(hand != null){
+						nr_hand = (hand.getMaxStackSize() > 1 ? countItemsInInventory(player, hand.itemID, hand.getItemDamage()) : 1);
+
+						// bow ammo
+						if(hand.getItem() instanceof ItemBow){
+							nr_ammo = countItemsInInventory(player, Item.arrow.itemID, 0);
+							ammo = new ItemStack(Item.arrow);
+						}
+
+						// move HUD up if at bottom and has ammo
+						if(ammo != null) y -= ((Cfg.armor_hud_corner&2) == 0 ? 0 : icon_size); // top : bottom
 					}
-
-					// move HUD up if at bottom and has ammo
-					if(ammo != null) y -= ((Cfg.armor_hud_corner&2) == 0 ? 0 : 16);
+				} catch(Exception e){
+					Failure.log("armor hud, count hand/ammo");
 				}
+
+				GL11.glTranslatef(0.0F, 0.0F, 32.0F);
+				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+
+				this.drawItemStack(mc, itemRenderer, helmet, x, y+0*icon_size, 0, false);
+				this.drawItemStack(mc, itemRenderer, chest,  x, y+1*icon_size, 0, false);
+				this.drawItemStack(mc, itemRenderer, pants,  x, y+2*icon_size, 0, false);
+				this.drawItemStack(mc, itemRenderer, boots,  x, y+3*icon_size, 0, false);
+				this.drawItemStack(mc, itemRenderer, hand,   x, y+4*icon_size, nr_hand, false);
+				this.drawItemStack(mc, itemRenderer, ammo,   x, y+5*icon_size, nr_ammo, true);
 			} catch(Exception e){
-				Failure.log("armor hud, count hand/ammo");
+				Failure.log("armor hud, display");
 			}
-
-			GL11.glTranslatef(0.0F, 0.0F, 32.0F);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-
-			this.drawItemStack(mc, itemRenderer, helmet, x, y, 0, false);
-			this.drawItemStack(mc, itemRenderer, chest, x, y+16, 0, false);
-			this.drawItemStack(mc, itemRenderer, pants, x, y+32, 0, false);
-			this.drawItemStack(mc, itemRenderer, boots, x, y+48, 0, false);
-			this.drawItemStack(mc, itemRenderer, hand, x, y+64, nr_hand, false);
-			this.drawItemStack(mc, itemRenderer, ammo, x, y+80, nr_ammo, true);
 
 			GL11.glPopMatrix();
 		} catch(Exception e){
