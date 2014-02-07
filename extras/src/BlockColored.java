@@ -13,8 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.Icon;
 
-import net.minecraftforge.common.MinecraftForge;
-
 import java.util.List;
 
 import com.qzx.au.core.Color;
