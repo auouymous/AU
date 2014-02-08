@@ -397,30 +397,45 @@ public class InfoHUD {
 						Failure.log("entity name/ID info element, item frame contents name/ID");
 					}
 
-					if(Cfg.show_inspector && mc.objectMouseOver.entityHit instanceof EntityLiving){
+					if(mc.objectMouseOver.entityHit instanceof EntityLiving){
 						EntityLiving entity = (EntityLiving)mc.objectMouseOver.entityHit;
 
 						// health, armor and xp
 						try {
 							#if defined MC147 || defined MC152
-							this.ui.drawString("   max health: ", 0xaaaaaa);
-							this.ui.drawString(String.format("%d", (int)entity.getMaxHealth()), 0xffffff);
+							if(Cfg.show_inspector){
+								this.ui.drawString("   max health: ", 0xaaaaaa);
+								this.ui.drawString(String.format("%d", (int)entity.getMaxHealth()), 0xffffff);
+							}
 							#else
 							this.ui.drawString("   health: ", 0xaaaaaa);
-							this.ui.drawString(String.format("%d/%d", (int)entity.getHealth(), (int)entity.getMaxHealth()), 0xffffff);
+							int health = (int)entity.getHealth();
+							int maxHealth = (int)entity.getMaxHealth();
+							int healthPct = 100 * health / maxHealth;
+							int healthColor = (healthPct >=50 ? 0x66ff66 : (healthPct < 25 ? 0xff6666 : 0xffff66));
+							this.ui.drawString(String.format("%d", health), healthColor);
+							this.ui.drawString(String.format("/%d  ", maxHealth), 0xffffff);
+							healthPct /= 10;
+							this.ui.drawString("||||||||||".substring(0, healthPct), healthColor);
+							if(healthPct < 10) this.ui.drawString("||||||||||".substring(healthPct, 10), 0xaaaaaa);
 							#endif
-							int armorValue = entity.getTotalArmorValue();
-							if(armorValue > 0){
-								this.ui.drawString(" armor: ", 0xaaaaaa);
-								this.ui.drawString(String.format("%d", armorValue), 0xffffff);
+							if(Cfg.show_inspector){
+								int armorValue = entity.getTotalArmorValue();
+								if(armorValue > 0){
+									this.ui.drawString(" armor: ", 0xaaaaaa);
+									this.ui.drawString(String.format("%d", armorValue), 0xffffff);
+								}
+								if(entity.experienceValue > 0){
+									this.ui.drawString(" xp: ", 0xaaaaaa);
+									this.ui.drawString(String.format("%d", entity.experienceValue), 0xffffff);
+								}
 							}
-							if(entity.experienceValue > 0){
-								this.ui.drawString(" xp: ", 0xaaaaaa);
-								this.ui.drawString(String.format("%d", entity.experienceValue), 0xffffff);
-							}
+							#if defined MC147 || defined MC152
+							if(Cfg.show_inspector)
+							#endif
 							this.ui.lineBreak();
 						} catch(Exception e){
-							Failure.log("entity inspector, max_health/armor_value/xp");
+							Failure.log("entity inspector, health/armor_value/xp");
 						}
 
 						// invulnerable
@@ -433,15 +448,17 @@ public class InfoHUD {
 							Failure.log("entity inspector, invulnerable");
 						}
 
-						// name of armor and item (5 lines)
-						try {
-							showItemName("helmet", entity.getCurrentItemOrArmor(4));
-							showItemName("chest", entity.getCurrentItemOrArmor(3));
-							showItemName("pants", entity.getCurrentItemOrArmor(2));
-							showItemName("boots", entity.getCurrentItemOrArmor(1));
-							showItemName("hand", entity.getHeldItem());
-						} catch(Exception e){
-							Failure.log("entity inspector, armor/hand");
+						if(Cfg.show_inspector){
+							// name of armor and item (5 lines)
+							try {
+								showItemName("helmet", entity.getCurrentItemOrArmor(4));
+								showItemName("chest", entity.getCurrentItemOrArmor(3));
+								showItemName("pants", entity.getCurrentItemOrArmor(2));
+								showItemName("boots", entity.getCurrentItemOrArmor(1));
+								showItemName("hand", entity.getHeldItem());
+							} catch(Exception e){
+								Failure.log("entity inspector, armor/hand");
+							}
 						}
 					}
 				} else if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.TILE){

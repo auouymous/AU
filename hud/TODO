@@ -36,35 +36,25 @@ OPTION MENU
 INFO HUD
 	~ FIX: time is incorrect in mystcraft ages
 
-	- target armor hud, same as armor hud but shows armor icons and durability of target's armor
-		- maybe don't show durability, too cheaty
-		- could also show target's health on 1.6+
-	- target potion hud, same as potion hud but shows potion icons (no duration) for target
-
 	- find block/entity behind crosshairs when no target
 		- show block/entity inspector
 		- show distance to block/entity
 
+	- display player direction, default to off
 	- display player name in inspector when looking at heads
-	- display name and volume of liquid in tanks and fluid pipes/conduits (Buildcraft, Railcraft, Thermal Expansion, Ender Storage)
-	- display direction of the output face for IC2 energy storage
-	- display direction of the input face for IC2 transformers
+	- display memory usage, default to off
+	- display memory warning when usage exceeds 90%
+	- display hunger warning when food level is low and no food items in inventory
+	- display number of mobs agressing player, if possible
+	- display moon phase: world.getMoonPhase() -> int
+
+	- display list of recent items picked up (as small icons), remove items from list after 15(?) seconds
+		- option to prevent cobble, dirt or gravel from entering player's inventory
 
 	- add server side support
 		- add API for other mods to publish info elements
 			- protection mod can show worldguard region status
 				- show owner and town info, if player position is protected by protection mod
-
-	- display distance to block or entity behind crosshairs
-	- display hunger warning when food level is low and no food items in inventory
-	- display player direction, default to off
-	- display number of mobs agressing player, if possible
-	- display memory usage, default to off
-	- display memory warning when usage exceeds 90%
-	- display moon phase: world.getMoonPhase() -> int
-
-	- display list of recent items picked up (as small icons), remove items from list after 15(?) seconds
-		- option to prevent cobble, dirt or gravel from entering player's inventory
 
 ARMOR HUD
 	- options to change text colors (armor durability and number of held items)

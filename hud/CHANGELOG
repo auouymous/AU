@@ -1,3 +1,4 @@
+	- entity inspector always shows current health / max health in 1.6+
 	- localized creative tab in block inspector
 	- fixed armor hud durability/max when placed on left side of screen
 	- all huds have separate scaling
