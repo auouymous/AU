@@ -362,7 +362,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 			// scan up/down
 			int y = this.yCoord + delta;
 			int limit = y + (Cfg.enderCubeDistance * delta);
-			if(limit < 1) limit = 1; else if(limit > 255) limit = 255;
+			if(limit < 0) limit = 0; else if(limit > 255) limit = 255;
 			for(; y != limit; y += delta){
 				if(this.worldObj.getBlockId(this.xCoord, y, this.zCoord) == AUExtras.blockEnderCube.blockID){
 					if(!this.isObstructed(this.worldObj, this.xCoord, y, this.zCoord))
