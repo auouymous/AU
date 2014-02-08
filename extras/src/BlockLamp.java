@@ -151,13 +151,13 @@ public class BlockLamp extends BlockColored {
 	}
 
 	@Override
-	public int idDropped(int par1, Random par2Random, int par3){
+	public int idDropped(int color, Random random, int unknown){
 		// always drop unpowered block
 		return (this.inverted ? AUExtras.blockInvertedLamp.blockID : AUExtras.blockLamp.blockID);
 	}
 
 	@Override
-	public int idPicked(World par1World, int par2, int par3, int par4){
+	public int idPicked(World world, int x, int y, int z){
 		// always pick unpowered block
 		return (this.inverted ? AUExtras.blockInvertedLamp.blockID : AUExtras.blockLamp.blockID);
 	}
