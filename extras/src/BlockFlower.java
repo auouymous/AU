@@ -4,6 +4,12 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDirt;
+import net.minecraft.block.BlockGrass;
+import net.minecraft.block.BlockNetherrack;
+import net.minecraft.block.BlockMycelium;
+import net.minecraft.block.BlockSand;
+import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -93,13 +99,14 @@ public class BlockFlower extends BlockColored implements IPlantable {
 	}
 
 	private boolean canThisPlantGrowOnThisBlockID(int id){
-		return id == Block.grass.blockID
-			|| id == Block.dirt.blockID
-			|| id == Block.mycelium.blockID
-			|| id == Block.sand.blockID
+		Block block = Block.blocksList[id];
+		return block instanceof BlockDirt
+			|| block instanceof BlockGrass
+			|| block instanceof BlockNetherrack
+			|| block instanceof BlockMycelium
+			|| block instanceof BlockSand
+			|| block instanceof BlockSoulSand
 			|| id == Block.whiteStone.blockID	// endstone
-			|| id == Block.netherrack.blockID
-			|| id == Block.slowSand.blockID		// soul sand
 // TODO: podzol, red sand
 			;
 	}
