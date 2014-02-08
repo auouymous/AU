@@ -270,6 +270,26 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		return (this.camoBlock != null ? this.camoBlock.getIcon(side, this.camoMeta) : null);
 	}
 
+	// hide from block inspector HUDs
+	public static int getCamoCloakID(Block block, World world, int x, int y, int z){
+		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+		if(tileEntity instanceof TileEntityAU){
+			TileEntityAU te = (TileEntityAU)tileEntity;
+			if(te.canCamo() && te.camoBlock != null)
+				return te.camoBlock.blockID;
+			else return block.blockID;
+		} else return block.blockID;
+	}
+	public static int getCamoCloakMeta(World world, int x, int y, int z){
+		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+		if(tileEntity instanceof TileEntityAU){
+			TileEntityAU te = (TileEntityAU)tileEntity;
+			if(te.canCamo() && te.camoBlock != null)
+				return te.camoMeta;
+			else return world.getBlockMetadata(x, y, z);
+		} else return world.getBlockMetadata(x, y, z);
+	}
+
 	///////////
 	// owner //
 	///////////

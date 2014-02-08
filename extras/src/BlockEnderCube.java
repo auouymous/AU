@@ -95,6 +95,15 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 		return new TileEntityEnderCube();
 	}
 
+	@Override
+	public int idPicked(World world, int x, int y, int z){
+		return TileEntityAU.getCamoCloakID(this, world, x, y, z);
+	}
+	@Override
+	public int getDamageValue(World world, int x, int y, int z){
+		return TileEntityAU.getCamoCloakMeta(world, x, y, z);
+	}
+
 	//////////
 
 	@Override
