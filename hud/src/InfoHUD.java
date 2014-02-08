@@ -28,7 +28,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
-//import net.minecraft.util.StringTranslate;
+import net.minecraft.util.StatCollector;
 #endif
 
 import net.minecraftforge.common.MinecraftForge;
@@ -541,9 +541,7 @@ public class InfoHUD {
 										#if defined MC147 || defined MC152
 										tabName = tab.getTranslatedTabLabel();
 										#else
-//										tabName = StringTranslate.getInstance().translateKey(tab.getTranslatedTabLabel());
-// TODO: StringTranslate.getInstance() is no longer public
-										tabName = tab.getTranslatedTabLabel().replace("itemGroup.", "");
+										tabName = StatCollector.translateToLocal(tab.getTranslatedTabLabel());
 										#endif
 									}
 									if(!tabName.equals("")){

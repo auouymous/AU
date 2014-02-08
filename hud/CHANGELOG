@@ -1,3 +1,4 @@
+	- localized creative tab in block inspector
 	- fixed armor hud durability/max when placed on left side of screen
 	- all huds have separate scaling
 	- zoom is now 5x, similar to OptiFine, and works on all versions
