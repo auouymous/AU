@@ -31,6 +31,7 @@ public class Cfg extends Config {
 	public static boolean enableFlowerSeed100;
 	public static boolean enableEnderCube;
 	public static int enderCubeDistance;
+	public static boolean enableArtificialGrass;
 
 	public static boolean enableChiseledBrickCrafting;
 	public static boolean enableMossyBrickCrafting;
@@ -75,6 +76,7 @@ public class Cfg extends Config {
 	public static int blockFlower;
 	public static int blockFlowerSeed;
 	public static int blockEnderCube;
+	public static int blockArtificialGrass;
 
 	public static int itemFriedEgg;
 	public static int itemCookedFlesh;
@@ -125,6 +127,8 @@ public class Cfg extends Config {
 
 		Cfg.enableEnderCube = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enable", true, "enable ender cube (uses 1 block ID)");
 		Cfg.enderCubeDistance = Cfg.getInt(Cfg.CATEGORY_GENERAL, "block.enderCube.distance", 16, "maximum distance between ender cubes");
+
+		Cfg.enableArtificialGrass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.enable", true, "enable artificial grass (uses 1 block ID)");
 
 		Cfg.enableChiseledBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.chiseledBrick.recipe", true, "enable chiseled brick crafting recipe");
 		Cfg.enableMossyBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mossyBrick.recipe", true, "enable mossy brick crafting recipe");
@@ -184,6 +188,8 @@ public class Cfg extends Config {
 		Cfg.blockGlassPaneTinted = Cfg.getBlock("block.colored.glassTinted.pane.id", startBlockID, null); startBlockID++;
 		Cfg.blockGlassPaneTintedNoFrame = Cfg.getBlock("block.colored.glassTintedNoFrame.pane.id", startBlockID, null); startBlockID++;
 		Cfg.blockIronBars = Cfg.getBlock("block.colored.ironBars.id", startBlockID, null); startBlockID++;
+
+		Cfg.blockArtificialGrass = Cfg.getBlock("block.artificialGrass.id", startBlockID, null); startBlockID++;
 
 		// ITEMS
 		Cfg.itemFriedEgg = Cfg.getItem("item.friedEgg.id", startItemID, null); startItemID++;

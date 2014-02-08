@@ -74,6 +74,7 @@ public class AUExtras {
 	public static Block blockFlower;
 	public static Block blockFlowerSeed;
 	public static Block blockEnderCube;
+	public static Block blockArtificialGrass;
 	public static Item itemFriedEgg;
 	public static Item itemCookedFlesh;
 	public static Item itemFlowerDye;
@@ -688,6 +689,23 @@ public class AUExtras {
 			GameRegistry.addRecipe(new ItemStack(this.blockEnderCube),
 									"xex", "eoe", "xrx",
 									'o', new ItemStack(Block.obsidian), 'e', new ItemStack(Item.eyeOfEnder), 'r', redstoneDust, 'x', new ItemStack(Item.ingotGold));
+		}
+
+		//////////
+
+		if(Cfg.enableArtificialGrass){
+			this.blockArtificialGrass = new BlockArtificialGrass(Cfg.blockArtificialGrass, "au.artificialGrass", "Artificial Grass #")
+				.setHardness(0.6F)
+				.setResistance(3.0F)
+				.setStepSound(Block.soundGrassFootstep)
+				.setCreativeTab(AUExtras.tabAU);
+			MinecraftForge.setBlockHarvestLevel(this.blockArtificialGrass, "shovel", 0); // wooden shovel
+			ItemStack artificialGrass = new ItemStack(this.blockArtificialGrass);
+
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, grassBlock, artificialGrass);
+			for(int s = 0; s < 16; s++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(this.blockArtificialGrass, 1, s), artificialGrass);
 		}
 
 		//////////

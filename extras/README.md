@@ -34,12 +34,21 @@ Can be changed in config to always produce all colors.
 
 Colored glass panes and colored iron bars support vertical and horizontal orientation.
 
+Artificial grass comes in 16 biome-independent shades, without dirt sides/bottom.
+Silk touch is not required to pick up artificial grass.
+Passive mobs will not spawn on artificial grass.
+Sheep will not eat your artificial grass.
+Artificial grass does not spread to nearby dirt.
+
 ***
 
 Recipes
 
 * CRAFT 4 glass + 1 cauldron TO 1 chroma infuser
 * CRAFT 4 gold + 3 eyes of ender + 1 obsidian + 1 redstone dust TO 1 ender cube
+* 
+* CHROMA INFUSER grass block TO [shaded] artificial grass (blank: 8 per dye)
+* CHROMA INFUSER [shaded] artificial grass TO [shaded] artificial grass (blank: 8 per dye)
 * 
 * CHROMA INFUSER cobblestone TO [colored] cobblestone (blank: 8 per dye)
 * CHROMA INFUSER [colored] cobblestone TO [colored] cobblestone (blank: 8 per dye)
@@ -127,7 +136,7 @@ Recipes
 * CRAFT [colored] inverted lamp + redstone dust TO [colored] lamp
 * 
 * CRAFT [colored] flower TO dye (new dyes for black, green, brown, blue and white)
-* PLANT [colored] flower ON grass, dirt, mycellium, sand, endstone, netherrack or soul sand (podzol and red sand in 1.7.x)
+* PLANT [colored] flower ON artificial grass, grass, dirt, mycellium, sand, endstone, netherrack or soul sand (podzol and red sand in 1.7.x)
 * BONEMEAL grass TO GET [colored] flowers
 * BREAK grass plant TO GET flower seeds
 * PLANT flower seeds ON hydrated farmland (bonemeal to grow, shear to get flower, break to get seeds)
