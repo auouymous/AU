@@ -18,6 +18,7 @@ All keys are configurable in the Controls menu.
 Info HUD elements
 * dimension
 * biome
+* heading
 * player coordinates with height at feet and eyes
 * light level at feet
 * minecraft time
@@ -25,6 +26,7 @@ Info HUD elements
 * number of used inventory slots, changes color and bounces out when full
 * FPS and chunk updates
 * visible/total entities and particles
+* used memory, allocated memory
 * ticks/second (tps percentage = slowdown factor)
 * name of targeted block or entity (displays item frame contents)
 
@@ -90,13 +92,6 @@ Server Info
 * spawn or player's home coordinates
 
 ***
-
-Direction HUD
-* use [bspkr's DirectionHUD](http://bspk.rs/MC/index.html)
-
-Mob/Player Damage HUD
-* use [rich1051414's Damage Indicators](http://www.minecraftforum.net/topic/1536685-)
-* must be installed on client and server to work (pre-1.6)
 
 Minimap and Waypoints
 * use [REI's minimap](http://www.minecraftforum.net/topic/482147-)

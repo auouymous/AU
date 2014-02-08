@@ -50,6 +50,7 @@ public class GuiInfoElementsOptions extends GuiScreen {
 		BUTTON_USED_INVENTORY, BUTTON_ANIMATE_USED_INVENTORY,
 		BUTTON_FPS, BUTTON_CHUNK_UPDATES,
 		BUTTON_ENTITIES, BUTTON_PARTICLES,
+		BUTTON_MEMORY,
 		BUTTON_TPS,
 		BUTTON_BLOCK_NAME,
 
@@ -125,6 +126,9 @@ public class GuiInfoElementsOptions extends GuiScreen {
 		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_PARTICLES, "Particles", Cfg.show_particles, 110, 14);
 		this.ui.lineBreak(17);
 
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_MEMORY, "Memory", Cfg.show_memory, 230, 14);
+		this.ui.lineBreak(17);
+
 		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_TPS, "TPS (Server Lag)", Cfg.show_tps, 230, 14);
 		this.ui.lineBreak(17);
 
@@ -161,6 +165,7 @@ public class GuiInfoElementsOptions extends GuiScreen {
 		case BUTTON_CHUNK_UPDATES:				((Button)button).active = Cfg.show_chunk_updates		= (Cfg.show_chunk_updates		? false : true);	break;
 		case BUTTON_ENTITIES:					((Button)button).active = Cfg.show_entities				= (Cfg.show_entities			? false : true);	break;
 		case BUTTON_PARTICLES:					((Button)button).active = Cfg.show_particles			= (Cfg.show_particles			? false : true);	break;
+		case BUTTON_MEMORY:						((Button)button).active = Cfg.show_memory				= (Cfg.show_memory				? false : true);	break;
 		case BUTTON_TPS:						((Button)button).active = Cfg.show_tps					= (Cfg.show_tps					? false : true);	break;
 		case BUTTON_BLOCK_NAME:					((Button)button).active = Cfg.show_block_name			= (Cfg.show_block_name			? false : true);	break;
 

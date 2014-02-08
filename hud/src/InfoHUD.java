@@ -310,6 +310,25 @@ public class InfoHUD {
 			Failure.log("entities/particles info element");
 		}
 
+		// memory
+		try {
+			if(Cfg.show_memory){
+				long maxMemory = Runtime.getRuntime().maxMemory();
+				long totalMemory = Runtime.getRuntime().totalMemory();
+				long freeMemory = Runtime.getRuntime().freeMemory();
+
+				long usedMemory = 100 * (totalMemory - freeMemory) / maxMemory;
+				this.ui.drawString(String.format("%d%%", usedMemory), (usedMemory > 90 ? 0xff6666 : (usedMemory > 50 ? 0xffff66 : 0xffffff)));
+				this.ui.drawString(" used ", 0xaaaaaa);
+				this.ui.drawString(String.format("%d%%", 100 * totalMemory / maxMemory), 0xffffff);
+				this.ui.drawString(" allocated", 0xaaaaaa);
+
+				this.ui.lineBreak();
+			}
+		} catch(Exception e){
+			Failure.log("memory info element");
+		}
+
 		// TPS
 		try {
 			if(Cfg.show_tps && !Hacks.isGamePaused(mc)){
@@ -864,11 +883,6 @@ public class InfoHUD {
 		} catch(Exception e){
 			Failure.log("experience inspector");
 		}
-
-// TODO: memory
-//	long maxMemory = Runtime.getRuntime().maxMemory();
-//	long totalMemory = Runtime.getRuntime().totalMemory();
-//	long freeMemory = Runtime.getRuntime().freeMemory();
 
 		GL11.glPopMatrix();
 	}

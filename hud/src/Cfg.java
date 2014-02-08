@@ -52,6 +52,7 @@ public class Cfg extends Config {
 	public static boolean show_chunk_updates;
 	public static boolean show_entities;
 	public static boolean show_particles;
+	public static boolean show_memory;
 	public static boolean show_tps;
 	public static boolean show_block_name;
 
@@ -81,6 +82,7 @@ public class Cfg extends Config {
 		Cfg.show_chunk_updates = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.chunkUpdates", true, null);
 		Cfg.show_entities = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.entities", true, null);
 		Cfg.show_particles = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.particles", true, null);
+		Cfg.show_memory = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.memory", false, null);
 		Cfg.show_tps = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.tps", true, null);
 		Cfg.show_block_name = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.blockName", true, null);
 
@@ -143,6 +145,7 @@ public class Cfg extends Config {
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.chunkUpdates", Cfg.show_chunk_updates, null);
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.entities", Cfg.show_entities, null);
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.particles", Cfg.show_particles, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.memory", Cfg.show_memory, null);
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.tps", Cfg.show_tps, null);
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.blockName", Cfg.show_block_name, null);
 

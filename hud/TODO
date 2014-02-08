@@ -41,8 +41,6 @@ INFO HUD
 		- show distance to block/entity
 
 	- display player name in inspector when looking at heads
-	- display memory usage, default to off
-	- display memory warning when usage exceeds 90%
 	- display hunger warning when food level is low and no food items in inventory
 	- display number of mobs agressing player, if possible
 	- display moon phase: world.getMoonPhase() -> int
