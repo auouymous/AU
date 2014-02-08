@@ -21,6 +21,12 @@ public class TickHandlerHUD implements ITickHandler {
 	private boolean zooming = false;
 	private float mouseSensitivity = 0.5F;
 
+	public static int force_hud = 0;
+	public static final int HUD_INFO			= 1;
+	public static final int HUD_ARMOR			= 2;
+	public static final int HUD_POTION			= 3;
+//	public static final int HUD_SHOPSIGNS		= 4;
+
 	//////////
 
 	@Override
@@ -31,18 +37,28 @@ public class TickHandlerHUD implements ITickHandler {
 	public void tickEnd(EnumSet<TickType> type, Object... tickData){
 		Minecraft mc = Minecraft.getMinecraft();
 
-		if(mc.gameSettings.showDebugInfo || !(mc.inGameHasFocus || mc.currentScreen == null || mc.currentScreen instanceof GuiChat) || mc.thePlayer == null)
-			return;
+		if(TickHandlerHUD.force_hud == 0)
+			if(mc.gameSettings.showDebugInfo || !(mc.inGameHasFocus || mc.currentScreen == null || mc.currentScreen instanceof GuiChat) || mc.thePlayer == null)
+				return;
 
 		ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
 
 		Failure.reset();
 
 		try {
-			if(Cfg.enable_info_hud) this.infoHUD.draw(mc, screen, mc.thePlayer);
-			if(Cfg.enable_armor_hud && (!(mc.currentScreen instanceof GuiChat) || Cfg.always_show_armor_hud)) this.armorHUD.draw(mc, screen, mc.thePlayer);
-			if(Cfg.enable_potion_hud && (!(mc.currentScreen instanceof GuiChat) || Cfg.always_show_potion_hud)) this.potionHUD.draw(mc, screen, mc.thePlayer);
-			if(Cfg.enable_shop_signs_hud) this.shopSignsHUD.draw(mc, screen, mc.thePlayer);
+			if(TickHandlerHUD.force_hud != 0){
+				switch(TickHandlerHUD.force_hud){
+				case TickHandlerHUD.HUD_INFO:			this.infoHUD.draw(mc, screen, mc.thePlayer); break;
+				case TickHandlerHUD.HUD_ARMOR:			this.armorHUD.draw(mc, screen, mc.thePlayer); break;
+				case TickHandlerHUD.HUD_POTION:			this.potionHUD.draw(mc, screen, mc.thePlayer); break;
+//				case TickHandlerHUD.HUD_SHOPSIGNS:		this.shopSignsHUD.draw(mc, screen, mc.thePlayer); break;
+				}
+			} else {
+				if(Cfg.enable_info_hud) this.infoHUD.draw(mc, screen, mc.thePlayer);
+				if(Cfg.enable_armor_hud && (!(mc.currentScreen instanceof GuiChat) || Cfg.always_show_armor_hud)) this.armorHUD.draw(mc, screen, mc.thePlayer);
+				if(Cfg.enable_potion_hud && (!(mc.currentScreen instanceof GuiChat) || Cfg.always_show_potion_hud)) this.potionHUD.draw(mc, screen, mc.thePlayer);
+				if(Cfg.enable_shop_signs_hud) this.shopSignsHUD.draw(mc, screen, mc.thePlayer);
+			}
 		} catch(Exception e){
 			Failure.log("tickEnd catch-all");
 		}

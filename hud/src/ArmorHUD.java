@@ -163,6 +163,14 @@ public class ArmorHUD {
 			ItemStack pants = player.getCurrentItemOrArmor(2);
 			ItemStack boots = player.getCurrentItemOrArmor(1);
 			ItemStack hand = player.getHeldItem();
+			if(TickHandlerHUD.force_hud == TickHandlerHUD.HUD_ARMOR){
+				// equip all slots when configuring HUD
+				if(helmet == null) helmet = new ItemStack(Item.helmetLeather);
+				if(chest == null) chest = new ItemStack(Item.plateLeather);
+				if(pants == null) pants = new ItemStack(Item.legsLeather);
+				if(boots == null) boots = new ItemStack(Item.bootsLeather);
+				if(hand == null) hand = new ItemStack(Item.leather); // quantity will show as zero unless some in inventory
+			}
 			if(helmet == null && chest == null && pants == null && boots == null && hand == null) return;
 			ItemStack ammo = null;
 
@@ -196,6 +204,16 @@ public class ArmorHUD {
 					}
 				} catch(Exception e){
 					Failure.log("armor hud, count hand/ammo");
+				}
+
+				if(TickHandlerHUD.force_hud == TickHandlerHUD.HUD_ARMOR){
+					// position grid
+					this.ui.setCursor(((Cfg.armor_hud_corner&1) == 0 ? Cfg.armor_hud_x : width-Cfg.armor_hud_x), ((Cfg.armor_hud_corner&2) == 0 ? Cfg.armor_hud_y : height-Cfg.armor_hud_y));
+					final int grid_length = 36;
+					int xx = this.ui.getScaledX();
+					int yy = this.ui.getScaledY();
+					this.ui.drawLineH(xx-((Cfg.armor_hud_corner&1) == 0 ? 4 : grid_length-4), yy, grid_length, 0xff00ffff); // left : right
+					this.ui.drawLineV(xx, yy-((Cfg.armor_hud_corner&2) == 0 ? 4 : grid_length-4), grid_length, 0xff00ffff); // top : bottom
 				}
 
 				GL11.glTranslatef(0.0F, 0.0F, 32.0F);

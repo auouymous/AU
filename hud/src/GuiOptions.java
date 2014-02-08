@@ -81,6 +81,7 @@ public class GuiOptions extends GuiScreen {
 		this.buttonList.clear();
 		#endif
 
+		TickHandlerHUD.force_hud = 0;
 		this.drawTitle();
 
 		this.ui.lineBreak(7);

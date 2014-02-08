@@ -154,6 +154,15 @@ public class InfoHUD {
 
 		this.ui.setCursor(Cfg.info_hud_x, Cfg.info_hud_y);
 
+		if(TickHandlerHUD.force_hud == TickHandlerHUD.HUD_INFO){
+			// position grid
+			final int grid_length = 36;
+			int xx = this.ui.getScaledX();
+			int yy = this.ui.getScaledY();
+			this.ui.drawLineH(xx-4, yy, grid_length, 0xff00ffff);
+			this.ui.drawLineV(xx, yy-4, grid_length, 0xff00ffff);
+		}
+
 		// world
 		// biome
 		try {

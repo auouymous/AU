@@ -107,6 +107,7 @@ public class GuiPotionOptions extends GuiScreen {
 		this.buttonList.clear();
 		#endif
 
+		TickHandlerHUD.force_hud = TickHandlerHUD.HUD_POTION;
 		this.drawTitle();
 
 		this.ui.lineBreak(7);

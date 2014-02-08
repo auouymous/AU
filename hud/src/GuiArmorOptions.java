@@ -107,6 +107,7 @@ public class GuiArmorOptions extends GuiScreen {
 		this.buttonList.clear();
 		#endif
 
+		TickHandlerHUD.force_hud = TickHandlerHUD.HUD_ARMOR;
 		this.drawTitle();
 
 		this.ui.lineBreak(7);

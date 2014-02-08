@@ -11,6 +11,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.StatCollector;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.lwjgl.opengl.GL11;
@@ -27,7 +28,15 @@ public class PotionHUD {
 
 	public void draw(Minecraft mc, ScaledResolution screen, EntityPlayer player){
 		try {
-			Collection potions = player.getActivePotionEffects();
+			Collection potions;
+			if(TickHandlerHUD.force_hud == TickHandlerHUD.HUD_POTION){
+				// add two potions when configuring HUD
+				HashMap potionMap = new HashMap();
+				potionMap.put(Integer.valueOf(Potion.regeneration.id), new PotionEffect(Potion.regeneration.id, 60*20, 0, false));
+				potionMap.put(Integer.valueOf(Potion.invisibility.id), new PotionEffect(Potion.invisibility.id, 60*20, 0, false));
+				potions = potionMap.values();
+			} else
+				potions = player.getActivePotionEffects();
 			if(potions.isEmpty()) return;
 
 			GL11.glPushMatrix();
@@ -43,6 +52,16 @@ public class PotionHUD {
 				int y = ((Cfg.potion_hud_corner&2) == 0 ? Cfg.potion_hud_y : height-Cfg.potion_hud_y - icon_size); // top : bottom
 				int text_align = ((Cfg.potion_hud_corner&1) == 0 ? UI.ALIGN_LEFT : UI.ALIGN_RIGHT);
 				int icon_offset = ((Cfg.potion_hud_corner&1) == 0 ? -(18+2) : 2); // left : right (icon size and gap)
+
+				if(TickHandlerHUD.force_hud == TickHandlerHUD.HUD_POTION){
+					// position grid
+					this.ui.setCursor(((Cfg.potion_hud_corner&1) == 0 ? Cfg.potion_hud_x : width-Cfg.potion_hud_x), ((Cfg.potion_hud_corner&2) == 0 ? Cfg.potion_hud_y : height-Cfg.potion_hud_y));
+					final int grid_length = 36;
+					int xx = this.ui.getScaledX();
+					int yy = this.ui.getScaledY();
+					this.ui.drawLineH(xx-((Cfg.potion_hud_corner&1) == 0 ? 4 : grid_length-4), yy, grid_length, 0xff00ffff); // left : right
+					this.ui.drawLineV(xx, yy-((Cfg.potion_hud_corner&2) == 0 ? 4 : grid_length-4), grid_length, 0xff00ffff); // top : bottom
+				}
 
 				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 				GL11.glDisable(GL11.GL_LIGHTING);

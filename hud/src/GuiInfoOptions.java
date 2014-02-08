@@ -117,6 +117,7 @@ public class GuiInfoOptions extends GuiScreen {
 		this.buttonList.clear();
 		#endif
 
+		TickHandlerHUD.force_hud = TickHandlerHUD.HUD_INFO;
 		this.drawTitle();
 
 		this.ui.lineBreak(7);
