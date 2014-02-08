@@ -64,6 +64,11 @@
 
 -----
 
+- colored water blocks, still and flowing(?)
+	- colored water buckets, right click a chroma infuser with 8 dye volume to fill bucket
+	- fill bucket with normal water if no dye
+	- water remains in the chroma infuser, can be used as an infinite water source
+
 - colored sand, won't obey gravity
 
 - walls
