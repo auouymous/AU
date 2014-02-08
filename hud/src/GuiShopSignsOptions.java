@@ -45,8 +45,19 @@ public class GuiShopSignsOptions extends GuiScreen {
 
 	public enum ButtonID {
 		BUTTON_SCALE,
+		BUTTON_ALWAYS_SHOW,
 
 		BUTTON_DONE
+	}
+
+	private GuiButton addStateButton(int align, ButtonID id, String s, boolean active, int width, int height){
+		GuiButton button = this.ui.newButton(align, id.ordinal(), s, width, height, CONFIG_WINDOW_WIDTH).initState(active);
+		#ifdef MC147
+		this.controlList.add(button);
+		#else
+		this.buttonList.add(button);
+		#endif
+		return button;
 	}
 
 	private GuiButton addButton(int align, ButtonID id, String s, int width, int height){
@@ -74,6 +85,9 @@ public class GuiShopSignsOptions extends GuiScreen {
 		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_SCALE, Cfg.getScaleName(Cfg.shop_signs_hud_scale), 182, 20);
 		this.ui.lineBreak();
 
+		this.addStateButton(UI.ALIGN_CENTER, ButtonID.BUTTON_ALWAYS_SHOW, "Show when chat is open", Cfg.always_show_shop_signs_hud, 182, 20);
+		this.ui.lineBreak();
+
 		this.ui.lineBreak(7);
 
 		this.addButton(UI.ALIGN_CENTER, ButtonID.BUTTON_DONE, "Done", 100, 20);
@@ -93,6 +107,10 @@ public class GuiShopSignsOptions extends GuiScreen {
 		case BUTTON_SCALE:
 			Cfg.shop_signs_hud_scale = Cfg.toggleScale(Cfg.shop_signs_hud_scale);
 			button.displayString = Cfg.getScaleName(Cfg.shop_signs_hud_scale);
+			break;
+
+		case BUTTON_ALWAYS_SHOW:
+			((Button)button).active = Cfg.always_show_shop_signs_hud = (Cfg.always_show_shop_signs_hud ? false : true);
 			break;
 
 		default:

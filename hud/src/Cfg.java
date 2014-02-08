@@ -9,6 +9,7 @@ import com.qzx.au.core.Config;
 
 public class Cfg extends Config {
 	public static boolean enable_info_hud;
+	public static boolean always_show_info_hud;
 	public static int info_hud_x;
 	public static int info_hud_y;
 	public static float info_hud_scale;
@@ -31,6 +32,7 @@ public class Cfg extends Config {
 	public static int potion_hud_corner;
 
 	public static boolean enable_shop_signs_hud;
+	public static boolean always_show_shop_signs_hud;
 	public static float shop_signs_hud_scale;
 
 	public static boolean show_inspector = false; // always default to off
@@ -57,6 +59,7 @@ public class Cfg extends Config {
 
 		// info
 		Cfg.enable_info_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.enable", true, null);
+		Cfg.always_show_info_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.alwaysShow", false, null);
 		Cfg.info_hud_x = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.info.x", 2, null);
 		Cfg.info_hud_y = Cfg.getInt(Cfg.CATEGORY_GENERAL, "hud.info.y", 32, null);
 		Cfg.info_hud_scale = (float)Cfg.getDouble(Cfg.CATEGORY_GENERAL, "hud.info.scale", 1.0F, null);
@@ -98,6 +101,7 @@ public class Cfg extends Config {
 
 		// shop signs
 		Cfg.enable_shop_signs_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.shopSigns.enable", true, null);
+		Cfg.always_show_shop_signs_hud = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.shopSigns.alwaysShow", false, null);
 		Cfg.shop_signs_hud_scale = (float)Cfg.getDouble(Cfg.CATEGORY_GENERAL, "hud.shopSigns.scale", 1.0F, null);
 
 		// fix dependent elements
@@ -116,6 +120,7 @@ public class Cfg extends Config {
 
 		// info
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.enable", Cfg.enable_info_hud, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.alwaysShow", Cfg.always_show_info_hud, null);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.info.x", Cfg.info_hud_x, null);
 		Cfg.setInt(Cfg.CATEGORY_GENERAL, "hud.info.y", Cfg.info_hud_y, null);
 		Cfg.setDouble(Cfg.CATEGORY_GENERAL, "hud.info.scale", Cfg.info_hud_scale, null);
@@ -157,6 +162,7 @@ public class Cfg extends Config {
 
 		// shop signs
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.shopSigns.enable", Cfg.enable_shop_signs_hud, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.shopSigns.alwaysShow", Cfg.always_show_shop_signs_hud, null);
 		Cfg.setDouble(Cfg.CATEGORY_GENERAL, "hud.shopSigns.scale", Cfg.shop_signs_hud_scale, null);
 
 		Cfg.saveConfig();
