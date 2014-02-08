@@ -40,7 +40,6 @@ INFO HUD
 		- show block/entity inspector
 		- show distance to block/entity
 
-	- display player direction, default to off
 	- display player name in inspector when looking at heads
 	- display memory usage, default to off
 	- display memory warning when usage exceeds 90%

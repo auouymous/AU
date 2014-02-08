@@ -44,7 +44,7 @@ public class GuiInfoElementsOptions extends GuiScreen {
 	}
 
 	public enum ButtonID {
-		BUTTON_WORLD, BUTTON_BIOME,
+		BUTTON_WORLD, BUTTON_BIOME, BUTTON_HEADING,
 		BUTTON_POSITION, BUTTON_POSITION_EYES,
 		BUTTON_LIGHT, BUTTON_TIME, BUTTON_WEATHER,
 		BUTTON_USED_INVENTORY, BUTTON_ANIMATE_USED_INVENTORY,
@@ -91,9 +91,11 @@ public class GuiInfoElementsOptions extends GuiScreen {
 
 		this.ui.lineBreak(7);
 
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_WORLD, "World", Cfg.show_world, 110, 14);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_WORLD, "World", Cfg.show_world, 70, 14);
 		this.ui.drawSpace(10);
-		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_BIOME, "Biome", Cfg.show_biome, 110, 14);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_BIOME, "Biome", Cfg.show_biome, 70, 14);
+		this.ui.drawSpace(10);
+		this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_HEADING, "Heading", Cfg.show_heading, 70, 14);
 		this.ui.lineBreak(17);
 
 		this.button_position = this.addStateButton(UI.ALIGN_LEFT, ButtonID.BUTTON_POSITION, "Position", Cfg.show_position, 110, 14);
@@ -147,6 +149,7 @@ public class GuiInfoElementsOptions extends GuiScreen {
 		switch(ButtonID.values()[button.id]){
 		case BUTTON_WORLD:						((Button)button).active = Cfg.show_world				= (Cfg.show_world				? false : true);	break;
 		case BUTTON_BIOME:						((Button)button).active = Cfg.show_biome				= (Cfg.show_biome				? false : true);	break;
+		case BUTTON_HEADING:					((Button)button).active = Cfg.show_heading				= (Cfg.show_heading				? false : true);	break;
 		case BUTTON_POSITION:					((Button)button).active = Cfg.show_position				= (Cfg.show_position			? false : true);	break;
 		case BUTTON_POSITION_EYES:				((Button)button).active = Cfg.show_position_eyes		= (Cfg.show_position_eyes		? false : true);	break;
 		case BUTTON_LIGHT:						((Button)button).active = Cfg.show_light				= (Cfg.show_light				? false : true);	break;

@@ -40,6 +40,7 @@ public class Cfg extends Config {
 	// info hud
 	public static boolean show_world;
 	public static boolean show_biome;
+	public static boolean show_heading;
 	public static boolean show_position;
 	public static boolean show_position_eyes;
 	public static boolean show_light;
@@ -68,6 +69,7 @@ public class Cfg extends Config {
 		// info elements
 		Cfg.show_world = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.world", true, null);
 		Cfg.show_biome = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.biome", true, null);
+		Cfg.show_heading = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.heading", true, null);
 		Cfg.show_position = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.position", true, null);
 		Cfg.show_position_eyes = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.position.eyes", true, null);
 		Cfg.show_light = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.light", true, null);
@@ -129,6 +131,7 @@ public class Cfg extends Config {
 		// info elements
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.world", Cfg.show_world, null);
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.biome", Cfg.show_biome, null);
+		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.heading", Cfg.show_heading, null);
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.position", Cfg.show_position, null);
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.position.eyes", Cfg.show_position_eyes, null);
 		Cfg.setBoolean(Cfg.CATEGORY_GENERAL, "hud.info.elements.light", Cfg.show_light, null);

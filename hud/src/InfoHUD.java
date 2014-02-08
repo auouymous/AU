@@ -166,7 +166,7 @@ public class InfoHUD {
 		// world
 		// biome
 		try {
-			if(Cfg.show_world || Cfg.show_biome){
+			if(Cfg.show_world || Cfg.show_biome || Cfg.show_heading){
 				if(Cfg.show_world)
 					this.ui.drawString(world.provider.getDimensionName(), 0xffffff);
 				if(Cfg.show_biome){
@@ -175,10 +175,15 @@ public class InfoHUD {
 					this.ui.drawString(biome.biomeName, 0x22aa22);
 					if(Cfg.show_world) this.ui.drawString(")", 0xaaaaaa);
 				}
+				if(Cfg.show_heading){
+					int heading = MathHelper.floor_double((double)(player.rotationYaw * 8.0F / 360.0F) + 0.5D) & 7; // SWNE = 0123
+					String[] headings = {"S", "SW", "W", "NW", "N", "NE", "E", "SE"};
+					this.ui.drawString(" "+headings[heading], 0x0090bf);
+				}
 				this.ui.lineBreak();
 			}
 		} catch(Exception e){
-			Failure.log("world/biome info element");
+			Failure.log("world/biome/heading info element");
 		}
 
 		// player position
