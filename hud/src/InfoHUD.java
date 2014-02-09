@@ -177,7 +177,7 @@ public class InfoHUD {
 				}
 				if(Cfg.show_heading){
 					int heading = MathHelper.floor_double((double)(player.rotationYaw * 8.0F / 360.0F) + 0.5D) & 7; // SWNE = 0123
-					String[] headings = {"S", "SW", "W", "NW", "N", "NE", "E", "SE"};
+					String[] headings = {"-S-", "S-W", "-W-", "W-N", "-N-", "N-E", "-E-", "E-S"};
 					this.ui.drawString(" "+headings[heading], 0x0090bf);
 				}
 				this.ui.lineBreak();
