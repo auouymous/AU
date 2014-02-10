@@ -88,17 +88,6 @@ public class BlockColoredPane extends BlockColored {
 		return this.hasConnectedTextures;
 	}
 
-/*
-	@SideOnly(Side.CLIENT)
-	public boolean isTinted(){
-		return (this.style != 0);
-	}
-	@SideOnly(Side.CLIENT)
-	public boolean isTintedWithFrame(){
-		return (this.style == 1);
-	}
-*/
-
 	@Override
 	public boolean isOpaqueCube(){
 		return false;
