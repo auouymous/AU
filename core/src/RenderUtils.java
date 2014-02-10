@@ -104,6 +104,8 @@ public class RenderUtils {
 	private static final float colorSide = 0.80F;		// both
 	private static final float colorBottom = 0.5F;		// both
 	private static int color;							// both
+	private static IBlockAccess access;
+	private static Block block;
 	private static float x;
 	private static float y;
 	private static float z;
@@ -114,39 +116,29 @@ public class RenderUtils {
 	private static int mb_s;
 	private static int mb_w;
 	private static int mb_e;
-	private static float ao_block;
-	private static float ao_d;
-	private static float ao_u;
-	private static float ao_n;
-	private static float ao_s;
-	private static float ao_w;
-	private static float ao_e;
+
+	private static int getBrightnessMinusOne(int mb){
+		return mb - ((mb&255) < 0x10 ? mb&255 : 0x10);
+	}
 
 	public static void initLighting(IBlockAccess access, Block block, int x, int y, int z){
 		RenderUtils.mb_block = block.getMixedBrightnessForBlock(access, x, y, z);
 		RenderUtils.color = block.colorMultiplier(access, x, y, z);
 		if(Minecraft.isAmbientOcclusionEnabled() && block.getLightValue(access, x, y, z) == 0){
 			RenderUtils.enableAO = true;
+			RenderUtils.access = access;
+			RenderUtils.block = block;
 			RenderUtils.x = (float)x;
 			RenderUtils.y = (float)y;
 			RenderUtils.z = (float)z;
 
-			#define AVG_MB(mb, x, y, z) mb = block.getMixedBrightnessForBlock(access, x, y, z); if(mb == 0) mb = RenderUtils.mb_block;
-			AVG_MB(RenderUtils.mb_d, x, y-1, z);
-			AVG_MB(RenderUtils.mb_u, x, y+1, z);
-			AVG_MB(RenderUtils.mb_n, x, y, z-1);
-			AVG_MB(RenderUtils.mb_s, x, y, z+1);
-			AVG_MB(RenderUtils.mb_w, x-1, y, z);
-			AVG_MB(RenderUtils.mb_e, x+1, y, z);
-
-			RenderUtils.ao_block = block.getAmbientOcclusionLightValue(access, x, y, z);
-			#define AVG_AO(ao, x, y, z) ao = block.getAmbientOcclusionLightValue(access, x, y, z); if(ao == 0.0F) ao = RenderUtils.ao_block;
-			AVG_AO(RenderUtils.ao_d, x, y-1, z);
-			AVG_AO(RenderUtils.ao_u, x, y+1, z);
-			AVG_AO(RenderUtils.ao_n, x, y, z-1);
-			AVG_AO(RenderUtils.ao_s, x, y, z+1);
-			AVG_AO(RenderUtils.ao_w, x-1, y, z);
-			AVG_AO(RenderUtils.ao_e, x+1, y, z);
+			#define GET_MB(mb, x, y, z) mb = block.getMixedBrightnessForBlock(access, x, y, z); if(mb == 0) mb = getBrightnessMinusOne(RenderUtils.mb_block);
+			GET_MB(RenderUtils.mb_d, x, y-1, z)
+			GET_MB(RenderUtils.mb_u, x, y+1, z)
+			GET_MB(RenderUtils.mb_n, x, y, z-1)
+			GET_MB(RenderUtils.mb_s, x, y, z+1)
+			GET_MB(RenderUtils.mb_w, x-1, y, z)
+			GET_MB(RenderUtils.mb_e, x+1, y, z)
 		} else
 			RenderUtils.enableAO = false;
 	}
@@ -164,27 +156,41 @@ public class RenderUtils {
 		float dx = fx - RenderUtils.x, dy = fy - RenderUtils.y, dz = fz - RenderUtils.z;
 
 		// select MB sides
-		int mb_x = (dx < 0.5F ? RenderUtils.mb_w : (dx > 0.5F ? RenderUtils.mb_e : RenderUtils.mb_block));
-		int mb_y = (dy < 0.5F ? RenderUtils.mb_d : (dy > 0.5F ? RenderUtils.mb_u : RenderUtils.mb_block));
-		int mb_z = (dz < 0.5F ? RenderUtils.mb_n : (dz > 0.5F ? RenderUtils.mb_s : RenderUtils.mb_block));
-		// select AO sides
-		float ao_x = (dx < 0.5F ? RenderUtils.ao_w : (dx > 0.5F ? RenderUtils.ao_e : RenderUtils.ao_block));
-		float ao_y = (dy < 0.5F ? RenderUtils.ao_d : (dy > 0.5F ? RenderUtils.ao_u : RenderUtils.ao_block));
-		float ao_z = (dz < 0.5F ? RenderUtils.ao_n : (dz > 0.5F ? RenderUtils.ao_s : RenderUtils.ao_block));
+		int mb_x   = (dx < 0.5F ? RenderUtils.mb_w : (dx > 0.5F ? RenderUtils.mb_e : RenderUtils.mb_block));
+		int mb_y   = (dy < 0.5F ? RenderUtils.mb_d : (dy > 0.5F ? RenderUtils.mb_u : RenderUtils.mb_block));
+		int mb_z   = (dz < 0.5F ? RenderUtils.mb_n : (dz > 0.5F ? RenderUtils.mb_s : RenderUtils.mb_block));
 
-		#define GET_SIDE(d, mb_side, ao_side)\
-			if(d < 0.5F){ d *= 2.0F;					mb_side = (int)(mb_side*(1.0F-d) + RenderUtils.mb_block*d) & 0x00ff00ff;		ao_side = ao_side*(1.0F-d) + RenderUtils.ao_block*d; }\
-			else if(d > 0.5F){ d = (d - 0.5F) * 2.0F;	mb_side = (int)(RenderUtils.mb_block*(1.0F-d) + mb_side*d) & 0x00ff00ff;		ao_side = RenderUtils.ao_block*(1.0F-d) + ao_side*d; }\
-			else {										mb_side = RenderUtils.mb_block;													ao_side = RenderUtils.ao_block; }
-		GET_SIDE(dx, mb_x, ao_x);
-		GET_SIDE(dy, mb_y, ao_y);
-		GET_SIDE(dz, mb_z, ao_z);
+		// scale sides
+		#define GET_SIDE(d, mb_side)\
+			if(d < 0.5F){ d *= 2.0F;					mb_side = (int)(mb_side*(1.0F-d) + RenderUtils.mb_block*d) & 0x00ff00ff; }\
+			else if(d > 0.5F){ d = (d - 0.5F) * 2.0F;	mb_side = (int)(RenderUtils.mb_block*(1.0F-d) + mb_side*d) & 0x00ff00ff; }\
+			else {										mb_side = RenderUtils.mb_block; }
+		GET_SIDE(dx, mb_x)
+		GET_SIDE(dy, mb_y)
+		GET_SIDE(dz, mb_z)
 
-		int mb   = ((side == -1 ? mb_z : mb_x) + (side == 0 ? mb_x : mb_y) + (side == 1 ? mb_x : mb_z) + RenderUtils.mb_block) >> 2 & 0x00ff00ff;
-		float ao = ((side == -1 ? ao_z : ao_x) + (side == 0 ? ao_x : ao_y) + (side == 1 ? ao_x : ao_z) + RenderUtils.ao_block) / 4.0F;
+		// select diagonal side
+		int mb_xz = RenderUtils.mb_block, mb_xy = RenderUtils.mb_block, mb_yz = RenderUtils.mb_block;
+		#define GET_MB(mb, x, y, z, mb_side_a, mb_side_b) mb = RenderUtils.block.getMixedBrightnessForBlock(RenderUtils.access, x, y, z);\
+			if(mb == 0) mb = getBrightnessMinusOne(Math.max(mb_side_a, mb_side_b));
+		#define SELECT_DIAG(mb_diag, a, b, mb_side_a, mb_side_b, x, y, z)\
+			boolean aa = (a == 0.0F || a == 1.0F), bb = (b == 0.0F || b == 1.0F);\
+			if(aa && bb){	GET_MB(mb_diag, (int)Math.floor(x), (int)Math.floor(y), (int)Math.floor(z), mb_side_a, mb_side_b); }\
+			else if(aa){	mb_diag = mb_side_a; }\
+			else if(bb){	mb_diag = mb_side_b; }\
+			else {			mb_diag = (mb_side_a + mb_side_b) >> 1 & 0x00ff00ff; }
+		if(side == 0){ // DU
+			SELECT_DIAG(mb_xz, dx, dz, mb_x, mb_z, RenderUtils.x+(dx == 0.0F ? -1.0F : 1.0F), RenderUtils.y, RenderUtils.z+(dz == 0.0F ? -1.0F : 1.0F))
+		} else if(side == 1){ // NS
+			SELECT_DIAG(mb_xy, dx, dy, mb_x, mb_y, RenderUtils.x+(dx == 0.0F ? -1.0F : 1.0F), RenderUtils.y+(dy == 0.0F ? -1.0F : 1.0F), RenderUtils.z)
+		} else { // WE
+			SELECT_DIAG(mb_yz, dy, dz, mb_y, mb_z, RenderUtils.x, RenderUtils.y+(dy == 0.0F ? -1.0F : 1.0F), RenderUtils.z+(dz == 0.0F ? -1.0F : 1.0F))
+		}
+
+		int mb   = ((side == -1 ? mb_yz : mb_x) + (side == 0 ? mb_xz : mb_y) + (side == 1 ? mb_xy : mb_z) + RenderUtils.mb_block) >> 2 & 0x00ff00ff;
 
 		tessellator.setBrightness(mb);
-		Color color = (new Color(RenderUtils.color)).multiplier(colorMultiplier * ao).anaglyph();
+		Color color = (new Color(RenderUtils.color)).multiplier(colorMultiplier).anaglyph();
 		tessellator.setColorOpaque_F(color.r, color.g, color.b);
 	}
 
@@ -202,12 +208,28 @@ public class RenderUtils {
 		double b = icon.getInterpolatedV(16.0D - ty1 * 16.0D);
 		Tessellator tessellator = Tessellator.instance;
 		if(!RenderUtils.enableAO) RenderUtils.setFaceLighting(RenderUtils.colorSide);
-		int side = (RenderUtils.enableAO ? (Math.abs(x2 - x1) > Math.abs(z2 - z1) ? 1 : -1) : 0);
+		int left = 0, right = 0;
+		if(RenderUtils.enableAO){
+			float xs = x2 - x1, zs = z2 - z1, axs = Math.abs(xs), azs = Math.abs(zs);
+			// xs and zs should never both be zero
+			if(axs == azs){
+				// diagonal face
+// TODO: untested, will most likely break if a quad is split in multiples like CT panes do
+				if(xs < 0){
+					if(zs < 0){ left = -1; right = 1; }	// W -> S
+					else { left = 1; right = -1; }		// N -> W
+				} else {
+					if(zs < 0){ left = 1; right = -1; }	// S -> E
+					else { left = -1; right = 1; }		// E -> N
+				}
+			} else
+				left = right = (axs > azs ? 1 : -1); // NS : WE
+		}
 		// face is always vertical, use top/bottom methods for slopes
-		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y2, z2, RenderUtils.colorSide, side);		tessellator.addVertexWithUV(x2, y2, z2,  r, t);
-		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y2, z1, RenderUtils.colorSide, side);		tessellator.addVertexWithUV(x1, y2, z1,  l, t);
-		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y1, z1, RenderUtils.colorSide, side);		tessellator.addVertexWithUV(x1, y1, z1,  l, b);
-		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y1, z2, RenderUtils.colorSide, side);		tessellator.addVertexWithUV(x2, y1, z2,  r, b);
+		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y2, z2, RenderUtils.colorSide, right);		tessellator.addVertexWithUV(x2, y2, z2,  r, t);
+		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y2, z1, RenderUtils.colorSide, left);		tessellator.addVertexWithUV(x1, y2, z1,  l, t);
+		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y1, z1, RenderUtils.colorSide, left);		tessellator.addVertexWithUV(x1, y1, z1,  l, b);
+		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y1, z2, RenderUtils.colorSide, right);		tessellator.addVertexWithUV(x2, y1, z2,  r, b);
 	}
 	public static void renderTopFace(float x1, float y1, float z1, float x2, float y2, float z2, Icon icon, float tx1, float ty1, float tx2, float ty2, boolean slope_NS){
 		// xyz1 is SE corner
