@@ -332,7 +332,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableGlassPane){
-			this.blockGlassPane = new BlockColoredPane(Cfg.blockGlassPane, "au.colorGlassPane", " Glass Pane", ItemBlockGlassPane.class, Material.glass, this.blockGlass, true)
+			this.blockGlassPane = new BlockColoredPane(Cfg.blockGlassPane, "au.colorGlassPane", " Glass Pane", ItemBlockGlassPane.class, Material.glass, this.blockGlass, true, 0)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -355,7 +355,7 @@ public class AUExtras {
 
 		if(Cfg.enableGlassPaneTinted){
 			this.blockGlassPaneTinted = new BlockColoredPane(Cfg.blockGlassPaneTinted, "au.colorGlassPaneTinted", " Tinted Glass Pane",
-																ItemBlockGlassPaneTinted.class, Material.glass, this.blockGlassTinted, true)
+																ItemBlockGlassPaneTinted.class, Material.glass, this.blockGlassTinted, true, 1)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -378,7 +378,7 @@ public class AUExtras {
 
 		if(Cfg.enableGlassPaneTintedNoFrame){
 			this.blockGlassPaneTintedNoFrame = new BlockColoredPane(Cfg.blockGlassPaneTintedNoFrame, "au.colorGlassPaneTintedNoFrame", " Tinted Glass Pane (Frameless)",
-																	ItemBlockGlassPaneTintedNoFrame.class, Material.glass, this.blockGlassTintedNoFrame, false)
+																	ItemBlockGlassPaneTintedNoFrame.class, Material.glass, this.blockGlassTintedNoFrame, false, 1)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -454,7 +454,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableIronBars){
-			this.blockIronBars = new BlockColoredPane(Cfg.blockIronBars, "au.colorIronBars", " Iron Bars", ItemBlockIronBars.class, Material.iron, null, false)
+			this.blockIronBars = new BlockColoredPane(Cfg.blockIronBars, "au.colorIronBars", " Iron Bars", ItemBlockIronBars.class, Material.iron, null, false, 0)
 				.setHardness(5.0F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundMetalFootstep)

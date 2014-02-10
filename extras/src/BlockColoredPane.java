@@ -32,11 +32,13 @@ public class BlockColoredPane extends BlockColored {
 
 	private Block parentBlock;
 	private boolean hasConnectedTextures;
+	private int renderInPass;
 
-	public BlockColoredPane(int id, String name, String readableName, Class<? extends ItemBlock> itemblockclass, Material material, Block parentBlock, boolean hasConnectedTextures){
+	public BlockColoredPane(int id, String name, String readableName, Class<? extends ItemBlock> itemblockclass, Material material, Block parentBlock, boolean hasConnectedTextures, int pass){
 		super(id, name, readableName, itemblockclass, material);
 		this.parentBlock = parentBlock;
 		this.hasConnectedTextures = hasConnectedTextures;
+		this.renderInPass = pass;
 	}
 
 	@Override
@@ -116,14 +118,14 @@ public class BlockColoredPane extends BlockColored {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getRenderBlockPass(){
-		return 1;
+		return this.renderInPass;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean canRenderInPass(int pass){
 		ClientProxy.renderPass = pass;
-		return (pass == 1);
+		return (pass == this.renderInPass);
 	}
 
 	@Override
