@@ -18,12 +18,15 @@ public class RendererGlass implements ISimpleBlockRenderingHandler {
 	@Override
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer){
 		renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glEnable(GL11.GL_BLEND);
-		RenderUtils.renderInventoryBlock(block, renderer, ((BlockGlass)block).getIcon(0, metadata));
-		GL11.glDisable(GL11.GL_BLEND);
+
+		if(((BlockGlass)block).renderInPass1()){
+			GL11.glEnable(GL11.GL_BLEND);
+			RenderUtils.renderInventoryBlock(block, renderer, block.getIcon(0, metadata));
+			GL11.glDisable(GL11.GL_BLEND);
+		}
 
 		// render untinted frame over the tinted glass
-		if(((BlockGlass)block).isTintedWithFrame())
+		if(((BlockGlass)block).renderInPass0())
 			RenderUtils.renderInventoryBlock(block, renderer, AUExtras.blockGlass.getIcon(0, metadata));
 	}
 
@@ -31,8 +34,20 @@ public class RendererGlass implements ISimpleBlockRenderingHandler {
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer){
 		if(ClientProxy.renderPass != block.getRenderBlockPass()) return false;
 
-		renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-		renderer.renderStandardBlock(block, x, y, z);
+		RenderUtils.initLighting(world, block, x, y, z);
+		if(RenderUtils.shouldSideBeRendered(block, world, x, y, z, 0))
+			RenderUtils.renderBottomFace(x, y, z, x+1.0F, y, z+1.0F, block.getBlockTexture(world, x, y, z, 0), 0.0F, 0.0F, 1.0F, 1.0F, false);
+		if(RenderUtils.shouldSideBeRendered(block, world, x, y, z, 1))
+			RenderUtils.renderTopFace(x, y+1.0F, z, x+1.0F, y+1.0F, z+1.0F, block.getBlockTexture(world, x, y, z, 1), 0.0F, 0.0F, 1.0F, 1.0F, false);
+		if(RenderUtils.shouldSideBeRendered(block, world, x, y, z, 2))
+			RenderUtils.renderSideFace(x+1.0F, y, z+0.0F, x+0.0F, y+1.0F, z+0.0F, block.getBlockTexture(world, x, y, z, 2), 0.0F, 0.0F, 1.0F, 1.0F);
+		if(RenderUtils.shouldSideBeRendered(block, world, x, y, z, 3))
+			RenderUtils.renderSideFace(x+0.0F, y, z+1.0F, x+1.0F, y+1.0F, z+1.0F, block.getBlockTexture(world, x, y, z, 3), 0.0F, 0.0F, 1.0F, 1.0F);
+		if(RenderUtils.shouldSideBeRendered(block, world, x, y, z, 4))
+			RenderUtils.renderSideFace(x+0.0F, y, z+0.0F, x+0.0F, y+1.0F, z+1.0F, block.getBlockTexture(world, x, y, z, 4), 0.0F, 0.0F, 1.0F, 1.0F);
+		if(RenderUtils.shouldSideBeRendered(block, world, x, y, z, 5))
+			RenderUtils.renderSideFace(x+1.0F, y, z+1.0F, x+1.0F, y+1.0F, z+0.0F, block.getBlockTexture(world, x, y, z, 5), 0.0F, 0.0F, 1.0F, 1.0F);
+
 		return true;
 	}
 

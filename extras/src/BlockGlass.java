@@ -64,8 +64,12 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public boolean isTintedWithFrame(){
-		return (this.style == 1);
+	public boolean renderInPass0(){
+		return (this.style == 0 || this.style == 1);
+	}
+	@SideOnly(Side.CLIENT)
+	public boolean renderInPass1(){
+		return (this.style == 1 || this.style == 2);
 	}
 
 	@Override
@@ -86,7 +90,7 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getRenderType(){
-		return (this.style == 0 ? 0 : ClientProxy.glassRenderType);
+		return ClientProxy.glassRenderType;
 	}
 
 	@Override
