@@ -109,7 +109,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 					RenderUtils.renderSideFace(X_CENTER_P, y, z+0.25F,	X_CENTER_P, y+1.0F, z+0.00F,	icon_x[0], 0.25F, 0.0F, 0.00F, 1.0F); // east face:  left half - texture left
 				} else {
 					RenderUtils.renderSideFace(X_CENTER_N, y, z+0.00F,	X_CENTER_N, y+1.0F, z+1.00F,	icon_x[0], 0.00F, 0.0F, 1.00F, 1.0F); // west face:  texture both
-					RenderUtils.renderSideFace(X_CENTER_P, y, z+1.00F,	X_CENTER_P, y+1.0F, z+0.00F,	icon_x[0], 1.0F, 0.0F, 0.00F, 1.0F); // east face:  texture both
+					RenderUtils.renderSideFace(X_CENTER_P, y, z+1.00F,	X_CENTER_P, y+1.0F, z+0.00F,	icon_x[0], 1.00F, 0.0F, 0.00F, 1.0F); // east face:  texture both
 				}
 			} else if(draw_n){
 				// NORTH PANE ONLY
