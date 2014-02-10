@@ -74,6 +74,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 			RenderUtils.renderTopFace(	 x, Y_CENTER_P, z, x+1.0F, Y_CENTER_P, z+1.0F, icon_y, 0.0F, 0.0F, 1.0F, 1.0F, false);
 			// render top and bottom since each are drawn with different color multipliers
 
+			RenderUtils.setColorOverride(RenderUtils.colorSide);
 			float SIDE_N = y + 0.5F - BlockColoredPane.SIDE_WIDTH;
 			float SIDE_P = y + 0.5F + BlockColoredPane.SIDE_WIDTH;
 			if(this.shouldSideBeRendered(block, world, x, y, z, 2)){
@@ -96,6 +97,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 				if(ClientProxy.renderPass == 0)
 				RenderUtils.renderSideFace(x+1.0F-side_inset, SIDE_N, z+0.0F, x+1.0F-side_inset, SIDE_P, z+1.0F, icon_side, sx1, sy1, sx2, sy2);
 			}
+			RenderUtils.unsetColorOverride();
 		} else {
 			// get connections to panes above and below for vertical panes
 			if(!this.shouldSideBeRendered(block, world, x, y, z, 0)){
@@ -148,6 +150,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 				}
 			}
 
+			RenderUtils.setColorOverride(RenderUtils.colorSide);
 			float SIDE_N = x + 0.5F - BlockColoredPane.SIDE_WIDTH;
 			float SIDE_P = x + 0.5F + BlockColoredPane.SIDE_WIDTH;
 			if(panes_d_ns != 3){
@@ -176,6 +179,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 				if(ClientProxy.renderPass == 0)
 				RenderUtils.renderSideFace(SIDE_P, y, z_side, SIDE_N, y+1.0F, z_side, icon_side, sx1, sy1, sx2, sy2);
 			}
+			RenderUtils.unsetColorOverride();
 		}
 		if(draw_w || draw_e){
 			Icon[] icon_z = ((BlockColoredPane)block).getBlockTextureVertical(world, x, y, z, 2);
@@ -218,6 +222,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 				}
 			}
 
+			RenderUtils.setColorOverride(RenderUtils.colorSide);
 			float SIDE_N = z + 0.5F - BlockColoredPane.SIDE_WIDTH;
 			float SIDE_P = z + 0.5F + BlockColoredPane.SIDE_WIDTH;
 			if(panes_d_we != 3){
@@ -246,6 +251,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 				if(ClientProxy.renderPass == 0)
 				RenderUtils.renderSideFace(x_side, y, SIDE_N, x_side, y+1.0F, SIDE_P, icon_side, sx1, sy1, sx2, sy2);
 			}
+			RenderUtils.unsetColorOverride();
 		}
 
 		return true;

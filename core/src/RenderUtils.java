@@ -99,10 +99,10 @@ public class RenderUtils {
 
 	//////////
 
+	private static boolean colorOverride;
+	private static float colorOverrideMultiplier;
+
 	private static boolean enableAO;					// both
-	private static final float colorTop = 1.0F;			// both
-	private static final float colorSide = 0.80F;		// both
-	private static final float colorBottom = 0.5F;		// both
 	private static int color;							// both
 	private static IBlockAccess access;
 	private static Block block;
@@ -141,12 +141,25 @@ public class RenderUtils {
 			GET_MB(RenderUtils.mb_e, x+1, y, z)
 		} else
 			RenderUtils.enableAO = false;
+		RenderUtils.colorOverride = false;
+	}
+
+	public static final float colorTop = 1.0F;
+	public static final float colorSide = 0.80F;
+	public static final float colorBottom = 0.5F;
+
+	public static void setColorOverride(float multiplier){
+		RenderUtils.colorOverride = true;
+		RenderUtils.colorOverrideMultiplier = multiplier;
+	}
+	public static void unsetColorOverride(){
+		RenderUtils.colorOverride = false;
 	}
 
 	private static void setFaceLighting(float colorMultiplier){
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.setBrightness(RenderUtils.mb_block);
-		Color color = (new Color(RenderUtils.color)).multiplier(colorMultiplier).anaglyph();
+		Color color = (new Color(RenderUtils.color)).multiplier(RenderUtils.colorOverride ? RenderUtils.colorOverrideMultiplier : colorMultiplier).anaglyph();
 		tessellator.setColorOpaque_F(color.r, color.g, color.b);
 	}
 
@@ -190,7 +203,7 @@ public class RenderUtils {
 		int mb   = ((side == -1 ? mb_yz : mb_x) + (side == 0 ? mb_xz : mb_y) + (side == 1 ? mb_xy : mb_z) + RenderUtils.mb_block) >> 2 & 0x00ff00ff;
 
 		tessellator.setBrightness(mb);
-		Color color = (new Color(RenderUtils.color)).multiplier(colorMultiplier).anaglyph();
+		Color color = (new Color(RenderUtils.color)).multiplier(RenderUtils.colorOverride ? RenderUtils.colorOverrideMultiplier : colorMultiplier).anaglyph();
 		tessellator.setColorOpaque_F(color.r, color.g, color.b);
 	}
 
