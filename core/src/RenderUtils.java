@@ -291,6 +291,13 @@ public class RenderUtils {
 
 	//////////
 
+	public static boolean shouldSideBeRendered(Block block, IBlockAccess world, int x, int y, int z, int side){
+		BlockCoord neighbor = (new BlockCoord(world, x, y, z)).translateToSide(side);
+		return block.shouldSideBeRendered(world, neighbor.x, neighbor.y, neighbor.z, side);
+	}
+
+	//////////
+
 	public static void spawnParticles(World world, float x, float y, float z, Random random, int nr_particles, String type, float dx, float dy, float dz){
 		double dxx = (double)dx/2.0D;
 		double dyy = (double)dy/2.0D;
