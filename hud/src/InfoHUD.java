@@ -136,6 +136,26 @@ public class InfoHUD {
 
 	//////////
 
+	private static int SPEED_QUEUE = 10;
+	private static int SPEED_TAIL = SPEED_QUEUE-1;
+	private double lastSpeedX, lastSpeedY, lastSpeedZ;
+	private long lastSpeedTime = 0;
+	private float[] speed_queue;
+	private int speed_tail;
+	private float lastSpeed;
+
+	private void initSpeed(double x, double y, double z){
+		this.lastSpeedX = x;
+		this.lastSpeedY = y;
+		this.lastSpeedZ = z;
+		this.lastSpeedTime = System.currentTimeMillis();
+		this.speed_queue = new float[SPEED_QUEUE];
+		this.speed_tail = -1;
+		this.lastSpeed = 0.0F;
+	}
+
+	//////////
+
 	public void draw(Minecraft mc, ScaledResolution screen, EntityPlayer player){
 		GL11.glPushMatrix();
 
@@ -349,7 +369,7 @@ public class InfoHUD {
 				}
 
 				if(this.ticks > 0 && this.tps_tail > -1){
-					float tps = 0.0F; for(int i = 0; i <= this.tps_tail; i++) tps += tps_queue[i]; tps = Math.round(tps/(float)(this.tps_tail+1));
+					float tps = 0.0F; for(int i = 0; i <= this.tps_tail; i++) tps += this.tps_queue[i]; tps = Math.round(tps/(float)(this.tps_tail+1));
 					int[] colors = {0x66ff66, 0xb2ff66, 0xffff66, 0xff6666};
 					if(tps > 20.0F) tps = 20.0F;
 					if(tps < 0.0F) tps = 0.0F;
@@ -377,6 +397,45 @@ public class InfoHUD {
 			}
 		} catch(Exception e){
 			Failure.log("tps info element");
+		}
+
+		// SELF: player speed
+		try {
+			if(Cfg.show_inspector){
+				long time = System.currentTimeMillis();
+				if(time >= this.lastSpeedTime + 500){
+					this.initSpeed(player.posX, player.posY, player.posZ);
+				} else if(time >= this.lastSpeedTime + 50){
+					// get distance between current position and last position
+					float dX = (float)(player.posX - this.lastSpeedX);
+					float dY = (float)(player.posY - this.lastSpeedY);
+					float dZ = (float)(player.posZ - this.lastSpeedZ);
+					float distance = (float)Math.sqrt(dX*dX + dY*dY + dZ*dZ);
+					this.lastSpeedX = player.posX;
+					this.lastSpeedY = player.posY;
+					this.lastSpeedZ = player.posZ;
+					// get time since last position
+					float delta_time = time - this.lastSpeedTime;
+					this.lastSpeedTime = time;
+
+					float speed = 1000 * distance / delta_time;
+					if(this.speed_tail == SPEED_TAIL)
+						for(int i = 0; i < SPEED_TAIL; i++) this.speed_queue[i] = this.speed_queue[i+1];
+					else this.speed_tail++;
+					this.speed_queue[this.speed_tail] = speed;
+
+					if(this.speed_tail != -1 && speed != 0.0F){
+						this.lastSpeed = 0.0F; for(int i = 0; i <= this.speed_tail; i++) this.lastSpeed += this.speed_queue[i]; this.lastSpeed /= (float)(this.speed_tail+1);
+					} else
+						this.lastSpeed = speed;
+				}
+
+				this.ui.drawString(String.format("%.1f", this.lastSpeed), 0xffffff);
+				this.ui.drawString(" blocks/second", 0xaaaaaa);
+				this.ui.lineBreak();
+			}
+		} catch(Exception e){
+			Failure.log("player speed inspector");
 		}
 
 		// block at cursor

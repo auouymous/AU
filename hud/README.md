@@ -52,6 +52,9 @@ Advanced Block Inspector
 * e:has tile entity, r:has random ticks, t:has ticking tile entity, b:tile entities in block, a:all loaded tile entities (all ticking tile entities)
 * hides silverfish blocks, can be changed in the config file
 
+Speed Inspector
+* shows your current speed in blocks per second
+
 Food Inspector
 * f:food level percentage, s:saturation percentage
 
