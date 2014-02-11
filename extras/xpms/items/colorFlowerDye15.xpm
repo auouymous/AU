@@ -2,11 +2,11 @@
 static char *colorFlowerDye15[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 7 1 ",
-"  c #B4B4B4",
-". c #DFDFDF",
-"X c #E6E6E6",
-"o c #EAEAEA",
-"O c #F4F4F4",
+"  c #C3C3C3",
+". c #E5E5E5",
+"X c #EBEBEB",
+"o c #EEEEEE",
+"O c #F6F6F6",
 "+ c white",
 "@ c None",
 /* pixels */

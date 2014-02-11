@@ -23,7 +23,7 @@ function colorize_blocks(){
 	for color in $COLORS; do
 		# get 1/4 of the color
 		C=`php -r 'function t($h,$o){return floor(hexdec(substr($h,$o,2))/4);}echo substr("000000".dechex((t($argv[1],0)<<16)+(t($argv[1],2)<<8)+t($argv[1],4)),-6);' ${color}`
-		[ "${color}" = "ffffff" ] && C="5f5f5f"
+		[ "${color}" = "ffffff" ] && C="7f7f7f"
 		echo "$color -- $C -- $2"
 		convert tmp.png +level-colors "#${C}","#${color}" $TPATH/${2}$i.xpm
 		[ "$3" != "" ] && composite $TPATH/${2}$i.xpm $3 $TPATH/${2}$i.xpm
