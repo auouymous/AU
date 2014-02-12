@@ -126,8 +126,9 @@ public class AUExtras {
 				.setCreativeTab(AUExtras.tabAU);
 			MinecraftForge.setBlockHarvestLevel(this.blockChromaInfuser, "pickaxe", 0); // wooden pickaxe
 
-			// CRAFT cauldron + 4 glass -> 1 chroma infuser
-			GameRegistry.addRecipe(new ItemStack(this.blockChromaInfuser), " g ", "gcg", " g ", 'g', glass, 'c', new ItemStack(Item.cauldron));
+			// CRAFT cauldron + red dye, green dye, blue dye -> 1 chroma infuser
+			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockChromaInfuser), "rgb", " c ", "   ",
+									'c', new ItemStack(Item.cauldron), 'r', Color.oreDyes[1], 'g', Color.oreDyes[2], 'b', Color.oreDyes[4]));
 		}
 
 		//////////

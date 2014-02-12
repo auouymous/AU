@@ -44,7 +44,7 @@ Artificial grass does not spread to nearby dirt.
 
 Recipes
 
-* CRAFT 4 glass + 1 cauldron TO 1 chroma infuser
+* CRAFT 1 cauldron + 1 red dye + 1 green dye + 1 blue dye TO 1 chroma infuser
 * CRAFT 4 gold + 3 eyes of ender + 1 obsidian + 1 redstone dust TO 1 ender cube
 * 
 * CHROMA INFUSER grass block TO [shaded] artificial grass (blank: 8 per dye)
