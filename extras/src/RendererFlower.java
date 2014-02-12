@@ -55,7 +55,7 @@ public class RendererFlower implements ISimpleBlockRenderingHandler {
 		double z2 = (double)z + 0.95F;
 
 		int below = world.getBlockId(x, y - 1, z);
-		if(below == Block.slowSand.blockID || below == Block.tilledField.blockID){
+		if(below == Block.tilledField.blockID){
 			y1 -= BlockFlowerSeed.y_offset;
 			y2 -= BlockFlowerSeed.y_offset;
 		}

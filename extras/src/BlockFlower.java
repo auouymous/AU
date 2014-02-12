@@ -87,7 +87,7 @@ public class BlockFlower extends BlockColored implements IPlantable {
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess access, int x, int y, int z){
 		int below = access.getBlockId(x, y - 1, z);
-		float offset = (below == Block.slowSand.blockID || below == Block.tilledField.blockID ? BlockFlowerSeed.y_offset : 0.0F);
+		float offset = (below == Block.tilledField.blockID ? BlockFlowerSeed.y_offset : 0.0F);
 		this.setBlockBounds(0.3F, 0.0F-offset, 0.3F, 0.7F, 0.7F-offset, 0.7F);
 	}
 
