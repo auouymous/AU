@@ -1,5 +1,7 @@
 Typing a player name that contains 'o' in the Ender Cube will cause NEI to toggle on or off.
 
+Can't place vanilla flowers and plants on artificial grass, they are hard coded to use block IDs.
+
 -----
 
 Tinted glass and frameless tinted glass can not be seen when looking at it through other
