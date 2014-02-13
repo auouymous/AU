@@ -11,7 +11,7 @@ import net.minecraft.world.World;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
-	public static TickHandlerExtras tickHandler = new TickHandlerExtras();
+	public static TickHandlerClientRender tickHandlerClientRender = new TickHandlerClientRender();
 
 	public static int renderPass = 0;
 	public static int infuserRenderType;
@@ -51,8 +51,8 @@ public class ClientProxy extends CommonProxy {
 	public void registerHandlers(){
 		super.registerHandlers();
 
-		// Tick Handler
-		TickRegistry.registerTickHandler(this.tickHandler, Side.CLIENT);
+		// Tick Handler (client render)
+		TickRegistry.registerTickHandler(this.tickHandlerClientRender, Side.CLIENT);
 	}
 
 	@Override

@@ -18,7 +18,7 @@ import com.qzx.au.core.PacketUtils;
 import com.qzx.au.core.UI;
 
 @SideOnly(Side.CLIENT)
-public class TickHandlerExtras implements ITickHandler {
+public class TickHandlerClientRender implements ITickHandler {
 	private UI ui = new UI();
 	private boolean playerJumping = false;
 	private boolean playerSneaking = false;
@@ -94,6 +94,6 @@ public class TickHandlerExtras implements ITickHandler {
 
 	@Override
 	public String getLabel(){
-		return "AUExtras: Render Tick";
+		return "AUExtras: Client Render Tick";
 	}
 }

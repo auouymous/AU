@@ -89,6 +89,6 @@ public class TickHandlerHUD implements ITickHandler {
 
 	@Override
 	public String getLabel(){
-		return "AUHud: Render Tick";
+		return "AUHud: Client Render Tick";
 	}
 }

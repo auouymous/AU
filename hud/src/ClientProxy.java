@@ -23,7 +23,7 @@ public class ClientProxy extends CommonProxy {
 		// Key Handler
 		KeyBindingRegistry.registerKeyBinding(this.keyHandler);
 
-		// Tick Handler
+		// Tick Handler (client render)
 		TickRegistry.registerTickHandler(this.tickHandler, Side.CLIENT);
 	}
 
