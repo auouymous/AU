@@ -19,7 +19,8 @@ endif
 
 	@# compile all modules
 ifeq ($(GRADLE),no)
-	(cd $(BASE) ; sh recompile.sh ; sh reobfuscate.sh)
+	(cd $(BASE) ; sh recompile.sh)
+	(cd $(BASE) ; sh reobfuscate.sh)
 else
 	(cd $(BASE) ; ./gradlew build)
 endif
