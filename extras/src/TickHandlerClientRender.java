@@ -24,8 +24,7 @@ public class TickHandlerClientRender implements ITickHandler {
 	private boolean playerSneaking = false;
 
 	@Override
-	public void tickStart(EnumSet<TickType> type, Object... tickData){
-	}
+	public void tickStart(EnumSet<TickType> type, Object... tickData){}
 
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData){
