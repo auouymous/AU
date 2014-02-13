@@ -39,6 +39,8 @@ public class Hacks {
 						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("V");
 						#elif defined MC164
 						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("V");
+						#elif defined MC172
+						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("T");
 						#else
 						Failure.log("hacks, unsupported minecraft version in getGamePausedField");
 						return null;
@@ -88,6 +90,8 @@ public class Hacks {
 						Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("M");
 						#elif defined MC164
 						Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("M");
+						#elif defined MC172
+						Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("K");
 						#else
 						Failure.log("hacks, unsupported minecraft version in getServerDataField");
 						return null;
@@ -134,6 +138,8 @@ public class Hacks {
 						Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("Y");
 						#elif defined MC164
 						Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("Y");
+						#elif defined MC172
+						Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("af");
 						#else
 						Failure.log("hacks, unsupported minecraft version in getCameraZoomField");
 						return null;

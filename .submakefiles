@@ -1,12 +1,7 @@
 include ../.makefiles
 
 all:
-	@echo "Syntax: make <test|prepare|jar|clean>"
-
-test:
-	@(make clean v=$(VER))
-	@(make prepare v=$(VER))
-	(cd $(SRC)/com/qzx/au/$(MOD) ; export CLASSPATH=$(CPCOMMON):$(CP) ; $(JC) $(JFLAGS) *.java)
+	@echo "Syntax: make <prepare|jar|clean>"
 
 prepare:
 	@mkdir -p $(SRC)/com/qzx/au/$(MOD)
