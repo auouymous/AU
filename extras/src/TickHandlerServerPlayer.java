@@ -20,7 +20,7 @@ public class TickHandlerServerPlayer implements ITickHandler {
 		if(player != null){
 			ItemStack itemstack = player.getCurrentItemOrArmor(0);
 			Item item = (itemstack == null ? null : itemstack.getItem());
-			if(item instanceof ItemEnderFlight){
+			if(item instanceof ItemEnderXT){
 				
 			}
 		}

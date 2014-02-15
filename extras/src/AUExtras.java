@@ -83,7 +83,7 @@ public class AUExtras {
 	public static Item itemEnderStar;
 	public static Item itemEnderWand;
 	public static Item itemEnderMagnet;
-	public static Item itemEnderFlight;
+	public static Item itemEnderXT;
 //	public static Item itemChromaSprayer;
 
 	@PreInit
@@ -737,13 +737,13 @@ public class AUExtras {
 
 					// CRAFT 5 ender stars + 2 diamonds -> ender magnet
 					GameRegistry.addRecipe(enderMagnet, "s s", "s s", "dsd", 's', enderStar, 'd', new ItemStack(Item.diamond));
-					if(Cfg.enableEnderFlight){
-						this.itemEnderFlight = new ItemEnderFlight(Cfg.itemEnderFlight, "au.enderFlight", "Ender Flight [WIP]")
+					if(Cfg.enableEnderXT){
+						this.itemEnderXT = new ItemEnderXT(Cfg.itemEnderXT, "au.enderXT", "Ender XT [WIP]")
 							.setCreativeTab(AUExtras.tabAU);
-						ItemStack enderFlight = new ItemStack(this.itemEnderFlight);
+						ItemStack enderXT = new ItemStack(this.itemEnderXT);
 
-						// CRAFT 4 ender stars + 3 ender magnet + 2 diamonds -> ender flight
-						GameRegistry.addRecipe(enderFlight, "sds", "mdm", "sms", 's', enderStar, 'm', enderMagnet, 'd', new ItemStack(Item.diamond));
+						// CRAFT 4 ender stars + 3 ender magnet + 2 diamonds -> ender xt
+						GameRegistry.addRecipe(enderXT, "sds", "mdm", "sms", 's', enderStar, 'm', enderMagnet, 'd', new ItemStack(Item.diamond));
 					}
 				}
 			}

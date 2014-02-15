@@ -67,4 +67,32 @@ public class ItemEnderStar extends Item {
 			}
 		}
 	}
+
+	// apply damage to ender star
+	public static boolean canApplyDamage(ItemStack itemstack, int damage){
+		return (itemstack.getItemDamage() + damage <= ItemEnderStar.MAX_DAMAGE);
+	}
+	public static void applyDamage(ItemStack itemstack, int damage){
+		itemstack.setItemDamage(itemstack.getItemDamage() + damage);
+	}
+
+	// apply damage to ender star or item
+	public static boolean canApplyDamage(ItemStack itemstack, int damage, EntityPlayer player){
+		for(int i = 0; i < 9; i++){
+			ItemStack item = player.inventory.mainInventory[i];
+			if(item != null && item.getItem() == AUExtras.itemEnderStar)
+				if(item.getItemDamage() + damage <= ItemEnderStar.MAX_DAMAGE) return true;
+		}
+		return (itemstack.getItemDamage() + damage <= ItemEnderStar.MAX_DAMAGE);
+	}
+	public static void applyDamage(ItemStack itemstack, int damage, EntityPlayer player){
+		for(int i = 0; i < 9; i++){
+			ItemStack item = player.inventory.mainInventory[i];
+			if(item != null && item.getItem() == AUExtras.itemEnderStar){
+				item.setItemDamage(item.getItemDamage() + damage);
+				return;
+			}
+		}
+		itemstack.setItemDamage(itemstack.getItemDamage() + damage);
+	}
 }

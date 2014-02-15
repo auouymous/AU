@@ -4,20 +4,30 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
+#ifdef MC152
+import net.minecraft.entity.EntityLiving;
+#else
+import net.minecraft.entity.EntityLivingBase;
+#endif
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
-public class ItemEnderFlight extends Item {
+public class ItemEnderXT extends Item {
+	private static int CHARGE_PER_LEFT_CLICK = 8;
+	private static float SWORD_DAMAGE = 7.0F;
+
 	@SideOnly(Side.CLIENT)
 	private Icon enabledIcon;
 
-	public ItemEnderFlight(int id, String name, String readableName){
+	public ItemEnderXT(int id, String name, String readableName){
 		super(id);
 		this.setMaxStackSize(1);
 		this.setUnlocalizedName(name);
@@ -37,7 +47,7 @@ public class ItemEnderFlight extends Item {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(ItemStack itemstack, int pass){
-		return (itemstack != null && this.isFlightEnabled(itemstack) ? this.enabledIcon : this.itemIcon);
+		return (itemstack != null && this.isXTEnabled(itemstack) ? this.enabledIcon : this.itemIcon);
 	}
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -48,14 +58,14 @@ public class ItemEnderFlight extends Item {
 	@SideOnly(Side.CLIENT)
 	public boolean hasEffect(ItemStack itemstack){
 		// add glint when enabled
-		return this.isFlightEnabled(itemstack);
+		return this.isXTEnabled(itemstack);
 	}
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player){
 		if(world.isRemote) return itemstack;
 
-		boolean enabled = this.isFlightEnabled(itemstack);
+		boolean enabled = this.isXTEnabled(itemstack);
 		if(!enabled){
 			// refill using eyes of ender in hotbar
 			ItemEnderStar.consumeEyeOfEnder(itemstack, player);
@@ -65,7 +75,7 @@ public class ItemEnderFlight extends Item {
 		}
 
 		// toggle
-		this.setFlightEnabled(itemstack, !enabled);
+		this.setXTEnabled(itemstack, !enabled);
 
 // TODO: server tick handler?
 //	- if in hotbar and enabled
@@ -88,21 +98,76 @@ public class ItemEnderFlight extends Item {
 		return itemstack;
 	}
 
-	@Override
-	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity){
+	///////////
+	// SWORD //
+	///////////
 
-// TODO: inflict about 10 damage to entity
-//	- weakness effect when enabled will cause it to do less
-//	- weakness effect lasts about 5-10 seconds after disabling to prevent "drop in" attacks
+	@Override
+	public boolean onLeftClickEntity(ItemStack itemstack, EntityPlayer player, Entity entity){
+		// stop functioning at 0% durability
+		if(!ItemEnderStar.canApplyDamage(itemstack, ItemEnderXT.CHARGE_PER_LEFT_CLICK)) return false;
+
+		if(entity.attackEntityFrom(DamageSourceEnderXT.damageSource, ItemEnderXT.SWORD_DAMAGE))
+			ItemEnderStar.applyDamage(itemstack, ItemEnderXT.CHARGE_PER_LEFT_CLICK);
 
 		return false;
 	}
 
-	private boolean isFlightEnabled(ItemStack itemstack){
+//	@Override
+//	#ifdef MC152
+//	public boolean hitEntity(ItemStack itemstack, EntityLiving entity1, EntityLiving entity2){
+//	#else
+//	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entity1, EntityLivingBase entity2){
+//	#endif
+//		return false;
+//	}
+
+	@Override
+	public float getDamageVsEntity(Entity entity, ItemStack itemstack){
+		// stop functioning at 0% durability
+		return (ItemEnderStar.canApplyDamage(itemstack, ItemEnderXT.CHARGE_PER_LEFT_CLICK) ? ItemEnderXT.SWORD_DAMAGE : 1.0F);
+	}
+
+	///////////
+	// TOOLS // pickaxe, axe, shovel
+	///////////
+
+// TODO: pick, axe, shovel
+
+	@Override
+	public boolean canHarvestBlock(Block block){
+		// harvest all blocks
+		return true;
+	}
+
+	@Override
+	public float getStrVsBlock(ItemStack itemstack, Block block){
+		// stop functioning at 0% durability
+		if(!ItemEnderStar.canApplyDamage(itemstack, ItemEnderXT.CHARGE_PER_LEFT_CLICK)) return 1.0F;
+
+		return 4.0F;
+	}
+
+	@Override
+	#ifdef MC152
+	public boolean onBlockDestroyed(ItemStack itemstack, World world, int id, int x, int y, int z, EntityLiving entity){
+	#else
+	public boolean onBlockDestroyed(ItemStack itemstack, World world, int id, int x, int y, int z, EntityLivingBase entity){
+	#endif
+		float hardness = Block.blocksList[id].getBlockHardness(world, x, y, z) / 3.0F; // ores and harder apply max damage
+
+		ItemEnderStar.applyDamage(itemstack, Math.min(ItemEnderXT.CHARGE_PER_LEFT_CLICK, Math.round((float)ItemEnderXT.CHARGE_PER_LEFT_CLICK * hardness)));
+
+		return true;
+	}
+
+	//////////
+
+	private boolean isXTEnabled(ItemStack itemstack){
 		NBTTagCompound nbt = itemstack.getTagCompound();
 		return (nbt == null ? false : nbt.getBoolean("enabled"));
 	}
-	private void setFlightEnabled(ItemStack itemstack, boolean enabled){
+	private void setXTEnabled(ItemStack itemstack, boolean enabled){
 		NBTTagCompound nbt = itemstack.getTagCompound();
 		if(nbt == null){
 			nbt = new NBTTagCompound();
