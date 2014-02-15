@@ -1,11 +1,9 @@
 #!/bin/sh
 
-[ "$1" = "152" ] && ASSETS="mods" || ASSETS="assets"
-
 cd xpms
 
-rm -rf ../$ASSETS
-TEXTURES=../$ASSETS/au_extras/textures
+TEXTURES=../$1/textures
+rm -rf $TEXTURES
 mkdir -p $TEXTURES/blocks $TEXTURES/items $TEXTURES/gui
 
 # gui

@@ -1,4 +1,5 @@
 include ../.makefiles
+MOD_ASSETS = $(ASSETS)/au_$(MOD)
 
 all:
 	@echo "Syntax: make <prepare|jar|clean>"
@@ -20,6 +21,9 @@ endif
 	@(sed -E -i "s: modVersion = \"0.0.0\": modVersion = \"$(VER)-$(NOW)\":" $(SRC)/com/qzx/au/$(MOD)/$(AUMOD).java)
 	@(sed -E -i "s:\"version\"\: \"0.0.0\":\"version\"\: \"$(VER)-$(NOW)\":" mcmod.info)
 	@(sed -E -i "s:\"mcversion\"\: \"0.0.0\":\"mcversion\"\: \"$(DOTVER)\":" mcmod.info)
+
+	@mkdir -p $(MOD_ASSETS)
+	@(if [ -d "lang" ]; then cp -R lang $(MOD_ASSETS)/; fi)
 
 clean:
 	rm -f au_$(MOD)-*.zip

@@ -2,18 +2,23 @@ VER := $(v)
 ifeq ($(VER),147)
 	DOTVER := 1.4.7
 	GRADLE := no
+	ASSETS := mods
 else ifeq ($(VER),152)
 	DOTVER := 1.5.2
 	GRADLE := no
+	ASSETS := mods
 else ifeq ($(VER),162)
 	DOTVER := 1.6.2
 	GRADLE := no
+	ASSETS := assets
 else ifeq ($(VER),164)
 	DOTVER := 1.6.4
 	GRADLE := no
+	ASSETS := assets
 else ifeq ($(VER),172)
 	DOTVER := 1.7.2
 	GRADLE := yes
+	ASSETS := assets
 else
 $(error No version specified, call with v=147|152|162|164|172)
 endif
