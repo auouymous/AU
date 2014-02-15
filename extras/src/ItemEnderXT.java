@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 public class ItemEnderXT extends Item {
 	private static int CHARGE_PER_LEFT_CLICK = 8;
 	private static float SWORD_DAMAGE = 7.0F;
+	private static float BLOCK_SPEED = 8.0F;
 
 	@SideOnly(Side.CLIENT)
 	private Icon enabledIcon;
@@ -135,7 +136,7 @@ public class ItemEnderXT extends Item {
 		// stop functioning at 0% durability
 		if(!ItemEnderStar.canApplyDamage(itemstack, ItemEnderXT.CHARGE_PER_LEFT_CLICK)) return 1.0F;
 
-		return 4.0F;
+		return ItemEnderXT.BLOCK_SPEED;
 	}
 
 	@Override
