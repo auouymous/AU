@@ -1,9 +1,10 @@
 AU Extras
 ==========
 
-Colored cobblestone, stone, stone bricks, chiseled bricks, smooth bricks, gravel, glass, lamps and flowers.
+Various colored blocks, artificial grass, glass, panes, lamps and flowers.
 Smelt rotten flesh to cooked flesh and eggs to fried eggs.
 Craft 4 cooked flesh to 1 leather.
+Teleporter and building tools.
 All recipes are configurable.
 
 [Minecraft Forum](http://www.minecraftforum.net/topic/1945197-)
@@ -122,6 +123,10 @@ Recipes
 * CHROMA INFUSER [vanilla] hardened clay TO [vanilla] stained clay (blank: 8 per dye - 1.6.x and up)
 * CHROMA INFUSER [vanilla] stained clay TO [vanilla] stained clay (blank: 8 per dye - 1.6.x and up)
 * CHROMA INFUSER [vanilla] carpet TO [vanilla] carpet (blank: 8 per dye - 1.6.x and up)
+* CHROMA INFUSER [vanilla] glass TO [vanilla] stained glass (blank: 8 per dye - 1.7.x and up)
+* CHROMA INFUSER [vanilla] stained glass TO [vanilla] stained glass (blank: 8 per dye - 1.7.x and up)
+* CHROMA INFUSER [vanilla] glass pane TO [vanilla] stained glass pane (blank: 8 per dye - 1.7.x and up)
+* CHROMA INFUSER [vanilla] stained glass pane TO [vanilla] stained glass pane (blank: 8 per dye - 1.7.x and up)
 * 
 * CRAFT 6 [colored] cobblestone TO 4 [colored] cobblestone stairs
 * CRAFT 6 [colored] stone TO 4 [colored] stone stairs

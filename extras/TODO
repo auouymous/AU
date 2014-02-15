@@ -3,8 +3,6 @@
 	cpw.mods.fml.common.Mod.Init			@Init
 	cpw.mods.fml.common.Mod.PostInit		@PostInit
 
-- MC174
-	- glass/pane + BLANK_BUTTON -> stained glass/pane
 - MC18x
 	- remove recipe to craft chiseled stone bricks
 
