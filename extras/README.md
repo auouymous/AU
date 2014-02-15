@@ -156,3 +156,8 @@ Recipes
 * SMELT egg TO fried egg
 * SMELT rotten flesh TO cooked flesh
 * CRAFT 4 cooked flesh TO leather
+*
+* CRAFT 8 ender cubes + 1 nether star TO 1 ender star (burned out stars can be found in stronghold, dungeon and mineshaft chests)
+* CRAFT 1 ender star + 2 diamonds + 2 gold TO 1 ender wand
+* CRAFT 5 ender stars + 2 diamonds TO 1 ender magnet
+* CRAFT 3 ender magnets + 4 ender stars + 2 diamonds TO 1 ender XT
