@@ -123,8 +123,6 @@ public class ItemEnderXT extends Item {
 	// TOOLS // pickaxe, axe, shovel
 	///////////
 
-// TODO: pick, axe, shovel
-
 	@Override
 	public boolean canHarvestBlock(Block block){
 		// harvest all blocks
@@ -142,9 +140,7 @@ public class ItemEnderXT extends Item {
 	@Override
 	public boolean onBlockDestroyed(ItemStack itemstack, World world, int id, int x, int y, int z, EntityLivingBase entity){
 		float hardness = Block.blocksList[id].getBlockHardness(world, x, y, z) / 3.0F; // ores and harder apply max damage
-
 		ItemEnderStar.applyDamage(itemstack, Math.min(ItemEnderXT.CHARGE_PER_LEFT_CLICK, Math.round((float)ItemEnderXT.CHARGE_PER_LEFT_CLICK * hardness)));
-
 		return true;
 	}
 
