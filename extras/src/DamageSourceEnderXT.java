@@ -7,7 +7,6 @@ public class DamageSourceEnderXT extends DamageSource {
 
 	protected DamageSourceEnderXT(){
 		super("enderXT");
-		this.setFireDamage();
 	}
 }
 
