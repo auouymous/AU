@@ -3,10 +3,12 @@ ifeq ($(VER),147)
 	DOTVER := 1.4.7
 	GRADLE := no
 	ASSETS := mods
+	NO_BLOCKS := true
 else ifeq ($(VER),152)
 	DOTVER := 1.5.2
 	GRADLE := no
 	ASSETS := mods
+	NO_BLOCKS := true
 else ifeq ($(VER),162)
 	DOTVER := 1.6.2
 	GRADLE := no

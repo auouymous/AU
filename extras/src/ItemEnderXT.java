@@ -6,11 +6,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
-#ifdef MC152
-import net.minecraft.entity.EntityLiving;
-#else
 import net.minecraft.entity.EntityLivingBase;
-#endif
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -112,11 +108,7 @@ public class ItemEnderXT extends Item {
 	}
 
 //	@Override
-//	#ifdef MC152
-//	public boolean hitEntity(ItemStack itemstack, EntityLiving entity1, EntityLiving entity2){
-//	#else
 //	public boolean hitEntity(ItemStack itemstack, EntityLivingBase entity1, EntityLivingBase entity2){
-//	#endif
 //		return false;
 //	}
 
@@ -147,11 +139,7 @@ public class ItemEnderXT extends Item {
 	}
 
 	@Override
-	#ifdef MC152
-	public boolean onBlockDestroyed(ItemStack itemstack, World world, int id, int x, int y, int z, EntityLiving entity){
-	#else
 	public boolean onBlockDestroyed(ItemStack itemstack, World world, int id, int x, int y, int z, EntityLivingBase entity){
-	#endif
 		float hardness = Block.blocksList[id].getBlockHardness(world, x, y, z) / 3.0F; // ores and harder apply max damage
 
 		ItemEnderStar.applyDamage(itemstack, Math.min(ItemEnderXT.CHARGE_PER_LEFT_CLICK, Math.round((float)ItemEnderXT.CHARGE_PER_LEFT_CLICK * hardness)));

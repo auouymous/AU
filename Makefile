@@ -12,7 +12,7 @@ ifeq ($(GRADLE),no)
 endif
 	@(cd core ; make prepare v=$(VER))
 	@(cd hud ; make prepare v=$(VER))
-ifneq ($(VER),147)
+ifneq ($(NO_BLOCKS),true)
 	@(cd extras ; make prepare v=$(VER))
 #	@(cd world ; make prepare v=$(VER))
 endif
@@ -31,7 +31,7 @@ ifeq ($(GRADLE),no)
 endif
 	@(cd core ; make jar v=$(VER))
 	@(cd hud ; make jar v=$(VER))
-ifneq ($(VER),147)
+ifneq ($(NO_BLOCKS),true)
 	@(cd extras ; make jar v=$(VER))
 #	@(cd world ; make jar v=$(VER))
 endif

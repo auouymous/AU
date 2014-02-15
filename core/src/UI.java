@@ -173,7 +173,7 @@ public class UI {
 
 	//////////
 
-	#ifndef MC147
+	#if !defined MC147 && !defined MC152
 	public TextField newTextField(String s, int max_length, int width, int style){
 		TextField t = new TextField(this.mc.fontRenderer, this.x, this.y, width, style);
 		t.setText(s);
