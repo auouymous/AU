@@ -32,6 +32,7 @@ public class RendererLamp implements ISimpleBlockRenderingHandler {
 			final float size1 = 1.0F + BlockCoord.ADD_1_64*3;
 			renderer.setRenderBounds(size0, size0, size0, size1, size1, size1);
 
+			GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GL11.glEnable(GL11.GL_BLEND);
 			RenderUtils.renderInventoryBlock(block, renderer, ((BlockLamp)block).getGlowIcon(metadata));
 			GL11.glDisable(GL11.GL_BLEND);
