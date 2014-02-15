@@ -90,7 +90,9 @@ public class ItemEnderMagnet extends Item {
 	}
 
 	@Override
-	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity){
+	public boolean onLeftClickEntity(ItemStack itemstack, EntityPlayer player, Entity entity){
+		// stop functioning at 0% durability
+		if(itemstack.getItemDamage() == ItemEnderStar.MAX_DAMAGE) return false;
 
 // TODO: teleport entity upto 16 blocks in direction player is looking
 //	- stops at the first obstruction
