@@ -23,6 +23,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 /*
 		boolean isTinted = ((BlockColoredPane)block).isTinted();
 		renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+		if(isTinted) GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		if(isTinted) GL11.glEnable(GL11.GL_BLEND);
 		RenderUtils.renderInventoryItem(block, renderer, ((BlockColoredPane)block).getIcon(0, metadata));
 		if(isTinted) GL11.glDisable(GL11.GL_BLEND);
