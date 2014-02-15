@@ -38,5 +38,5 @@ static char * enderWand2_xpm[] = {
 "   gGg          ",
 "  gGg           ",
 " gGg            ",
-"gGg             ",
-"gg              "};
+".Gg             ",
+"#.              "};

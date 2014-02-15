@@ -22,5 +22,5 @@ static char * enderWand1_ghost_xpm[] = {
 "   gGg          ",
 "  gGg           ",
 " gGg            ",
-"gGg             ",
-"gg              "};
+".Gg             ",
+"#.              "};

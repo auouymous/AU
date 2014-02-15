@@ -22,5 +22,5 @@ static char * enderXT_xpm[] = {
 "   dDdd         ",
 "  dDd           ",
 " dDd            ",
-"dDd             ",
-"dd              "};
+".Dd             ",
+"#.              "};
