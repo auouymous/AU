@@ -100,14 +100,13 @@ public class BlockFlower extends BlockColored implements IPlantable {
 
 	private boolean canThisPlantGrowOnThisBlockID(int id){
 		Block block = Block.blocksList[id];
-		return block instanceof BlockDirt
+		return block instanceof BlockDirt		// podzol is dirt:2
 			|| block instanceof BlockGrass
 			|| block instanceof BlockNetherrack
 			|| block instanceof BlockMycelium
-			|| block instanceof BlockSand
+			|| block instanceof BlockSand		// red sand is sand:1
 			|| block instanceof BlockSoulSand
 			|| id == Block.whiteStone.blockID	// endstone
-// TODO: podzol, red sand
 			;
 	}
 
