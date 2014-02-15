@@ -3,6 +3,9 @@ package com.qzx.au.extras;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -11,11 +14,16 @@ import net.minecraft.world.World;
 import com.qzx.au.core.TileEntityAU;
 
 public class CommonProxy implements IGuiHandler {
+	public static TickHandlerServerPlayer tickHandlerServerPlayer = new TickHandlerServerPlayer();
+
 	public void registerEvents(){}
 	public void registerRenderers(){}
 	public void registerHandlers(){
 		// Gui Handler
 		NetworkRegistry.instance().registerGuiHandler(AUExtras.instance, AUExtras.proxy);
+
+		// Tick Handler (server player)
+		TickRegistry.registerTickHandler(this.tickHandlerServerPlayer, Side.SERVER);
 	}
 	public void registerEntities(){
 		GameRegistry.registerTileEntity(TileEntityChromaInfuser.class, "AU-ChromaInfuser");

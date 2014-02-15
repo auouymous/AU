@@ -18,7 +18,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.WeightedRandomChestContent;
 
+import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -78,6 +80,10 @@ public class AUExtras {
 	public static Item itemFriedEgg;
 	public static Item itemCookedFlesh;
 	public static Item itemFlowerDye;
+	public static Item itemEnderStar;
+	public static Item itemEnderWand;
+	public static Item itemEnderMagnet;
+	public static Item itemEnderFlight;
 //	public static Item itemChromaSprayer;
 
 	@PreInit
@@ -685,11 +691,58 @@ public class AUExtras {
 				.setStepSound(Block.soundStoneFootstep)
 				.setCreativeTab(AUExtras.tabAU);
 			MinecraftForge.setBlockHarvestLevel(this.blockEnderCube, "pickaxe", 3); // diamond pickaxe
+			ItemStack enderCube = new ItemStack(this.blockEnderCube);
 
 			// CRAFT glass + 3 eye of ender + redstone dust + 4 gold ingots -> ender cube
-			GameRegistry.addRecipe(new ItemStack(this.blockEnderCube),
-									"xex", "eoe", "xrx",
+			GameRegistry.addRecipe(enderCube, "xex", "eoe", "xrx",
 									'o', new ItemStack(Block.obsidian), 'e', new ItemStack(Item.eyeOfEnder), 'r', redstoneDust, 'x', new ItemStack(Item.ingotGold));
+
+			if(Cfg.enableEnderStar){
+				this.itemEnderStar = new ItemEnderStar(Cfg.itemEnderStar, "au.enderStar", "Ender Star")
+					.setCreativeTab(AUExtras.tabAU);
+				ItemStack enderStar = new ItemStack(this.itemEnderStar);
+
+				// CRAFT 8 ender cubes + 1 nether star -> ender star
+				GameRegistry.addRecipe(enderStar, "ccc", "csc", "ccc", 'c', enderCube, 's', new ItemStack(Item.netherStar));
+
+				if(Cfg.enableEnderStarInDungeonChests){
+					#define ADD_CHEST_LOOT(category, weight)\
+						ChestGenHooks.getInfo(category).addItem(new WeightedRandomChestContent(new ItemStack(this.itemEnderStar, 1, ItemEnderStar.MAX_DAMAGE), 1, 1, weight));
+					// add burned out stars to stronghold chests (1/12 chance)
+					ADD_CHEST_LOOT(ChestGenHooks.STRONGHOLD_CORRIDOR, 10)
+					ADD_CHEST_LOOT(ChestGenHooks.STRONGHOLD_LIBRARY, 10)
+					ADD_CHEST_LOOT(ChestGenHooks.STRONGHOLD_CROSSING, 10)
+					// add burned out stars to dungeon chests (1/60 chance)
+					ADD_CHEST_LOOT(ChestGenHooks.DUNGEON_CHEST, 2)
+					// add burned out stars to mineshaft chests (1/120 chance)
+					ADD_CHEST_LOOT(ChestGenHooks.MINESHAFT_CORRIDOR, 1)
+				}
+
+				if(Cfg.enableEnderWand){
+					this.itemEnderWand = new ItemEnderWand(Cfg.itemEnderWand, "au.enderWand", "Ender Wand [WIP]")
+						.setCreativeTab(AUExtras.tabAU);
+					ItemStack enderWand = new ItemStack(this.itemEnderWand);
+
+					// CRAFT ender star + 2 diamonds + 2 gold ingots -> ender wand
+					GameRegistry.addRecipe(enderWand, " ds", " gd", "g  ", 's', enderStar, 'd', new ItemStack(Item.diamond), 'g', new ItemStack(Item.ingotGold));
+				}
+				if(Cfg.enableEnderMagnet){
+					this.itemEnderMagnet = new ItemEnderMagnet(Cfg.itemEnderMagnet, "au.enderMagnet", "Ender Magnet [WIP]")
+						.setCreativeTab(AUExtras.tabAU);
+					ItemStack enderMagnet = new ItemStack(this.itemEnderMagnet);
+
+					// CRAFT 5 ender stars + 2 diamonds -> ender magnet
+					GameRegistry.addRecipe(enderMagnet, "s s", "s s", "dsd", 's', enderStar, 'd', new ItemStack(Item.diamond));
+					if(Cfg.enableEnderFlight){
+						this.itemEnderFlight = new ItemEnderFlight(Cfg.itemEnderFlight, "au.enderFlight", "Ender Flight [WIP]")
+							.setCreativeTab(AUExtras.tabAU);
+						ItemStack enderFlight = new ItemStack(this.itemEnderFlight);
+
+						// CRAFT 4 ender stars + 3 ender magnet + 2 diamonds -> ender flight
+						GameRegistry.addRecipe(enderFlight, "sds", "mdm", "sms", 's', enderStar, 'm', enderMagnet, 'd', new ItemStack(Item.diamond));
+					}
+				}
+			}
 		}
 
 		//////////

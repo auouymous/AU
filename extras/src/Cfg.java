@@ -32,6 +32,11 @@ public class Cfg extends Config {
 	public static boolean enableEnderCube;
 	public static int enderCubeDistance;
 	public static boolean enableArtificialGrass;
+	public static boolean enableEnderStar;
+	public static boolean enableEnderStarInDungeonChests;
+	public static boolean enableEnderWand;
+	public static boolean enableEnderMagnet;
+	public static boolean enableEnderFlight;
 
 	public static boolean enableChiseledBrickCrafting;
 	public static boolean enableMossyBrickCrafting;
@@ -81,6 +86,10 @@ public class Cfg extends Config {
 	public static int itemFriedEgg;
 	public static int itemCookedFlesh;
 	public static int itemFlowerDye;
+	public static int itemEnderStar;
+	public static int itemEnderWand;
+	public static int itemEnderMagnet;
+	public static int itemEnderFlight;
 //	public static int itemChromaSprayer;
 
 	public static void init(FMLPreInitializationEvent event){
@@ -127,6 +136,11 @@ public class Cfg extends Config {
 
 		Cfg.enableEnderCube = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enable", true, "enable ender cube (uses 1 block ID)");
 		Cfg.enderCubeDistance = Cfg.getInt(Cfg.CATEGORY_GENERAL, "block.enderCube.distance", 16, "maximum distance between ender cubes");
+		Cfg.enableEnderStar = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enable", true, "enable ender star (uses 1 item ID)");
+		Cfg.enableEnderStarInDungeonChests = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.dungeonChests", true, "spawn burned out ender stars in dungeon chests");
+		Cfg.enableEnderWand = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderWand.enable", true, "enable ender wand (uses 1 item ID)");
+		Cfg.enableEnderMagnet = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderMagnet.enable", true, "enable ender magnet (uses 1 item ID)");
+		Cfg.enableEnderFlight = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderMagnet.enderFlight.enable", true, "enable ender flight (uses 1 item ID)");
 
 		Cfg.enableArtificialGrass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.enable", true, "enable artificial grass (uses 1 block ID)");
 
@@ -197,6 +211,11 @@ public class Cfg extends Config {
 		Cfg.itemCookedFlesh = Cfg.getItem("item.cookedFlesh.id", startItemID, null); startItemID++;
 
 		Cfg.itemFlowerDye = Cfg.getItem("item.flowerDye.id", startItemID, null); startItemID++;
+
+		Cfg.itemEnderStar = Cfg.getItem("item.enderStar.id", startItemID, null); startItemID++;
+		Cfg.itemEnderWand = Cfg.getItem("item.enderWand.id", startItemID, null); startItemID++;
+		Cfg.itemEnderMagnet = Cfg.getItem("item.enderMagnet.id", startItemID, null); startItemID++;
+		Cfg.itemEnderFlight = Cfg.getItem("item.enderFlight.id", startItemID, null); startItemID++;
 
 //		Cfg.itemChromaSprayer = Cfg.getItem("item.chromaSprayer.id", startItemID, null); startItemID++;
 
