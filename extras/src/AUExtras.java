@@ -482,7 +482,7 @@ public class AUExtras {
 				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.carpet, 1, c), new ItemStack(Block.carpet), true);
 		#endif
 
-		#if !defined MC152 && !defined MC162 && !defined MC164
+		#if !defined MC152 && !defined MC164
 			// vanilla stained glass (1.7)
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(glass), new ItemStack(Block.stained_glass), true);
 			for(int c = 0; c < 16; c++)

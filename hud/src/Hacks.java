@@ -35,9 +35,7 @@ public class Hacks {
 					Hacks.gamePausedFieldInstance.setAccessible(true);
 				} catch(NoSuchFieldException e1){
 					try {
-						#ifdef MC162
-						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("V");
-						#elif defined MC164
+						#ifdef MC164
 						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("V");
 						#elif defined MC172
 						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("T");
@@ -86,9 +84,7 @@ public class Hacks {
 					Hacks.serverDataFieldInstance.setAccessible(true);
 				} catch(NoSuchFieldException e1){
 					try {
-						#ifdef MC162
-						Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("M");
-						#elif defined MC164
+						#ifdef MC164
 						Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("M");
 						#elif defined MC172
 						Hacks.serverDataFieldInstance = Minecraft.class.getDeclaredField("K");
@@ -134,8 +130,6 @@ public class Hacks {
 						Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("X");
 						#elif defined MC152
 						Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("X");
-						#elif defined MC162
-						Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("Y");
 						#elif defined MC164
 						Hacks.cameraZoomFieldInstance = EntityRenderer.class.getDeclaredField("Y");
 						#elif defined MC172

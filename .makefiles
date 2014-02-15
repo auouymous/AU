@@ -9,10 +9,6 @@ else ifeq ($(VER),152)
 	GRADLE := no
 	ASSETS := mods
 	NO_BLOCKS := true
-else ifeq ($(VER),162)
-	DOTVER := 1.6.2
-	GRADLE := no
-	ASSETS := assets
 else ifeq ($(VER),164)
 	DOTVER := 1.6.4
 	GRADLE := no
@@ -22,7 +18,7 @@ else ifeq ($(VER),172)
 	GRADLE := yes
 	ASSETS := assets
 else
-$(error No version specified, call with v=147|152|162|164|172)
+$(error No version specified, call with v=147|152|164|172)
 endif
 
 ifeq ($(GRADLE),no)
