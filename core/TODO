@@ -1,3 +1,5 @@
+- remove all support for 1.5.2
+
 - need to create and store ResourceLocation objects and pass to UI.bindTexture() instead of allocating on each call
 
 - Widget class

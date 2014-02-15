@@ -3,6 +3,8 @@
 	cpw.mods.fml.common.Mod.Init			@Init
 	cpw.mods.fml.common.Mod.PostInit		@PostInit
 
+- remove all support for 1.5.2
+
 - MC18x
 	- remove recipe to craft chiseled stone bricks
 
