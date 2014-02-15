@@ -1,7 +1,6 @@
 package com.qzx.au.extras;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -33,11 +32,10 @@ import com.qzx.au.core.TileEntityAU;
 public class BlockEnderCube extends Block implements ITileEntityProvider {
 	public static final int nrPortalParticles = 128;
 
-	public BlockEnderCube(int id, String name, String readableName){
+	public BlockEnderCube(int id, String name){
 		super(id, Material.rock);
 		this.setUnlocalizedName(name);
 		GameRegistry.registerBlock(this, name);
-		LanguageRegistry.addName(this, readableName);
 
 		this.disableStats();
 	}

@@ -1,6 +1,5 @@
 package com.qzx.au.extras;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -20,15 +19,9 @@ public class ItemFlowerDye extends ItemDye {
 	@SideOnly(Side.CLIENT)
 	private Icon[] itemIcons;
 
-	public ItemFlowerDye(int id, String name, String readableName){
+	public ItemFlowerDye(int id, String name){
 		super(id);
 		this.setUnlocalizedName(name);
-
-		LanguageRegistry.addName(new ItemStack(this, 1, 0), Color.readableColors[0]+readableName);
-		LanguageRegistry.addName(new ItemStack(this, 1, 2), Color.readableColors[2]+readableName);
-		LanguageRegistry.addName(new ItemStack(this, 1, 3), Color.readableColors[3]+readableName);
-		LanguageRegistry.addName(new ItemStack(this, 1, 4), Color.readableColors[4]+readableName);
-		LanguageRegistry.addName(new ItemStack(this, 1, 15), Color.readableColors[15]+readableName);
 	}
 
 	@Override

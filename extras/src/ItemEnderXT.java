@@ -1,6 +1,5 @@
 package com.qzx.au.extras;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -27,11 +26,10 @@ public class ItemEnderXT extends Item {
 	@SideOnly(Side.CLIENT)
 	private Icon enabledIcon;
 
-	public ItemEnderXT(int id, String name, String readableName){
+	public ItemEnderXT(int id, String name){
 		super(id);
 		this.setMaxStackSize(1);
 		this.setUnlocalizedName(name);
-		LanguageRegistry.addName(this, readableName);
 
 		this.setMaxDamage(ItemEnderStar.MAX_DAMAGE);
 		this.setFull3D();

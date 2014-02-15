@@ -1,7 +1,6 @@
 package com.qzx.au.extras;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -36,11 +35,10 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 	@SideOnly(Side.CLIENT)
 	private Icon blockIcon_water;
 
-	public BlockChromaInfuser(int id, String name, String readableName){
+	public BlockChromaInfuser(int id, String name){
 		super(id, Material.iron);
 		this.setUnlocalizedName(name);
 		GameRegistry.registerBlock(this, name);
-		LanguageRegistry.addName(this, readableName);
 
 		this.disableStats();
 	}

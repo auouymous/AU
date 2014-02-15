@@ -1,7 +1,6 @@
 package com.qzx.au.extras;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -43,14 +42,10 @@ public class BlockArtificialGrass extends BlockGrass {
 		0x46ab2e, // 16	white		jungle [-]			bright green [dark]
 	};
 
-	public BlockArtificialGrass(int id, String name, String readableName){
+	public BlockArtificialGrass(int id, String name){
 		super(id);
 		this.setUnlocalizedName(name);
 		GameRegistry.registerBlock(this, ItemBlockArtificialGrass.class, name);
-		for(int s = 0; s < 16; s++){
-			ItemStack shadedStack = new ItemStack(this, 1, s);
-			LanguageRegistry.addName(shadedStack, readableName+(s+1));
-		}
 
 		// won't spread to dirt
 		this.setTickRandomly(false);

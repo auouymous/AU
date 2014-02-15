@@ -1,7 +1,6 @@
 package com.qzx.au.extras;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -21,17 +20,13 @@ public class BlockColored extends Block {
 	@SideOnly(Side.CLIENT)
 	private Icon[] blockIcons;
 
-	public BlockColored(int id, String name, String readableName, Class<? extends ItemBlock> itemblockclass, Material material){
+	public BlockColored(int id, String name, Class<? extends ItemBlock> itemblockclass, Material material){
 		super(id, material);
 		this.setUnlocalizedName(name);
 		if(itemblockclass != null)
 			GameRegistry.registerBlock(this, itemblockclass, name);
 		else
 			GameRegistry.registerBlock(this, name);
-		for(int c = 0; c < 16; c++){
-			ItemStack coloredStack = new ItemStack(this, 1, c);
-			LanguageRegistry.addName(coloredStack, Color.readableColors[c]+readableName);
-		}
 	}
 
 	@Override

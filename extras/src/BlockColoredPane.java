@@ -34,8 +34,8 @@ public class BlockColoredPane extends BlockColored {
 	private boolean hasConnectedTextures;
 	private int renderInPass;
 
-	public BlockColoredPane(int id, String name, String readableName, Class<? extends ItemBlock> itemblockclass, Material material, Block parentBlock, boolean hasConnectedTextures, int pass){
-		super(id, name, readableName, itemblockclass, material);
+	public BlockColoredPane(int id, String name, Class<? extends ItemBlock> itemblockclass, Material material, Block parentBlock, boolean hasConnectedTextures, int pass){
+		super(id, name, itemblockclass, material);
 		this.parentBlock = parentBlock;
 		this.hasConnectedTextures = hasConnectedTextures;
 		this.renderInPass = pass;

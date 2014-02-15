@@ -29,8 +29,8 @@ public class BlockLamp extends BlockColored {
 	private boolean inverted = false;
 	private boolean powered = false;
 
-	public BlockLamp(int id, String name, String readableName, boolean inverted, boolean powered){
-		super(id, name, readableName, (powered ? null : (inverted ? ItemBlockInvertedLamp.class : ItemBlockLamp.class)), Material.glass);
+	public BlockLamp(int id, String name, boolean inverted, boolean powered){
+		super(id, name, (powered ? null : (inverted ? ItemBlockInvertedLamp.class : ItemBlockLamp.class)), Material.glass);
 		if(inverted != powered)
 			this.setLightValue(Light.level[15]);
 		this.inverted = inverted;

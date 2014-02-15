@@ -124,10 +124,9 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableChromaInfuser){
-			this.blockChromaInfuser = new BlockChromaInfuser(Cfg.blockChromaInfuser, "au.chromaInfuser", "Chroma Infuser")
+			this.blockChromaInfuser = new BlockChromaInfuser(Cfg.blockChromaInfuser, "au.chromaInfuser")
 				.setHardness(2.0F)
 				.setResistance(10.0F)
-//				.setLightOpacity(191) // 25% transparent
 				.setStepSound(Block.soundMetalFootstep)
 				.setCreativeTab(AUExtras.tabAU);
 			MinecraftForge.setBlockHarvestLevel(this.blockChromaInfuser, "pickaxe", 0); // wooden pickaxe
@@ -140,7 +139,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableCobble){
-			this.blockCobble = new BlockColored(Cfg.blockCobble, "au.colorCobble", " Cobblestone", ItemBlockCobble.class, Material.rock)
+			this.blockCobble = new BlockColored(Cfg.blockCobble, "au.colorCobble", ItemBlockCobble.class, Material.rock)
 				.setHardness(2.0F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -158,15 +157,13 @@ public class AUExtras {
 			// stairs
 			if(Cfg.enableCobbleStairs)
 				for(int c = 0; c < 16; c++)
-					this.blockCobbleStairs[c] = new BlockStairsColored(Cfg.blockCobbleStairs+c, "au.colorCobbleStairs."+Color.colors[c],
-															Color.readableColors[c]+" Cobblestone Stairs",
-															this.blockCobble, c);
+					this.blockCobbleStairs[c] = new BlockStairsColored(Cfg.blockCobbleStairs+c, "au.colorCobbleStairs."+Color.colors[c], this.blockCobble, c);
 		}
 
 		//////////
 
 		if(Cfg.enableStone){
-			this.blockStone = new BlockColored(Cfg.blockStone, "au.colorStone", " Stone", ItemBlockStone.class, Material.rock)
+			this.blockStone = new BlockColored(Cfg.blockStone, "au.colorStone", ItemBlockStone.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -184,15 +181,13 @@ public class AUExtras {
 			// stairs
 			if(Cfg.enableStoneStairs)
 				for(int c = 0; c < 16; c++)
-					this.blockStoneStairs[c] = new BlockStairsColored(Cfg.blockStoneStairs+c, "au.colorStoneStairs."+Color.colors[c],
-															Color.readableColors[c]+" Stone Stairs",
-															this.blockStone, c);
+					this.blockStoneStairs[c] = new BlockStairsColored(Cfg.blockStoneStairs+c, "au.colorStoneStairs."+Color.colors[c], this.blockStone, c);
 		}
 
 		//////////
 
 		if(Cfg.enableStoneBrick){
-			this.blockStoneBrick = new BlockColored(Cfg.blockStoneBrick, "au.colorStoneBrick", " Stone Brick", ItemBlockStoneBrick.class, Material.rock)
+			this.blockStoneBrick = new BlockColored(Cfg.blockStoneBrick, "au.colorStoneBrick", ItemBlockStoneBrick.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -210,15 +205,13 @@ public class AUExtras {
 			// stairs
 			if(Cfg.enableStoneBrickStairs)
 				for(int c = 0; c < 16; c++)
-					this.blockStoneBrickStairs[c] = new BlockStairsColored(Cfg.blockStoneBrickStairs+c, "au.colorStoneBrickStairs."+Color.colors[c],
-															Color.readableColors[c]+" Stone Brick Stairs",
-															this.blockStoneBrick, c);
+					this.blockStoneBrickStairs[c] = new BlockStairsColored(Cfg.blockStoneBrickStairs+c, "au.colorStoneBrickStairs."+Color.colors[c], this.blockStoneBrick, c);
 		}
 
 		//////////
 
 		if(Cfg.enableChiseledBrick){
-			this.blockChiseledBrick = new BlockColored(Cfg.blockChiseledBrick, "au.colorChiseledBrick", " Chiseled Brick", ItemBlockChiseledBrick.class, Material.rock)
+			this.blockChiseledBrick = new BlockColored(Cfg.blockChiseledBrick, "au.colorChiseledBrick", ItemBlockChiseledBrick.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -240,7 +233,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableSmoothBrick){
-			this.blockSmoothBrick = new BlockColored(Cfg.blockSmoothBrick, "au.colorSmoothBrick", " Smooth Brick", ItemBlockSmoothBrick.class, Material.rock)
+			this.blockSmoothBrick = new BlockColored(Cfg.blockSmoothBrick, "au.colorSmoothBrick", ItemBlockSmoothBrick.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -258,15 +251,13 @@ public class AUExtras {
 			// stairs
 			if(Cfg.enableSmoothBrickStairs)
 				for(int c = 0; c < 16; c++)
-					this.blockSmoothBrickStairs[c] = new BlockStairsColored(Cfg.blockSmoothBrickStairs+c, "au.colorSmoothBrickStairs."+Color.colors[c],
-															Color.readableColors[c]+" Smooth Brick Stairs",
-															this.blockSmoothBrick, c);
+					this.blockSmoothBrickStairs[c] = new BlockStairsColored(Cfg.blockSmoothBrickStairs+c, "au.colorSmoothBrickStairs."+Color.colors[c], this.blockSmoothBrick, c);
 		}
 
 		//////////
 
 		if(Cfg.enableGravel){
-			this.blockGravel = new BlockColored(Cfg.blockGravel, "au.colorGravel", " Gravel", ItemBlockGravel.class, Material.sand)
+			this.blockGravel = new BlockColored(Cfg.blockGravel, "au.colorGravel", ItemBlockGravel.class, Material.sand)
 				.setHardness(0.6F)
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGravelFootstep)
@@ -285,7 +276,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableGlass){
-			this.blockGlass = new BlockGlass(Cfg.blockGlass, "au.colorGlass", " Glass", ItemBlockGlass.class, 0)
+			this.blockGlass = new BlockGlass(Cfg.blockGlass, "au.colorGlass", ItemBlockGlass.class, 0)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -303,7 +294,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableGlassTinted){
-			this.blockGlassTinted = new BlockGlass(Cfg.blockGlassTinted, "au.colorGlassTinted", " Tinted Glass", ItemBlockGlassTinted.class, 1)
+			this.blockGlassTinted = new BlockGlass(Cfg.blockGlassTinted, "au.colorGlassTinted", ItemBlockGlassTinted.class, 1)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -321,7 +312,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableGlassTintedNoFrame){
-			this.blockGlassTintedNoFrame = new BlockGlass(Cfg.blockGlassTintedNoFrame, "au.colorGlassTintedNoFrame", " Tinted Glass (Frameless)", ItemBlockGlassTintedNoFrame.class, 2)
+			this.blockGlassTintedNoFrame = new BlockGlass(Cfg.blockGlassTintedNoFrame, "au.colorGlassTintedNoFrame", ItemBlockGlassTintedNoFrame.class, 2)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -339,7 +330,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableGlassPane){
-			this.blockGlassPane = new BlockColoredPane(Cfg.blockGlassPane, "au.colorGlassPane", " Glass Pane", ItemBlockGlassPane.class, Material.glass, this.blockGlass, true, 0)
+			this.blockGlassPane = new BlockColoredPane(Cfg.blockGlassPane, "au.colorGlassPane", ItemBlockGlassPane.class, Material.glass, this.blockGlass, true, 0)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -361,8 +352,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableGlassPaneTinted){
-			this.blockGlassPaneTinted = new BlockColoredPane(Cfg.blockGlassPaneTinted, "au.colorGlassPaneTinted", " Tinted Glass Pane",
-																ItemBlockGlassPaneTinted.class, Material.glass, this.blockGlassTinted, true, 1)
+			this.blockGlassPaneTinted = new BlockColoredPane(Cfg.blockGlassPaneTinted, "au.colorGlassPaneTinted", ItemBlockGlassPaneTinted.class, Material.glass, this.blockGlassTinted, true, 1)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -384,7 +374,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableGlassPaneTintedNoFrame){
-			this.blockGlassPaneTintedNoFrame = new BlockColoredPane(Cfg.blockGlassPaneTintedNoFrame, "au.colorGlassPaneTintedNoFrame", " Tinted Glass Pane (Frameless)",
+			this.blockGlassPaneTintedNoFrame = new BlockColoredPane(Cfg.blockGlassPaneTintedNoFrame, "au.colorGlassPaneTintedNoFrame",
 																	ItemBlockGlassPaneTintedNoFrame.class, Material.glass, this.blockGlassTintedNoFrame, false, 1)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
@@ -461,7 +451,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableIronBars){
-			this.blockIronBars = new BlockColoredPane(Cfg.blockIronBars, "au.colorIronBars", " Iron Bars", ItemBlockIronBars.class, Material.iron, null, false, 0)
+			this.blockIronBars = new BlockColoredPane(Cfg.blockIronBars, "au.colorIronBars", ItemBlockIronBars.class, Material.iron, null, false, 0)
 				.setHardness(5.0F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundMetalFootstep)
@@ -506,12 +496,12 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableLamps){
-			this.blockLamp = new BlockLamp(Cfg.blockLamp, "au.colorLamp", " Lamp", false, false)
+			this.blockLamp = new BlockLamp(Cfg.blockLamp, "au.colorLamp", false, false)
 				.setHardness(0.6F)
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGlassFootstep)
 				.setCreativeTab(AUExtras.tabAU);
-			this.blockLampPowered = new BlockLamp(Cfg.blockLampPowered, "au.colorLampPowered", " Lamp", false, true)
+			this.blockLampPowered = new BlockLamp(Cfg.blockLampPowered, "au.colorLampPowered", false, true)
 				.setHardness(0.6F)
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGlassFootstep);
@@ -538,12 +528,12 @@ public class AUExtras {
 
 			//////////
 
-			this.blockInvertedLamp = new BlockLamp(Cfg.blockInvertedLamp, "au.colorInvertedLamp", " Inverted Lamp", true, false)
+			this.blockInvertedLamp = new BlockLamp(Cfg.blockInvertedLamp, "au.colorInvertedLamp", true, false)
 				.setHardness(0.6F)
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGlassFootstep)
 				.setCreativeTab(AUExtras.tabAU);
-			this.blockInvertedLampPowered = new BlockLamp(Cfg.blockInvertedLampPowered, "au.colorInvertedLampPowered", " Inverted Lamp", true, true)
+			this.blockInvertedLampPowered = new BlockLamp(Cfg.blockInvertedLampPowered, "au.colorInvertedLampPowered", true, true)
 				.setHardness(0.6F)
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGlassFootstep);
@@ -636,17 +626,17 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableFlowers){
-			this.blockFlower = new BlockFlower(Cfg.blockFlower, "au.colorFlower", " Flower")
+			this.blockFlower = new BlockFlower(Cfg.blockFlower, "au.colorFlower")
 				.setHardness(0.0F)
 				.setResistance(0.0F)
 				.setStepSound(Block.soundGrassFootstep)
 				.setCreativeTab(AUExtras.tabAU);
-			this.blockFlowerSeed = new BlockFlowerSeed(Cfg.blockFlowerSeed, "au.colorFlowerSeed", "Flower Seed")
+			this.blockFlowerSeed = new BlockFlowerSeed(Cfg.blockFlowerSeed, "au.colorFlowerSeed")
 				.setHardness(0.0F)
 				.setResistance(0.0F)
 				.setStepSound(Block.soundGrassFootstep)
 				.setCreativeTab(AUExtras.tabAU);
-			this.itemFlowerDye = new ItemFlowerDye(Cfg.itemFlowerDye, "au.colorFlowerDye", " Dye")
+			this.itemFlowerDye = new ItemFlowerDye(Cfg.itemFlowerDye, "au.colorFlowerDye")
 				.setCreativeTab(AUExtras.tabAU);
 
 			// bonemeal grass grows flowers
@@ -688,7 +678,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableEnderCube){
-			this.blockEnderCube = new BlockEnderCube(Cfg.blockEnderCube, "au.enderCube", "Ender Cube")
+			this.blockEnderCube = new BlockEnderCube(Cfg.blockEnderCube, "au.enderCube")
 				.setHardness(5.0F)
 				.setResistance(25.0F)
 				.setLightValue(Light.level[15])
@@ -702,7 +692,7 @@ public class AUExtras {
 									'o', new ItemStack(Block.obsidian), 'e', new ItemStack(Item.eyeOfEnder), 'r', redstoneDust, 'x', new ItemStack(Item.ingotGold));
 
 			if(Cfg.enableEnderStar){
-				this.itemEnderStar = new ItemEnderStar(Cfg.itemEnderStar, "au.enderStar", "Ender Star")
+				this.itemEnderStar = new ItemEnderStar(Cfg.itemEnderStar, "au.enderStar")
 					.setCreativeTab(AUExtras.tabAU);
 				ItemStack enderStar = new ItemStack(this.itemEnderStar);
 
@@ -723,7 +713,7 @@ public class AUExtras {
 				}
 
 				if(Cfg.enableEnderWand){
-					this.itemEnderWand = new ItemEnderWand(Cfg.itemEnderWand, "au.enderWand", "Ender Wand [WIP]")
+					this.itemEnderWand = new ItemEnderWand(Cfg.itemEnderWand, "au.enderWand")
 						.setCreativeTab(AUExtras.tabAU);
 					ItemStack enderWand = new ItemStack(this.itemEnderWand);
 
@@ -731,14 +721,14 @@ public class AUExtras {
 					GameRegistry.addRecipe(enderWand, " ds", " gd", "g  ", 's', enderStar, 'd', new ItemStack(Item.diamond), 'g', new ItemStack(Item.ingotGold));
 				}
 				if(Cfg.enableEnderMagnet){
-					this.itemEnderMagnet = new ItemEnderMagnet(Cfg.itemEnderMagnet, "au.enderMagnet", "Ender Magnet [WIP]")
+					this.itemEnderMagnet = new ItemEnderMagnet(Cfg.itemEnderMagnet, "au.enderMagnet")
 						.setCreativeTab(AUExtras.tabAU);
 					ItemStack enderMagnet = new ItemStack(this.itemEnderMagnet);
 
 					// CRAFT 5 ender stars + 2 diamonds -> ender magnet
 					GameRegistry.addRecipe(enderMagnet, "s s", "s s", "dsd", 's', enderStar, 'd', new ItemStack(Item.diamond));
 					if(Cfg.enableEnderXT){
-						this.itemEnderXT = new ItemEnderXT(Cfg.itemEnderXT, "au.enderXT", "Ender XT [WIP]")
+						this.itemEnderXT = new ItemEnderXT(Cfg.itemEnderXT, "au.enderXT")
 							.setCreativeTab(AUExtras.tabAU);
 						ItemStack enderXT = new ItemStack(this.itemEnderXT);
 
@@ -752,7 +742,7 @@ public class AUExtras {
 		//////////
 
 		if(Cfg.enableArtificialGrass){
-			this.blockArtificialGrass = new BlockArtificialGrass(Cfg.blockArtificialGrass, "au.artificialGrass", "Artificial Grass #")
+			this.blockArtificialGrass = new BlockArtificialGrass(Cfg.blockArtificialGrass, "au.artificialGrass")
 				.setHardness(0.6F)
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGrassFootstep)
@@ -770,7 +760,7 @@ public class AUExtras {
 
 		// SMELT egg -> fried egg
 		if(Cfg.enableFriedEgg){
-			this.itemFriedEgg = new ItemFoodGeneric(Cfg.itemFriedEgg, 64, "au.friedEgg", "Fried Egg", 2, 0.4F, false)
+			this.itemFriedEgg = new ItemFoodGeneric(Cfg.itemFriedEgg, 64, "au.friedEgg", 2, 0.4F, false)
 				.setCreativeTab(AUExtras.tabAU);
 			GameRegistry.addSmelting(Item.egg.itemID, new ItemStack(this.itemFriedEgg), 1.0f);
 		}
@@ -778,7 +768,7 @@ public class AUExtras {
 		// SMELT rotten flesh -> cooked flesh
 		ItemStack cookedFlesh = null;
 		if(Cfg.enableCookedFlesh){
-			this.itemCookedFlesh = new ItemFoodGeneric(Cfg.itemCookedFlesh, 64, "au.cookedFlesh", "Cooked Flesh", 2, 0.2F, false)
+			this.itemCookedFlesh = new ItemFoodGeneric(Cfg.itemCookedFlesh, 64, "au.cookedFlesh", 2, 0.2F, false)
 				.setCreativeTab(AUExtras.tabAU);
 			cookedFlesh = new ItemStack(this.itemCookedFlesh);
 			GameRegistry.addSmelting(Item.rottenFlesh.itemID, cookedFlesh, 1.0f);

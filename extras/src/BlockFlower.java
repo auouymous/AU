@@ -33,8 +33,8 @@ public class BlockFlower extends BlockColored implements IPlantable {
 	@SideOnly(Side.CLIENT)
 	private Icon[] flowerIcons;
 
-	public BlockFlower(int id, String name, String readableName){
-		super(id, name, readableName, ItemBlockFlower.class, Material.plants);
+	public BlockFlower(int id, String name){
+		super(id, name, ItemBlockFlower.class, Material.plants);
 		this.setTickRandomly(true);
 	}
 

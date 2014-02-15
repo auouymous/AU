@@ -1,7 +1,6 @@
 package com.qzx.au.extras;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -31,12 +30,10 @@ public class BlockFlowerSeed extends Block implements IPlantable {
 
 	public static final float y_offset = 0.0625F;
 
-	public BlockFlowerSeed(int id, String name, String readableName){
+	public BlockFlowerSeed(int id, String name){
 		super(id, Material.plants);
 		this.setUnlocalizedName(name);
 		GameRegistry.registerBlock(this, ItemBlockFlowerSeed.class, name);
-		LanguageRegistry.addName(new ItemStack(this, 1, 0), readableName);
-		LanguageRegistry.addName(new ItemStack(this, 1, 1), readableName);
 
 		this.setTickRandomly(true);
 	}

@@ -23,8 +23,8 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 
 	private int style;
 
-	public BlockGlass(int id, String name, String readableName, Class<? extends ItemBlock> itemblockclass, int style){
-		super(id, name, readableName, itemblockclass, Material.glass);
+	public BlockGlass(int id, String name, Class<? extends ItemBlock> itemblockclass, int style){
+		super(id, name, itemblockclass, Material.glass);
 		this.style = style;
 	}
 

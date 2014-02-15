@@ -1,6 +1,5 @@
 package com.qzx.au.extras;
 
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -14,11 +13,10 @@ public class ItemEnderStar extends Item {
 	public static int CHARGE_PER_EYE = 500;
 	public static int MAX_DAMAGE = 24*ItemEnderStar.CHARGE_PER_EYE;
 
-	public ItemEnderStar(int id, String name, String readableName){
+	public ItemEnderStar(int id, String name){
 		super(id);
 		this.setMaxStackSize(1);
 		this.setUnlocalizedName(name);
-		LanguageRegistry.addName(this, readableName);
 
 		this.setMaxDamage(ItemEnderStar.MAX_DAMAGE);
 	}
