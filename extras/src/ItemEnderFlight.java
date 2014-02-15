@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -85,6 +86,16 @@ public class ItemEnderFlight extends Item {
 //		- increases damage by 50%
 
 		return itemstack;
+	}
+
+	@Override
+	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity){
+
+// TODO: inflict about 10 damage to entity
+//	- weakness effect when enabled will cause it to do less
+//	- weakness effect lasts about 5-10 seconds after disabling to prevent "drop in" attacks
+
+		return false;
 	}
 
 	private boolean isFlightEnabled(ItemStack itemstack){

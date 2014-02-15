@@ -42,6 +42,14 @@ public class ItemEnderStar extends Item {
 		// refill using eyes of ender in hotbar
 		ItemEnderStar.consumeEyeOfEnder(itemstack, player);
 
+// TODO: only refill if shift-right clicking
+
+// TODO: right click could teleport player upto 32 blocks in direction player is looking
+//	- decrease durability by 8+ per block travelled
+//	- stops at first obstruction
+//	- teleportion is instant, not delayed like ender pearls
+//		- but destination can place player far above the ground
+
 		return itemstack;
 	}
 

@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -86,6 +87,16 @@ public class ItemEnderMagnet extends Item {
 //		- increases damage by 50%
 
 		return itemstack;
+	}
+
+	@Override
+	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity){
+
+// TODO: teleport entity upto 16 blocks in direction player is looking
+//	- stops at the first obstruction
+//	- decrease durability by 16 per block teleported
+
+		return false;
 	}
 
 	private boolean isMagnetEnabled(ItemStack itemstack){
