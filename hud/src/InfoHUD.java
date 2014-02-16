@@ -645,18 +645,23 @@ public class InfoHUD {
 								// creative tab name
 								try {
 									CreativeTabs tab = block.getCreativeTabToDisplayOn();
-									String tabName = "";
+									if(tab == null){
+										ItemStack stackPicked = block.getPickBlock(mc.objectMouseOver, world, inspectX, inspectY, inspectZ);
+										tab = stackPicked.getItem().getCreativeTab();
+									}
 									if(tab != null){
 										#if defined MC147 || defined MC152
-										tabName = tab.getTranslatedTabLabel();
+										String tabName = tab.getTranslatedTabLabel();
 										#else
-										tabName = StatCollector.translateToLocal(tab.getTranslatedTabLabel());
+										String tabName = StatCollector.translateToLocal(tab.getTranslatedTabLabel());
 										#endif
-									}
-									if(!tabName.equals("")){
-										this.ui.drawString("   tab ", 0xaaaaaa);
-										this.ui.drawString(tabName, 0xffffff);
-										this.ui.lineBreak();
+										if(tabName.equals(""))
+											tabName = tab.getTabLabel();
+										if(!tabName.equals("")){
+											this.ui.drawString("   tab ", 0xaaaaaa);
+											this.ui.drawString(tabName, 0xffffff);
+											this.ui.lineBreak();
+										}
 									}
 								} catch(Exception e){
 									Failure.log("block inspector, creative tab");
