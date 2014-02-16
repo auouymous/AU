@@ -78,7 +78,7 @@ public class ItemEnderStar extends Item {
 	public static boolean canApplyDamage(ItemStack itemstack, int damage, EntityPlayer player){
 		for(int i = 0; i < 9; i++){
 			ItemStack item = player.inventory.mainInventory[i];
-			if(item != null && item.getItem() == AUExtras.itemEnderStar)
+			if(item != null && item.getItem() == THIS_MOD.itemEnderStar)
 				if(item.getItemDamage() + damage <= ItemEnderStar.MAX_DAMAGE) return true;
 		}
 		return (itemstack.getItemDamage() + damage <= ItemEnderStar.MAX_DAMAGE);
@@ -86,7 +86,7 @@ public class ItemEnderStar extends Item {
 	public static void applyDamage(ItemStack itemstack, int damage, EntityPlayer player){
 		for(int i = 0; i < 9; i++){
 			ItemStack item = player.inventory.mainInventory[i];
-			if(item != null && item.getItem() == AUExtras.itemEnderStar){
+			if(item != null && item.getItem() == THIS_MOD.itemEnderStar){
 				item.setItemDamage(item.getItemDamage() + damage);
 				return;
 			}

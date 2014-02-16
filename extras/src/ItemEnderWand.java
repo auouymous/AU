@@ -128,7 +128,7 @@ public class ItemEnderWand extends Item {
 			// find another wand in hotbar without upgrades and merge with this wand
 			for(int i = 0; i < 9; i++){
 				ItemStack item = player.inventory.mainInventory[i];
-				if(item != null && item.getItem() == AUExtras.itemEnderWand && item != itemstack){
+				if(item != null && item.getItem() == THIS_MOD.itemEnderWand && item != itemstack){
 					if(this.getWandUpgrades(item) == 0){
 						// current itemstack must be damaged or ender wand itemstack won't visually update its quantity
 						player.inventory.mainInventory[i] = null;
@@ -146,7 +146,7 @@ public class ItemEnderWand extends Item {
 			// find an ender cube in hotbar and merge with this wand
 			for(int i = 0; i < 9; i++){
 				ItemStack item = player.inventory.mainInventory[i];
-				if(item != null && item.getItem() instanceof ItemBlock && item.getItem().itemID == AUExtras.blockEnderCube.blockID){
+				if(item != null && item.getItem() instanceof ItemBlock && item.getItem().itemID == THIS_MOD.blockEnderCube.blockID){
 					// current itemstack must be damaged or ender cube itemstack won't visually update its quantity
 					item.stackSize--;
 					if(item.stackSize == 0) player.inventory.mainInventory[i] = null;

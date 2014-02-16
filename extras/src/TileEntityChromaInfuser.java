@@ -137,7 +137,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		this.updateInput(this.getInput());
 
 		if(server){
-			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_SET_RECIPE,
+			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, THIS_MOD.packetChannel, Packets.CLIENT_CHROMA_SET_RECIPE,
 										this.xCoord, this.yCoord, this.zCoord, (byte)button.ordinal());
 			this.markChunkModified();
 		}
@@ -151,7 +151,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		this.outputTick = 0;
 
 		if(server){
-			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_SET_LOCK,
+			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, THIS_MOD.packetChannel, Packets.CLIENT_CHROMA_SET_LOCK,
 										this.xCoord, this.yCoord, this.zCoord, locked);
 			this.markChunkModified();
 		}
@@ -168,7 +168,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		this.dyeVolume = 0;
 
 		if(server){
-			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_RESET_WATER,
+			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, THIS_MOD.packetChannel, Packets.CLIENT_CHROMA_RESET_WATER,
 										this.xCoord, this.yCoord, this.zCoord);
 			this.markChunkModified();
 
@@ -198,7 +198,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 				itemstack.stackSize--;
 				if(itemstack.stackSize == 0) this.slotContents[TileEntityChromaInfuser.SLOT_DYE_INPUT] = null;
 
-				PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_SET_COLOR,
+				PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, THIS_MOD.packetChannel, Packets.CLIENT_CHROMA_SET_COLOR,
 											this.xCoord, this.yCoord, this.zCoord, (byte)color);
 				this.markChunkModified();
 			}
@@ -244,7 +244,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		this.dyeVolume--;
 		this.consumeDye();
 
-		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUExtras.packetChannel, Packets.CLIENT_CHROMA_UPDATE_OUTPUT,
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, THIS_MOD.packetChannel, Packets.CLIENT_CHROMA_UPDATE_OUTPUT,
 									this.xCoord, this.yCoord, this.zCoord, this.dyeVolume);
 		this.markChunkModified();
 	}

@@ -57,8 +57,8 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 	// called be renderer
 	@SideOnly(Side.CLIENT)
 	public static Icon getIconByName(String s){
-		return s == "inner" ? ((BlockChromaInfuser)AUExtras.blockChromaInfuser).blockIcon_inner
-			: (s == "bottom" ? ((BlockChromaInfuser)AUExtras.blockChromaInfuser).blockIcon_bottom : null);
+		return s == "inner" ? ((BlockChromaInfuser)THIS_MOD.blockChromaInfuser).blockIcon_inner
+			: (s == "bottom" ? ((BlockChromaInfuser)THIS_MOD.blockChromaInfuser).blockIcon_bottom : null);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 
 	@SideOnly(Side.CLIENT)
 	public static Icon getWaterIcon(){
-		return ((BlockChromaInfuser)AUExtras.blockChromaInfuser).blockIcon_water;
+		return ((BlockChromaInfuser)THIS_MOD.blockChromaInfuser).blockIcon_water;
 	}
 
 	@Override
@@ -156,7 +156,7 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ){
 		if(world.isRemote) return true;
 
-		player.openGui(AUExtras.instance, Guis.TILE_GUI, world, x, y, z);
+		player.openGui(THIS_MOD.instance, Guis.TILE_GUI, world, x, y, z);
 		return true;
 	}
 

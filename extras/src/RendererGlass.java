@@ -28,7 +28,7 @@ public class RendererGlass implements ISimpleBlockRenderingHandler {
 
 		// render untinted frame over the tinted glass
 		if(((BlockGlass)block).renderInPass0())
-			RenderUtils.renderInventoryBlock(block, renderer, AUExtras.blockGlass.getIcon(0, metadata));
+			RenderUtils.renderInventoryBlock(block, renderer, THIS_MOD.blockGlass.getIcon(0, metadata));
 	}
 
 	@Override

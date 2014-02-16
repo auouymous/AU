@@ -53,7 +53,7 @@ public class BlockColoredPane extends BlockColored {
 			this.blockIcons = new Icon[16][1];
 			for(int c = 0; c < 16; c++)
 				this.blockIcons[c][0] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c);
-		} else if(this.parentBlock == AUExtras.blockGlassTinted || this.parentBlock == AUExtras.blockGlassTintedNoFrame){
+		} else if(this.parentBlock == THIS_MOD.blockGlassTinted || this.parentBlock == THIS_MOD.blockGlassTintedNoFrame){
 			this.blockIcons = new Icon[16][1];
 			for(int c = 0; c < 16; c++)
 				this.blockIcons[c][0] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "").replace("Pane", "")+c+"-item");

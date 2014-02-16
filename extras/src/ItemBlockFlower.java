@@ -11,6 +11,6 @@ public class ItemBlockFlower extends ItemBlockColored {
 
 	@Override
 	public Icon getIconFromDamage(int color){
-		return ((BlockFlower)AUExtras.blockFlower).getItemIcon(color);
+		return ((BlockFlower)THIS_MOD.blockFlower).getItemIcon(color);
 	}
 }

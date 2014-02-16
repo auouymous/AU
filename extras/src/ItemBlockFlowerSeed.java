@@ -13,6 +13,6 @@ public class ItemBlockFlowerSeed extends ItemBlock {
 
 	@Override
 	public Icon getIconFromDamage(int stage){
-		return ((BlockFlowerSeed)AUExtras.blockFlowerSeed).getItemIcon(stage);
+		return ((BlockFlowerSeed)THIS_MOD.blockFlowerSeed).getItemIcon(stage);
 	}
 }

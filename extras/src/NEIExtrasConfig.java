@@ -34,6 +34,6 @@ public class NEIExtrasConfig implements IConfigureNEI {
 
 	@Override
 	public String getVersion(){
-		return AUExtras.modVersion;
+		return THIS_MOD.modVersion;
 	}
 }

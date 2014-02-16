@@ -97,6 +97,7 @@ public class Cfg extends Config {
 
 		//////////
 
+		// Blocks
 		Cfg.enableChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.chromaInfuser.enable", true, "enable chroma infuser (uses 1 block ID)");
 		Cfg.rainResetsChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.chromaInfuser.rainResets", true, "rain resets chroma infuser");
 
@@ -136,14 +137,23 @@ public class Cfg extends Config {
 
 		Cfg.enableEnderCube = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enable", true, "enable ender cube (uses 1 block ID)");
 		Cfg.enderCubeDistance = Cfg.getInt(Cfg.CATEGORY_GENERAL, "block.enderCube.distance", 16, "maximum distance between ender cubes");
+
+		Cfg.enableArtificialGrass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.enable", true, "enable artificial grass (uses 1 block ID)");
+
+		// Items
 		Cfg.enableEnderStar = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enable", true, "enable ender star (uses 1 item ID)");
 		Cfg.enableEnderStarInDungeonChests = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.dungeonChests", true, "spawn burned out ender stars in dungeon chests");
 		Cfg.enableEnderWand = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderWand.enable", true, "enable ender wand (uses 1 item ID)");
 		Cfg.enableEnderMagnet = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderMagnet.enable", true, "enable ender magnet (uses 1 item ID)");
 		Cfg.enableEnderXT = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderMagnet.enderXT.enable", true, "enable ender XT (uses 1 item ID)");
 
-		Cfg.enableArtificialGrass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.enable", true, "enable artificial grass (uses 1 block ID)");
+		Cfg.enableFriedEgg = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.friedEgg.enable", true, "enable smelting eggs to edible food");
+		Cfg.enableCookedFlesh = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.enable", true, "enable smelting rotten flesh to edible food");
 
+		Cfg.enableCookedFleshToLeather = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.toLeather", true, "enable crafting cooked flesh to leather");
+		Cfg.nrCookedFleshToLeather = Cfg.getInt(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.toLeather.count", 4, "number of cooked flesh per leather (1-9)");
+
+		// Vanilla Recipes
 		Cfg.enableChiseledBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.chiseledBrick.recipe", true, "enable chiseled brick crafting recipe");
 		Cfg.enableMossyBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mossyBrick.recipe", true, "enable mossy brick crafting recipe");
 		Cfg.enableMossyCobbleCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mossyCobble.recipe", true, "enable mossy cobble crafting recipe");
@@ -151,16 +161,11 @@ public class Cfg extends Config {
 		Cfg.enableGrassBlockCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.grassBlock.recipe", true, "enable grass block crafting recipe");
 		Cfg.enableMyceliumCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mycelium.recipe", true, "enable mycelium crafting recipe");
 
+		// Lighting Hack
 		Cfg.enableLightingHack = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "lightingHack.enable", false,
 								"set light opacity to 0 for vanilla stairs and slabs to prevent dark spots\nlight will however pass through");
 		Cfg.additionalLightingHack = Cfg.getIntList(Cfg.CATEGORY_GENERAL, "lightingHack.additionalIDs", null,
 								"additional block IDs to apply lighting hack, put each ID on its own line, between the <>\ndoes not require lighting hack to be enabled");
-
-		Cfg.enableFriedEgg = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.friedEgg.enable", true, "enable smelting eggs to edible food");
-		Cfg.enableCookedFlesh = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.enable", true, "enable smelting rotten flesh to edible food");
-
-		Cfg.enableCookedFleshToLeather = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.toLeather", true, "enable crafting cooked flesh to leather");
-		Cfg.nrCookedFleshToLeather = Cfg.getInt(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.toLeather.count", 4, "number of cooked flesh per leather (1-9)");
 
 		//////////
 

@@ -10,6 +10,6 @@ public class ItemBlockLamp extends ItemBlockColored {
 
 	@Override
 	public Icon getIconFromDamage(int color){
-		return ((BlockLamp)AUExtras.blockLamp).getIcon(0, color);
+		return THIS_MOD.blockLamp.getIcon(0, color);
 	}
 }

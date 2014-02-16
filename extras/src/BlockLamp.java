@@ -128,7 +128,7 @@ public class BlockLamp extends BlockColored {
 			world.scheduleBlockUpdate(x, y, z, this.blockID, this.tickRate(world));
 		else if(!this.powered && has_power)
 			// change to powered state
-			world.setBlock(x, y, z, (this.inverted ? AUExtras.blockInvertedLampPowered.blockID : AUExtras.blockLampPowered.blockID), world.getBlockMetadata(x, y, z), 2);
+			world.setBlock(x, y, z, (this.inverted ? THIS_MOD.blockInvertedLampPowered.blockID : THIS_MOD.blockLampPowered.blockID), world.getBlockMetadata(x, y, z), 2);
 	}
 
 	@Override
@@ -147,18 +147,18 @@ public class BlockLamp extends BlockColored {
 
 		// change to unpowered state
 		if(this.powered && !world.isBlockIndirectlyGettingPowered(x, y, z))
-			world.setBlock(x, y, z, (this.inverted ? AUExtras.blockInvertedLamp.blockID : AUExtras.blockLamp.blockID), world.getBlockMetadata(x, y, z), 2);
+			world.setBlock(x, y, z, (this.inverted ? THIS_MOD.blockInvertedLamp.blockID : THIS_MOD.blockLamp.blockID), world.getBlockMetadata(x, y, z), 2);
 	}
 
 	@Override
 	public int idDropped(int color, Random random, int unknown){
 		// always drop unpowered block
-		return (this.inverted ? AUExtras.blockInvertedLamp.blockID : AUExtras.blockLamp.blockID);
+		return (this.inverted ? THIS_MOD.blockInvertedLamp.blockID : THIS_MOD.blockLamp.blockID);
 	}
 
 	@Override
 	public int idPicked(World world, int x, int y, int z){
 		// always pick unpowered block
-		return (this.inverted ? AUExtras.blockInvertedLamp.blockID : AUExtras.blockLamp.blockID);
+		return (this.inverted ? THIS_MOD.blockInvertedLamp.blockID : THIS_MOD.blockLamp.blockID);
 	}
 }

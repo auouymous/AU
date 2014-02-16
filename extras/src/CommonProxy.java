@@ -20,7 +20,7 @@ public class CommonProxy implements IGuiHandler {
 	public void registerRenderers(){}
 	public void registerHandlers(){
 		// Gui Handler
-		NetworkRegistry.instance().registerGuiHandler(AUExtras.instance, AUExtras.proxy);
+		NetworkRegistry.instance().registerGuiHandler(THIS_MOD.instance, THIS_MOD.proxy);
 
 		// Tick Handler (server player)
 		TickRegistry.registerTickHandler(this.tickHandlerServerPlayer, Side.SERVER);

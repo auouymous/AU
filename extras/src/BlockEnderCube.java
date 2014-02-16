@@ -26,6 +26,7 @@ import net.minecraftforge.common.ForgeDirection;
 
 import java.util.Random;
 
+import com.qzx.au.core.Light;
 import com.qzx.au.core.RenderUtils;
 import com.qzx.au.core.TileEntityAU;
 
@@ -38,6 +39,8 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 		GameRegistry.registerBlock(this, name);
 
 		this.disableStats();
+
+		this.setLightValue(Light.level[15]);
 	}
 
 	@Override
@@ -140,7 +143,7 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 		if(player.isSneaking()) return false;
 		if(world.isRemote) return true;
 
-		player.openGui(AUExtras.instance, Guis.TILE_GUI, world, x, y, z);
+		player.openGui(THIS_MOD.instance, Guis.TILE_GUI, world, x, y, z);
 		return true;
 	}
 

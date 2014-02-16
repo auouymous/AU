@@ -10,6 +10,6 @@ public class ItemBlockIronBars extends ItemBlockColored {
 
 	@Override
 	public Icon getIconFromDamage(int color){
-		return AUExtras.blockIronBars.getIcon(0, color);
+		return THIS_MOD.blockIronBars.getIcon(0, color);
 	}
 }

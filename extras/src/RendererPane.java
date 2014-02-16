@@ -32,7 +32,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 
 		// render untinted frame over the tinted glass pane
 		if(((BlockColoredPane)block).isTintedWithFrame())
-			RenderUtils.renderInventoryItem(block, renderer, AUExtras.blockGlassPane.getIcon(0, metadata));
+			RenderUtils.renderInventoryItem(block, renderer, THIS_MOD.blockGlassPane.getIcon(0, metadata));
 */
 	}
 

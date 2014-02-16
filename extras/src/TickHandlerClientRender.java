@@ -77,9 +77,9 @@ public class TickHandlerClientRender implements ITickHandler {
 				}
 
 				if(player.movementInput.sneak && !playerSneaking)
-					PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_PLAYER_MOVEMENT, pos_x, pos_y, pos_z, (byte)0);
+					PacketUtils.sendToServer(THIS_MOD.packetChannel, Packets.SERVER_ENDER_PLAYER_MOVEMENT, pos_x, pos_y, pos_z, (byte)0);
 				if(player.movementInput.jump && !playerJumping)
-					PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_PLAYER_MOVEMENT, pos_x, pos_y, pos_z, (byte)1);
+					PacketUtils.sendToServer(THIS_MOD.packetChannel, Packets.SERVER_ENDER_PLAYER_MOVEMENT, pos_x, pos_y, pos_z, (byte)1);
 			}
 			playerJumping = player.movementInput.jump;
 			playerSneaking = player.movementInput.sneak;

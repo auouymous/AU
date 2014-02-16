@@ -11,6 +11,6 @@ public class CreativeTabAUExtras extends CreativeTabs {
 
 	@SideOnly(Side.CLIENT)
 	public int getTabIconItemIndex(){
-		return AUExtras.blockChromaInfuser.blockID;
+		return THIS_MOD.blockChromaInfuser.blockID;
 	}
 }

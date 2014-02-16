@@ -10,6 +10,6 @@ public class ItemBlockGlassPaneTinted extends ItemBlockColored {
 
 	@Override
 	public Icon getIconFromDamage(int color){
-		return AUExtras.blockGlassPaneTinted.getIcon(0, color);
+		return THIS_MOD.blockGlassPaneTinted.getIcon(0, color);
 	}
 }

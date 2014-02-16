@@ -75,7 +75,7 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 		GL11.glDisable(GL11.GL_LIGHTING);
 
 		CachedChromaRecipe cachedRecipe = (CachedChromaRecipe)this.arecipes.get(recipe);
-		UI.bindTexture(Minecraft.getMinecraft(), "au_extras", AUExtras.texturePath+"/gui/container.png");
+		UI.bindTexture(Minecraft.getMinecraft(), "au_extras", THIS_MOD.texturePath+"/gui/container.png");
 
 		// recipe button
 		switch(cachedRecipe.button.ordinal()){

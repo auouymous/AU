@@ -10,6 +10,6 @@ public class ItemBlockInvertedLamp extends ItemBlockColored {
 
 	@Override
 	public Icon getIconFromDamage(int color){
-		return ((BlockLamp)AUExtras.blockInvertedLamp).getIcon(0, color);
+		return THIS_MOD.blockInvertedLamp.getIcon(0, color);
 	}
 }

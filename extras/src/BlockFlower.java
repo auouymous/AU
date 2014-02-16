@@ -150,10 +150,10 @@ public class BlockFlower extends BlockColored implements IPlantable {
 				int color = world.getBlockMetadata(x, y, z);
 
 				// revert to stage 0
-				world.setBlock(x, y, z, AUExtras.blockFlowerSeed.blockID, 0, 2);
+				world.setBlock(x, y, z, THIS_MOD.blockFlowerSeed.blockID, 0, 2);
 
 				// drop flower
-				ItemUtils.dropItemAsEntity(world, x, y, z, new ItemStack(AUExtras.blockFlower, 1, color));
+				ItemUtils.dropItemAsEntity(world, x, y, z, new ItemStack(THIS_MOD.blockFlower, 1, color));
 			}
 		}
 		return false;

@@ -56,7 +56,7 @@ public class GuiChromaInfuser extends GuiContainerAU {
 //				Color waterColor = (new Color(ItemDye.dyeColors[tileEntity.getDyeColor()])).anaglyph();
 //				UI.setColor(waterColor.r, waterColor.g, waterColor.b, 1.0F);
 //				Icon waterIcon = BlockChromaInfuser.getWaterIcon();
-//				UI.bindTexture(this.mc, "au_extras", AUExtras.texturePath+"/blocks/chromaInfuser_water.png");
+//				UI.bindTexture(this.mc, "au_extras", THIS_MOD.texturePath+"/blocks/chromaInfuser_water.png");
 
 				// colored water box
 				int water_height = (height-2) * tileEntity.getDyeVolume() / 8;
@@ -81,7 +81,7 @@ public class GuiChromaInfuser extends GuiContainerAU {
 		UI.setColor(1.0F, 1.0F, 1.0F, 1.0F);
 		int arrow_y_offset = tileEntity.getLocked() ? 0 : (int)(12.0F*tileEntity.getOutputTick());
 		// white arrow image from input to output
-		UI.bindTexture(this.mc, "au_extras", AUExtras.texturePath+"/gui/container.png");
+		UI.bindTexture(this.mc, "au_extras", THIS_MOD.texturePath+"/gui/container.png");
 		if(!tileEntity.getLocked() && arrow_y_offset > 0)
 			UI.drawTexturedRect(this.upperX+1*18+4, this.upperY+2*18-3, 10, 0, 10, arrow_y_offset, 0.0F);
 		// arrow image from input to output
@@ -134,7 +134,7 @@ public class GuiChromaInfuser extends GuiContainerAU {
 	private Button addRecipeButton(ChromaButton id, int textureX, int textureXactive, String tooltip){
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
 						.initState(((TileEntityChromaInfuser)this.tileEntity).getRecipeButton() == id)
-						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 0, textureXactive, 0)
+						.initImage("au_extras", THIS_MOD.texturePath+"/gui/container.png", textureX, 0, textureXactive, 0)
 						.setTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
@@ -142,7 +142,7 @@ public class GuiChromaInfuser extends GuiContainerAU {
 	private Button addLockButton(int id, int textureX, int textureXactive, String tooltip){
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id, null, 12, 12, 0)
 						.initState(!((TileEntityChromaInfuser)this.tileEntity).getLocked())
-						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 0, textureXactive, 0)
+						.initImage("au_extras", THIS_MOD.texturePath+"/gui/container.png", textureX, 0, textureXactive, 0)
 						.setTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
@@ -179,9 +179,9 @@ public class GuiChromaInfuser extends GuiContainerAU {
 	public void actionPerformed(GuiButton button){
 		if(button.id == GuiChromaInfuser.BUTTON_LOCKED){
 			((Button)button).active = ((Button)button).active ? false : true;
-			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_CHROMA_SET_LOCK, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, ((Button)button).active);
+			PacketUtils.sendToServer(THIS_MOD.packetChannel, Packets.SERVER_CHROMA_SET_LOCK, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, ((Button)button).active);
 		} else if(!((Button)button).active){
-			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_CHROMA_SET_RECIPE, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
+			PacketUtils.sendToServer(THIS_MOD.packetChannel, Packets.SERVER_CHROMA_SET_RECIPE, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 		}
 	}
 

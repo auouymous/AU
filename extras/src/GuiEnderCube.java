@@ -49,7 +49,7 @@ public class GuiEnderCube extends GuiContainerAU {
 			GuiEnderCube.update_pcl = false;
 		}
 
-		UI.bindTexture(this.mc, "au_extras", AUExtras.texturePath+"/gui/container.png");
+		UI.bindTexture(this.mc, "au_extras", THIS_MOD.texturePath+"/gui/container.png");
 		UI.drawTexturedRect(this.playerButtons[0].xPosition-17, this.playerButtons[0].yPosition, 2*12,2*12, 12,12, 0.0F);
 		UI.drawTexturedRect(this.directionButtons[0].xPosition-17, this.directionButtons[0].yPosition, 2*12,2*12, 12,12, 0.0F);
 
@@ -61,7 +61,7 @@ public class GuiEnderCube extends GuiContainerAU {
 	private Button addPlayerButton(EnderButton id, int textureX, int textureXactive, String tooltip){
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
 						.initState(((TileEntityEnderCube)this.tileEntity).getPlayerDirection() == id)
-						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 2*12, textureXactive, 2*12)
+						.initImage("au_extras", THIS_MOD.texturePath+"/gui/container.png", textureX, 2*12, textureXactive, 2*12)
 						.setTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
@@ -69,7 +69,7 @@ public class GuiEnderCube extends GuiContainerAU {
 	private Button addDirectionButton(EnderButton id, int textureX, int textureXactive, String tooltip){
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
 						.initState(((TileEntityEnderCube)this.tileEntity).getTeleportDirection() == id)
-						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 1*12, textureXactive, 1*12)
+						.initImage("au_extras", THIS_MOD.texturePath+"/gui/container.png", textureX, 1*12, textureXactive, 1*12)
 						.setTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
@@ -77,14 +77,14 @@ public class GuiEnderCube extends GuiContainerAU {
 	private Button addControlButton(EnderButton id, int textureX, int textureXactive, boolean state, String tooltip){
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
 						.initState(state)
-						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 2*12, textureXactive, 2*12)
+						.initImage("au_extras", THIS_MOD.texturePath+"/gui/container.png", textureX, 2*12, textureXactive, 2*12)
 						.setTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
 	}
 	private Button addPCLButton(EnderButton id, int textureX, String tooltip){
 		Button button = this.ui.newButton(UI.ALIGN_LEFT, id.ordinal(), null, 12, 12, 0)
-						.initImage("au_extras", AUExtras.texturePath+"/gui/container.png", textureX, 1*12, textureX, 1*12)
+						.initImage("au_extras", THIS_MOD.texturePath+"/gui/container.png", textureX, 1*12, textureX, 1*12)
 						.setTooltip(tooltip);
 		this.buttonList.add(button);
 		return button;
@@ -181,7 +181,7 @@ public class GuiEnderCube extends GuiContainerAU {
 				newPCL += (newPCL.length() > 0 ? "," : "")+player;
 		}
 		if(!oldPCL.equals(newPCL))
-			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_PCL, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (String)newPCL);
+			PacketUtils.sendToServer(THIS_MOD.packetChannel, Packets.SERVER_ENDER_SET_PCL, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (String)newPCL);
 		else
 			playerList.setText(newPCL);
 		field.setFocused(false);
@@ -205,7 +205,7 @@ public class GuiEnderCube extends GuiContainerAU {
 			newPCL = (newPCL.equals("") ? playerName : playerName+","+newPCL);
 		// send changes to server
 		if(!oldPCL.equals(newPCL))
-			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_PCL, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (String)newPCL);
+			PacketUtils.sendToServer(THIS_MOD.packetChannel, Packets.SERVER_ENDER_SET_PCL, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (String)newPCL);
 		else
 			playerList.setText(newPCL);
 	}
@@ -219,7 +219,7 @@ public class GuiEnderCube extends GuiContainerAU {
 		case BUTTON_PLAYER_NS:
 		case BUTTON_PLAYER_EW:
 			if(tileEntity.getPlayerControl() && tileEntity.getPlayerDirection().ordinal() != button.id)
-				PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
+				PacketUtils.sendToServer(THIS_MOD.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 			break;
 		case BUTTON_DOWN:
 		case BUTTON_UP:
@@ -228,16 +228,16 @@ public class GuiEnderCube extends GuiContainerAU {
 		case BUTTON_WEST:
 		case BUTTON_EAST:
 			if(tileEntity.getRedstoneControl() && tileEntity.getTeleportDirection().ordinal() != button.id)
-				PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
+				PacketUtils.sendToServer(THIS_MOD.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 			break;
 		case BUTTON_CONTROL_PLAYER:
-			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
+			PacketUtils.sendToServer(THIS_MOD.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 			break;
 		case BUTTON_CONTROL_PLAYER_RS:
-			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
+			PacketUtils.sendToServer(THIS_MOD.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 			break;
 		case BUTTON_CONTROL_REDSTONE:
-			PacketUtils.sendToServer(AUExtras.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
+			PacketUtils.sendToServer(THIS_MOD.packetChannel, Packets.SERVER_ENDER_SET_BUTTON, this.tileEntity.xCoord, this.tileEntity.yCoord, this.tileEntity.zCoord, (byte)button.id);
 			break;
 		case BUTTON_CONTROL_PLAYER_DEL:
 			addSelfToPlayerList(false);
