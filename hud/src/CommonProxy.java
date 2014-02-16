@@ -11,7 +11,7 @@ public class CommonProxy implements IGuiHandler {
 	public void registerRenderers(){}
 	public void registerHandlers(){
 		// Gui Handler
-		NetworkRegistry.instance().registerGuiHandler(AUHud.instance, AUHud.proxy);
+		NetworkRegistry.instance().registerGuiHandler(THIS_MOD.instance, THIS_MOD.proxy);
 	}
 	public void postInit(){}
 
