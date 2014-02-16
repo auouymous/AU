@@ -25,18 +25,18 @@ public class AUHud {
 
 	public static final String modVersion = "0.0.0";
 
-	@PreInit
+	FML_PREINIT
 	public void preInit(FMLPreInitializationEvent event){
 		Cfg.init(event);
 	}
 
-	@Init
+	FML_INIT
 	public void load(FMLInitializationEvent event){
 		proxy.registerRenderers();
 		proxy.registerHandlers();
 	}
 
-	@PostInit
+	FML_POSTINIT
 	public void postInit(FMLPostInitializationEvent event){
 		AUHud.supportIC2 = Loader.isModLoaded("IC2");
 	}

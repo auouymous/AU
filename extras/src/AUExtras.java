@@ -13,10 +13,10 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-import net.minecraft.block.Block;
+IMPORT_BLOCKS
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
+IMPORT_ITEMS
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.WeightedRandomChestContent;
 
@@ -86,13 +86,13 @@ public class AUExtras {
 	public static Item itemEnderXT;
 //	public static Item itemChromaSprayer;
 
-	@PreInit
+	FML_PREINIT
 	public void preInit(FMLPreInitializationEvent event){
 		Cfg.init(event);
 		MinecraftForge.EVENT_BUS.register(new Events());
 	}
 
-	@Init
+	FML_INIT
 	public void load(FMLInitializationEvent event){
 		proxy.registerRenderers();
 		proxy.registerHandlers();
@@ -100,26 +100,26 @@ public class AUExtras {
 
 		//////////
 
-		ItemStack grassBlock = new ItemStack(Block.grass);
-		ItemStack cobblestone = new ItemStack(Block.cobblestone);
-		ItemStack stone = new ItemStack(Block.stone);
-		ItemStack stoneBrick = new ItemStack(Block.stoneBrick);
-		ItemStack chiseledBrick = new ItemStack(Block.stoneBrick, 1, 3);
-		ItemStack gravel = new ItemStack(Block.gravel);
-		ItemStack glass = new ItemStack(Block.glass);
-		ItemStack glassPane = new ItemStack(Block.thinGlass);
-		ItemStack ironBars = new ItemStack(Block.fenceIron);
-		ItemStack redstoneTorch = new ItemStack(Block.torchRedstoneActive);
-		ItemStack redstoneDust = new ItemStack(Item.redstone);
-		ItemStack glowstone = new ItemStack(Block.glowStone);
+		ItemStack grassBlock = new ItemStack(MC_BLOCK.grass);
+		ItemStack cobblestone = new ItemStack(MC_BLOCK.cobblestone);
+		ItemStack stone = new ItemStack(MC_BLOCK.stone);
+		ItemStack stoneBrick = new ItemStack(MC_BLOCK.stoneBrick);
+		ItemStack chiseledBrick = new ItemStack(MC_BLOCK.stoneBrick, 1, 3);
+		ItemStack gravel = new ItemStack(MC_BLOCK.gravel);
+		ItemStack glass = new ItemStack(MC_BLOCK.glass);
+		ItemStack glassPane = new ItemStack(MC_BLOCK.thinGlass);
+		ItemStack ironBars = new ItemStack(MC_BLOCK.fenceIron);
+		ItemStack redstoneTorch = new ItemStack(MC_BLOCK.torchRedstoneActive);
+		ItemStack redstoneDust = new ItemStack(MC_ITEM.redstone);
+		ItemStack glowstone = new ItemStack(MC_BLOCK.glowStone);
 		#ifdef MC152
-		ItemStack glowstoneDust = new ItemStack(Item.lightStoneDust);
+		ItemStack glowstoneDust = new ItemStack(MC_ITEM.lightStoneDust);
 		#else
-		ItemStack glowstoneDust = new ItemStack(Item.glowstone);
+		ItemStack glowstoneDust = new ItemStack(MC_ITEM.glowstone);
 		#endif
 		ItemStack[] dyes = new ItemStack[16];
 		for(int c = 0; c < 16; c++)
-			dyes[c] = new ItemStack(Item.dyePowder, 1, c);
+			dyes[c] = new ItemStack(MC_ITEM.dyePowder, 1, c);
 
 		//////////
 
@@ -133,7 +133,7 @@ public class AUExtras {
 
 			// CRAFT cauldron + red dye, green dye, blue dye -> 1 chroma infuser
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(this.blockChromaInfuser), "rgb", " c ", "   ",
-									'c', new ItemStack(Item.cauldron), 'r', Color.oreDyes[1], 'g', Color.oreDyes[2], 'b', Color.oreDyes[4]));
+									'c', new ItemStack(MC_ITEM.cauldron), 'r', Color.oreDyes[1], 'g', Color.oreDyes[2], 'b', Color.oreDyes[4]));
 		}
 
 		//////////
@@ -470,27 +470,27 @@ public class AUExtras {
 
 		// vanilla wool
 		for(int c = 0; c < 16; c++)
-			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.cloth, 1, c), new ItemStack(Block.cloth), true);
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.cloth, 1, c), new ItemStack(MC_BLOCK.cloth), true);
 
 		#ifndef MC152
 			// vanilla hardened clay (1.6)
-			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.hardenedClay), new ItemStack(Block.stainedClay), true);
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.hardenedClay), new ItemStack(MC_BLOCK.stainedClay), true);
 			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.stainedClay, 1, c), new ItemStack(Block.stainedClay), true);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.stainedClay, 1, c), new ItemStack(MC_BLOCK.stainedClay), true);
 			// vanilla carpet (1.6)
 			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.carpet, 1, c), new ItemStack(Block.carpet), true);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.carpet, 1, c), new ItemStack(MC_BLOCK.carpet), true);
 		#endif
 
 		#if !defined MC152 && !defined MC164
 			// vanilla stained glass (1.7)
-			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(glass), new ItemStack(Block.stained_glass), true);
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(glass), new ItemStack(MC_BLOCK.stained_glass), true);
 			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.stained_glass, 1, c), new ItemStack(Block.stained_glass), true);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.stained_glass, 1, c), new ItemStack(MC_BLOCK.stained_glass), true);
 			// vanilla stained glass panes (1.7)
-			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(glassPane), new ItemStack(Block.stained_glass_pane), true);
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(glassPane), new ItemStack(MC_BLOCK.stained_glass_pane), true);
 			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(Block.stained_glass_pane, 1, c), new ItemStack(Block.stained_glass_pane), true);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.stained_glass_pane, 1, c), new ItemStack(MC_BLOCK.stained_glass_pane), true);
 		#endif
 
 		//////////
@@ -574,46 +574,46 @@ public class AUExtras {
 
 		if(Cfg.enableChiseledBrickCrafting){
 			// CRAFT 2 stoneBrick slabs -> chiseledBrick (1.8 recipe)
-			GameRegistry.addRecipe(new ItemStack(Block.stoneBrick, 1, 3), "b", "b", 'b', new ItemStack(Block.stoneSingleSlab, 1, 5));
+			GameRegistry.addRecipe(new ItemStack(MC_BLOCK.stoneBrick, 1, 3), "b", "b", 'b', new ItemStack(MC_BLOCK.stoneSingleSlab, 1, 5));
 		}
 		if(Cfg.enableMossyBrickCrafting){
 			// CRAFT stoneBrick + vine -> mossy stone brick (1.8 recipe)
-			GameRegistry.addShapelessRecipe(new ItemStack(Block.stoneBrick, 1, 1), stoneBrick, new ItemStack(Block.vine));
+			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.stoneBrick, 1, 1), stoneBrick, new ItemStack(MC_BLOCK.vine));
 		}
 		if(Cfg.enableMossyCobbleCrafting){
 			// CRAFT cobblestone + vine -> mossy cobble (1.8 recipe)
-			GameRegistry.addShapelessRecipe(new ItemStack(Block.cobblestoneMossy), cobblestone, new ItemStack(Block.vine));
+			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.cobblestoneMossy), cobblestone, new ItemStack(MC_BLOCK.vine));
 		}
 		if(Cfg.enableCrackedBrickCrafting){
 			// CRAFT stoneBrick + ice -> cracked stone brick
-			GameRegistry.addShapelessRecipe(new ItemStack(Block.stoneBrick, 1, 2), stoneBrick, new ItemStack(Block.ice));
+			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.stoneBrick, 1, 2), stoneBrick, new ItemStack(MC_BLOCK.ice));
 		}
 		if(Cfg.enableGrassBlockCrafting){
 			// CRAFT tall grass + dirt -> grass block
-			GameRegistry.addShapelessRecipe(grassBlock, new ItemStack(Block.tallGrass, 1, 1), new ItemStack(Block.dirt));
+			GameRegistry.addShapelessRecipe(grassBlock, new ItemStack(MC_BLOCK.tallGrass, 1, 1), new ItemStack(MC_BLOCK.dirt));
 		}
 		if(Cfg.enableMyceliumCrafting){
 			// CRAFT brown mushroom + red mushroom + grass block -> mycelium block
-			GameRegistry.addShapelessRecipe(new ItemStack(Block.mycelium), new ItemStack(Block.mushroomBrown), new ItemStack(Block.mushroomRed), grassBlock);
+			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.mycelium), new ItemStack(MC_BLOCK.mushroomBrown), new ItemStack(MC_BLOCK.mushroomRed), grassBlock);
 		}
 
 		//////////
 
 		if(Cfg.enableLightingHack){
 			// stairs
-			Block.stairsWoodOak.setLightOpacity(0);
-			Block.stairsCobblestone.setLightOpacity(0);
-			Block.stairsBrick.setLightOpacity(0);
-			Block.stairsStoneBrick.setLightOpacity(0);
-			Block.stairsNetherBrick.setLightOpacity(0);
-			Block.stairsSandStone.setLightOpacity(0);
-			Block.stairsWoodSpruce.setLightOpacity(0);
-			Block.stairsWoodBirch.setLightOpacity(0);
-			Block.stairsWoodJungle.setLightOpacity(0);
-			Block.stairsNetherQuartz.setLightOpacity(0);
+			MC_BLOCK.stairsWoodOak.setLightOpacity(0);
+			MC_BLOCK.stairsCobblestone.setLightOpacity(0);
+			MC_BLOCK.stairsBrick.setLightOpacity(0);
+			MC_BLOCK.stairsStoneBrick.setLightOpacity(0);
+			MC_BLOCK.stairsNetherBrick.setLightOpacity(0);
+			MC_BLOCK.stairsSandStone.setLightOpacity(0);
+			MC_BLOCK.stairsWoodSpruce.setLightOpacity(0);
+			MC_BLOCK.stairsWoodBirch.setLightOpacity(0);
+			MC_BLOCK.stairsWoodJungle.setLightOpacity(0);
+			MC_BLOCK.stairsNetherQuartz.setLightOpacity(0);
 			// slabs
-			Block.stoneSingleSlab.setLightOpacity(0);
-			Block.woodSingleSlab.setLightOpacity(0);
+			MC_BLOCK.stoneSingleSlab.setLightOpacity(0);
+			MC_BLOCK.woodSingleSlab.setLightOpacity(0);
 		}
 
 		// additional lighting hack
@@ -689,7 +689,7 @@ public class AUExtras {
 
 			// CRAFT glass + 3 eye of ender + redstone dust + 4 gold ingots -> ender cube
 			GameRegistry.addRecipe(enderCube, "xex", "eoe", "xrx",
-									'o', new ItemStack(Block.obsidian), 'e', new ItemStack(Item.eyeOfEnder), 'r', redstoneDust, 'x', new ItemStack(Item.ingotGold));
+									'o', new ItemStack(MC_BLOCK.obsidian), 'e', new ItemStack(MC_ITEM.eyeOfEnder), 'r', redstoneDust, 'x', new ItemStack(MC_ITEM.ingotGold));
 
 			if(Cfg.enableEnderStar){
 				this.itemEnderStar = new ItemEnderStar(Cfg.itemEnderStar, "au.enderStar")
@@ -697,7 +697,7 @@ public class AUExtras {
 				ItemStack enderStar = new ItemStack(this.itemEnderStar);
 
 				// CRAFT 8 ender cubes + 1 nether star -> ender star
-				GameRegistry.addRecipe(enderStar, "ccc", "csc", "ccc", 'c', enderCube, 's', new ItemStack(Item.netherStar));
+				GameRegistry.addRecipe(enderStar, "ccc", "csc", "ccc", 'c', enderCube, 's', new ItemStack(MC_ITEM.netherStar));
 
 				if(Cfg.enableEnderStarInDungeonChests){
 					#define ADD_CHEST_LOOT(category, weight)\
@@ -718,7 +718,7 @@ public class AUExtras {
 					ItemStack enderWand = new ItemStack(this.itemEnderWand);
 
 					// CRAFT ender star + 2 diamonds + 2 gold ingots -> ender wand
-					GameRegistry.addRecipe(enderWand, " ds", " gd", "g  ", 's', enderStar, 'd', new ItemStack(Item.diamond), 'g', new ItemStack(Item.ingotGold));
+					GameRegistry.addRecipe(enderWand, " ds", " gd", "g  ", 's', enderStar, 'd', new ItemStack(MC_ITEM.diamond), 'g', new ItemStack(MC_ITEM.ingotGold));
 				}
 				if(Cfg.enableEnderMagnet){
 					this.itemEnderMagnet = new ItemEnderMagnet(Cfg.itemEnderMagnet, "au.enderMagnet")
@@ -726,14 +726,14 @@ public class AUExtras {
 					ItemStack enderMagnet = new ItemStack(this.itemEnderMagnet);
 
 					// CRAFT 5 ender stars + 2 diamonds -> ender magnet
-					GameRegistry.addRecipe(enderMagnet, "s s", "s s", "dsd", 's', enderStar, 'd', new ItemStack(Item.diamond));
+					GameRegistry.addRecipe(enderMagnet, "s s", "s s", "dsd", 's', enderStar, 'd', new ItemStack(MC_ITEM.diamond));
 					if(Cfg.enableEnderXT){
 						this.itemEnderXT = new ItemEnderXT(Cfg.itemEnderXT, "au.enderXT")
 							.setCreativeTab(AUExtras.tabAU);
 						ItemStack enderXT = new ItemStack(this.itemEnderXT);
 
 						// CRAFT 4 ender stars + 3 ender magnet + 2 diamonds -> ender xt
-						GameRegistry.addRecipe(enderXT, "sds", "mdm", "sms", 's', enderStar, 'm', enderMagnet, 'd', new ItemStack(Item.diamond));
+						GameRegistry.addRecipe(enderXT, "sds", "mdm", "sms", 's', enderStar, 'm', enderMagnet, 'd', new ItemStack(MC_ITEM.diamond));
 					}
 				}
 			}
@@ -762,7 +762,7 @@ public class AUExtras {
 		if(Cfg.enableFriedEgg){
 			this.itemFriedEgg = new ItemFoodGeneric(Cfg.itemFriedEgg, 64, "au.friedEgg", 2, 0.4F, false)
 				.setCreativeTab(AUExtras.tabAU);
-			GameRegistry.addSmelting(Item.egg.itemID, new ItemStack(this.itemFriedEgg), 1.0f);
+			GameRegistry.addSmelting(MC_ITEM.egg.itemID, new ItemStack(this.itemFriedEgg), 1.0f);
 		}
 
 		// SMELT rotten flesh -> cooked flesh
@@ -771,12 +771,12 @@ public class AUExtras {
 			this.itemCookedFlesh = new ItemFoodGeneric(Cfg.itemCookedFlesh, 64, "au.cookedFlesh", 2, 0.2F, false)
 				.setCreativeTab(AUExtras.tabAU);
 			cookedFlesh = new ItemStack(this.itemCookedFlesh);
-			GameRegistry.addSmelting(Item.rottenFlesh.itemID, cookedFlesh, 1.0f);
+			GameRegistry.addSmelting(MC_ITEM.rottenFlesh.itemID, cookedFlesh, 1.0f);
 		}
 
 		// CRAFT cooked flesh -> leather
 		if(Cfg.enableCookedFleshToLeather && Cfg.enableCookedFlesh){
-			ItemStack leather = new ItemStack(Item.leather);
+			ItemStack leather = new ItemStack(MC_ITEM.leather);
 			switch(Cfg.nrCookedFleshToLeather){
 			case 1: GameRegistry.addShapelessRecipe(leather, cookedFlesh); break;
 			case 2: GameRegistry.addShapelessRecipe(leather, cookedFlesh, cookedFlesh); break;
@@ -791,6 +791,6 @@ public class AUExtras {
 		}
 	}
 
-	@PostInit
+	FML_POSTINIT
 	public void postInit(FMLPostInitializationEvent event){}
 }

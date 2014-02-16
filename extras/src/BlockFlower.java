@@ -3,7 +3,7 @@ package com.qzx.au.extras;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import net.minecraft.block.Block;
+IMPORT_BLOCKS
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockGrass;
 import net.minecraft.block.BlockNetherrack;
@@ -87,7 +87,7 @@ public class BlockFlower extends BlockColored implements IPlantable {
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess access, int x, int y, int z){
 		int below = access.getBlockId(x, y - 1, z);
-		float offset = (below == Block.tilledField.blockID ? BlockFlowerSeed.y_offset : 0.0F);
+		float offset = (below == MC_BLOCK.tilledField.blockID ? BlockFlowerSeed.y_offset : 0.0F);
 		this.setBlockBounds(0.3F, 0.0F-offset, 0.3F, 0.7F, 0.7F-offset, 0.7F);
 	}
 
@@ -95,7 +95,7 @@ public class BlockFlower extends BlockColored implements IPlantable {
 
 	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z){
-		return super.canPlaceBlockAt(world, x, y, z) && world.getBlockId(x, y - 1, z) != Block.tilledField.blockID && this.canBlockStay(world, x, y, z);
+		return super.canPlaceBlockAt(world, x, y, z) && world.getBlockId(x, y - 1, z) != MC_BLOCK.tilledField.blockID && this.canBlockStay(world, x, y, z);
 	}
 
 	private boolean canThisPlantGrowOnThisBlockID(int id){
@@ -106,7 +106,7 @@ public class BlockFlower extends BlockColored implements IPlantable {
 			|| block instanceof BlockMycelium
 			|| block instanceof BlockSand		// red sand is sand:1
 			|| block instanceof BlockSoulSand
-			|| id == Block.whiteStone.blockID	// endstone
+			|| id == MC_BLOCK.whiteStone.blockID	// endstone
 			;
 	}
 
@@ -132,7 +132,7 @@ public class BlockFlower extends BlockColored implements IPlantable {
 	public boolean canBlockStay(World world, int x, int y, int z){
 		if(world.getFullBlockLightValue(x, y, z) < 8 || !world.canBlockSeeTheSky(x, y, z)) return false;
 		int below = world.getBlockId(x, y - 1, z);
-		if(below == Block.tilledField.blockID) return true; // can't plant on farmland but will stay when converted from seed
+		if(below == MC_BLOCK.tilledField.blockID) return true; // can't plant on farmland but will stay when converted from seed
 		return this.canThisPlantGrowOnThisBlockID(below);
 	}
 
@@ -146,7 +146,7 @@ public class BlockFlower extends BlockColored implements IPlantable {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ){
 		if(!world.isRemote && player.getHeldItem().getItem() instanceof ItemShears){
-			if(world.getBlockId(x, y - 1, z) == Block.tilledField.blockID){
+			if(world.getBlockId(x, y - 1, z) == MC_BLOCK.tilledField.blockID){
 				int color = world.getBlockMetadata(x, y, z);
 
 				// revert to stage 0

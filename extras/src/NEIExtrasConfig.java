@@ -1,6 +1,6 @@
 package com.qzx.au.extras;
 
-import net.minecraft.block.Block;
+IMPORT_BLOCKS
 
 import codechicken.nei.api.API;
 import codechicken.nei.api.IConfigureNEI;
@@ -16,8 +16,8 @@ public class NEIExtrasConfig implements IConfigureNEI {
 			}
 
 			// hide vanilla comparators
-			API.hideItem(Block.redstoneComparatorIdle.blockID);
-			API.hideItem(Block.redstoneComparatorActive.blockID);
+			API.hideItem(MC_BLOCK.redstoneComparatorIdle.blockID);
+			API.hideItem(MC_BLOCK.redstoneComparatorActive.blockID);
 
 			// chroma recipes
 			API.registerRecipeHandler(new NEIChromaRecipeHandler());

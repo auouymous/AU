@@ -28,13 +28,13 @@ public class AUIdmap {
 
 	public static final String modVersion = "0.0.0";
 
-	@PreInit
+	FML_PREINIT
 	public void preInit(FMLPreInitializationEvent event){}
 
-	@Init
+	FML_INIT
 	public void load(FMLInitializationEvent event){}
 
-	@PostInit
+	FML_POSTINIT
 	public void postInit(FMLPostInitializationEvent event){
 		String dir;
 		String filename = "au_ID_map.txt";

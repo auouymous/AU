@@ -5,7 +5,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+IMPORT_ITEMS
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -57,7 +57,7 @@ public class ItemEnderStar extends Item {
 
 		for(int i = 0; i < 9; i++){
 			ItemStack item = player.inventory.mainInventory[i];
-			if(item != null && item.getItem() == Item.eyeOfEnder){
+			if(item != null && item.getItem() == MC_ITEM.eyeOfEnder){
 				item.stackSize--;
 				if(item.stackSize == 0) player.inventory.mainInventory[i] = null;
 				itemstack.setItemDamage(damage - ItemEnderStar.CHARGE_PER_EYE);

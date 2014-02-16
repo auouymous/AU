@@ -4,7 +4,7 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import net.minecraft.block.Block;
+IMPORT_BLOCKS
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -55,7 +55,7 @@ public class RendererFlower implements ISimpleBlockRenderingHandler {
 		double z2 = (double)z + 0.95F;
 
 		int below = world.getBlockId(x, y - 1, z);
-		if(below == Block.tilledField.blockID){
+		if(below == MC_BLOCK.tilledField.blockID){
 			y1 -= BlockFlowerSeed.y_offset;
 			y2 -= BlockFlowerSeed.y_offset;
 		}

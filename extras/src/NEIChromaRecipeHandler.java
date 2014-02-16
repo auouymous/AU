@@ -1,7 +1,7 @@
 package com.qzx.au.extras;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.Item;
+IMPORT_ITEMS
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 
@@ -123,7 +123,7 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 				// add all dyes, but not ore dict dyes
 				this.oreDyes = new ArrayList<ItemStack>();
 				for(int c = 0; c < 16; c++)
-					this.oreDyes.add(new ItemStack(Item.dyePowder, 1, c));
+					this.oreDyes.add(new ItemStack(MC_ITEM.dyePowder, 1, c));
 			}
 			this.input = input;
 			this.button = button;

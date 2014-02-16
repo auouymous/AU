@@ -3,7 +3,7 @@ package com.qzx.au.hud;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import net.minecraft.block.Block;
+IMPORT_BLOCKS
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.WorldRenderer;
@@ -12,7 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+IMPORT_ITEMS
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumMovingObjectType;
@@ -445,7 +445,7 @@ public class InfoHUD {
 					// name and ID of entity
 					try {
 						if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
-							ItemStack stackItemFrame = new ItemStack(Item.itemFrame);
+							ItemStack stackItemFrame = new ItemStack(MC_ITEM.itemFrame);
 							this.ui.drawString(stackItemFrame.getDisplayName(), 0xffffff);
 						} else
 							this.ui.drawString(mc.objectMouseOver.entityHit.getEntityName(), 0xffffff);
@@ -456,7 +456,7 @@ public class InfoHUD {
 							this.ui.drawString(String.format("%d", mc.objectMouseOver.entityHit.entityId), 0xffffff);
 							if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
 								this.ui.drawString(" i:", 0xaaaaaa);
-								this.ui.drawString(String.format("%d", Item.itemFrame.itemID), 0xffffff);
+								this.ui.drawString(String.format("%d", MC_ITEM.itemFrame.itemID), 0xffffff);
 							}
 							this.ui.drawString(")", 0xaaaaaa);
 						}
@@ -564,7 +564,7 @@ public class InfoHUD {
 							int blockMetadata = world.getBlockMetadata(inspectX, inspectY, inspectZ);
 
 							// hide silverfish blocks :)
-							if(Cfg.hide_silverfish_blocks && blockID == Block.silverfish.blockID){
+							if(Cfg.hide_silverfish_blocks && blockID == MC_BLOCK.silverfish.blockID){
 								if(blockMetadata == 0){
 									blockID = 1; blockMetadata = 0; // stone
 								} else if(blockMetadata == 1){
@@ -590,7 +590,7 @@ public class InfoHUD {
 									int pickedMetadata = stackPicked.getItemDamage();
 
 									// hide silverfish blocks :)
-									if(Cfg.hide_silverfish_blocks && pickedID == Block.silverfish.blockID){
+									if(Cfg.hide_silverfish_blocks && pickedID == MC_BLOCK.silverfish.blockID){
 										if(pickedMetadata == 0){
 											pickedID = 1; pickedMetadata = 0; stackPicked = new ItemStack(pickedID, 1, pickedMetadata); block = Block.blocksList[blockID]; // stone
 										} else if(pickedMetadata == 1){

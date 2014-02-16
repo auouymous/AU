@@ -1,9 +1,9 @@
 package com.qzx.au.extras;
 
-import net.minecraft.block.Block;
+IMPORT_BLOCKS
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
+IMPORT_ITEMS
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 
@@ -62,7 +62,7 @@ public class ContainerChromaInfuser extends ContainerAU {
 					return itemstack.getItem() instanceof ItemDye;
 				}
 			};
-		slotDye.setFilterItemStack(new ItemStack(Item.dyePowder, 1, 8));
+		slotDye.setFilterItemStack(new ItemStack(MC_ITEM.dyePowder, 1, 8));
 		slotDye.setTooltip("dye input");
 		this.addSlotToContainer(slotDye);
 
@@ -72,13 +72,13 @@ public class ContainerChromaInfuser extends ContainerAU {
 				public void onSlotChanged(){
 					ItemStack itemstack = this.getStack();
 					if(itemstack != null){
-						if(itemstack.itemID == Item.bucketWater.itemID){
+						if(itemstack.itemID == MC_ITEM.bucketWater.itemID){
 							TileEntityChromaInfuser te = (TileEntityChromaInfuser)this.inventory;
 							if(!te.worldObj.isRemote)
 								te.resetWater(true);
 							// replace water bucket with empty bucket
-							this.putStack(new ItemStack(Item.bucketEmpty, 1));
-//						} else if(itemstack.itemID == Block.waterMoving.blockID || itemstack.itemID == Block.waterStill.blockID){
+							this.putStack(new ItemStack(MC_ITEM.bucketEmpty, 1));
+//						} else if(itemstack.itemID == MC_BLOCK.waterMoving.blockID || itemstack.itemID == MC_BLOCK.waterStill.blockID){
 //							((TileEntityChromaInfuser)this.inventory).resetWater(true);
 //							// clear the slot
 //							this.putStack(null);
@@ -88,10 +88,10 @@ public class ContainerChromaInfuser extends ContainerAU {
 				}
 				@Override
 				public boolean isItemValid(ItemStack itemstack){
-					return itemstack.itemID == Item.bucketWater.itemID; // || itemstack.itemID == Block.waterMoving.blockID || itemstack.itemID == Block.waterStill.blockID;
+					return itemstack.itemID == MC_ITEM.bucketWater.itemID; // || itemstack.itemID == MC_BLOCK.waterMoving.blockID || itemstack.itemID == MC_BLOCK.waterStill.blockID;
 				}
 			};
-		slotBucket.setFilterItemStack(new ItemStack(Item.bucketWater));
+		slotBucket.setFilterItemStack(new ItemStack(MC_ITEM.bucketWater));
 		slotBucket.setTooltip("water bucket fills water or resets dye");
 		this.addSlotToContainer(slotBucket);
 

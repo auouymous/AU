@@ -29,12 +29,12 @@ public class AUCore {
 	public static final String modVersion = "0.0.0";
 	public static final String packetChannel = "AUCore";
 
-	@PreInit
+	FML_PREINIT
 	public void preInit(FMLPreInitializationEvent event){}
 
-	@Init
+	FML_INIT
 	public void load(FMLInitializationEvent event){}
 
-	@PostInit
+	FML_POSTINIT
 	public void postInit(FMLPostInitializationEvent event){}
 }

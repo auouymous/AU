@@ -8,7 +8,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+IMPORT_ITEMS
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 
@@ -165,11 +165,11 @@ public class ArmorHUD {
 			ItemStack hand = player.getHeldItem();
 			if(TickHandlerHUD.force_hud == TickHandlerHUD.HUD_ARMOR){
 				// equip all slots when configuring HUD
-				if(helmet == null) helmet = new ItemStack(Item.helmetLeather);
-				if(chest == null) chest = new ItemStack(Item.plateLeather);
-				if(pants == null) pants = new ItemStack(Item.legsLeather);
-				if(boots == null) boots = new ItemStack(Item.bootsLeather);
-				if(hand == null) hand = new ItemStack(Item.leather); // quantity will show as zero unless some in inventory
+				if(helmet == null) helmet = new ItemStack(MC_ITEM.helmetLeather);
+				if(chest == null) chest = new ItemStack(MC_ITEM.plateLeather);
+				if(pants == null) pants = new ItemStack(MC_ITEM.legsLeather);
+				if(boots == null) boots = new ItemStack(MC_ITEM.bootsLeather);
+				if(hand == null) hand = new ItemStack(MC_ITEM.leather); // quantity will show as zero unless some in inventory
 			}
 			if(helmet == null && chest == null && pants == null && boots == null && hand == null) return;
 			ItemStack ammo = null;
@@ -195,8 +195,8 @@ public class ArmorHUD {
 
 						// bow ammo
 						if(hand.getItem() instanceof ItemBow){
-							nr_ammo = countItemsInInventory(player, Item.arrow.itemID, 0);
-							ammo = new ItemStack(Item.arrow);
+							nr_ammo = countItemsInInventory(player, MC_ITEM.arrow.itemID, 0);
+							ammo = new ItemStack(MC_ITEM.arrow);
 						}
 
 						// move HUD up if at bottom and has ammo

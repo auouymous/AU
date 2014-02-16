@@ -1,6 +1,6 @@
 package com.qzx.au.core;
 
-import net.minecraft.block.Block;
+IMPORT_BLOCKS
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 public class SlotBlockCamo extends SlotPattern {
 	public SlotBlockCamo(IInventory inventory, int slot, int x, int y){
 		super(inventory, slot, x, y, 1);
-//		this.setFilterItemStack(new ItemStack(Block.stone));
+//		this.setFilterItemStack(new ItemStack(MC_BLOCK.stone));
 		this.setTooltip("block camo");
 		if(slot != -1) Debug.error("SlotBlockCamo needs slotIndex == -1");
 	}
