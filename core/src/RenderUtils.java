@@ -184,11 +184,10 @@ public class RenderUtils {
 
 		// select diagonal side
 		int mb_xz = RenderUtils.mb_block, mb_xy = RenderUtils.mb_block, mb_yz = RenderUtils.mb_block;
-		#define GET_MB(mb, x, y, z, mb_side_a, mb_side_b) mb = RenderUtils.block.getMixedBrightnessForBlock(RenderUtils.access, x, y, z);\
-			if(mb == 0) mb = getBrightnessMinusOne(Math.max(mb_side_a, mb_side_b));
 		#define SELECT_DIAG(mb_diag, a, b, mb_side_a, mb_side_b, x, y, z)\
 			boolean aa = (a == 0.0F || a == 1.0F), bb = (b == 0.0F || b == 1.0F);\
-			if(aa && bb){	GET_MB(mb_diag, (int)Math.floor(x), (int)Math.floor(y), (int)Math.floor(z), mb_side_a, mb_side_b); }\
+			if(aa && bb){	mb_diag = RenderUtils.block.getMixedBrightnessForBlock(RenderUtils.access, (int)Math.floor(x), (int)Math.floor(y), (int)Math.floor(z));\
+							if(mb_diag == 0) mb_diag = getBrightnessMinusOne(Math.max(mb_side_a, mb_side_b)); }\
 			else if(aa){	mb_diag = mb_side_a; }\
 			else if(bb){	mb_diag = mb_side_b; }\
 			else {			mb_diag = (mb_side_a + mb_side_b) >> 1 & 0x00ff00ff; }
