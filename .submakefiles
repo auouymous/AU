@@ -1,13 +1,15 @@
 include ../.makefiles
 MOD_ASSETS = $(ASSETS)/au_$(MOD)
+CPP_DEFINES = -DMC$(VER) -DTHIS_MOD=$(AUMOD)
+CPP_FLAGS = -E -P $(CPP_DEFINES) -include ../../includes.h
 
 all:
 	@echo "Syntax: make <prepare|jar|clean>"
 
 prepare:
 	@mkdir -p $(SRC)/com/qzx/au/$(MOD)
-	@(cd src; for j in *.java; do cpp -include ../../includes.h -E -P -DMC$(VER) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done)
-	@(cd src; for d in *; do if [ -d "$$d" ]; then mkdir $(SRC)/com/qzx/au/$(MOD)/$$d; for j in $$d/*.java; do cpp -include ../../includes.h -E -P -DMC$(VER) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done; fi; done)
+	@(cd src; for j in *.java; do cpp $(CPP_FLAGS) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done)
+	@(cd src; for d in *; do if [ -d "$$d" ]; then mkdir $(SRC)/com/qzx/au/$(MOD)/$$d; for j in $$d/*.java; do cpp $(CPP_FLAGS) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done; fi; done)
 
 	@../.only_with.sh $(SRC)/com/qzx/au/$(MOD) $(VER)
 
