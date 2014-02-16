@@ -425,4 +425,5 @@ item.au.cookedFlesh.name=Cooked Flesh
 # DAMAGE #
 ##########
 
-death.attack.enderXT=Ender XT
+death.attack.enderXT=%1$s was probed to death
+death.attack.enderXT.player=%1$s was probed to death by %2$s
