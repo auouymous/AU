@@ -1,13 +1,13 @@
 [
 {
   "modid": "AUIdMap",
-  "name": "Altered Unification ID Map",
-  "description": "",
+  "name": "\u00A78Altered Unification \u00A73ID Map",
+  "description": "Map out available block and item IDs when installing conflicting mods. Do NOT leave this mod installed!",
   "version": "0.0.0",
   "mcversion": "0.0.0",
   "url": "http://au.qzx.com",
   "updateUrl": "",
-  "authors": [ "auouymous" ],
+  "authors": [ "\u00A73auouymous" ],
   "credits": "",
   "logoFile": "",
   "screenshots": [ ],

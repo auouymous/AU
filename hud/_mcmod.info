@@ -1,13 +1,13 @@
 [
 {
   "modid": "AUHud",
-  "name": "Altered Unification HUD",
-  "description": "",
+  "name": "\u00A78Altered Unification \u00A73HUD",
+  "description": "Info, Armor, Effect and Shop Sign HUDs",
   "version": "0.0.0",
   "mcversion": "0.0.0",
   "url": "http://au.qzx.com",
   "updateUrl": "",
-  "authors": [ "auouymous" ],
+  "authors": [ "\u00A73auouymous" ],
   "credits": "",
   "logoFile": "",
   "screenshots": [ ],
