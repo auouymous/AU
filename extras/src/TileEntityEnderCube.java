@@ -32,8 +32,6 @@ import java.util.Random;
 
 import com.qzx.au.core.PacketUtils;
 import com.qzx.au.core.RenderUtils;
-import com.qzx.au.core.SidedBlockInfo;
-import com.qzx.au.core.SidedSlotInfo;
 import com.qzx.au.core.TileEntityAU;
 
 public class TileEntityEnderCube extends TileEntityAU {
