@@ -4,6 +4,14 @@
 	#define MC_BLOCK Block
 	#define MC_ITEM Item
 
+	#define IMPORT_FML import cpw.mods.fml.common.Mod;\
+		import cpw.mods.fml.common.Mod.Instance;\
+		import cpw.mods.fml.common.Mod.PreInit;\
+		import cpw.mods.fml.common.Mod.Init;\
+		import cpw.mods.fml.common.Mod.PostInit;\
+		import cpw.mods.fml.common.event.FMLPreInitializationEvent;\
+		import cpw.mods.fml.common.event.FMLInitializationEvent;\
+		import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 	#define FML_PREINIT @PreInit
 	#define FML_INIT @Init
 	#define FML_POSTINIT @PostInit
@@ -13,7 +21,15 @@
 	#define MC_BLOCK Blocks
 	#define MC_ITEM Items
 
+	#define IMPORT_FML import cpw.mods.fml.common.Mod;\
+		import cpw.mods.fml.common.Mod.Instance;\
+		import cpw.mods.fml.common.Mod.EventHandler;\
+		import cpw.mods.fml.common.event.FMLPreInitializationEvent;\
+		import cpw.mods.fml.common.event.FMLInitializationEvent;\
+		import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 	#define FML_PREINIT @EventHandler
 	#define FML_INIT @EventHandler
 	#define FML_POSTINIT @EventHandler
+
+	#define NO_IDS 1
 #endif
