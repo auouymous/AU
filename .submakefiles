@@ -1,6 +1,7 @@
 include ../.makefiles
 MOD_ASSETS = $(ASSETS)/au_$(MOD)
-CPP_DEFINES = -DMC$(VER) -DTHIS_MOD=$(AUMOD)
+WITH_APIS = $(shell cat ../.with-apis)
+CPP_DEFINES = $(WITH_APIS) -DMC$(VER) -DTHIS_MOD=$(AUMOD)
 CPP_FLAGS = -E -P $(CPP_DEFINES) -include ../../includes.h
 
 all:

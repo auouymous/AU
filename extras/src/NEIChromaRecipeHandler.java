@@ -1,5 +1,7 @@
 package com.qzx.au.extras;
 
+#ifdef WITH_API_NEI
+
 import net.minecraft.client.Minecraft;
 IMPORT_ITEMS
 import net.minecraft.item.ItemDye;
@@ -258,3 +260,5 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 		}
 	}
 }
+
+#endif

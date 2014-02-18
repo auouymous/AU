@@ -1,5 +1,7 @@
 package com.qzx.au.extras;
 
+#ifdef WITH_API_NEI
+
 IMPORT_BLOCKS
 
 import codechicken.nei.api.API;
@@ -37,3 +39,5 @@ public class NEIExtrasConfig implements IConfigureNEI {
 		return THIS_MOD.modVersion;
 	}
 }
+
+#endif

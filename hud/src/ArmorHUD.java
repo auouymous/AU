@@ -12,12 +12,14 @@ IMPORT_ITEMS
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 
-#ifdef MC147
-import ic2.api.ElectricItem;
-import ic2.api.IElectricItem;
-#else
-import ic2.api.item.ElectricItem;
-import ic2.api.item.IElectricItem;
+#ifdef WITH_API_IC2
+	#ifdef MC147
+	import ic2.api.ElectricItem;
+	import ic2.api.IElectricItem;
+	#else
+	import ic2.api.item.ElectricItem;
+	import ic2.api.item.IElectricItem;
+	#endif
 #endif
 
 import org.lwjgl.opengl.GL11;
@@ -35,6 +37,7 @@ public class ArmorHUD {
 	private int getDurability(ItemStack itemstack, int max_durability){
 		try {
 			Item item = itemstack.getItem();
+			#ifdef WITH_API_IC2
 			if(AUHud.supportIC2)
 				if(item instanceof IElectricItem)
 					#ifdef MC147
@@ -42,6 +45,7 @@ public class ArmorHUD {
 					#else
 					return ElectricItem.manager.getCharge(itemstack);
 					#endif
+			#endif
 			return max_durability - itemstack.getItemDamage();
 		} catch(Exception e){
 			Failure.log("armor hud, getDurability");
@@ -51,6 +55,7 @@ public class ArmorHUD {
 	private int getMaxDurability(ItemStack itemstack){
 		try {
 			Item item = itemstack.getItem();
+			#ifdef WITH_API_IC2
 			if(AUHud.supportIC2)
 				if(item instanceof IElectricItem)
 					#ifdef MC147
@@ -58,6 +63,7 @@ public class ArmorHUD {
 					#else
 					return ((IElectricItem)item).getMaxCharge(itemstack);
 					#endif
+			#endif
 			return itemstack.getMaxDamage();
 		} catch(Exception e){
 			Failure.log("armor hud, getMaxDurability");

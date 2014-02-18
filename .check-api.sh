@@ -11,6 +11,9 @@ APISRC=$3
 # NEI + Core
 # http://www.chickenbones.craftsaddle.org/Files/New_Versions/links.php
 
+WITH_APIS=.with-apis
+rm -f $WITH_APIS
+
 # APIs
 if [ "$VER" = "147" ]; then
 	JARS="CodeChickenCore_0.8.1.6.jar NotEnoughItems_1.4.7.4.jar"
@@ -37,6 +40,7 @@ fi
 for a in $JARS; do
 	if [ -f "$APIJAR/$a" ]; then
 		echo "FOUND API: $a"
+		[ "$a" = "NotEnoughItems_1.6.1.8.jar" ] && echo -n "-DWITH_API_NEI " >> $WITH_APIS
 	else
 		echo "API NOT FOUND: $APIJAR/$a"
 		exit 1
@@ -47,6 +51,7 @@ done
 for a in $SRCS; do
 	if [ -d "$APISRC/$a" ]; then
 		echo "FOUND API: $a"
+		[ "$a" = "ic2" ] && echo -n "-DWITH_API_IC2 " >> $WITH_APIS
 	else
 		echo "API NOT FOUND: $APISRC/$a"
 		exit 1
