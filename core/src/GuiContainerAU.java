@@ -10,6 +10,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 
 import java.util.ArrayList;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import com.qzx.au.core.UI;
@@ -49,6 +50,13 @@ public class GuiContainerAU extends GuiContainer {
 		this.upperY = this.guiTop + this.containerAU.upperOffsetY;
 		this.lowerX = this.guiLeft + this.containerAU.lowerOffsetX;
 		this.lowerY = this.guiTop + this.containerAU.lowerOffsetY;
+
+		Keyboard.enableRepeatEvents(true); // turn on key repeat -- text fields
+	}
+
+	@Override
+	public void onGuiClosed(){
+		Keyboard.enableRepeatEvents(false); // turn off key repeat -- text fields
 	}
 
 	@Override
