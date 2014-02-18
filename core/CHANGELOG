@@ -1,3 +1,5 @@
+	- fixed issue with TextField max length
+
 15feb2014-r1
 	- removed support for 1.5.2 and 1.6.2
 
