@@ -1,0 +1,23 @@
+[
+{
+  "modid": "AUTts",
+  "name": "\u00A78Altered Unification \u00A73TTS",
+  "description": "A text-to-speech block, activated with a redstone signal.",
+  "version": "0.0.0",
+  "mcversion": "0.0.0",
+  "url": "http://au.qzx.com",
+  "updateUrl": "",
+  "authors": [ "\u00A73auouymous" ],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [ ],
+  "parent": "",
+  "requiredMods": [
+    "AUCore",
+    "Forge",
+    "FML"
+  ],
+  "dependencies": [ ],
+  "useDependencyInformation": "true"
+}
+]

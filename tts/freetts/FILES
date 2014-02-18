@@ -1,0 +1,8 @@
+Download freetts-1.2.2-bin.zip from http://freetts.sourceforge.net and place the following lib/ files in this directory:
+
+	cmu_us_kal.jar
+	cmulex.jar
+	en_us.jar
+	freetts-jsapi10.jar
+	freetts.jar
+	mbrola.jar

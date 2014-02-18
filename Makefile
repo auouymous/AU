@@ -13,6 +13,7 @@ endif
 	@(cd core ; make prepare v=$(VER))
 	@(cd hud ; make prepare v=$(VER))
 ifneq ($(NO_BLOCKS),true)
+	@(cd tts ; make prepare v=$(VER) ; make prepareMod v=$(VER))
 	@(cd extras ; make prepare v=$(VER))
 #	@(cd world ; make prepare v=$(VER))
 endif
@@ -32,6 +33,7 @@ endif
 	@(cd core ; make jar v=$(VER))
 	@(cd hud ; make jar v=$(VER))
 ifneq ($(NO_BLOCKS),true)
+	@(cd tts ; make jar v=$(VER))
 	@(cd extras ; make jar v=$(VER))
 #	@(cd world ; make jar v=$(VER))
 endif
@@ -41,6 +43,7 @@ clean:
 	@(cd idmap ; make clean v=$(VER))
 	@(cd core ; make clean v=$(VER))
 	@(cd hud ; make clean v=$(VER))
+	@(cd tts ; make clean v=$(VER) ; make cleanMod v=$(VER))
 	@(cd extras ; make clean v=$(VER))
 	@(cd world ; make clean v=$(VER))
 
