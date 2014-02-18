@@ -3,7 +3,7 @@
 APIJAR=$1
 
 #TTS_MODS="cmu_us_kal.jar cmulex.jar en_us.jar freetts-jsapi10.jar freetts.jar mbrola.jar"
-TTS_MODS="cmu_us_kal.jar cmulex.jar en_us.jar freetts-jsapi10.jar freetts.jar"
+TTS_MODS="cmu_us_kal.jar cmulex.jar en_us.jar freetts.jar"
 
 # remove freetts jars from forge
 for j in $TTS_MODS; do
