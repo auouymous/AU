@@ -5,17 +5,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemDye;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 
 import org.lwjgl.opengl.GL11;
 
 import com.qzx.au.core.Button;
-import com.qzx.au.core.Color;
 import com.qzx.au.core.GuiContainerAU;
 import com.qzx.au.core.PacketUtils;
 import com.qzx.au.core.TextField;
