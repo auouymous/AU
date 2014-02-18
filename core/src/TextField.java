@@ -43,6 +43,11 @@ public class TextField extends Gui {
 
 	private String[] tooltip = null;
 
+	#ifdef WITH_API_NEI
+	public static boolean with_nei = false;
+	public NEIWidget nei_widget = null;
+	#endif
+
 	public TextField(FontRenderer fontRenderer, int x, int y, int width, int style){
 		this.fontRenderer = fontRenderer;
 		this.xPos = x+(this.borderPadding>>1); // inner x
@@ -54,6 +59,10 @@ public class TextField extends Gui {
 		this.disabledColor = 0x777777;
 		this.cursorColor = 0xffffffff;
 		this.selectionColor = 0xff0000ff;
+
+		#ifdef WITH_API_NEI
+		if(TextField.with_nei) this.nei_widget = new NEIWidget(this);
+		#endif
 	}
 
 	//////////
@@ -196,6 +205,10 @@ public class TextField extends Gui {
 			this.cursorCounter = 0;
 
 		this.isFocused = focused;
+
+		#ifdef WITH_API_NEI
+		if(TextField.with_nei) this.nei_widget.setFocus(focused);
+		#endif
 	}
 
 	// no get
@@ -266,76 +279,54 @@ public class TextField extends Gui {
 		boolean flag = false;
 
 		if(this.text.length() > 0)
-		{
 			s1 = s1 + this.text.substring(0, i);
-		}
 
 		int l;
 
-		if(k < s2.length())
-		{
+		if(k < s2.length()){
 			s1 = s1 + s2.substring(0, k);
 			l = k;
-		}
-		else
-		{
+		} else {
 			s1 = s1 + s2;
 			l = s2.length();
 		}
 
 		if(this.text.length() > 0 && j < this.text.length())
-		{
 			s1 = s1 + this.text.substring(j);
-		}
 
 		this.text = s1;
 		this.moveCursorBy(i - this.selectionEnd + l);
 	}
 
 	public void deleteWords(int par1){
-		if(this.text.length() != 0)
-		{
+		if(this.text.length() != 0){
 			if(this.selectionEnd != this.cursorPosition)
-			{
 				this.writeText("");
-			}
 			else
-			{
 				this.deleteFromCursor(this.getNthWordFromCursor(par1) - this.cursorPosition);
-			}
 		}
 	}
 
 	public void deleteFromCursor(int par1){
-		if(this.text.length() != 0)
-		{
-			if(this.selectionEnd != this.cursorPosition)
-			{
+		if(this.text.length() != 0){
+			if(this.selectionEnd != this.cursorPosition){
 				this.writeText("");
-			}
-			else
-			{
+			} else {
 				boolean flag = par1 < 0;
 				int j = flag ? this.cursorPosition + par1 : this.cursorPosition;
 				int k = flag ? this.cursorPosition : this.cursorPosition + par1;
 				String s = "";
 
 				if(j >= 0)
-				{
 					s = this.text.substring(0, j);
-				}
 
 				if(k < this.text.length())
-				{
 					s = s + this.text.substring(k);
-				}
 
 				this.text = s;
 
 				if(flag)
-				{
 					this.moveCursorBy(par1);
-				}
 			}
 		}
 	}
@@ -353,36 +344,22 @@ public class TextField extends Gui {
 		boolean flag1 = par1 < 0;
 		int l = Math.abs(par1);
 
-		for (int i1 = 0; i1 < l; ++i1)
-		{
-			if(flag1)
-			{
+		for (int i1 = 0; i1 < l; ++i1){
+			if(flag1){
 				while (par3 && k > 0 && this.text.charAt(k - 1) == 32)
-				{
 					--k;
-				}
 
 				while (k > 0 && this.text.charAt(k - 1) != 32)
-				{
 					--k;
-				}
-			}
-			else
-			{
+			} else {
 				int j1 = this.text.length();
 				k = this.text.indexOf(32, k);
 
 				if(k == -1)
-				{
 					k = j1;
-				}
 				else
-				{
 					while (par3 && k < j1 && this.text.charAt(k) == 32)
-					{
 						++k;
-					}
-				}
 			}
 		}
 
@@ -398,14 +375,10 @@ public class TextField extends Gui {
 		int j = this.text.length();
 
 		if(this.cursorPosition < 0)
-		{
 			this.cursorPosition = 0;
-		}
 
 		if(this.cursorPosition > j)
-		{
 			this.cursorPosition = j;
-		}
 
 		this.setSelectionPos(this.cursorPosition);
 	}
@@ -442,125 +415,79 @@ public class TextField extends Gui {
 					this.writeText("");
 					return true;
 				default:
-					switch (par2)
-					{
+					switch (par2){
 						case 14:
 							if(GuiScreen.isCtrlKeyDown())
-							{
 								this.deleteWords(-1);
-							}
 							else
-							{
 								this.deleteFromCursor(-1);
-							}
 
 							return true;
 						case 199:
 							if(GuiScreen.isShiftKeyDown())
-							{
 								this.setSelectionPos(0);
-							}
 							else
-							{
 								this.setCursorPositionZero();
-							}
 
 							return true;
 						case 203:
-							if(GuiScreen.isShiftKeyDown())
-							{
+							if(GuiScreen.isShiftKeyDown()){
 								if(GuiScreen.isCtrlKeyDown())
-								{
 									this.setSelectionPos(this.getNthWordFromPos(-1, this.getSelectionEnd()));
-								}
 								else
-								{
 									this.setSelectionPos(this.getSelectionEnd() - 1);
-								}
-							}
-							else if(GuiScreen.isCtrlKeyDown())
-							{
+							} else if(GuiScreen.isCtrlKeyDown())
 								this.setCursorPosition(this.getNthWordFromCursor(-1));
-							}
 							else
-							{
 								this.moveCursorBy(-1);
-							}
 
 							return true;
 						case 205:
-							if(GuiScreen.isShiftKeyDown())
-							{
+							if(GuiScreen.isShiftKeyDown()){
 								if(GuiScreen.isCtrlKeyDown())
-								{
 									this.setSelectionPos(this.getNthWordFromPos(1, this.getSelectionEnd()));
-								}
 								else
-								{
 									this.setSelectionPos(this.getSelectionEnd() + 1);
-								}
 							}
 							else if(GuiScreen.isCtrlKeyDown())
-							{
 								this.setCursorPosition(this.getNthWordFromCursor(1));
-							}
 							else
-							{
 								this.moveCursorBy(1);
-							}
 
 							return true;
 						case 207:
 							if(GuiScreen.isShiftKeyDown())
-							{
 								this.setSelectionPos(this.text.length());
-							}
 							else
-							{
 								this.setCursorPositionEnd();
-							}
 
 							return true;
 						case 211:
 							if(GuiScreen.isCtrlKeyDown())
-							{
 								this.deleteWords(1);
-							}
 							else
-							{
 								this.deleteFromCursor(1);
-							}
 
 							return true;
 						default:
-							if(ChatAllowedCharacters.isAllowedCharacter(par1))
-							{
+							if(ChatAllowedCharacters.isAllowedCharacter(par1)){
 								this.writeText(Character.toString(par1));
 								return true;
-							}
-							else
-							{
+							} else
 								return false;
-							}
 					}
 			}
-		}
-		else
-		{
+		} else
 			return false;
-		}
 	}
 
 	public void mouseClicked(int x, int y, int button){
 		boolean flag = x >= this.xPos && x < this.xPos + this.width && y >= this.yPos && y < this.yPos + this.height;
 
 		if(this.canLoseFocus)
-		{
 			this.setFocused(this.isEnabled && flag);
-		}
 
-		if(this.isFocused && button == 0)
-		{
+		if(this.isFocused && button == 0){
 			int l = x - this.xPos;
 
 			String s = this.fontRenderer.trimStringToWidth(this.text.substring(this.lineScrollOffset), this.width);
