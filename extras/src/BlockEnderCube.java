@@ -82,7 +82,7 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 		Icon icon = null;
 		TileEntity tileEntity = (TileEntity)access.getBlockTileEntity(x, y, z);
 		if(tileEntity instanceof TileEntityEnderCube)
-			icon = ((TileEntityAU)tileEntity).getCamoIcon(side);
+			icon = ((TileEntityAU)tileEntity).getCamoIcon(side); // block camo
 		return (icon == null ? this.blockIcon : icon);
 	}
 
