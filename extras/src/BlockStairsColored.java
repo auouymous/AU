@@ -28,13 +28,13 @@ class BlockStairsColored extends BlockStairs {
 	@SideOnly(Side.CLIENT)
 	public int getRenderColor(int shade){
 		// artificial grass
-		return _modelBlock.getRenderColor(this._modelBlockMetadata);
+		return this._modelBlock.getRenderColor(this._modelBlockMetadata);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int colorMultiplier(IBlockAccess access, int x, int y, int z){
 		// artificial grass
-		return _modelBlock.getRenderColor(this._modelBlockMetadata);
+		return this._modelBlock.getRenderColor(this._modelBlockMetadata);
 	}
 }
