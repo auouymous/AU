@@ -26,6 +26,7 @@ public class Cfg extends Config {
 	public static boolean enableStoneStairs;
 	public static boolean enableStoneBrickStairs;
 	public static boolean enableSmoothBrickStairs;
+	public static boolean enableArtificialGrassStairs;
 	public static boolean enableFlowers;
 	public static boolean enableFlowerWorldGen;
 	public static boolean enableFlowerSeed100;
@@ -78,6 +79,7 @@ public class Cfg extends Config {
 	public static int blockStoneStairs;
 	public static int blockStoneBrickStairs;
 	public static int blockSmoothBrickStairs;
+	public static int blockArtificialGrassStairs;
 	public static int blockFlower;
 	public static int blockFlowerSeed;
 	public static int blockEnderCube;
@@ -139,6 +141,8 @@ public class Cfg extends Config {
 		Cfg.enderCubeDistance = Cfg.getInt(Cfg.CATEGORY_GENERAL, "block.enderCube.distance", 16, "maximum distance between ender cubes");
 
 		Cfg.enableArtificialGrass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.enable", true, "enable artificial grass (uses 1 block ID)");
+
+		Cfg.enableArtificialGrassStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.stairs.enable", true, "enable colored artificial grass stairs (uses 16 block IDs)");
 
 		// Items
 		Cfg.enableEnderStar = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enable", true, "enable ender star (uses 1 item ID)");
@@ -209,6 +213,8 @@ public class Cfg extends Config {
 		Cfg.blockIronBars = Cfg.getBlock("block.colored.ironBars.id", startBlockID, null); startBlockID++;
 
 		Cfg.blockArtificialGrass = Cfg.getBlock("block.artificialGrass.id", startBlockID, null); startBlockID++;
+
+		Cfg.blockArtificialGrassStairs = Cfg.getBlock("block.artificialGrass.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
 
 		// ITEMS
 		Cfg.itemFriedEgg = Cfg.getItem("item.friedEgg.id", startItemID, null); startItemID++;

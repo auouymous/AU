@@ -132,6 +132,7 @@ Recipes
 * CRAFT 6 [colored] stone TO 4 [colored] stone stairs
 * CRAFT 6 [colored] stone brick TO 4 [colored] stone brick stairs
 * CRAFT 6 [colored] smooth brick TO 4 [colored] smooth brick stairs
+* CRAFT 6 [shaded] artificial grass TO 4 [shaded] artificial grass stairs
 * 
 * CRAFT 6 glass panes + dye + glowstone block + redstone dust TO [colored] lamp (requires tinted panes if enabled)
 * CRAFT 6 glass panes + dye + glowstone block + redstone torch TO [colored] inverted lamp (requires tinted panes if enabled)

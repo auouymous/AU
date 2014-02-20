@@ -404,6 +404,23 @@ tile.au.artificialGrass.13.name=Artificial Grass #14
 tile.au.artificialGrass.14.name=Artificial Grass #15
 tile.au.artificialGrass.15.name=Artificial Grass #16
 
+tile.au.artificialGrassStairs.0.name=Artificial Grass Stairs #1
+tile.au.artificialGrassStairs.1.name=Artificial Grass Stairs #2
+tile.au.artificialGrassStairs.2.name=Artificial Grass Stairs #3
+tile.au.artificialGrassStairs.3.name=Artificial Grass Stairs #4
+tile.au.artificialGrassStairs.4.name=Artificial Grass Stairs #5
+tile.au.artificialGrassStairs.5.name=Artificial Grass Stairs #6
+tile.au.artificialGrassStairs.6.name=Artificial Grass Stairs #7
+tile.au.artificialGrassStairs.7.name=Artificial Grass Stairs #8
+tile.au.artificialGrassStairs.8.name=Artificial Grass Stairs #9
+tile.au.artificialGrassStairs.9.name=Artificial Grass Stairs #10
+tile.au.artificialGrassStairs.10.name=Artificial Grass Stairs #11
+tile.au.artificialGrassStairs.11.name=Artificial Grass Stairs #12
+tile.au.artificialGrassStairs.12.name=Artificial Grass Stairs #13
+tile.au.artificialGrassStairs.13.name=Artificial Grass Stairs #14
+tile.au.artificialGrassStairs.14.name=Artificial Grass Stairs #15
+tile.au.artificialGrassStairs.15.name=Artificial Grass Stairs #16
+
 #########
 # ITEMS #
 #########

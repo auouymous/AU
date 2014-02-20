@@ -55,6 +55,7 @@ public class AUExtras {
 	public static Block[] blockStoneStairs = new BlockStairsColored[16];
 	public static Block[] blockStoneBrickStairs = new BlockStairsColored[16];
 	public static Block[] blockSmoothBrickStairs = new BlockStairsColored[16];
+	public static Block[] blockArtificialGrassStairs = new BlockStairsColored[16];
 	public static Block blockFlower;
 	public static Block blockFlowerSeed;
 	public static Block blockEnderCube;

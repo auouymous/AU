@@ -141,6 +141,8 @@ public class ModRecipes {
 				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockGravel, 1, c), coloredGravel);
 			// SMELT <colored> gravel -> gravel
 			GameRegistry.addSmelting(coloredGravel.itemID, gravel, 1.0f);
+
+			// no stairs -- texture doesn't align correctly
 		}
 
 		//////////
@@ -436,6 +438,11 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, grassBlock, artificialGrass);
 			for(int s = 0; s < 16; s++)
 				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockArtificialGrass, 1, s), artificialGrass);
+
+			// stairs
+			if(Cfg.enableArtificialGrassStairs)
+				for(int c = 0; c < 16; c++)
+			        GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockArtificialGrassStairs[c], 4), "b  ", "bb ", "bbb", 'b', new ItemStack(THIS_MOD.blockArtificialGrass, 1, c));
 		}
 
 		//////////

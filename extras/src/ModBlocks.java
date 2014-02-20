@@ -115,6 +115,8 @@ public class ModBlocks {
 				.setStepSound(Block.soundGravelFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
 			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockGravel, "shovel", 0); // wooden shovel
+
+			// no stairs -- texture doesn't align correctly
 		}
 
 		//////////
@@ -260,6 +262,13 @@ public class ModBlocks {
 				.setStepSound(Block.soundGrassFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
 			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockArtificialGrass, "shovel", 0); // wooden shovel
+
+			// stairs
+			if(Cfg.enableArtificialGrassStairs)
+				for(int c = 0; c < 16; c++){
+					THIS_MOD.blockArtificialGrassStairs[c] = new BlockStairsColored(Cfg.blockArtificialGrassStairs+c, "au.artificialGrassStairs."+c, THIS_MOD.blockArtificialGrass, c);
+					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockArtificialGrassStairs[c], "pickaxe", 0); // wooden pickaxe
+				}
 		}
 	}
 }
