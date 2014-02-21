@@ -145,8 +145,11 @@ public class RenderUtils {
 	}
 
 	public static final float colorTop = 1.0F;
-	public static final float colorSide = 0.80F;
+	public static final float colorSide = 0.8F;
 	public static final float colorBottom = 0.5F;
+
+	public static final float colorSideNS = 0.8F;
+	public static final float colorSideWE = 0.6F;
 
 	public static void setColorOverride(float multiplier){
 		RenderUtils.colorOverride = true;

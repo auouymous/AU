@@ -17,6 +17,15 @@ public class NEIExtrasConfig implements IConfigureNEI {
 				API.hideItem(Cfg.blockInvertedLampPowered);
 			}
 
+			// hide upper slabs
+			if(Cfg.enableCobble && Cfg.enableCobbleSlabs) API.hideItem(Cfg.blockCobbleSlab1);
+			if(Cfg.enableStone && Cfg.enableStoneSlabs) API.hideItem(Cfg.blockStoneSlab1);
+			if(Cfg.enableStoneBrick && Cfg.enableStoneBrickSlabs) API.hideItem(Cfg.blockStoneBrickSlab1);
+			if(Cfg.enableChiseledBrick && Cfg.enableChiseledBrickSlabs) API.hideItem(Cfg.blockChiseledBrickSlab1);
+			if(Cfg.enableSmoothBrick && Cfg.enableSmoothBrickSlabs) API.hideItem(Cfg.blockSmoothBrickSlab1);
+			if(Cfg.enableGravel && Cfg.enableGravelSlabs) API.hideItem(Cfg.blockGravelSlab1);
+			if(Cfg.enableArtificialGrass && Cfg.enableArtificialGrassSlabs) API.hideItem(Cfg.blockArtificialGrassSlab1);
+
 			// hide vanilla comparators
 			API.hideItem(MC_BLOCK.redstoneComparatorIdle.blockID);
 			API.hideItem(MC_BLOCK.redstoneComparatorActive.blockID);

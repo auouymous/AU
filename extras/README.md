@@ -48,33 +48,48 @@ Recipes
 * CRAFT 1 cauldron + 1 red dye + 1 green dye + 1 blue dye TO 1 chroma infuser
 * CRAFT 4 gold + 3 eyes of ender + 1 obsidian + 1 redstone dust TO 1 ender cube
 * 
-* CHROMA INFUSER grass block TO [shaded] artificial grass (blank: 8 per dye)
-* CHROMA INFUSER [shaded] artificial grass TO [shaded] artificial grass (blank: 8 per dye)
-* 
 * CHROMA INFUSER cobblestone TO [colored] cobblestone (blank: 8 per dye)
 * CHROMA INFUSER [colored] cobblestone TO [colored] cobblestone (blank: 8 per dye)
 * SMELT [colored] cobblestone TO cobblestone
+* CRAFT 6 [colored] cobblestone TO 4 [colored] cobblestone stairs
+* CRAFT 3 [colored] cobblestone TO 6 [colored] cobblestone slabs
 * 
 * CHROMA INFUSER stone TO [colored] stone (blank: 8 per dye)
 * CHROMA INFUSER [colored] stone TO [colored] stone (blank: 8 per dye)
 * SMELT [colored] stone TO stone
+* CRAFT 6 [colored] stone TO 4 [colored] stone stairs
+* CRAFT 3 [colored] stone TO 6 [colored] stone slabs
 * 
 * CHROMA INFUSER stone brick TO [colored] stone brick (blank: 8 per dye)
 * CHROMA INFUSER [colored] stone brick TO [colored] stone brick (blank: 8 per dye)
 * SMELT [colored] stone brick TO stone brick
+* CRAFT 6 [colored] stone brick TO 4 [colored] stone brick stairs
+* CRAFT 3 [colored] stone brick TO 6 [colored] stone brick slabs
 * 
 * CHROMA INFUSER chiseled brick TO [colored] chiseled brick (blank: 8 per dye)
 * CHROMA INFUSER stone TO [colored] chiseled brick (square dot: 8 per dye)
 * CHROMA INFUSER [colored] chiseled brick TO [colored] chiseled brick (blank: 8 per dye)
 * SMELT [colored] chiseled brick TO chiseled brick
+* no chiseled brick stairs
+* CRAFT 3 [colored] chiseled brick TO 6 [colored] chiseled brick slabs
 * 
 * CHROMA INFUSER stone TO [colored] smooth brick (square: 8 per dye)
 * CHROMA INFUSER [colored] smooth brick TO [colored] smooth brick (blank: 8 per dye)
 * SMELT [colored] smooth brick TO stone
+* CRAFT 6 [colored] smooth brick TO 4 [colored] smooth brick stairs
+* CRAFT 3 [colored] smooth brick TO 6 [colored] smooth brick slabs
 * 
 * CHROMA INFUSER gravel TO [colored] gravel (blank: 8 per dye - does not obey gravity and does not drop flint)
 * CHROMA INFUSER [colored] gravel TO [colored] gravel (blank: 8 per dye)
 * SMELT [colored] gravel TO gravel
+* no gravel stairs
+* CRAFT 3 [colored] gravel TO 6 [colored] gravel slabs
+* 
+* CHROMA INFUSER grass block TO [shaded] artificial grass (blank: 8 per dye)
+* CHROMA INFUSER [shaded] artificial grass TO [shaded] artificial grass (blank: 8 per dye)
+* CRAFT 6 [shaded] artificial grass TO 4 [shaded] artificial grass stairs
+* CRAFT 3 [shaded] artificial grass TO 6 [shaded] artificial grass slabs
+* 
 * 
 * CHROMA INFUSER glass TO [colored] glass (square: 8 per dye)
 * CHROMA INFUSER [colored] glass TO [colored] glass (square: 8 per dye)
@@ -119,6 +134,22 @@ Recipes
 * CHROMA INFUSER [colored] iron bars TO [colored] iron bars (square: 8 per dye)
 * SMELT [colored] iron bars TO iron bars
 * 
+* 
+* CRAFT 6 glass panes + dye + glowstone block + redstone dust TO [colored] lamp (requires tinted panes if enabled)
+* CRAFT 6 glass panes + dye + glowstone block + redstone torch TO [colored] inverted lamp (requires tinted panes if enabled)
+* CRAFT [colored] lamp + dye TO [colored] lamp
+* CRAFT [colored] inverted lamp + dye TO [colored] inverted lamp
+* CRAFT [colored] lamp + redstone torch TO [colored] inverted lamp
+* CRAFT [colored] inverted lamp + redstone dust TO [colored] lamp
+* 
+* 
+* CRAFT [colored] flower TO dye (new dyes for black, green, brown, blue and white)
+* PLANT [colored] flower ON artificial grass, grass, dirt, mycellium, sand, endstone, netherrack or soul sand (podzol and red sand in 1.7.x)
+* BONEMEAL grass TO GET [colored] flowers
+* BREAK grass plant TO GET flower seeds
+* PLANT flower seeds ON hydrated farmland (bonemeal to grow, shear to get flower, break to get seeds)
+* 
+* 
 * CHROMA INFUSER [vanilla] wool TO [vanilla] wool (blank: 8 per dye)
 * CHROMA INFUSER [vanilla] hardened clay TO [vanilla] stained clay (blank: 8 per dye - 1.6.x and up)
 * CHROMA INFUSER [vanilla] stained clay TO [vanilla] stained clay (blank: 8 per dye - 1.6.x and up)
@@ -128,36 +159,18 @@ Recipes
 * CHROMA INFUSER [vanilla] glass pane TO [vanilla] stained glass pane (blank: 8 per dye - 1.7.x and up)
 * CHROMA INFUSER [vanilla] stained glass pane TO [vanilla] stained glass pane (blank: 8 per dye - 1.7.x and up)
 * 
-* CRAFT 6 [colored] cobblestone TO 4 [colored] cobblestone stairs
-* CRAFT 6 [colored] stone TO 4 [colored] stone stairs
-* CRAFT 6 [colored] stone brick TO 4 [colored] stone brick stairs
-* CRAFT 6 [colored] smooth brick TO 4 [colored] smooth brick stairs
-* CRAFT 6 [shaded] artificial grass TO 4 [shaded] artificial grass stairs
-* 
-* CRAFT 6 glass panes + dye + glowstone block + redstone dust TO [colored] lamp (requires tinted panes if enabled)
-* CRAFT 6 glass panes + dye + glowstone block + redstone torch TO [colored] inverted lamp (requires tinted panes if enabled)
-* CRAFT [colored] lamp + dye TO [colored] lamp
-* CRAFT [colored] inverted lamp + dye TO [colored] inverted lamp
-* CRAFT [colored] lamp + redstone torch TO [colored] inverted lamp
-* CRAFT [colored] inverted lamp + redstone dust TO [colored] lamp
-* 
-* CRAFT [colored] flower TO dye (new dyes for black, green, brown, blue and white)
-* PLANT [colored] flower ON artificial grass, grass, dirt, mycellium, sand, endstone, netherrack or soul sand (podzol and red sand in 1.7.x)
-* BONEMEAL grass TO GET [colored] flowers
-* BREAK grass plant TO GET flower seeds
-* PLANT flower seeds ON hydrated farmland (bonemeal to grow, shear to get flower, break to get seeds)
-* 
 * CRAFT 2 stone brick slabs TO 1 chiseled stone bricks (same as 1.8)
 * CRAFT 1 stone brick + 1 vine TO 1 mossy stone bricks (same as 1.8)
 * CRAFT 1 cobblestone + 1 vine TO 1 moss stone (same as 1.8)
 * CRAFT 1 stone brick + 1 ice TO 1 cracked brick
 * CRAFT 1 tall grass + 1 dirt TO 1 grass block
 * CRAFT 1 brown mushroom + 1 red mushroom + 1 grass block TO 1 mycelium
-*
+* 
+* 
 * SMELT egg TO fried egg
 * SMELT rotten flesh TO cooked flesh
 * CRAFT 4 cooked flesh TO leather
-*
+* 
 * CRAFT 8 ender cubes + 1 nether star TO 1 ender star (burned out stars can be found in stronghold, dungeon and mineshaft chests)
 * CRAFT 1 ender star + 2 diamonds + 2 gold TO 1 ender wand
 * CRAFT 5 ender stars + 2 diamonds TO 1 ender magnet

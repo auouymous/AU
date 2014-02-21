@@ -33,13 +33,33 @@ public class AUExtras {
 
 	public static CreativeTabs tabAU = new CreativeTabAUExtras();
 
+	//////////
+
+	// BLOCKS
 	public static Block blockChromaInfuser;
+
 	public static Block blockCobble;
+		public static Block[] blockCobbleStairs = new BlockStairsColored[16];
+		public static Block[] blockCobbleSlab = new BlockColoredSlab[2];
 	public static Block blockStone;
+		public static Block[] blockStoneStairs = new BlockStairsColored[16];
+		public static Block[] blockStoneSlab = new BlockColoredSlab[2];
 	public static Block blockStoneBrick;
+		public static Block[] blockStoneBrickStairs = new BlockStairsColored[16];
+		public static Block[] blockStoneBrickSlab = new BlockColoredSlab[2];
 	public static Block blockChiseledBrick;
+		// no chiseled brick stairs
+		public static Block[] blockChiseledBrickSlab = new BlockColoredSlab[2];
 	public static Block blockSmoothBrick;
+		public static Block[] blockSmoothBrickStairs = new BlockStairsColored[16];
+		public static Block[] blockSmoothBrickSlab = new BlockColoredSlab[2];
 	public static Block blockGravel;
+		// no gravel stairs
+		public static Block[] blockGravelSlab = new BlockColoredSlab[2];
+	public static Block blockArtificialGrass;
+		public static Block[] blockArtificialGrassStairs = new BlockStairsColored[16];
+		public static Block[] blockArtificialGrassSlab = new BlockColoredSlab[2];
+
 	public static Block blockGlass;
 	public static Block blockGlassTinted;
 	public static Block blockGlassTintedNoFrame;
@@ -47,27 +67,30 @@ public class AUExtras {
 	public static Block blockGlassPaneTinted;
 	public static Block blockGlassPaneTintedNoFrame;
 	public static Block blockIronBars;
+
 	public static Block blockLamp;
 	public static Block blockInvertedLamp;
 	public static Block blockLampPowered;
 	public static Block blockInvertedLampPowered;
-	public static Block[] blockCobbleStairs = new BlockStairsColored[16];
-	public static Block[] blockStoneStairs = new BlockStairsColored[16];
-	public static Block[] blockStoneBrickStairs = new BlockStairsColored[16];
-	public static Block[] blockSmoothBrickStairs = new BlockStairsColored[16];
-	public static Block[] blockArtificialGrassStairs = new BlockStairsColored[16];
+
 	public static Block blockFlower;
 	public static Block blockFlowerSeed;
+
 	public static Block blockEnderCube;
-	public static Block blockArtificialGrass;
+
+	// ITEMS
 	public static Item itemFriedEgg;
+
 	public static Item itemCookedFlesh;
+
 	public static Item itemFlowerDye;
+
 	public static Item itemEnderStar;
 	public static Item itemEnderWand;
 	public static Item itemEnderMagnet;
 	public static Item itemEnderXT;
-//	public static Item itemChromaSprayer;
+
+	//////////
 
 	FML_PREINIT
 	public void preInit(FMLPreInitializationEvent event){

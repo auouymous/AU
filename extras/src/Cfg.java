@@ -5,15 +5,32 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import com.qzx.au.core.Config;
 
 public class Cfg extends Config {
+	// ENABLE BLOCKS
 	public static boolean enableChromaInfuser;
 	public static boolean rainResetsChromaInfuser;
 
 	public static boolean enableCobble;
+		public static boolean enableCobbleStairs;
+		public static boolean enableCobbleSlabs;
 	public static boolean enableStone;
+		public static boolean enableStoneStairs;
+		public static boolean enableStoneSlabs;
 	public static boolean enableStoneBrick;
+		public static boolean enableStoneBrickStairs;
+		public static boolean enableStoneBrickSlabs;
 	public static boolean enableChiseledBrick;
+		// no chiseled brick stairs
+		public static boolean enableChiseledBrickSlabs;
 	public static boolean enableSmoothBrick;
+		public static boolean enableSmoothBrickStairs;
+		public static boolean enableSmoothBrickSlabs;
 	public static boolean enableGravel;
+		// no gravel stairs
+		public static boolean enableGravelSlabs;
+	public static boolean enableArtificialGrass;
+		public static boolean enableArtificialGrassStairs;
+		public static boolean enableArtificialGrassSlabs;
+
 	public static boolean enableGlass;
 	public static boolean enableGlassTinted;
 	public static boolean enableGlassTintedNoFrame;
@@ -21,24 +38,30 @@ public class Cfg extends Config {
 	public static boolean enableGlassPaneTinted;
 	public static boolean enableGlassPaneTintedNoFrame;
 	public static boolean enableIronBars;
+
 	public static boolean enableLamps;
-	public static boolean enableCobbleStairs;
-	public static boolean enableStoneStairs;
-	public static boolean enableStoneBrickStairs;
-	public static boolean enableSmoothBrickStairs;
-	public static boolean enableArtificialGrassStairs;
+
 	public static boolean enableFlowers;
 	public static boolean enableFlowerWorldGen;
 	public static boolean enableFlowerSeed100;
+
 	public static boolean enableEnderCube;
 	public static int enderCubeDistance;
-	public static boolean enableArtificialGrass;
+
+	// ENABLE ITEMS
+	public static boolean enableFriedEgg;
+
+	public static boolean enableCookedFlesh;
+	public static boolean enableCookedFleshToLeather;
+	public static int nrCookedFleshToLeather;
+
 	public static boolean enableEnderStar;
 	public static boolean enableEnderStarInDungeonChests;
 	public static boolean enableEnderWand;
 	public static boolean enableEnderMagnet;
 	public static boolean enableEnderXT;
 
+	// ENABLE Vanilla Recipes
 	public static boolean enableChiseledBrickCrafting;
 	public static boolean enableMossyBrickCrafting;
 	public static boolean enableMossyCobbleCrafting;
@@ -46,24 +69,44 @@ public class Cfg extends Config {
 	public static boolean enableGrassBlockCrafting;
 	public static boolean enableMyceliumCrafting;
 
+	// ENABLE Lighting Hack
 	public static boolean enableLightingHack;
 	public static int[] additionalLightingHack;
 
-	public static boolean enableFriedEgg;
-	public static boolean enableCookedFlesh;
+	//////////
 
-	public static boolean enableCookedFleshToLeather;
-	public static int nrCookedFleshToLeather;
-
-	// IDs
+	// BLOCKS
 	public static int blockChromaInfuser;
 
 	public static int blockCobble;
+		public static int blockCobbleStairs; // first of 16
+		public static int blockCobbleSlab0;
+		public static int blockCobbleSlab1;
 	public static int blockStone;
+		public static int blockStoneStairs; // first of 16
+		public static int blockStoneSlab0;
+		public static int blockStoneSlab1;
 	public static int blockStoneBrick;
+		public static int blockStoneBrickStairs; // first of 16
+		public static int blockStoneBrickSlab0;
+		public static int blockStoneBrickSlab1;
 	public static int blockChiseledBrick;
+		// no chiseled brick stairs
+		public static int blockChiseledBrickSlab0;
+		public static int blockChiseledBrickSlab1;
 	public static int blockSmoothBrick;
+		public static int blockSmoothBrickStairs; // first of 16
+		public static int blockSmoothBrickSlab0;
+		public static int blockSmoothBrickSlab1;
 	public static int blockGravel;
+		// no gravel stairs
+		public static int blockGravelSlab0;
+		public static int blockGravelSlab1;
+	public static int blockArtificialGrass;
+		public static int blockArtificialGrassStairs; // first of 16
+		public static int blockArtificialGrassSlab0;
+		public static int blockArtificialGrassSlab1;
+
 	public static int blockGlass;
 	public static int blockGlassTinted;
 	public static int blockGlassTintedNoFrame;
@@ -71,44 +114,61 @@ public class Cfg extends Config {
 	public static int blockGlassPaneTinted;
 	public static int blockGlassPaneTintedNoFrame;
 	public static int blockIronBars;
+
 	public static int blockLamp;
 	public static int blockInvertedLamp;
 	public static int blockLampPowered;
 	public static int blockInvertedLampPowered;
-	public static int blockCobbleStairs;
-	public static int blockStoneStairs;
-	public static int blockStoneBrickStairs;
-	public static int blockSmoothBrickStairs;
-	public static int blockArtificialGrassStairs;
+
 	public static int blockFlower;
 	public static int blockFlowerSeed;
-	public static int blockEnderCube;
-	public static int blockArtificialGrass;
 
+	public static int blockEnderCube;
+
+	// ITEMS
 	public static int itemFriedEgg;
+
 	public static int itemCookedFlesh;
+
 	public static int itemFlowerDye;
+
 	public static int itemEnderStar;
 	public static int itemEnderWand;
 	public static int itemEnderMagnet;
 	public static int itemEnderXT;
-//	public static int itemChromaSprayer;
+
+	//////////
 
 	public static void init(FMLPreInitializationEvent event){
 		Cfg.loadConfig(event);
 
 		//////////
 
-		// Blocks
+		// ENABLE BLOCKS
 		Cfg.enableChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.chromaInfuser.enable", true, "enable chroma infuser (uses 1 block ID)");
 		Cfg.rainResetsChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.chromaInfuser.rainResets", true, "rain resets chroma infuser");
 
 		Cfg.enableCobble = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.cobble.enable", true, "enable colored cobblestone (uses 1 block ID)");
+			Cfg.enableCobbleStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.cobble.stairs.enable", true, "enable colored cobblestone stairs (uses 16 block IDs)");
+			Cfg.enableCobbleSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.cobble.slabs.enable", true, "enable colored cobblestone slabs (uses 2 block IDs)");
 		Cfg.enableStone = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stone.enable", true, "enable colored stone (uses 1 block ID)");
+			Cfg.enableStoneStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stone.stairs.enable", true, "enable colored stone stairs (uses 16 block IDs)");
+			Cfg.enableStoneSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stone.slabs.enable", true, "enable colored stone slabs (uses 2 block IDs)");
 		Cfg.enableStoneBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stoneBrick.enable", true, "enable colored stone brick (uses 1 block ID)");
+			Cfg.enableStoneBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stoneBrick.stairs.enable", true, "enable colored stone brick stairs (uses 16 block IDs)");
+			Cfg.enableStoneBrickSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stoneBrick.slabs.enable", true, "enable colored stone brick slabs (uses 2 block IDs)");
 		Cfg.enableChiseledBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.chiseledBrick.enable", true, "enable colored chiseled brick (uses 1 block ID)");
+			// no chiseled brick stairs
+			Cfg.enableChiseledBrickSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.chiseledBrick.slabs.enable", true, "enable colored chiseled brick slabs (uses 2 block IDs)");
 		Cfg.enableSmoothBrick = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.smoothBrick.enable", true, "enable colored smooth brick (uses 1 block ID)");
+			Cfg.enableSmoothBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.smoothBrick.stairs.enable", true, "enable colored smooth brick stairs (uses 16 block IDs)");
+			Cfg.enableSmoothBrickSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.smoothBrick.slabs.enable", true, "enable colored smooth brick slabs (uses 2 block IDs)");
 		Cfg.enableGravel = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.gravel.enable", true, "enable colored gravel (uses 1 block ID)");
+			// no gravel stairs
+			Cfg.enableGravelSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.gravel.slabs.enable", true, "enable colored gravel slabs (uses 2 block IDs)");
+		Cfg.enableArtificialGrass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.enable", true, "enable artificial grass (uses 1 block ID)");
+			Cfg.enableArtificialGrassStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.stairs.enable", true, "enable artificial grass stairs (uses 16 block IDs)");
+			Cfg.enableArtificialGrassSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.slabs.enable", true, "enable artificial grass slabs (uses 2 block IDs)");
 
 		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glass.enable", true, "enable colored glass (uses 1 block ID)");
 		Cfg.enableGlassTinted = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glassTinted.enable", true,
@@ -127,11 +187,6 @@ public class Cfg extends Config {
 
 		Cfg.enableLamps = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.lamps.enable", true, "enable colored lamps (uses 4 block IDs)");
 
-		Cfg.enableCobbleStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.cobble.stairs.enable", true, "enable colored cobblestone stairs (uses 16 block IDs)");
-		Cfg.enableStoneStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stone.stairs.enable", true, "enable colored stone stairs (uses 16 block IDs)");
-		Cfg.enableStoneBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stoneBrick.stairs.enable", true, "enable colored stone brick stairs (uses 16 block IDs)");
-		Cfg.enableSmoothBrickStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.smoothBrick.stairs.enable", true, "enable colored smooth brick stairs (uses 16 block IDs)");
-
 		Cfg.enableFlowers = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.flowers.enable", true, "enable colored flowers (uses 2 block IDs and 1 item ID)");
 		Cfg.enableFlowerWorldGen = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.flowers.worldgen", true, "generate colored flowers in the world");
 		Cfg.enableFlowerSeed100 = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.flowers.seed100", false,
@@ -140,24 +195,21 @@ public class Cfg extends Config {
 		Cfg.enableEnderCube = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enable", true, "enable ender cube (uses 1 block ID)");
 		Cfg.enderCubeDistance = Cfg.getInt(Cfg.CATEGORY_GENERAL, "block.enderCube.distance", 16, "maximum distance between ender cubes");
 
-		Cfg.enableArtificialGrass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.enable", true, "enable artificial grass (uses 1 block ID)");
+		// ENABLE ITEMS
+		Cfg.enableFriedEgg = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.friedEgg.enable", true, "enable smelting eggs to edible food");
 
-		Cfg.enableArtificialGrassStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.stairs.enable", true, "enable colored artificial grass stairs (uses 16 block IDs)");
+		Cfg.enableCookedFlesh = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.enable", true, "enable smelting rotten flesh to edible food");
 
-		// Items
+		Cfg.enableCookedFleshToLeather = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.toLeather", true, "enable crafting cooked flesh to leather");
+		Cfg.nrCookedFleshToLeather = Cfg.getInt(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.toLeather.count", 4, "number of cooked flesh per leather (1-9)");
+
 		Cfg.enableEnderStar = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enable", true, "enable ender star (uses 1 item ID)");
 		Cfg.enableEnderStarInDungeonChests = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.dungeonChests", true, "spawn burned out ender stars in dungeon chests");
 		Cfg.enableEnderWand = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderWand.enable", true, "enable ender wand (uses 1 item ID)");
 		Cfg.enableEnderMagnet = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderMagnet.enable", true, "enable ender magnet (uses 1 item ID)");
 		Cfg.enableEnderXT = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderMagnet.enderXT.enable", true, "enable ender XT (uses 1 item ID)");
 
-		Cfg.enableFriedEgg = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.friedEgg.enable", true, "enable smelting eggs to edible food");
-		Cfg.enableCookedFlesh = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.enable", true, "enable smelting rotten flesh to edible food");
-
-		Cfg.enableCookedFleshToLeather = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.toLeather", true, "enable crafting cooked flesh to leather");
-		Cfg.nrCookedFleshToLeather = Cfg.getInt(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.toLeather.count", 4, "number of cooked flesh per leather (1-9)");
-
-		// Vanilla Recipes
+		// ENABLE Vanilla Recipes
 		Cfg.enableChiseledBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.chiseledBrick.recipe", true, "enable chiseled brick crafting recipe");
 		Cfg.enableMossyBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mossyBrick.recipe", true, "enable mossy brick crafting recipe");
 		Cfg.enableMossyCobbleCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mossyCobble.recipe", true, "enable mossy cobble crafting recipe");
@@ -165,7 +217,7 @@ public class Cfg extends Config {
 		Cfg.enableGrassBlockCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.grassBlock.recipe", true, "enable grass block crafting recipe");
 		Cfg.enableMyceliumCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mycelium.recipe", true, "enable mycelium crafting recipe");
 
-		// Lighting Hack
+		// ENABLE Lighting Hack
 		Cfg.enableLightingHack = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "lightingHack.enable", false,
 								"set light opacity to 0 for vanilla stairs and slabs to prevent dark spots\nlight will however pass through");
 		Cfg.additionalLightingHack = Cfg.getIntList(Cfg.CATEGORY_GENERAL, "lightingHack.additionalIDs", null,
@@ -177,7 +229,7 @@ public class Cfg extends Config {
 		int startBlockID = Cfg.getInt(Cfg.CATEGORY_IDMAP, "startBlockID", 3800, "clear all block IDs and restart client to move all blocks, beginning here");
 		int startItemID = Cfg.getInt(Cfg.CATEGORY_IDMAP, "startItemID", 31000, "clear all item IDs and restart client to move all items, beginning here");
 
-		// BLOCKS
+		// BLOCK IDs
 		Cfg.blockCobble = Cfg.getBlock("block.colored.cobble.id", startBlockID, null); startBlockID++;
 		Cfg.blockStone = Cfg.getBlock("block.colored.stone.id", startBlockID, null); startBlockID++;
 		Cfg.blockStoneBrick = Cfg.getBlock("block.colored.stoneBrick.id", startBlockID, null); startBlockID++;
@@ -213,10 +265,24 @@ public class Cfg extends Config {
 		Cfg.blockIronBars = Cfg.getBlock("block.colored.ironBars.id", startBlockID, null); startBlockID++;
 
 		Cfg.blockArtificialGrass = Cfg.getBlock("block.artificialGrass.id", startBlockID, null); startBlockID++;
-
 		Cfg.blockArtificialGrassStairs = Cfg.getBlock("block.artificialGrass.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
 
-		// ITEMS
+		Cfg.blockCobbleSlab0 = Cfg.getBlock("block.colored.cobble.slabs0.id", startBlockID, null); startBlockID++;
+		Cfg.blockCobbleSlab1 = Cfg.getBlock("block.colored.cobble.slabs1.id", startBlockID, null); startBlockID++;
+		Cfg.blockStoneSlab0 = Cfg.getBlock("block.colored.stone.slabs0.id", startBlockID, null); startBlockID++;
+		Cfg.blockStoneSlab1 = Cfg.getBlock("block.colored.stone.slabs1.id", startBlockID, null); startBlockID++;
+		Cfg.blockStoneBrickSlab0 = Cfg.getBlock("block.colored.stoneBrick.slabs0.id", startBlockID, null); startBlockID++;
+		Cfg.blockStoneBrickSlab1 = Cfg.getBlock("block.colored.stoneBrick.slabs1.id", startBlockID, null); startBlockID++;
+		Cfg.blockChiseledBrickSlab0 = Cfg.getBlock("block.colored.chiseledBrick.slabs0.id", startBlockID, null); startBlockID++;
+		Cfg.blockChiseledBrickSlab1 = Cfg.getBlock("block.colored.chiseledBrick.slabs1.id", startBlockID, null); startBlockID++;
+		Cfg.blockSmoothBrickSlab0 = Cfg.getBlock("block.colored.smoothBrick.slabs0.id", startBlockID, null); startBlockID++;
+		Cfg.blockSmoothBrickSlab1 = Cfg.getBlock("block.colored.smoothBrick.slabs1.id", startBlockID, null); startBlockID++;
+		Cfg.blockGravelSlab0 = Cfg.getBlock("block.colored.gravel.slabs0.id", startBlockID, null); startBlockID++;
+		Cfg.blockGravelSlab1 = Cfg.getBlock("block.colored.gravel.slabs1.id", startBlockID, null); startBlockID++;
+		Cfg.blockArtificialGrassSlab0 = Cfg.getBlock("block.artificialGrass.slabs0.id", startBlockID, null); startBlockID++;
+		Cfg.blockArtificialGrassSlab1 = Cfg.getBlock("block.artificialGrass.slabs1.id", startBlockID, null); startBlockID++;
+
+		// ITEM IDs
 		Cfg.itemFriedEgg = Cfg.getItem("item.friedEgg.id", startItemID, null); startItemID++;
 
 		Cfg.itemCookedFlesh = Cfg.getItem("item.cookedFlesh.id", startItemID, null); startItemID++;
@@ -227,8 +293,6 @@ public class Cfg extends Config {
 		Cfg.itemEnderWand = Cfg.getItem("item.enderWand.id", startItemID, null); startItemID++;
 		Cfg.itemEnderMagnet = Cfg.getItem("item.enderMagnet.id", startItemID, null); startItemID++;
 		Cfg.itemEnderXT = Cfg.getItem("item.enderXT.id", startItemID, null); startItemID++;
-
-//		Cfg.itemChromaSprayer = Cfg.getItem("item.chromaSprayer.id", startItemID, null); startItemID++;
 
 		//////////
 

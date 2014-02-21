@@ -15,6 +15,7 @@ public class ClientProxy extends CommonProxy {
 
 	public static int renderPass = 0;
 	public static int infuserRenderType;
+	public static int slabRenderType;
 	public static int glassRenderType;
 	public static int paneRenderType;
 	public static int lampRenderType;
@@ -28,6 +29,10 @@ public class ClientProxy extends CommonProxy {
 		if(Cfg.enableChromaInfuser){
 			infuserRenderType = RenderingRegistry.getNextAvailableRenderId();
 			RenderingRegistry.registerBlockHandler(new RendererChromaInfuser());
+		}
+		if(Cfg.enableChiseledBrickSlabs && Cfg.enableSmoothBrickSlabs){
+			slabRenderType = RenderingRegistry.getNextAvailableRenderId();
+			RenderingRegistry.registerBlockHandler(new RendererSlab());
 		}
 		if(Cfg.enableGlassTinted || Cfg.enableGlassTintedNoFrame){
 			glassRenderType = RenderingRegistry.getNextAvailableRenderId();
