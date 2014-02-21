@@ -85,7 +85,7 @@ Recipes
 * no gravel stairs
 * CRAFT 3 [colored] gravel TO 6 [colored] gravel slabs
 * 
-* CHROMA INFUSER sand TO [colored] sand (blank: 8 per dye)
+* CHROMA INFUSER sand TO [colored] sand (blank: 8 per dye - does not obey gravity)
 * CHROMA INFUSER [colored] sand TO [colored] sand (blank: 8 per dye)
 * SMELT [colored] sand TO sand
 * CRAFT 6 [colored] sand TO 4 [colored] sand stairs
