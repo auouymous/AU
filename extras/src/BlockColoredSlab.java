@@ -60,6 +60,10 @@ public class BlockColoredSlab extends Block {
 		this.upperBlock = upperBlock;
 	}
 
+	public Block getUpperBlock(){
+		return this.upperBlock;
+	}
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int color){
@@ -118,16 +122,6 @@ return (pass == this.renderInPass);
 	}
 
 	//////////
-
-	@Override
-	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata){
-		if(!world.isRemote)
-			if(side == 0 || (side != 1 && hitY > 0.5F))
-				world.setBlock(x, y, z, this.upperBlock.blockID, metadata, 2);
-// TODO: this doesn't work, can't place upper slabs
-
-		return metadata;
-	}
 
 	@Override
 	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisAlignedBB, List list, Entity entity){
