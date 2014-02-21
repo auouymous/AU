@@ -7,7 +7,6 @@ public class ItemBlockArtificialGrass extends ItemBlock {
 	public ItemBlockArtificialGrass(int id){
 		super(id);
 		this.setHasSubtypes(true);
-		this.setUnlocalizedName("tile.au.artificialGrass");
 	}
 
 	@Override

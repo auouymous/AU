@@ -8,7 +8,6 @@ import net.minecraft.util.Icon;
 public class ItemBlockFlowerSeed extends ItemBlock {
 	public ItemBlockFlowerSeed(int id){
 		super(id);
-		this.setUnlocalizedName("au.colorFlowerSeed");
 	}
 
 	@Override
