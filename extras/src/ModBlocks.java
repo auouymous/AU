@@ -24,7 +24,7 @@ public class ModBlocks {
 		//////////
 
 		if(Cfg.enableCobble){
-			THIS_MOD.blockCobble = new BlockColored(Cfg.blockCobble, "au.colorCobble", ItemBlockCobble.class, Material.rock)
+			THIS_MOD.blockCobble = new BlockColored(Cfg.blockCobble, "au.colorCobble", ItemBlockColored.class, Material.rock)
 				.setHardness(2.0F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -41,7 +41,7 @@ public class ModBlocks {
 
 			// slabs
 			if(Cfg.enableCobbleSlabs){
-				THIS_MOD.blockCobbleSlab[0] = new BlockColoredSlab(Cfg.blockCobbleSlab0, "au.colorCobbleSlab", ItemBlockCobbleSlab.class, THIS_MOD.blockCobble, false)
+				THIS_MOD.blockCobbleSlab[0] = new BlockColoredSlab(Cfg.blockCobbleSlab0, "au.colorCobbleSlab", ItemBlockColoredSlab.class, THIS_MOD.blockCobble, false)
 					.setCreativeTab(THIS_MOD.tabAU);
 				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockCobbleSlab[0], "pickaxe", 0); // wooden pickaxe
 
@@ -56,7 +56,7 @@ public class ModBlocks {
 		//////////
 
 		if(Cfg.enableStone){
-			THIS_MOD.blockStone = new BlockColored(Cfg.blockStone, "au.colorStone", ItemBlockStone.class, Material.rock)
+			THIS_MOD.blockStone = new BlockColored(Cfg.blockStone, "au.colorStone", ItemBlockColored.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -73,7 +73,7 @@ public class ModBlocks {
 
 			// slabs
 			if(Cfg.enableStoneSlabs){
-				THIS_MOD.blockStoneSlab[0] = new BlockColoredSlab(Cfg.blockStoneSlab0, "au.colorStoneSlab", ItemBlockStoneSlab.class, THIS_MOD.blockStone, false)
+				THIS_MOD.blockStoneSlab[0] = new BlockColoredSlab(Cfg.blockStoneSlab0, "au.colorStoneSlab", ItemBlockColoredSlab.class, THIS_MOD.blockStone, false)
 					.setCreativeTab(THIS_MOD.tabAU);
 				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneSlab[0], "pickaxe", 0); // wooden pickaxe
 
@@ -88,7 +88,7 @@ public class ModBlocks {
 		//////////
 
 		if(Cfg.enableStoneBrick){
-			THIS_MOD.blockStoneBrick = new BlockColored(Cfg.blockStoneBrick, "au.colorStoneBrick", ItemBlockStoneBrick.class, Material.rock)
+			THIS_MOD.blockStoneBrick = new BlockColored(Cfg.blockStoneBrick, "au.colorStoneBrick", ItemBlockColored.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -105,7 +105,7 @@ public class ModBlocks {
 
 			// slabs
 			if(Cfg.enableStoneBrickSlabs){
-				THIS_MOD.blockStoneBrickSlab[0] = new BlockColoredSlab(Cfg.blockStoneBrickSlab0, "au.colorStoneBrickSlab", ItemBlockStoneBrickSlab.class, THIS_MOD.blockStoneBrick, false)
+				THIS_MOD.blockStoneBrickSlab[0] = new BlockColoredSlab(Cfg.blockStoneBrickSlab0, "au.colorStoneBrickSlab", ItemBlockColoredSlab.class, THIS_MOD.blockStoneBrick, false)
 					.setCreativeTab(THIS_MOD.tabAU);
 				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneBrickSlab[0], "pickaxe", 0); // wooden pickaxe
 
@@ -120,7 +120,7 @@ public class ModBlocks {
 		//////////
 
 		if(Cfg.enableChiseledBrick){
-			THIS_MOD.blockChiseledBrick = new BlockColored(Cfg.blockChiseledBrick, "au.colorChiseledBrick", ItemBlockChiseledBrick.class, Material.rock)
+			THIS_MOD.blockChiseledBrick = new BlockColored(Cfg.blockChiseledBrick, "au.colorChiseledBrick", ItemBlockColored.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -131,7 +131,7 @@ public class ModBlocks {
 
 			// slabs
 			if(Cfg.enableChiseledBrickSlabs){
-				THIS_MOD.blockChiseledBrickSlab[0] = new BlockColoredSlab(Cfg.blockChiseledBrickSlab0, "au.colorChiseledBrickSlab", ItemBlockChiseledBrickSlab.class,
+				THIS_MOD.blockChiseledBrickSlab[0] = new BlockColoredSlab(Cfg.blockChiseledBrickSlab0, "au.colorChiseledBrickSlab", ItemBlockColoredSlab.class,
 					THIS_MOD.blockChiseledBrick, true)
 					.setCreativeTab(THIS_MOD.tabAU);
 				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockChiseledBrickSlab[0], "pickaxe", 0); // wooden pickaxe
@@ -147,7 +147,7 @@ public class ModBlocks {
 		//////////
 
 		if(Cfg.enableSmoothBrick){
-			THIS_MOD.blockSmoothBrick = new BlockColored(Cfg.blockSmoothBrick, "au.colorSmoothBrick", ItemBlockSmoothBrick.class, Material.rock)
+			THIS_MOD.blockSmoothBrick = new BlockColored(Cfg.blockSmoothBrick, "au.colorSmoothBrick", ItemBlockColored.class, Material.rock)
 				.setHardness(1.5F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
@@ -164,7 +164,7 @@ public class ModBlocks {
 
 			// slabs
 			if(Cfg.enableSmoothBrickSlabs){
-				THIS_MOD.blockSmoothBrickSlab[0] = new BlockColoredSlab(Cfg.blockSmoothBrickSlab0, "au.colorSmoothBrickSlab", ItemBlockSmoothBrickSlab.class, THIS_MOD.blockSmoothBrick, true)
+				THIS_MOD.blockSmoothBrickSlab[0] = new BlockColoredSlab(Cfg.blockSmoothBrickSlab0, "au.colorSmoothBrickSlab", ItemBlockColoredSlab.class, THIS_MOD.blockSmoothBrick, true)
 					.setCreativeTab(THIS_MOD.tabAU);
 				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSmoothBrickSlab[0], "pickaxe", 0); // wooden pickaxe
 
@@ -179,7 +179,7 @@ public class ModBlocks {
 		//////////
 
 		if(Cfg.enableGravel){
-			THIS_MOD.blockGravel = new BlockColored(Cfg.blockGravel, "au.colorGravel", ItemBlockGravel.class, Material.sand)
+			THIS_MOD.blockGravel = new BlockColored(Cfg.blockGravel, "au.colorGravel", ItemBlockColored.class, Material.sand)
 				.setHardness(0.6F)
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGravelFootstep)
@@ -190,7 +190,7 @@ public class ModBlocks {
 
 			// slabs
 			if(Cfg.enableGravelSlabs){
-				THIS_MOD.blockGravelSlab[0] = new BlockColoredSlab(Cfg.blockGravelSlab0, "au.colorGravelSlab", ItemBlockGravelSlab.class, THIS_MOD.blockGravel, false)
+				THIS_MOD.blockGravelSlab[0] = new BlockColoredSlab(Cfg.blockGravelSlab0, "au.colorGravelSlab", ItemBlockColoredSlab.class, THIS_MOD.blockGravel, false)
 					.setCreativeTab(THIS_MOD.tabAU);
 				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockGravelSlab[0], "pickaxe", 0); // wooden pickaxe
 
@@ -270,7 +270,7 @@ public class ModBlocks {
 		//////////
 
 		if(Cfg.enableGlass){
-			THIS_MOD.blockGlass = new BlockGlass(Cfg.blockGlass, "au.colorGlass", ItemBlockGlass.class, 0)
+			THIS_MOD.blockGlass = new BlockGlass(Cfg.blockGlass, "au.colorGlass", ItemBlockColoredIcon.class, 0)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -278,7 +278,7 @@ public class ModBlocks {
 		}
 
 		if(Cfg.enableGlassTinted){
-			THIS_MOD.blockGlassTinted = new BlockGlass(Cfg.blockGlassTinted, "au.colorGlassTinted", ItemBlockGlassTinted.class, 1)
+			THIS_MOD.blockGlassTinted = new BlockGlass(Cfg.blockGlassTinted, "au.colorGlassTinted", ItemBlockColoredIcon.class, 1)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -286,7 +286,7 @@ public class ModBlocks {
 		}
 
 		if(Cfg.enableGlassTintedNoFrame){
-			THIS_MOD.blockGlassTintedNoFrame = new BlockGlass(Cfg.blockGlassTintedNoFrame, "au.colorGlassTintedNoFrame", ItemBlockGlassTintedNoFrame.class, 2)
+			THIS_MOD.blockGlassTintedNoFrame = new BlockGlass(Cfg.blockGlassTintedNoFrame, "au.colorGlassTintedNoFrame", ItemBlockColoredIcon.class, 2)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -296,7 +296,7 @@ public class ModBlocks {
 		//////////
 
 		if(Cfg.enableGlassPane){
-			THIS_MOD.blockGlassPane = new BlockColoredPane(Cfg.blockGlassPane, "au.colorGlassPane", ItemBlockGlassPane.class, Material.glass, THIS_MOD.blockGlass, true, 0)
+			THIS_MOD.blockGlassPane = new BlockColoredPane(Cfg.blockGlassPane, "au.colorGlassPane", ItemBlockColoredIcon.class, Material.glass, THIS_MOD.blockGlass, true, 0)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -305,7 +305,7 @@ public class ModBlocks {
 
 		if(Cfg.enableGlassPaneTinted){
 			THIS_MOD.blockGlassPaneTinted = new BlockColoredPane(Cfg.blockGlassPaneTinted, "au.colorGlassPaneTinted",
-																	ItemBlockGlassPaneTinted.class, Material.glass, THIS_MOD.blockGlassTinted, true, 1)
+																	ItemBlockColoredIcon.class, Material.glass, THIS_MOD.blockGlassTinted, true, 1)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -314,7 +314,7 @@ public class ModBlocks {
 
 		if(Cfg.enableGlassPaneTintedNoFrame){
 			THIS_MOD.blockGlassPaneTintedNoFrame = new BlockColoredPane(Cfg.blockGlassPaneTintedNoFrame, "au.colorGlassPaneTintedNoFrame",
-																	ItemBlockGlassPaneTintedNoFrame.class, Material.glass, THIS_MOD.blockGlassTintedNoFrame, false, 1)
+																	ItemBlockColoredIcon.class, Material.glass, THIS_MOD.blockGlassTintedNoFrame, false, 1)
 				.setHardness(0.3F)
 				.setResistance(1.5F)
 				.setStepSound(Block.soundGlassFootstep)
@@ -324,7 +324,7 @@ public class ModBlocks {
 		//////////
 
 		if(Cfg.enableIronBars){
-			THIS_MOD.blockIronBars = new BlockColoredPane(Cfg.blockIronBars, "au.colorIronBars", ItemBlockIronBars.class, Material.iron, null, false, 0)
+			THIS_MOD.blockIronBars = new BlockColoredPane(Cfg.blockIronBars, "au.colorIronBars", ItemBlockColoredIcon.class, Material.iron, null, false, 0)
 				.setHardness(5.0F)
 				.setResistance(10.0F)
 				.setStepSound(Block.soundMetalFootstep)

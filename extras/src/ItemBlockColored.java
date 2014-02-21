@@ -1,13 +1,17 @@
 package com.qzx.au.extras;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
 import com.qzx.au.core.Color;
 
 public class ItemBlockColored extends ItemBlock {
+	protected Block block;
+
 	public ItemBlockColored(int id){
 		super(id);
+		this.block = Block.blocksList[id + 256];
 		this.setHasSubtypes(true);
 		// extend and set unlocalized name
 	}
