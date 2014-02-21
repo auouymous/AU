@@ -1,37 +1,29 @@
-~ DEPRECATED
-	cpw.mods.fml.common.Mod.PreInit			@PreInit
-	cpw.mods.fml.common.Mod.Init			@Init
-	cpw.mods.fml.common.Mod.PostInit		@PostInit
+- forge multipart support
 
-- remove all support for 1.5.2
+- change iron bar texture to something that would be symmetrical in horizontal orientation?
+
+- semi-transparent icons for tinted glass panes
+
+- remove all support for 1.5.2 or fix language file issue
 
 - MC18x
 	- remove recipe to craft chiseled stone bricks
 
------
+----------
 
-- semi-transparent icons for tinted glass panes
+CHROMA INFUSER
+	- optimize TileEntityChromaInfuser.updateEntity()
 
-- FIX: Typing a player name that contains 'o' in the Ender Cube will cause NEI to toggle on or off
+	- FIX: ChromaRegistry.addRecipe() can't get localized names for input/output itemstacks from AU Extras (error output only)
 
-- FIX: ChromaRegistry.addRecipe() can't get localized names for input/output itemstacks from AU Extras
+	- chroma infuser shouldn't process a colored item with the same color, unless converting item IDs for it
+		- need to add a colored flag to ChromeRecipe and set in all conversion recipes
+		- the item input slot should reject the item if chroma infuser has dye, if no dye, processing should reject it
+		- NEI plugin merges conversion recipes and will need to handle the missing color
 
-- chroma infuser shouldn't process a colored item with the same color, unless converting item IDs for it
-	- need to add a colored flag to ChromeRecipe and set in all conversion recipes
-	- the item input slot should reject the item if chroma infuser has dye, if no dye, processing should reject it
-	- NEI plugin merges conversion recipes and will need to handle the missing color
+	- display 4 chroma recipes per NEI page (2 might be max)
 
-- optimize TileEntityChromaInfuser.updateEntity()
-
-- forge multipart support
-
------
-
-- change iron bar texture to something that would be symmetrical in horizontal orientation?
-
-- display 4 chroma recipes per NEI page (2 might be max)
-
-- display bubbles in chroma infuser's water and play a sound when processing items
+	- display bubbles in chroma infuser's water and play a sound when processing items
 
 - itemChromaSprayer
 	- CRAFT 1 piston + 1 chroma infuser + 1 wool
@@ -40,7 +32,7 @@
 	- fill or empty sprayers in chroma infuser
 	- each sprayers holds 256 uses (32 dye)
 
------
+----------
 
 - lamp and inverted lamp that light up but don't emit light, use glowstone dust instead of glowstone block
 
@@ -62,17 +54,12 @@
 	- crafted with any colored glass and 1 glowstone dust per
 	- would connect to its non-glow variant
 
------
-
-- artificial vines
+----------
 
 - colored water blocks, still and flowing(?)
 	- colored water buckets, right click a chroma infuser with 8 dye volume to fill bucket
 	- fill bucket with normal water if no dye
 	- water remains in the chroma infuser, can be used as an infinite water source
-
-- colored sand, won't obey gravity
-- colored sand stairs?
 
 - walls
 	- for all au_extras blocks
@@ -80,6 +67,8 @@
 - fences and gates
 	- for all au_extras blocks
 	- for sandstone and quartz, cobble?
+
+----------
 
 - colored signs
 	- 16 colors but they also support block camo
@@ -94,14 +83,18 @@
 		- option to set text color and block camo (for colored signs)
 	- right click a sign to apply text
 
+----------
+
 - connected textures for vanilla blocks?
 	- option to disable if something like optifine does it
 	- this would allow all clients to see the same thing
+
+----------
 
 - key or item to feign death
 	- lay down as if on a bed
 	- make mobs ignore player
 
------
+----------
 
 = painter's flower pot mod has a flower pot that can hold modded flowers
