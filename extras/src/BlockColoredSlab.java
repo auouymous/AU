@@ -42,7 +42,7 @@ public class BlockColoredSlab extends Block {
 		this.upperBlock = this;
 
 		this.setHardness(block.blockHardness);
-		this.setResistance(block.blockResistance);
+		this.setResistance(block.blockResistance / 3.0F);
 		this.setStepSound(block.stepSound);
 
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
