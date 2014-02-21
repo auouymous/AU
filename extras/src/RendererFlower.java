@@ -5,13 +5,13 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 IMPORT_BLOCKS
-import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.src.FMLRenderAccessLibrary;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 
+import com.qzx.au.core.Color;
 import com.qzx.au.core.RenderUtils;
 
 @SideOnly(Side.CLIENT)
@@ -27,19 +27,8 @@ public class RendererFlower implements ISimpleBlockRenderingHandler {
 
 		tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
 
-		int colorMultiplier = block.colorMultiplier(world, x, y, z);
-		float r = (float)(colorMultiplier >> 16 & 255) / 255.0F;
-		float g = (float)(colorMultiplier >> 8 & 255) / 255.0F;
-		float b = (float)(colorMultiplier & 255) / 255.0F;
-		if(EntityRenderer.anaglyphEnable){
-			float rr = (r * 30.0F + g * 59.0F + b * 11.0F) / 100.0F;
-			float gg = (r * 30.0F + g * 70.0F) / 100.0F;
-			float bb = (r * 30.0F + b * 70.0F) / 100.0F;
-			r = rr;
-			g = gg;
-			b = bb;
-		}
-		tessellator.setColorOpaque_F(1.0F * r, 1.0F * g, 1.0F * b);
+		Color color = (new Color(block.colorMultiplier(world, x, y, z))).anaglyph();
+		tessellator.setColorOpaque_F(color.r, color.g, color.b);
 
 		Icon icon = block.getIcon(0, world.getBlockMetadata(x, y, z));
 		double minU = icon.getMinU();
