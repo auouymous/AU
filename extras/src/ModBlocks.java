@@ -34,7 +34,8 @@ public class ModBlocks {
 			// stairs
 			if(Cfg.enableCobbleStairs)
 				for(int c = 0; c < 16; c++){
-					THIS_MOD.blockCobbleStairs[c] = new BlockStairsColored(Cfg.blockCobbleStairs+c, "au.colorCobbleStairs."+Color.colors[c], THIS_MOD.blockCobble, c);
+					THIS_MOD.blockCobbleStairs[c] = new BlockStairsColored(Cfg.blockCobbleStairs+c, "au.colorCobbleStairs."+Color.colors[c], THIS_MOD.blockCobble, c)
+						.setCreativeTab(THIS_MOD.tabAU);
 					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockCobbleStairs[c], "pickaxe", 0); // wooden pickaxe
 				}
 
@@ -65,7 +66,8 @@ public class ModBlocks {
 			// stairs
 			if(Cfg.enableStoneStairs)
 				for(int c = 0; c < 16; c++){
-					THIS_MOD.blockStoneStairs[c] = new BlockStairsColored(Cfg.blockStoneStairs+c, "au.colorStoneStairs."+Color.colors[c], THIS_MOD.blockStone, c);
+					THIS_MOD.blockStoneStairs[c] = new BlockStairsColored(Cfg.blockStoneStairs+c, "au.colorStoneStairs."+Color.colors[c], THIS_MOD.blockStone, c)
+						.setCreativeTab(THIS_MOD.tabAU);
 					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneStairs[c], "pickaxe", 0); // wooden pickaxe
 				}
 
@@ -96,7 +98,8 @@ public class ModBlocks {
 			// stairs
 			if(Cfg.enableStoneBrickStairs)
 				for(int c = 0; c < 16; c++){
-					THIS_MOD.blockStoneBrickStairs[c] = new BlockStairsColored(Cfg.blockStoneBrickStairs+c, "au.colorStoneBrickStairs."+Color.colors[c], THIS_MOD.blockStoneBrick, c);
+					THIS_MOD.blockStoneBrickStairs[c] = new BlockStairsColored(Cfg.blockStoneBrickStairs+c, "au.colorStoneBrickStairs."+Color.colors[c], THIS_MOD.blockStoneBrick, c)
+						.setCreativeTab(THIS_MOD.tabAU);
 					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneBrickStairs[c], "pickaxe", 0); // wooden pickaxe
 				}
 
@@ -154,7 +157,8 @@ public class ModBlocks {
 			// stairs
 			if(Cfg.enableSmoothBrickStairs)
 				for(int c = 0; c < 16; c++){
-					THIS_MOD.blockSmoothBrickStairs[c] = new BlockStairsColored(Cfg.blockSmoothBrickStairs+c, "au.colorSmoothBrickStairs."+Color.colors[c], THIS_MOD.blockSmoothBrick, c);
+					THIS_MOD.blockSmoothBrickStairs[c] = new BlockStairsColored(Cfg.blockSmoothBrickStairs+c, "au.colorSmoothBrickStairs."+Color.colors[c], THIS_MOD.blockSmoothBrick, c)
+						.setCreativeTab(THIS_MOD.tabAU);
 					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSmoothBrickStairs[c], "pickaxe", 0); // wooden pickaxe
 				}
 
@@ -211,7 +215,8 @@ public class ModBlocks {
 			// stairs
 			if(Cfg.enableArtificialGrassStairs)
 				for(int c = 0; c < 16; c++){
-					THIS_MOD.blockArtificialGrassStairs[c] = new BlockStairsColored(Cfg.blockArtificialGrassStairs+c, "au.artificialGrassStairs."+c, THIS_MOD.blockArtificialGrass, c);
+					THIS_MOD.blockArtificialGrassStairs[c] = new BlockStairsColored(Cfg.blockArtificialGrassStairs+c, "au.artificialGrassStairs."+c, THIS_MOD.blockArtificialGrass, c)
+						.setCreativeTab(THIS_MOD.tabAU);
 					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockArtificialGrassStairs[c], "pickaxe", 0); // wooden pickaxe
 				}
 
