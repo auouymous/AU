@@ -1,0 +1,99 @@
+language.name=English
+language.region=US
+language.code=en_US
+
+itemGroup.tabAUExtras=Altered Unification EXTRAS
+
+##########
+# BLOCKS #
+##########
+
+tile.au.chromaInfuser.name=Chroma Infuser
+
+tile.au.colorCobble.${color}.name=${Color} Cobblestone
+tile.au.colorCobbleStairs.${color}.name=${Color} Cobblestone Stairs
+tile.au.colorCobbleSlab.${color}.name=${Color} Cobblestone Slab
+tile.au.colorCobbleSlabUpper.${color}.name=${Color} Cobblestone Slab
+
+tile.au.colorStone.${color}.name=${Color} Stone
+tile.au.colorStoneStairs.${color}.name=${Color} Stone Stairs
+tile.au.colorStoneSlab.${color}.name=${Color} Stone Slab
+tile.au.colorStoneSlabUpper.${color}.name=${Color} Stone Slab
+
+tile.au.colorStoneBrick.${color}.name=${Color} Stone Brick
+tile.au.colorStoneBrickStairs.${color}.name=${Color} Stone Brick Stairs
+tile.au.colorStoneBrickSlab.${color}.name=${Color} Stone Brick Slab
+tile.au.colorStoneBrickSlabUpper.${color}.name=${Color} Stone Brick Slab
+
+tile.au.colorChiseledBrick.${color}.name=${Color} Chiseled Brick
+# no chiseled brick stairs
+tile.au.colorChiseledBrickSlab.${color}.name=${Color} Chiseled Brick Slab
+tile.au.colorChiseledBrickSlabUpper.${color}.name=${Color} Chiseled Brick Slab
+
+tile.au.colorSmoothBrick.${color}.name=${Color} Smooth Brick
+tile.au.colorSmoothBrickStairs.${color}.name=${Color} Smooth Brick Stairs
+tile.au.colorSmoothBrickSlab.${color}.name=${Color} Smooth Brick Slab
+tile.au.colorSmoothBrickSlabUpper.${color}.name=${Color} Smooth Brick Slab
+
+tile.au.colorGravel.${color}.name=${Color} Gravel
+# no gravel stairs
+tile.au.colorGravelSlab.${color}.name=${Color} Gravel Slab
+tile.au.colorGravelSlabUpper.${color}.name=${Color} Gravel Slab
+
+tile.au.artificialGrass.${value}.name=Artificial Grass #${valuepp}
+tile.au.artificialGrassStairs.${value}.name=Artificial Grass Stairs #${valuepp}
+tile.au.artificialGrassSlab.${value}.name=Artificial Grass Slab #${valuepp}
+tile.au.artificialGrassSlabUpper.${value}.name=Artificial Grass Slab #${valuepp}
+
+
+
+tile.au.colorGlass.${color}.name=${Color} Glass
+tile.au.colorGlassTinted.${color}.name=${Color} Tinted Glass
+tile.au.colorGlassTintedNoFrame.${color}.name=${Color} Tinted Glass (Frameless)
+
+tile.au.colorGlassPane.${color}.name=${Color} Glass Pane
+tile.au.colorGlassPaneTinted.${color}.name=${Color} Tinted Glass Pane
+tile.au.colorGlassPaneTintedNoFrame.${color}.name=${Color} Tinted Glass Pane (Frameless)
+
+tile.au.colorIronBars.${color}.name=${Color} Iron Bars
+
+
+
+tile.au.colorLamp.${color}.name=${Color} Lamp
+tile.au.colorLampPowered.${color}.name=${Color} Lamp
+tile.au.colorInvertedLamp.${color}.name=${Color} Inverted Lamp
+tile.au.colorInvertedLampPowered.${color}.name=${Color} Inverted Lamp
+
+
+
+tile.au.colorFlower.${color}.name=${Color} Flower
+
+tile.au.colorFlowerSeed.name=Flower Seed
+
+tile.au.enderCube.name=Ender Cube
+
+#########
+# ITEMS #
+#########
+
+item.au.friedEgg.name=Fried Egg
+
+item.au.cookedFlesh.name=Cooked Flesh
+
+item.au.colorFlowerDye.black.name=Black Dye
+item.au.colorFlowerDye.green.name=Green Dye
+item.au.colorFlowerDye.brown.name=Brown Dye
+item.au.colorFlowerDye.blue.name=Blue Dye
+item.au.colorFlowerDye.white.name=White Dye
+
+item.au.enderStar.name=Ender Star
+item.au.enderWand.name=Ender Wand [WIP]
+item.au.enderMagnet.name=Ender Magnet [WIP]
+item.au.enderXT.name=Ender XT [WIP]
+
+##########
+# DAMAGE #
+##########
+
+death.attack.enderXT=%1$s was probed to death
+death.attack.enderXT.player=%1$s was probed to death by %2$s
