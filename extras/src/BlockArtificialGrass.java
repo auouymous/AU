@@ -23,23 +23,23 @@ public class BlockArtificialGrass extends BlockGrass {
 	private final int[] grassShades = {
 		0x5C694E, // 1	black		swamp				dark green
 		0x79C05A, // 2	red			forest				green
-		0x2d6f1e, // 3	green		jungle [---]		bright green [darkest]
-		0x8f893f, // 4	brown		desert [-]			yellow [darker]
+		0x2d6f1e, // 3	green		jungle [---]		bright green [darkest]			55%
+		0x8f893f, // 4	brown		desert [-]			yellow [darker]					75%
 
-		0x60876f, // 5	blue		taiga [-]
-		0x6a8a54, // 6	purple		ocean/river [-]		green
+		0x60876f, // 5	blue		taiga [-]											75%
+		0x6a8a54, // 6	purple		ocean/river [-]		green							75%
 		0x8AB689, // 7	cyan		x-hills				blue-green
-		0x3a8d26, // 8	l-gray		jungle [--]			bright green [darker]
+		0x3a8d26, // 8	l-gray		jungle [--]			bright green [darker]			70%
 
-		0x738361, // 9	d-gray		swamp [+]			dark green [brigher]
+		0x738361, // 9	d-gray		swamp [+]			dark green [brigher]			125%
 		0x91BD59, // 10	pink		beach/plains		green
 		0x53CA37, // 11	lime		jungle				bright green
-		0xdbd261, // 12	yellow		desert [+]			yellow [brighter]
+		0xdbd261, // 12	yellow		desert [+]			yellow [brighter]				115%
 
 		0x81B495, // 13	l-blue		taiga				blue-green
 		0x8EB971, // 14	magenta		ocean/river			green
 		0xBFB755, // 15	orange		desert				yellow
-		0x46ab2e, // 16	white		jungle [-]			bright green [dark]
+		0x46ab2e, // 16	white		jungle [-]			bright green [dark]				85%
 	};
 
 	public BlockArtificialGrass(int id, String name){
