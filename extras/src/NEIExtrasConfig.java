@@ -24,6 +24,7 @@ public class NEIExtrasConfig implements IConfigureNEI {
 			if(Cfg.enableChiseledBrick && Cfg.enableChiseledBrickSlabs) API.hideItem(Cfg.blockChiseledBrickSlab1);
 			if(Cfg.enableSmoothBrick && Cfg.enableSmoothBrickSlabs) API.hideItem(Cfg.blockSmoothBrickSlab1);
 			if(Cfg.enableGravel && Cfg.enableGravelSlabs) API.hideItem(Cfg.blockGravelSlab1);
+			if(Cfg.enableSand && Cfg.enableSandSlabs) API.hideItem(Cfg.blockSandSlab1);
 			if(Cfg.enableArtificialGrass && Cfg.enableArtificialGrassSlabs) API.hideItem(Cfg.blockArtificialGrassSlab1);
 
 			// hide vanilla comparators

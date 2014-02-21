@@ -40,6 +40,11 @@ tile.au.colorGravel.${color}.name=${Color} Gravel
 tile.au.colorGravelSlab.${color}.name=${Color} Gravel Slab
 tile.au.colorGravelSlabUpper.${color}.name=${Color} Gravel Slab
 
+tile.au.colorSand.${color}.name=${Color} Sand
+tile.au.colorSandStairs.${color}.name=${Color} Sand Stairs
+tile.au.colorSandSlab.${color}.name=${Color} Sand Slab
+tile.au.colorSandSlabUpper.${color}.name=${Color} Sand Slab
+
 tile.au.artificialGrass.${value}.name=Artificial Grass #${valuepp}
 tile.au.artificialGrassStairs.${value}.name=Artificial Grass Stairs #${valuepp}
 tile.au.artificialGrassSlab.${value}.name=Artificial Grass Slab #${valuepp}

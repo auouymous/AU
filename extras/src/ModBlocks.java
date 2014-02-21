@@ -204,6 +204,38 @@ public class ModBlocks {
 
 		//////////
 
+		if(Cfg.enableSand){
+			THIS_MOD.blockSand = new BlockColored(Cfg.blockSand, "au.colorSand", ItemBlockColored.class, Material.sand)
+				.setHardness(0.5F)
+				.setResistance(2.5F)
+				.setStepSound(Block.soundSandFootstep)
+				.setCreativeTab(THIS_MOD.tabAU);
+			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSand, "shovel", 0); // wooden shovel
+
+			// stairs
+			if(Cfg.enableSandStairs)
+				for(int c = 0; c < 16; c++){
+					THIS_MOD.blockSandStairs[c] = new BlockStairsColored(Cfg.blockSandStairs+c, "au.colorSandStairs."+Color.colors[c], THIS_MOD.blockSand, c)
+						.setCreativeTab(THIS_MOD.tabAU);
+					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSandStairs[c], "pickaxe", 0); // wooden pickaxe
+				}
+
+			// slabs
+			if(Cfg.enableSandSlabs){
+				THIS_MOD.blockSandSlab[0] = new BlockColoredSlab(Cfg.blockSandSlab0, "au.colorSandSlab", ItemBlockColoredSlab.class, THIS_MOD.blockSand, true)
+					.setCreativeTab(THIS_MOD.tabAU);
+				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSandSlab[0], "pickaxe", 0); // wooden pickaxe
+
+				THIS_MOD.blockSandSlab[1] = new BlockColoredSlab(Cfg.blockSandSlab1, "au.colorSandSlabUpper", null, THIS_MOD.blockSand, true);
+				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSandSlab[1], "pickaxe", 0); // wooden pickaxe
+
+				((BlockColoredSlab)THIS_MOD.blockSandSlab[0]).setUpperBlock(THIS_MOD.blockSandSlab[1]);
+				((BlockColoredSlab)THIS_MOD.blockSandSlab[1]).setLowerBlock(THIS_MOD.blockSandSlab[0]);
+			}
+		}
+
+		//////////
+
 		if(Cfg.enableArtificialGrass){
 			THIS_MOD.blockArtificialGrass = new BlockArtificialGrass(Cfg.blockArtificialGrass, "au.artificialGrass")
 				.setHardness(0.6F)

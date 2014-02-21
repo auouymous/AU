@@ -56,6 +56,9 @@ public class AUExtras {
 	public static Block blockGravel;
 		// no gravel stairs
 		public static Block[] blockGravelSlab = new BlockColoredSlab[2];
+	public static Block blockSand;
+		public static Block[] blockSandStairs = new BlockStairsColored[16];
+		public static Block[] blockSandSlab = new BlockColoredSlab[2];
 	public static Block blockArtificialGrass;
 		public static Block[] blockArtificialGrassStairs = new BlockStairsColored[16];
 		public static Block[] blockArtificialGrassSlab = new BlockColoredSlab[2];

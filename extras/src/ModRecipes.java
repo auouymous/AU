@@ -13,12 +13,13 @@ import com.qzx.au.core.Color;
 
 public class ModRecipes {
 	public static void init(){
-		ItemStack grassBlock = new ItemStack(MC_BLOCK.grass);
 		ItemStack cobblestone = new ItemStack(MC_BLOCK.cobblestone);
 		ItemStack stone = new ItemStack(MC_BLOCK.stone);
 		ItemStack stoneBrick = new ItemStack(MC_BLOCK.stoneBrick);
 		ItemStack chiseledBrick = new ItemStack(MC_BLOCK.stoneBrick, 1, 3);
 		ItemStack gravel = new ItemStack(MC_BLOCK.gravel);
+		ItemStack sand = new ItemStack(MC_BLOCK.sand);
+		ItemStack grassBlock = new ItemStack(MC_BLOCK.grass);
 		ItemStack glass = new ItemStack(MC_BLOCK.glass);
 		ItemStack glassPane = new ItemStack(MC_BLOCK.thinGlass);
 		ItemStack ironBars = new ItemStack(MC_BLOCK.fenceIron);
@@ -173,6 +174,29 @@ public class ModRecipes {
 				for(int c = 0; c < 16; c++)
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockGravelSlab[0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockGravel, 1, c));
 
+		}
+
+		//////////
+
+		if(Cfg.enableSand){
+			ItemStack coloredSand = new ItemStack(THIS_MOD.blockSand);
+
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, sand, coloredSand);
+			for(int c = 0; c < 16; c++)
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockSand, 1, c), coloredSand);
+			// SMELT <colored> sand -> sand
+			GameRegistry.addSmelting(coloredSand.itemID, sand, 1.0f);
+
+			// stairs
+			if(Cfg.enableSandStairs)
+				for(int c = 0; c < 16; c++)
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockSandStairs[c], 4), "b  ", "bb ", "bbb", 'b', new ItemStack(THIS_MOD.blockSand, 1, c));
+
+			// slabs
+			if(Cfg.enableSandSlabs)
+				for(int c = 0; c < 16; c++)
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockSandSlab[0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockSand, 1, c));
 		}
 
 		//////////

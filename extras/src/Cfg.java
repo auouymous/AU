@@ -27,6 +27,9 @@ public class Cfg extends Config {
 	public static boolean enableGravel;
 		// no gravel stairs
 		public static boolean enableGravelSlabs;
+	public static boolean enableSand;
+		public static boolean enableSandStairs;
+		public static boolean enableSandSlabs;
 	public static boolean enableArtificialGrass;
 		public static boolean enableArtificialGrassStairs;
 		public static boolean enableArtificialGrassSlabs;
@@ -102,6 +105,10 @@ public class Cfg extends Config {
 		// no gravel stairs
 		public static int blockGravelSlab0;
 		public static int blockGravelSlab1;
+	public static int blockSand;
+		public static int blockSandStairs; // first of 16
+		public static int blockSandSlab0;
+		public static int blockSandSlab1;
 	public static int blockArtificialGrass;
 		public static int blockArtificialGrassStairs; // first of 16
 		public static int blockArtificialGrassSlab0;
@@ -166,6 +173,9 @@ public class Cfg extends Config {
 		Cfg.enableGravel = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.gravel.enable", true, "enable colored gravel (uses 1 block ID)");
 			// no gravel stairs
 			Cfg.enableGravelSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.gravel.slabs.enable", true, "enable colored gravel slabs (uses 2 block IDs)");
+		Cfg.enableSand = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.sand.enable", true, "enable colored sand (uses 1 block ID)");
+			Cfg.enableSandStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.sand.stairs.enable", true, "enable colored sand stairs (uses 16 block IDs)");
+			Cfg.enableSandSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.sand.slabs.enable", true, "enable colored sand slabs (uses 2 block IDs)");
 		Cfg.enableArtificialGrass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.enable", true, "enable artificial grass (uses 1 block ID)");
 			Cfg.enableArtificialGrassStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.stairs.enable", true, "enable artificial grass stairs (uses 16 block IDs)");
 			Cfg.enableArtificialGrassSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.slabs.enable", true, "enable artificial grass slabs (uses 2 block IDs)");
@@ -281,6 +291,11 @@ public class Cfg extends Config {
 		Cfg.blockGravelSlab1 = Cfg.getBlock("block.colored.gravel.slabs1.id", startBlockID, null); startBlockID++;
 		Cfg.blockArtificialGrassSlab0 = Cfg.getBlock("block.artificialGrass.slabs0.id", startBlockID, null); startBlockID++;
 		Cfg.blockArtificialGrassSlab1 = Cfg.getBlock("block.artificialGrass.slabs1.id", startBlockID, null); startBlockID++;
+
+		Cfg.blockSand = Cfg.getBlock("block.colored.sand.id", startBlockID, null); startBlockID++;
+		Cfg.blockSandStairs = Cfg.getBlock("block.colored.sand.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
+		Cfg.blockSandSlab0 = Cfg.getBlock("block.colored.sand.slabs0.id", startBlockID, null); startBlockID++;
+		Cfg.blockSandSlab1 = Cfg.getBlock("block.colored.sand.slabs1.id", startBlockID, null); startBlockID++;
 
 		// ITEM IDs
 		Cfg.itemFriedEgg = Cfg.getItem("item.friedEgg.id", startItemID, null); startItemID++;

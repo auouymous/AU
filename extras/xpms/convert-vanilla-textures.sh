@@ -15,6 +15,8 @@ function colorize_blocks(){
 		# amplify all colors by 20% except light dray, dark gray and white
 		# amplify red by 40%, but leave its GB components at default
 		COLORS="282525 fa312c 46611f 61391f 2c3aaf 9338e4 308db5 cfcfcf 494949 ff9ab6 4ef63e fff832 7aa4fd ea64f6 ffa351 ffffff"
+	elif [ "$2" = "colorSand" ]; then
+		convert ${1} tmp.png
 	else
 		convert ${1} -brightness-contrast 20x0 tmp.png
 	fi
@@ -44,15 +46,18 @@ rm -f blocks/colorCobble*
 rm -f blocks/colorStone*
 rm -f blocks/colorStoneBrick*
 rm -f blocks/colorChiseledBrick*
-rm -f blocks/colorGravel*
 rm -f blocks/colorSmoothBrick*
+rm -f blocks/colorGravel*
+rm -f blocks/colorSand*
 rm -f blocks/colorFlower*
+rm -f blocks/colorIronBars*
 colorize_blocks vanilla-cobblestone.png colorCobble
 colorize_blocks vanilla-stone.png colorStone
 colorize_blocks vanilla-stonebrick.png colorStoneBrick
 colorize_blocks vanilla-chiseledbrick.png colorChiseledBrick
-colorize_blocks vanilla-gravel.png colorGravel
 colorize_blocks smoothbrick.png colorSmoothBrick
+colorize_blocks vanilla-gravel.png colorGravel
+colorize_blocks sand.png colorSand
 colorize_blocks flower-top.xpm colorFlower blocks/flowerStage1.xpm
 colorize_blocks vanilla-iron_bars.png colorIronBars
 

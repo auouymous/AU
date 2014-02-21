@@ -85,6 +85,12 @@ Recipes
 * no gravel stairs
 * CRAFT 3 [colored] gravel TO 6 [colored] gravel slabs
 * 
+* CHROMA INFUSER sand TO [colored] sand (blank: 8 per dye)
+* CHROMA INFUSER [colored] sand TO [colored] sand (blank: 8 per dye)
+* SMELT [colored] sand TO sand
+* CRAFT 6 [colored] sand TO 4 [colored] sand stairs
+* CRAFT 3 [colored] sand TO 6 [colored] sand slabs
+* 
 * CHROMA INFUSER grass block TO [shaded] artificial grass (blank: 8 per dye)
 * CHROMA INFUSER [shaded] artificial grass TO [shaded] artificial grass (blank: 8 per dye)
 * CRAFT 6 [shaded] artificial grass TO 4 [shaded] artificial grass stairs
