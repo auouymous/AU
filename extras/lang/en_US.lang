@@ -500,6 +500,23 @@ tile.au.artificialGrassSlabUpper.13.name=Artificial Grass Slab #14
 tile.au.artificialGrassSlabUpper.14.name=Artificial Grass Slab #15
 tile.au.artificialGrassSlabUpper.15.name=Artificial Grass Slab #16
 
+tile.au.artificialVine.0.name=Artificial Vine #1
+tile.au.artificialVine.1.name=Artificial Vine #2
+tile.au.artificialVine.2.name=Artificial Vine #3
+tile.au.artificialVine.3.name=Artificial Vine #4
+tile.au.artificialVine.4.name=Artificial Vine #5
+tile.au.artificialVine.5.name=Artificial Vine #6
+tile.au.artificialVine.6.name=Artificial Vine #7
+tile.au.artificialVine.7.name=Artificial Vine #8
+tile.au.artificialVine.8.name=Artificial Vine #9
+tile.au.artificialVine.9.name=Artificial Vine #10
+tile.au.artificialVine.10.name=Artificial Vine #11
+tile.au.artificialVine.11.name=Artificial Vine #12
+tile.au.artificialVine.12.name=Artificial Vine #13
+tile.au.artificialVine.13.name=Artificial Vine #14
+tile.au.artificialVine.14.name=Artificial Vine #15
+tile.au.artificialVine.15.name=Artificial Vine #16
+
 
 
 tile.au.colorGlass.black.name=Black Glass

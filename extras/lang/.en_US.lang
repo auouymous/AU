@@ -50,6 +50,8 @@ tile.au.artificialGrassStairs.${value}.name=Artificial Grass Stairs #${valuepp}
 tile.au.artificialGrassSlab.${value}.name=Artificial Grass Slab #${valuepp}
 tile.au.artificialGrassSlabUpper.${value}.name=Artificial Grass Slab #${valuepp}
 
+tile.au.artificialVine.${value}.name=Artificial Vine #${valuepp}
+
 
 
 tile.au.colorGlass.${color}.name=${Color} Glass

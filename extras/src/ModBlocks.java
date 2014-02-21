@@ -269,6 +269,18 @@ public class ModBlocks {
 
 		//////////
 
+		if(Cfg.enableArtificialVine){
+			for(int c = 0; c < 16; c++){
+				THIS_MOD.blockArtificialVine[c] = new BlockArtificialVine(Cfg.blockArtificialVine+c, "au.artificialVine."+c, c)
+					.setHardness(0.2F)
+					.setResistance(1.0F)
+					.setStepSound(Block.soundGrassFootstep)
+					.setCreativeTab(THIS_MOD.tabAU);
+			}
+		}
+
+		//////////
+
 		if(Cfg.enableGlass){
 			THIS_MOD.blockGlass = new BlockGlass(Cfg.blockGlass, "au.colorGlass", ItemBlockColoredIcon.class, 0)
 				.setHardness(0.3F)

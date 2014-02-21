@@ -41,6 +41,10 @@ Passive mobs will not spawn on artificial grass.
 Sheep will not eat your artificial grass.
 Artificial grass does not spread to nearby dirt.
 
+Artificial vine comes in 16 biome-independent shades, does not spread.
+Two vines can be placed in the same block space.
+Shears are still required to break artificial vines.
+
 ***
 
 Recipes
@@ -95,6 +99,10 @@ Recipes
 * CHROMA INFUSER [shaded] artificial grass TO [shaded] artificial grass (blank: 8 per dye)
 * CRAFT 6 [shaded] artificial grass TO 4 [shaded] artificial grass stairs
 * CRAFT 3 [shaded] artificial grass TO 6 [shaded] artificial grass slabs
+* 
+* CHROMA INFUSER vine TO [shaded] artificial vine (blank: 8 per dye)
+* CHROMA INFUSER [shaded] artificial vine TO [shaded] artificial vine (blank: 8 per dye)
+* CRAFT 8 vines + 1 dye TO [shaded] artificial vine (temporary recipe until chroma infuser is fixed)
 * 
 * 
 * CHROMA INFUSER glass TO [colored] glass (square: 8 per dye)

@@ -33,6 +33,7 @@ public class Cfg extends Config {
 	public static boolean enableArtificialGrass;
 		public static boolean enableArtificialGrassStairs;
 		public static boolean enableArtificialGrassSlabs;
+	public static boolean enableArtificialVine;
 
 	public static boolean enableGlass;
 	public static boolean enableGlassTinted;
@@ -113,6 +114,7 @@ public class Cfg extends Config {
 		public static int blockArtificialGrassStairs; // first of 16
 		public static int blockArtificialGrassSlab0;
 		public static int blockArtificialGrassSlab1;
+	public static int blockArtificialVine; // first of 16
 
 	public static int blockGlass;
 	public static int blockGlassTinted;
@@ -179,6 +181,7 @@ public class Cfg extends Config {
 		Cfg.enableArtificialGrass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.enable", true, "enable artificial grass (uses 1 block ID)");
 			Cfg.enableArtificialGrassStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.stairs.enable", true, "enable artificial grass stairs (uses 16 block IDs)");
 			Cfg.enableArtificialGrassSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialGrass.slabs.enable", true, "enable artificial grass slabs (uses 2 block IDs)");
+		Cfg.enableArtificialVine = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.artificialVine.enable", true, "enable artificial vine (uses 16 block IDs)");
 
 		Cfg.enableGlass = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glass.enable", true, "enable colored glass (uses 1 block ID)");
 		Cfg.enableGlassTinted = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.glassTinted.enable", true,
@@ -296,6 +299,8 @@ public class Cfg extends Config {
 		Cfg.blockSandStairs = Cfg.getBlock("block.colored.sand.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
 		Cfg.blockSandSlab0 = Cfg.getBlock("block.colored.sand.slabs0.id", startBlockID, null); startBlockID++;
 		Cfg.blockSandSlab1 = Cfg.getBlock("block.colored.sand.slabs1.id", startBlockID, null); startBlockID++;
+
+		Cfg.blockArtificialVine = Cfg.getBlock("block.artificialVine.id", startBlockID, "First of 16 IDs"); startBlockID+=16;
 
 		// ITEM IDs
 		Cfg.itemFriedEgg = Cfg.getItem("item.friedEgg.id", startItemID, null); startItemID++;

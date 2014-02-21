@@ -16,6 +16,9 @@ CHROMA INFUSER
 
 	- FIX: ChromaRegistry.addRecipe() can't get localized names for input/output itemstacks from AU Extras (error output only)
 
+	- allow color specific recipes, to map each color to a separate ID:metadata, instead of only metadata
+		- add recipes for artificial vines
+
 	- chroma infuser shouldn't process a colored item with the same color, unless converting item IDs for it
 		- need to add a colored flag to ChromeRecipe and set in all conversion recipes
 		- the item input slot should reject the item if chroma infuser has dye, if no dye, processing should reject it

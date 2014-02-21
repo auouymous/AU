@@ -20,6 +20,7 @@ public class ModRecipes {
 		ItemStack gravel = new ItemStack(MC_BLOCK.gravel);
 		ItemStack sand = new ItemStack(MC_BLOCK.sand);
 		ItemStack grassBlock = new ItemStack(MC_BLOCK.grass);
+		ItemStack vine = new ItemStack(MC_BLOCK.vine);
 		ItemStack glass = new ItemStack(MC_BLOCK.glass);
 		ItemStack glassPane = new ItemStack(MC_BLOCK.thinGlass);
 		ItemStack ironBars = new ItemStack(MC_BLOCK.fenceIron);
@@ -38,7 +39,7 @@ public class ModRecipes {
 		//////////
 
 		if(Cfg.enableChromaInfuser){
-			// CRAFT cauldron + red dye, green dye, blue dye -> 1 chroma infuser
+			// CRAFT cauldron + red dye, green dye, blue dye -> chroma infuser
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(THIS_MOD.blockChromaInfuser), "rgb", " c ", "   ",
 									'c', new ItemStack(MC_ITEM.cauldron), 'r', Color.oreDyes[1], 'g', Color.oreDyes[2], 'b', Color.oreDyes[4]));
 		}
@@ -218,6 +219,22 @@ public class ModRecipes {
 			if(Cfg.enableArtificialGrassSlabs)
 				for(int c = 0; c < 16; c++)
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockArtificialGrassSlab[0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockArtificialGrass, 1, c));
+		}
+
+		//////////
+
+		if(Cfg.enableArtificialVine){
+//			// CHROMA INFUSER recipes
+//			for(int c = 0; c < 16; c++)
+//				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, c, vine, new ItemStack(THIS_MOD.blockArtificialVine[c]));
+//			for(int c = 0; c < 16; c++)
+//				for(int s = 0; s < 16; s++)
+//					ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, c, new ItemStack(THIS_MOD.blockArtificialVine[s]), new ItemStack(THIS_MOD.blockArtificialVine[c]));
+// TODO: chroma infuser can't yet map colors to separate output IDs
+
+			// CRAFT 8 vines + dye -> artificial vine
+			for(int c = 0; c < 16; c++)
+				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(THIS_MOD.blockArtificialVine[c], 8), "vvv", "vcv", "vvv", 'v', vine, 'c', Color.oreDyes[c]));
 		}
 
 		//////////
@@ -535,11 +552,11 @@ public class ModRecipes {
 		}
 		if(Cfg.enableMossyBrickCrafting){
 			// CRAFT stoneBrick + vine -> mossy stone brick (1.8 recipe)
-			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.stoneBrick, 1, 1), stoneBrick, new ItemStack(MC_BLOCK.vine));
+			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.stoneBrick, 1, 1), stoneBrick, vine);
 		}
 		if(Cfg.enableMossyCobbleCrafting){
 			// CRAFT cobblestone + vine -> mossy cobble (1.8 recipe)
-			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.cobblestoneMossy), cobblestone, new ItemStack(MC_BLOCK.vine));
+			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.cobblestoneMossy), cobblestone, vine);
 		}
 		if(Cfg.enableCrackedBrickCrafting){
 			// CRAFT stoneBrick + ice -> cracked stone brick

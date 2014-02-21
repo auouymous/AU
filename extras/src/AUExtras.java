@@ -62,6 +62,7 @@ public class AUExtras {
 	public static Block blockArtificialGrass;
 		public static Block[] blockArtificialGrassStairs = new BlockStairsColored[16];
 		public static Block[] blockArtificialGrassSlab = new BlockColoredSlab[2];
+	public static Block[] blockArtificialVine = new BlockArtificialVine[16];
 
 	public static Block blockGlass;
 	public static Block blockGlassTinted;
