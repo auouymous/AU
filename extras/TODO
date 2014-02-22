@@ -1,5 +1,3 @@
-- forge multipart support
-
 - change iron bar texture to something that would be symmetrical in horizontal orientation?
 
 - semi-transparent icons for tinted glass panes
@@ -34,6 +32,14 @@ CHROMA INFUSER
 	- right click with empty sprayer to remove color, for most blocks
 	- fill or empty sprayers in chroma infuser
 	- each sprayers holds 256 uses (32 dye)
+
+----------
+
+- glass slabs
+
+- lamp slabs?
+
+- more vanilla slabs? gravel, dirt, sand, chiseled brick
 
 ----------
 

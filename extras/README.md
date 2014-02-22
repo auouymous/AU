@@ -99,6 +99,7 @@ Recipes
 * CHROMA INFUSER [shaded] artificial grass TO [shaded] artificial grass (blank: 8 per dye)
 * CRAFT 6 [shaded] artificial grass TO 4 [shaded] artificial grass stairs
 * CRAFT 3 [shaded] artificial grass TO 6 [shaded] artificial grass slabs
+* no multipart or facade support
 * 
 * CHROMA INFUSER vine TO [shaded] artificial vine (blank: 8 per dye)
 * CHROMA INFUSER [shaded] artificial vine TO [shaded] artificial vine (blank: 8 per dye)
@@ -110,18 +111,21 @@ Recipes
 * CHROMA INFUSER [colored tinted] glass TO [colored] glass (square: 8 per dye)
 * CHROMA INFUSER [tinted frameless] glass TO [colored] glass (square: 8 per dye)
 * SMELT [colored] glass TO glass
+* no multipart or facade support
 * 
 * CHROMA INFUSER glass TO [colored tinted] glass (square dot: 8 per dye)
 * CHROMA INFUSER [colored] glass TO [colored tinted] glass (square dot: 8 per dye)
 * CHROMA INFUSER [colored tinted] glass TO [colored tinted] glass (square dot: 8 per dye)
 * CHROMA INFUSER [tinted frameless] glass TO [colored tinted] glass (square dot: 8 per dye)
 * SMELT [colored tinted] glass TO glass
+* no multipart or facade support
 * 
 * CHROMA INFUSER glass TO [tinted frameless] glass (dot: 8 per dye)
 * CHROMA INFUSER [colored] glass TO [tinted frameless] glass (dot: 8 per dye)
 * CHROMA INFUSER [colored tinted] glass TO [tinted frameless] glass (dot: 8 per dye)
 * CHROMA INFUSER [tinted frameless] glass TO [tinted frameless] glass (dot: 8 per dye)
 * SMELT [tinted frameless] glass TO glass
+* no facade support
 *
 * CHROMA INFUSER glass pane TO [colored] glass pane (square: 8 per dye)
 * CHROMA INFUSER [colored] glass pane TO [colored] glass (square: 8 per dye)

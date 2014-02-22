@@ -1,6 +1,7 @@
 package com.qzx.au.extras;
 
 IMPORT_FML
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
@@ -147,6 +148,16 @@ public class AUExtras {
 				if(block != null) block.setLightOpacity(0);
 			}
 		}
+
+		//////////
+
+		// Forge Multiparts
+		#ifdef WITH_API_FMP
+		if(Loader.isModLoaded("ForgeMultipart")) MicroblocksMultipart.init();
+		#endif
+
+		// BuildCraft Facades
+		if(Loader.isModLoaded("BuildCraft|Transport")) MicroblocksBuildcraft.init();
 	}
 
 	FML_POSTINIT
