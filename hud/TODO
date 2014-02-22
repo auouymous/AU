@@ -1,7 +1,4 @@
-~ DEPRECATED
-	cpw.mods.fml.common.Mod.PreInit			@PreInit
-	cpw.mods.fml.common.Mod.Init			@Init
-	cpw.mods.fml.common.Mod.PostInit		@PostInit
+- use scroll wheel to adjust zoom while key is pressed? 2x-10x, always default to 5x?
 
 ~ MC18x
 	- silverfish chiseled bricks?

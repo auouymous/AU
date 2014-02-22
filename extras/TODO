@@ -1,3 +1,5 @@
+- colored stone half slabs: lower, upper or full block
+
 ~ change iron bar texture to something that would be symmetrical in horizontal orientation?
 
 ~ render chiseled brick and smooth brick slabs with ambient occlusion
@@ -41,8 +43,6 @@ CHROMA INFUSER
 	- each sprayers holds 256 uses (32 dye)
 
 ----------
-
-- colored stone half slabs: lower, upper or full block
 
 - glass slabs
 
