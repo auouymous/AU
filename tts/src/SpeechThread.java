@@ -47,6 +47,7 @@ System.out.println("--- run "+this.voicePitch+", "+this.voicePitchRange+", "+thi
 			voice.setPitchShift(this.voicePitchShift);
 			voice.setRate(this.voiceRate);
 			voice.speak(this.voiceText);
+System.out.println("--- DONE SPEAKING");
 
 			return;
 		} catch (Exception e){
