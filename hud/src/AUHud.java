@@ -31,6 +31,6 @@ public class AUHud {
 
 	FML_POSTINIT
 	public void postInit(FMLPostInitializationEvent event){
-		AUHud.supportIC2 = Loader.isModLoaded("IC2");
+		THIS_MOD.supportIC2 = Loader.isModLoaded("IC2");
 	}
 }
