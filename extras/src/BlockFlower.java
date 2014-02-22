@@ -107,6 +107,7 @@ public class BlockFlower extends BlockColored implements IPlantable {
 			|| block instanceof BlockSand		// red sand is sand:1
 			|| block instanceof BlockSoulSand
 			|| id == MC_BLOCK.whiteStone.blockID	// endstone
+			|| id == THIS_MOD.blockSand.blockID		// colored sand
 			;
 	}
 
