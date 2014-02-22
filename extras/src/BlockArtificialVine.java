@@ -86,6 +86,16 @@ public class BlockArtificialVine extends BlockVine {
 	//////////
 
 	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID){
+		// artificial vines don't break
+
+		// private boolean canVineStay(World world, int x, int y, int z)
+		// was only called by this method
+	}
+
+	//////////
+
+	@Override
 	public void updateTick(World world, int x, int y, int z, Random random){
 		// won't spread
 	}

@@ -1,4 +1,8 @@
-- change iron bar texture to something that would be symmetrical in horizontal orientation?
+~ change iron bar texture to something that would be symmetrical in horizontal orientation?
+
+~ render chiseled brick and smooth brick slabs with ambient occlusion
+
+- allow vines to be placed on sides of other vines, avoiding the need to place blocks to place the vines on
 
 - semi-transparent icons for tinted glass panes
 
@@ -14,7 +18,7 @@ CHROMA INFUSER
 
 	- FIX: ChromaRegistry.addRecipe() can't get localized names for input/output itemstacks from AU Extras (error output only)
 
-	- allow color specific recipes, to map each color to a separate ID:metadata, instead of only metadata
+	~ allow color specific recipes, to map each color to a separate ID:metadata, instead of only metadata
 		- add recipes for artificial vines
 
 	- chroma infuser shouldn't process a colored item with the same color, unless converting item IDs for it

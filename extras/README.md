@@ -42,7 +42,8 @@ Sheep will not eat your artificial grass.
 Artificial grass does not spread to nearby dirt.
 
 Artificial vine comes in 16 biome-independent shades, does not spread.
-Two vines can be placed in the same block space.
+Two artificial vines can be placed in the same block space.
+Artificial vines remain when supporting blocks are removed.
 Shears are still required to break artificial vines.
 
 ***
