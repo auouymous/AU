@@ -78,5 +78,12 @@ public class ModItems {
 			THIS_MOD.itemCookedFlesh = new ItemFoodGeneric(Cfg.itemCookedFlesh, 64, "au.cookedFlesh", 2, 0.2F, false)
 				.setCreativeTab(THIS_MOD.tabAU);
 		}
+
+		//////////
+
+		if(Cfg.enableDiamondShears){
+			THIS_MOD.itemDiamondShears = new ItemDiamondShears(Cfg.itemDiamondShears, "au.diamondShears")
+				.setCreativeTab(THIS_MOD.tabAU);
+		}
 	}
 }

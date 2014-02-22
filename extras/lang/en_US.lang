@@ -743,6 +743,8 @@ item.au.enderWand.name=Ender Wand [WIP]
 item.au.enderMagnet.name=Ender Magnet [WIP]
 item.au.enderXT.name=Ender XT [WIP]
 
+item.au.diamondShears.name=Diamond Shears
+
 ##########
 # DAMAGE #
 ##########

@@ -65,6 +65,8 @@ public class Cfg extends Config {
 	public static boolean enableEnderMagnet;
 	public static boolean enableEnderXT;
 
+	public static boolean enableDiamondShears;
+
 	// ENABLE Vanilla Recipes
 	public static boolean enableChiseledBrickCrafting;
 	public static boolean enableMossyBrickCrafting;
@@ -146,6 +148,8 @@ public class Cfg extends Config {
 	public static int itemEnderMagnet;
 	public static int itemEnderXT;
 
+	public static int itemDiamondShears;
+
 	//////////
 
 	public static void init(FMLPreInitializationEvent event){
@@ -221,6 +225,8 @@ public class Cfg extends Config {
 		Cfg.enableEnderWand = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderWand.enable", true, "enable ender wand (uses 1 item ID)");
 		Cfg.enableEnderMagnet = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderMagnet.enable", true, "enable ender magnet (uses 1 item ID)");
 		Cfg.enableEnderXT = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderMagnet.enderXT.enable", true, "enable ender XT (uses 1 item ID)");
+
+		Cfg.enableDiamondShears = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "item.diamondShears.enable", true, "enable diamond shears (uses 1 item ID)");
 
 		// ENABLE Vanilla Recipes
 		Cfg.enableChiseledBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.chiseledBrick.recipe", true, "enable chiseled brick crafting recipe");
@@ -313,6 +319,8 @@ public class Cfg extends Config {
 		Cfg.itemEnderWand = Cfg.getItem("item.enderWand.id", startItemID, null); startItemID++;
 		Cfg.itemEnderMagnet = Cfg.getItem("item.enderMagnet.id", startItemID, null); startItemID++;
 		Cfg.itemEnderXT = Cfg.getItem("item.enderXT.id", startItemID, null); startItemID++;
+
+		Cfg.itemDiamondShears = Cfg.getItem("item.diamondShears.id", startItemID, null); startItemID++;
 
 		//////////
 

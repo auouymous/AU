@@ -27,6 +27,7 @@ public class ModRecipes {
 		ItemStack redstoneTorch = new ItemStack(MC_BLOCK.torchRedstoneActive);
 		ItemStack redstoneDust = new ItemStack(MC_ITEM.redstone);
 		ItemStack glowstone = new ItemStack(MC_BLOCK.glowStone);
+		ItemStack diamond = new ItemStack(MC_ITEM.diamond);
 		#ifdef MC152
 		ItemStack glowstoneDust = new ItemStack(MC_ITEM.lightStoneDust);
 		#else
@@ -490,7 +491,7 @@ public class ModRecipes {
 					ItemStack enderWand = new ItemStack(THIS_MOD.itemEnderWand);
 
 					// CRAFT ender star + 2 diamonds + 2 gold ingots -> ender wand
-					GameRegistry.addRecipe(enderWand, " ds", " gd", "g  ", 's', enderStar, 'd', new ItemStack(MC_ITEM.diamond), 'g', new ItemStack(MC_ITEM.ingotGold));
+					GameRegistry.addRecipe(enderWand, " ds", " gd", "g  ", 's', enderStar, 'd', diamond, 'g', new ItemStack(MC_ITEM.ingotGold));
 				}
 
 				//////////
@@ -499,7 +500,7 @@ public class ModRecipes {
 					ItemStack enderMagnet = new ItemStack(THIS_MOD.itemEnderMagnet);
 
 					// CRAFT 5 ender stars + 2 diamonds -> ender magnet
-					GameRegistry.addRecipe(enderMagnet, "s s", "s s", "dsd", 's', enderStar, 'd', new ItemStack(MC_ITEM.diamond));
+					GameRegistry.addRecipe(enderMagnet, "s s", "s s", "dsd", 's', enderStar, 'd', diamond);
 
 					//////////
 
@@ -507,7 +508,7 @@ public class ModRecipes {
 						ItemStack enderXT = new ItemStack(THIS_MOD.itemEnderXT);
 
 						// CRAFT 4 ender stars + 3 ender magnet + 2 diamonds -> ender xt
-						GameRegistry.addRecipe(enderXT, "sds", "mdm", "sms", 's', enderStar, 'm', enderMagnet, 'd', new ItemStack(MC_ITEM.diamond));
+						GameRegistry.addRecipe(enderXT, "sds", "mdm", "sms", 's', enderStar, 'm', enderMagnet, 'd', diamond);
 					}
 				}
 			}
@@ -542,6 +543,12 @@ public class ModRecipes {
 				default: GameRegistry.addShapelessRecipe(leather, cookedFlesh, cookedFlesh, cookedFlesh, cookedFlesh, cookedFlesh, cookedFlesh, cookedFlesh, cookedFlesh, cookedFlesh); break;
 				}
 			}
+		}
+
+		//////////
+
+		if(Cfg.enableDiamondShears){
+			GameRegistry.addShapedRecipe(new ItemStack(THIS_MOD.itemDiamondShears), "d d", " s ", "   ", 'd', diamond, 's', new ItemStack(MC_ITEM.shears));
 		}
 
 		//////////

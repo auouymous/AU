@@ -194,3 +194,5 @@ Recipes
 * CRAFT 1 ender star + 2 diamonds + 2 gold TO 1 ender wand
 * CRAFT 5 ender stars + 2 diamonds TO 1 ender magnet
 * CRAFT 3 ender magnets + 4 ender stars + 2 diamonds TO 1 ender XT
+* 
+* CRAFT 2 diamonds + 1 shears TO 1 diamond shears

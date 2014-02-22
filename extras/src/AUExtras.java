@@ -95,6 +95,8 @@ public class AUExtras {
 	public static Item itemEnderMagnet;
 	public static Item itemEnderXT;
 
+	public static Item itemDiamondShears;
+
 	//////////
 
 	FML_PREINIT
