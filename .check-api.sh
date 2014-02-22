@@ -11,6 +11,9 @@ APISRC=$3
 # NEI + Core
 # http://www.chickenbones.craftsaddle.org/Files/New_Versions/links.php
 
+# Forge Multipart
+# http://files.minecraftforge.net/ForgeMultipart/
+
 WITH_APIS=.with-apis
 rm -f $WITH_APIS
 
@@ -23,12 +26,8 @@ elif [ "$VER" = "152" ]; then
 	JARS="CodeChickenCore_0.8.7.3-fix1.jar NotEnoughItems_1.5.2.28.jar"
 	# industrialcraft-2-api_1.116.364-lf.zip
 	SRCS="ic2"
-elif [ "$VER" = "162" ]; then
-	JARS="CodeChickenCore_0.9.0.5.jar NotEnoughItems_1.6.1.4.jar"
-	# industrialcraft-2-api_1.118.401-lf.zip
-	SRCS="ic2"
 elif [ "$VER" = "164" ]; then
-	JARS="CodeChickenCore_0.9.0.7.jar NotEnoughItems_1.6.1.8.jar"
+	JARS="CodeChickenCore_0.9.0.7.jar NotEnoughItems_1.6.1.8.jar ForgeMultipart-dev-1.6.4-1.0.0.248.jar"
 	# industrialcraft-2-api_1.118.401-lf.zip
 	SRCS="ic2"
 elif [ "$VER" = "172" ]; then
@@ -40,7 +39,8 @@ fi
 for a in $JARS; do
 	if [ -f "$APIJAR/$a" ]; then
 		echo "FOUND API: $a"
-		[ "$a" = "NotEnoughItems_1.6.1.8.jar" ] && echo -n "-DWITH_API_NEI " >> $WITH_APIS
+		[[ "$a" =~ "NotEnoughItems" ]] && echo -n "-DWITH_API_NEI " >> $WITH_APIS
+		[[ "$a" =~ "ForgeMultipart-dev" ]] && echo -n "-DWITH_API_FMP " >> $WITH_APIS
 	else
 		echo "API NOT FOUND: $APIJAR/$a"
 		exit 1
