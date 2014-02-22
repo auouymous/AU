@@ -2,6 +2,9 @@
 
 ~ render chiseled brick and smooth brick slabs with ambient occlusion
 
+- allow flowers to be placed on artificial grass slabs
+	- shift flowers down half a block if placed on lower slabs
+
 - allow vines to be placed on sides of other vines, avoiding the need to place blocks to place the vines on
 
 - semi-transparent icons for tinted glass panes
