@@ -13,6 +13,10 @@ import com.qzx.au.core.Color;
 
 public class ModRecipes {
 	public static void init(){
+		ItemStack stoneDoubleSlab = new ItemStack(MC_BLOCK.stoneDoubleSlab);
+		ItemStack stoneSmoothSlab = new ItemStack(MC_BLOCK.stoneDoubleSlab, 1, 8);
+		ItemStack stoneSingleSlab = new ItemStack(MC_BLOCK.stoneSingleSlab);
+
 		ItemStack cobblestone = new ItemStack(MC_BLOCK.cobblestone);
 		ItemStack stone = new ItemStack(MC_BLOCK.stone);
 		ItemStack stoneBrick = new ItemStack(MC_BLOCK.stoneBrick);
@@ -43,6 +47,44 @@ public class ModRecipes {
 			// CRAFT cauldron + red dye, green dye, blue dye -> chroma infuser
 			GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(THIS_MOD.blockChromaInfuser), "rgb", " c ", "   ",
 									'c', new ItemStack(MC_ITEM.cauldron), 'r', Color.oreDyes[1], 'g', Color.oreDyes[2], 'b', Color.oreDyes[4]));
+		}
+
+		//////////
+
+		if(Cfg.enableStoneHalfSlabs){
+			ItemStack coloredStoneHalfSlabsSmooth = new ItemStack(THIS_MOD.blockStoneHalfSlabsSmooth);
+			ItemStack coloredStoneHalfSlabs = new ItemStack(THIS_MOD.blockStoneHalfSlabs);
+			ItemStack coloredStoneHalfSlab = new ItemStack(THIS_MOD.blockStoneHalfSlab[0]);
+
+			// CHROMA INFUSER recipes
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, stoneSmoothSlab, coloredStoneHalfSlabsSmooth);
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, stoneSmoothSlab, coloredStoneHalfSlabs);
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, stoneDoubleSlab, coloredStoneHalfSlabsSmooth);
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, stoneDoubleSlab, coloredStoneHalfSlabs);
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, stoneSingleSlab, coloredStoneHalfSlab);
+			for(int c = 0; c < 16; c++){
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(THIS_MOD.blockStoneHalfSlabsSmooth, 1, c), coloredStoneHalfSlabsSmooth);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockStoneHalfSlabsSmooth, 1, c), coloredStoneHalfSlabs);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(THIS_MOD.blockStoneHalfSlabs, 1, c), coloredStoneHalfSlabsSmooth);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockStoneHalfSlabs, 1, c), coloredStoneHalfSlabs);
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockStoneHalfSlab[0], 1, c), coloredStoneHalfSlab);
+			}
+			// SMELT <colored> stone slabs -> stone slabs
+			GameRegistry.addSmelting(coloredStoneHalfSlabsSmooth.itemID, stoneSmoothSlab, 1.0f);
+			GameRegistry.addSmelting(coloredStoneHalfSlabs.itemID, stoneDoubleSlab, 1.0f);
+			GameRegistry.addSmelting(coloredStoneHalfSlab.itemID, stoneSingleSlab, 1.0f);
+
+			for(int c = 0; c < 16; c++){
+				// CRAFT 2 <colored> stone double slabs -> 2 <colored> stone smooth slabs
+				GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneHalfSlabsSmooth, 2, c), "s", "s", 's', new ItemStack(THIS_MOD.blockStoneHalfSlabs, 1, c));
+				// CRAFT 2 <colored> stone half slabs -> <colored> stone double slab
+				GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneHalfSlabs, 1, c), "s", "s", 's', new ItemStack(THIS_MOD.blockStoneHalfSlab[0], 1, c));
+
+				// CRAFT <colored> stone smooth slabs -> 2 <colored> stone half slabs
+				GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneHalfSlab[0], 2, c), "s", 's', new ItemStack(THIS_MOD.blockStoneHalfSlabsSmooth, 1, c));
+				// CRAFT <colored> stone double slabs -> 2 <colored> stone half slabs
+				GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneHalfSlab[0], 2, c), "d", 'd', new ItemStack(THIS_MOD.blockStoneHalfSlabs, 1, c));
+			}
 		}
 
 		//////////

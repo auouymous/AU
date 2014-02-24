@@ -7,6 +7,8 @@ public class MicroblocksBuildcraft {
 		#define REGISTER_FACADE(id, c) FMLInterModComms.sendMessage("BuildCraft|Transport", "add-facade", String.format("%d@%d", id, c))
 
 		for(int c = 0; c < 16; c++){
+			if(Cfg.enableStoneHalfSlabs) REGISTER_FACADE(THIS_MOD.blockStoneHalfSlabsSmooth.blockID, c);
+			if(Cfg.enableStoneHalfSlabs) REGISTER_FACADE(THIS_MOD.blockStoneHalfSlabs.blockID, c);
 			if(Cfg.enableCobble) REGISTER_FACADE(THIS_MOD.blockCobble.blockID, c);
 			if(Cfg.enableStone) REGISTER_FACADE(THIS_MOD.blockStone.blockID, c);
 			if(Cfg.enableStoneBrick) REGISTER_FACADE(THIS_MOD.blockStoneBrick.blockID, c);

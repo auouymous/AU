@@ -18,6 +18,7 @@ public class NEIExtrasConfig implements IConfigureNEI {
 			}
 
 			// hide upper slabs
+			if(Cfg.enableStoneHalfSlabs) API.hideItem(Cfg.blockStoneHalfSlab1);
 			if(Cfg.enableCobble && Cfg.enableCobbleSlabs) API.hideItem(Cfg.blockCobbleSlab1);
 			if(Cfg.enableStone && Cfg.enableStoneSlabs) API.hideItem(Cfg.blockStoneSlab1);
 			if(Cfg.enableStoneBrick && Cfg.enableStoneBrickSlabs) API.hideItem(Cfg.blockStoneBrickSlab1);

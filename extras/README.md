@@ -53,6 +53,22 @@ Recipes
 * CRAFT 1 cauldron + 1 red dye + 1 green dye + 1 blue dye TO 1 chroma infuser
 * CRAFT 4 gold + 3 eyes of ender + 1 obsidian + 1 redstone dust TO 1 ender cube
 * 
+* CHROMA INFUSER stone slab TO [colored] stone half slab (blank: 8 per dye)
+* CHROMA INFUSER [colored] stone half slab TO [colored] stone half slab (blank: 8 per dye)
+* SMELT [colored] stone half slab TO stone slab
+* CHROMA INFUSER stone slab (full) TO [colored] stone double slabs (blank: 8 per dye)
+* CHROMA INFUSER [colored] stone double slabs TO [colored] stone double slabs (blank: 8 per dye)
+* CHROMA INFUSER [colored] stone smooth slabs TO [colored] stone double slabs (blank: 8 per dye)
+* SMELT [colored] stone double slabs TO stone slab (full)
+* CHROMA INFUSER stone slab (full smooth) TO [colored] stone smooth slabs (square: 8 per dye)
+* CHROMA INFUSER [colored] stone double slabs TO [colored] stone smooth slabs (square: 8 per dye)
+* CHROMA INFUSER [colored] stone smooth slabs TO [colored] stone smooth slabs (square: 8 per dye)
+* SMELT [colored] stone smooth slabs TO stone slab (full smooth)
+* CRAFT 2 [colored] stone half slabs TO [colored] stone double slabs
+* CRAFT 2 [colored] stone double slabs TO 2 [colored] stone smooth slabs
+* CRAFT [colored] stone double slabs TO 2 [colored] stone half slabs
+* CRAFT [colored] stone smooth slabs TO 2 [colored] stone half slabs
+* 
 * CHROMA INFUSER cobblestone TO [colored] cobblestone (blank: 8 per dye)
 * CHROMA INFUSER [colored] cobblestone TO [colored] cobblestone (blank: 8 per dye)
 * SMELT [colored] cobblestone TO cobblestone

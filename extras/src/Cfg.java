@@ -9,6 +9,7 @@ public class Cfg extends Config {
 	public static boolean enableChromaInfuser;
 	public static boolean rainResetsChromaInfuser;
 
+	public static boolean enableStoneHalfSlabs;
 	public static boolean enableCobble;
 		public static boolean enableCobbleStairs;
 		public static boolean enableCobbleSlabs;
@@ -84,6 +85,10 @@ public class Cfg extends Config {
 	// BLOCKS
 	public static int blockChromaInfuser;
 
+	public static int blockStoneHalfSlabs;
+		public static int blockStoneHalfSlabsSmooth;
+		public static int blockStoneHalfSlab0;
+		public static int blockStoneHalfSlab1;
 	public static int blockCobble;
 		public static int blockCobbleStairs; // first of 16
 		public static int blockCobbleSlab0;
@@ -161,6 +166,7 @@ public class Cfg extends Config {
 		Cfg.enableChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.chromaInfuser.enable", true, "enable chroma infuser (uses 1 block ID)");
 		Cfg.rainResetsChromaInfuser = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.chromaInfuser.rainResets", true, "rain resets chroma infuser");
 
+		Cfg.enableStoneHalfSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.stoneHalfSlabs.enable", true, "enable colored stone half slabs (uses 4 block IDs)");
 		Cfg.enableCobble = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.cobble.enable", true, "enable colored cobblestone (uses 1 block ID)");
 			Cfg.enableCobbleStairs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.cobble.stairs.enable", true, "enable colored cobblestone stairs (uses 16 block IDs)");
 			Cfg.enableCobbleSlabs = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.cobble.slabs.enable", true, "enable colored cobblestone slabs (uses 2 block IDs)");
@@ -307,6 +313,11 @@ public class Cfg extends Config {
 		Cfg.blockSandSlab1 = Cfg.getBlock("block.colored.sand.slabs1.id", startBlockID, null); startBlockID++;
 
 		Cfg.blockArtificialVine = Cfg.getBlock("block.artificialVine.id", startBlockID, "First of 16 IDs"); startBlockID+=16;
+
+		Cfg.blockStoneHalfSlabs = Cfg.getBlock("block.colored.stoneHalfSlabs.double.id", startBlockID, null); startBlockID++;
+		Cfg.blockStoneHalfSlabsSmooth = Cfg.getBlock("block.colored.stoneHalfSlabs.smooth.id", startBlockID, null); startBlockID++;
+		Cfg.blockStoneHalfSlab0 = Cfg.getBlock("block.colored.stoneHalfSlabs.slabs0.id", startBlockID, null); startBlockID++;
+		Cfg.blockStoneHalfSlab1 = Cfg.getBlock("block.colored.stoneHalfSlabs.slabs1.id", startBlockID, null); startBlockID++;
 
 		// ITEM IDs
 		Cfg.itemFriedEgg = Cfg.getItem("item.friedEgg.id", startItemID, null); startItemID++;

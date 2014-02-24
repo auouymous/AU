@@ -23,6 +23,33 @@ public class ModBlocks {
 
 		//////////
 
+		if(Cfg.enableStoneHalfSlabs){
+			THIS_MOD.blockStoneHalfSlabs = new BlockColoredHalfSlab(Cfg.blockStoneHalfSlabs, "au.colorStoneHalfSlabs", ItemBlockColored.class, Material.rock)
+				.setHardness(2.0F)
+				.setResistance(10.0F)
+				.setStepSound(Block.soundStoneFootstep)
+				.setCreativeTab(THIS_MOD.tabAU);
+			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneHalfSlabs, "pickaxe", 0); // wooden pickaxe
+
+			THIS_MOD.blockStoneHalfSlabsSmooth = new BlockColoredHalfSlab(Cfg.blockStoneHalfSlabsSmooth, "au.colorStoneHalfSlabsSmooth", ItemBlockColored.class, THIS_MOD.blockStoneHalfSlabs)
+				.setCreativeTab(THIS_MOD.tabAU);
+			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneHalfSlabsSmooth, "pickaxe", 0); // wooden pickaxe
+
+			THIS_MOD.blockStoneHalfSlab[0] = new BlockColoredHalfSlab(Cfg.blockStoneHalfSlab0, "au.colorStoneHalfSlab", ItemBlockColoredHalfSlab.class, THIS_MOD.blockStoneHalfSlabs, false)
+				.setCreativeTab(THIS_MOD.tabAU);
+			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneHalfSlab[0], "pickaxe", 0); // wooden pickaxe
+
+			THIS_MOD.blockStoneHalfSlab[1] = new BlockColoredHalfSlab(Cfg.blockStoneHalfSlab1, "au.colorStoneHalfSlabUpper", null, THIS_MOD.blockStoneHalfSlabs, false);
+			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneHalfSlab[1], "pickaxe", 0); // wooden pickaxe
+
+			((BlockColoredHalfSlab)THIS_MOD.blockStoneHalfSlabsSmooth).setSmoothBlock(THIS_MOD.blockStoneHalfSlabs);
+			((BlockColoredHalfSlab)THIS_MOD.blockStoneHalfSlabs).setFullBlock(THIS_MOD.blockStoneHalfSlab[0]);
+			((BlockColoredHalfSlab)THIS_MOD.blockStoneHalfSlab[0]).setUpperBlock(THIS_MOD.blockStoneHalfSlabs, THIS_MOD.blockStoneHalfSlab[1]);
+			((BlockColoredHalfSlab)THIS_MOD.blockStoneHalfSlab[1]).setLowerBlock(THIS_MOD.blockStoneHalfSlabs, THIS_MOD.blockStoneHalfSlab[0]);
+		}
+
+		//////////
+
 		if(Cfg.enableCobble){
 			THIS_MOD.blockCobble = new BlockColored(Cfg.blockCobble, "au.colorCobble", ItemBlockColored.class, Material.rock)
 				.setHardness(2.0F)

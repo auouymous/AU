@@ -39,6 +39,9 @@ public class AUExtras {
 	// BLOCKS
 	public static Block blockChromaInfuser;
 
+	public static Block blockStoneHalfSlabs;
+		public static Block blockStoneHalfSlabsSmooth;
+		public static Block[] blockStoneHalfSlab = new BlockColoredHalfSlab[2];
 	public static Block blockCobble;
 		public static Block[] blockCobbleStairs = new BlockStairsColored[16];
 		public static Block[] blockCobbleSlab = new BlockColoredSlab[2];

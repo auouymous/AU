@@ -10,6 +10,11 @@ itemGroup.tabAUExtras=Altered Unification EXTRAS
 
 tile.au.chromaInfuser.name=Chroma Infuser
 
+tile.au.colorStoneHalfSlabsSmooth.${color}.name=${Color} Stone Smooth Slabs
+tile.au.colorStoneHalfSlabs.${color}.name=${Color} Stone Double Slabs
+tile.au.colorStoneHalfSlab.${color}.name=${Color} Stone Half Slab
+tile.au.colorStoneHalfSlabUpper.${color}.name=${Color} Stone Half Slab
+
 tile.au.colorCobble.${color}.name=${Color} Cobblestone
 tile.au.colorCobbleStairs.${color}.name=${Color} Cobblestone Stairs
 tile.au.colorCobbleSlab.${color}.name=${Color} Cobblestone Slab

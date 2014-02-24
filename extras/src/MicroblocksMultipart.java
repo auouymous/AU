@@ -7,6 +7,8 @@ import codechicken.microblock.BlockMicroMaterial;
 public class MicroblocksMultipart {
 	public static void init(){
 		for(int c = 0; c < 16; c++){
+			if(Cfg.enableStoneHalfSlabs) BlockMicroMaterial.createAndRegister(THIS_MOD.blockStoneHalfSlabsSmooth, c);
+			if(Cfg.enableStoneHalfSlabs) BlockMicroMaterial.createAndRegister(THIS_MOD.blockStoneHalfSlabs, c);
 			if(Cfg.enableCobble) BlockMicroMaterial.createAndRegister(THIS_MOD.blockCobble, c);
 			if(Cfg.enableStone) BlockMicroMaterial.createAndRegister(THIS_MOD.blockStone, c);
 			if(Cfg.enableStoneBrick) BlockMicroMaterial.createAndRegister(THIS_MOD.blockStoneBrick, c);
