@@ -106,11 +106,6 @@ public class BlockLamp extends BlockColored {
 		return this.blockIcons[access.getBlockMetadata(x, y, z)];
 	}
 
-	@Override
-	public boolean canCreatureSpawn(EnumCreatureType type, World world, int x, int y, int z){
-		return false;
-	}
-
 	//////////
 
 	@Override

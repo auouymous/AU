@@ -244,6 +244,6 @@ return (pass == this.renderInPass);
 
 	@Override
 	public boolean canCreatureSpawn(EnumCreatureType type, World world, int x, int y, int z){
-		return false;
+		return this.isDoubleSlab || !this.isLowerHalf;
 	}
 }

@@ -213,9 +213,4 @@ public class BlockGlass extends BlockColored implements IConnectedTexture {
 
 		return this.blockIcons[blockColor][texture];
 	}
-
-	@Override
-	public boolean canCreatureSpawn(EnumCreatureType type, World world, int x, int y, int z){
-		return false;
-	}
 }

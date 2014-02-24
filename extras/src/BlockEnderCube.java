@@ -174,11 +174,6 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 	}
 
 	@Override
-	public boolean canCreatureSpawn(EnumCreatureType type, World world, int x, int y, int z){
-		return false;
-	}
-
-	@Override
 	public int getMobilityFlag(){
 		return 2; // prevent moving with pistons
 	}
