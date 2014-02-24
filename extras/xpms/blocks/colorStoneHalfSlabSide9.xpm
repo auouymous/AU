@@ -1,0 +1,34 @@
+/* XPM */
+static char *colorStoneHalfSlabSide9[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 12 1 ",
+"  c #D57F96",
+". c #D47E95",
+"X c #D88198",
+"o c #D17D93",
+"O c #C17388",
+"+ c #C6768B",
+"@ c #BE7186",
+"# c #BA6F83",
+"$ c #A86476",
+"% c #AC6779",
+"& c #A36172",
+"* c #B36B7E",
+/* pixels */
+" .... XXoX ....O",
+" O++++++@+++#OO$",
+" #@@#@@@+@OOO+O%",
+" +OOO#O+OO@@@@@%",
+" ++@@@@@@@+++++&",
+".@OOO@@@O#OO@@#%",
+"X+OOO@++OOOO+++&",
+"O%%$$$$$$&$$$$%%",
+" XXoX.   XXXXXX+",
+" @@@@@@O#OO@@@+%",
+" O+@@++@#@+++OO%",
+"oOOO@OOO++OOO++&",
+" @@@@@@@++@@@@@%",
+" +@+#OO@@@#@OO+*",
+" OO@@@@@OO++O@@%",
+"@$$$&**%%%%$$$%%"
+};

@@ -1,0 +1,31 @@
+/* XPM */
+static char *colorStoneHalfSlabTop6[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 9 1 ",
+"  c #205E78",
+". c #1F5B75",
+"X c #21627D",
+"o c #1E5971",
+"O c #246987",
+"+ c #256C8A",
+"@ c #236885",
+"# c #226682",
+"$ c #287697",
+/* pixels */
+" .... XXoX .... ",
+" O++++++@+++#OO.",
+" #@@#@@@+@OOO+O ",
+" +OOO#O+OO@@@@@ ",
+" ++@@@@@@@+++++o",
+".@OOO@@@O#OO@@# ",
+"X+OOO@++OOOO+++o",
+" OO@@@@@@#@@@@O ",
+" ++#+@OOO++++++X",
+" @@@@@@O#OO@@@+ ",
+" O+@@++@#@+++OO ",
+"oOOO@OOO++OOO++o",
+" @@@@@@@++@@@@@ ",
+" +@+#OO@@@#@OO+X",
+" OO@@@@@OO++O@@ ",
+"....oXX    ...  "
+};
