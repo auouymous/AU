@@ -22,9 +22,9 @@ import java.util.List;
 import java.util.Random;
 
 public class BlockColoredSlab extends Block {
-	private final Block modelBlock;
 	private final boolean useQuarterTexture;
 	private boolean isLowerHalf;
+	private Block fullBlock;
 	private Block lowerBlock;
 	private Block upperBlock;
 
@@ -36,9 +36,9 @@ public class BlockColoredSlab extends Block {
 		else
 			GameRegistry.registerBlock(this, name);
 
-		this.modelBlock = block;
 		this.useQuarterTexture = useQuarterTexture;
 		this.isLowerHalf = false;
+		this.fullBlock = block;
 		this.lowerBlock = this;
 		this.upperBlock = this;
 
@@ -74,7 +74,7 @@ public class BlockColoredSlab extends Block {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(int side, int color){
-		return this.modelBlock.getIcon(side, color);
+		return this.fullBlock.getIcon(side, color);
 	}
 
 	@Override
@@ -117,7 +117,7 @@ return (pass == this.renderInPass);
 	@SideOnly(Side.CLIENT)
 	public int getRenderColor(int color){
 		// artificial grass
-		return this.modelBlock.getRenderColor(color);
+		return this.fullBlock.getRenderColor(color);
 	}
 
 	@Override
@@ -125,7 +125,7 @@ return (pass == this.renderInPass);
 	public int colorMultiplier(IBlockAccess access, int x, int y, int z){
 		// artificial grass
 		int color = access.getBlockMetadata(x, y, z);
-		return this.modelBlock.getRenderColor(color);
+		return this.fullBlock.getRenderColor(color);
 	}
 
 	//////////
