@@ -42,8 +42,7 @@ function colorize_blocks(){
 #convert -colors 64 rf_composite.xpm items/cookedFlesh.xpm
 
 # blocks
-rm -f blocks/colorStoneHalfSlabTop*
-rm -f blocks/colorStoneHalfSlabSide*
+rm -f blocks/colorStoneHalfSlabs*
 rm -f blocks/colorCobble*
 rm -f blocks/colorStone*
 rm -f blocks/colorStoneBrick*
@@ -53,8 +52,8 @@ rm -f blocks/colorGravel*
 rm -f blocks/colorSand*
 rm -f blocks/colorFlower*
 rm -f blocks/colorIronBars*
-colorize_blocks vanilla-stone_slab_top.png colorStoneHalfSlabTop
-colorize_blocks vanilla-stone_slab_side.png colorStoneHalfSlabSide
+colorize_blocks vanilla-stone_slab_top.png colorStoneHalfSlabs-top
+colorize_blocks vanilla-stone_slab_side.png colorStoneHalfSlabs-side
 colorize_blocks vanilla-cobblestone.png colorCobble
 colorize_blocks vanilla-stone.png colorStone
 colorize_blocks vanilla-stonebrick.png colorStoneBrick
