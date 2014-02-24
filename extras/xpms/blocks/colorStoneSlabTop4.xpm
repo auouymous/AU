@@ -1,0 +1,31 @@
+/* XPM */
+static char *colorStoneSlabTop4[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 9 1 ",
+"  c #1D2774",
+". c #1D2671",
+"X c #1F2979",
+"o c #1C256E",
+"O c #212C82",
+"+ c #222D86",
+"@ c #202B80",
+"# c #202A7E",
+"$ c #253192",
+/* pixels */
+" .... XXoX .... ",
+" O++++++@+++#OO.",
+" #@@#@@@+@OOO+O ",
+" +OOO#O+OO@@@@@ ",
+" ++@@@@@@@+++++o",
+".@OOO@@@O#OO@@# ",
+"X+OOO@++OOOO+++o",
+" OO@@@@@@#@@@@O ",
+" ++#+@OOO++++++X",
+" @@@@@@O#OO@@@+ ",
+" O+@@++@#@+++OO ",
+"oOOO@OOO++OOO++o",
+" @@@@@@@++@@@@@ ",
+" +@+#OO@@@#@OO+X",
+" OO@@@@@OO++O@@ ",
+"....oXX    ...  "
+};
