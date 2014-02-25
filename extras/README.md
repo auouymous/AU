@@ -65,7 +65,7 @@ Recipes
 * CHROMA INFUSER [colored] stone smooth slabs TO [colored] stone smooth slabs (square: 8 per dye)
 * SMELT [colored] stone smooth slabs TO stone slab (full smooth)
 * CRAFT 2 [colored] stone half slabs TO [colored] stone double slabs
-* CRAFT 2 [colored] stone double slabs TO 2 [colored] stone smooth slabs
+* CRAFT 4 [colored] stone half slabs TO 2 [colored] stone smooth slabs
 * CRAFT [colored] stone double slabs TO 2 [colored] stone half slabs
 * CRAFT [colored] stone smooth slabs TO 2 [colored] stone half slabs
 * 

@@ -75,8 +75,8 @@ public class ModRecipes {
 			GameRegistry.addSmelting(coloredStoneHalfSlab.itemID, stoneSingleSlab, 1.0f);
 
 			for(int c = 0; c < 16; c++){
-				// CRAFT 2 <colored> stone double slabs -> 2 <colored> stone smooth slabs
-				GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneHalfSlabsSmooth, 2, c), "s", "s", 's', new ItemStack(THIS_MOD.blockStoneHalfSlabs, 1, c));
+				// CRAFT 4 <colored> stone half slabs -> 2 <colored> stone smooth slabs
+				GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneHalfSlabsSmooth, 2, c), "ss", "ss", 's', new ItemStack(THIS_MOD.blockStoneHalfSlab[0], 1, c));
 				// CRAFT 2 <colored> stone half slabs -> <colored> stone double slab
 				GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneHalfSlabs, 1, c), "s", "s", 's', new ItemStack(THIS_MOD.blockStoneHalfSlab[0], 1, c));
 
