@@ -5,8 +5,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.qzx.au.core.Color;
-
 public class ItemBlockColoredSlab extends ItemBlockColored {
 	public ItemBlockColoredSlab(int id){
 		super(id);

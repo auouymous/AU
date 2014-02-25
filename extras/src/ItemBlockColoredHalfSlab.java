@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import com.qzx.au.core.BlockCoord;
-import com.qzx.au.core.Color;
 
 public class ItemBlockColoredHalfSlab extends ItemBlockColored {
 	public ItemBlockColoredHalfSlab(int id){
