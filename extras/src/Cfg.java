@@ -73,6 +73,9 @@ public class Cfg extends Config {
 	public static boolean enableMossyBrickCrafting;
 	public static boolean enableMossyCobbleCrafting;
 	public static boolean enableCrackedBrickCrafting;
+	public static boolean enableStoneSlabFullCrafting;
+	public static boolean enableStoneSlabFullSmoothCrafting;
+	public static boolean enableSandstoneSlabFullSmoothCrafting;
 	public static boolean enableGrassBlockCrafting;
 	public static boolean enableMyceliumCrafting;
 
@@ -239,6 +242,9 @@ public class Cfg extends Config {
 		Cfg.enableMossyBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mossyBrick.recipe", true, "enable mossy brick crafting recipe");
 		Cfg.enableMossyCobbleCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mossyCobble.recipe", true, "enable mossy cobble crafting recipe");
 		Cfg.enableCrackedBrickCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.crackedBrick.recipe", true, "enable cracked brick crafting recipe");
+		Cfg.enableStoneSlabFullCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.stoneSlabFull.recipe", true, "enable stone slab (full) crafting recipe");
+		Cfg.enableStoneSlabFullSmoothCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.stoneSlabFullSmooth.recipe", true, "enable stone slab (full smooth) crafting recipe");
+		Cfg.enableSandstoneSlabFullSmoothCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.sandstoneSlabFullSmooth.recipe", true, "enable sandstone slab (full smooth) crafting recipe");
 		Cfg.enableGrassBlockCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.grassBlock.recipe", true, "enable grass block crafting recipe");
 		Cfg.enableMyceliumCrafting = Cfg.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.mycelium.recipe", true, "enable mycelium crafting recipe");
 

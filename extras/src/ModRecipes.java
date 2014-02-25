@@ -611,6 +611,25 @@ public class ModRecipes {
 			// CRAFT stoneBrick + ice -> cracked stone brick
 			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.stoneBrick, 1, 2), stoneBrick, new ItemStack(MC_BLOCK.ice));
 		}
+
+		if(Cfg.enableStoneSlabFullCrafting){
+			// CRAFT 2 stone slabs -> stone slab (full)
+			GameRegistry.addShapedRecipe(stoneDoubleSlab, "s", "s", 's', stoneSingleSlab);
+			// UNCRAFT
+			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.stoneSingleSlab, 2), stoneDoubleSlab);
+		}
+		if(Cfg.enableStoneSlabFullSmoothCrafting){
+			// CRAFT 4 stone slabs -> 2 stone slab (full smooth)
+			GameRegistry.addShapedRecipe(new ItemStack(MC_BLOCK.stoneDoubleSlab, 1, 8), "ss", "ss", 's', stoneSingleSlab);
+			// UNCRAFT
+			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.stoneSingleSlab, 2), stoneSmoothSlab);
+		}
+		if(Cfg.enableSandstoneSlabFullSmoothCrafting){
+			// CRAFT 4 sandstone slabs -> 2 sandstone slab (full smooth)
+			GameRegistry.addShapedRecipe(new ItemStack(MC_BLOCK.stoneDoubleSlab, 2, 9), "ss", "ss", 's', new ItemStack(MC_BLOCK.stoneSingleSlab, 1, 1));
+			// UNCRAFT
+			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.stoneSingleSlab, 2, 1), new ItemStack(MC_BLOCK.stoneDoubleSlab, 1, 9));
+		}
 		if(Cfg.enableGrassBlockCrafting){
 			// CRAFT tall grass + dirt -> grass block
 			GameRegistry.addShapelessRecipe(grassBlock, new ItemStack(MC_BLOCK.tallGrass, 1, 1), new ItemStack(MC_BLOCK.dirt));

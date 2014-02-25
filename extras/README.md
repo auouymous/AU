@@ -53,6 +53,7 @@ Recipes
 * CRAFT 1 cauldron + 1 red dye + 1 green dye + 1 blue dye TO 1 chroma infuser
 * CRAFT 4 gold + 3 eyes of ender + 1 obsidian + 1 redstone dust TO 1 ender cube
 * 
+* 
 * CHROMA INFUSER stone slab TO [colored] stone half slab (blank: 8 per dye)
 * CHROMA INFUSER [colored] stone half slab TO [colored] stone half slab (blank: 8 per dye)
 * SMELT [colored] stone half slab TO stone slab
@@ -68,6 +69,7 @@ Recipes
 * CRAFT 4 [colored] stone half slabs TO 2 [colored] stone smooth slabs
 * CRAFT [colored] stone double slabs TO 2 [colored] stone half slabs
 * CRAFT [colored] stone smooth slabs TO 2 [colored] stone half slabs
+* 
 * 
 * CHROMA INFUSER cobblestone TO [colored] cobblestone (blank: 8 per dye)
 * CHROMA INFUSER [colored] cobblestone TO [colored] cobblestone (blank: 8 per dye)
@@ -198,6 +200,9 @@ Recipes
 * CRAFT 1 stone brick + 1 vine TO 1 mossy stone bricks (same as 1.8)
 * CRAFT 1 cobblestone + 1 vine TO 1 moss stone (same as 1.8)
 * CRAFT 1 stone brick + 1 ice TO 1 cracked brick
+* CRAFT 2 stone slabs TO 1 stone slab (full) -- also includes an uncrafting recipe
+* CRAFT 4 stone slabs TO 2 stone slab (full smooth) -- also includes an uncrafting recipe
+* CRAFT 4 sandstone slabs TO 2 sandstone slab (full smooth) -- also includes an uncrafting recipe
 * CRAFT 1 tall grass + 1 dirt TO 1 grass block
 * CRAFT 1 brown mushroom + 1 red mushroom + 1 grass block TO 1 mycelium
 * 
