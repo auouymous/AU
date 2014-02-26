@@ -31,6 +31,8 @@ public class NEIExtrasConfig implements IConfigureNEI {
 			// hide vanilla comparators
 			API.hideItem(MC_BLOCK.redstoneComparatorIdle.blockID);
 			API.hideItem(MC_BLOCK.redstoneComparatorActive.blockID);
+			// hide vanilla locked chest
+			API.hideItem(MC_BLOCK.lockedChest.blockID);
 
 			// chroma recipes
 			API.registerRecipeHandler(new NEIChromaRecipeHandler());
