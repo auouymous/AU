@@ -2,6 +2,8 @@ package com.qzx.au.core;
 
 import net.minecraft.item.ItemStack;
 
+import com.qzx.au.core.TileEntityAU;
+
 public class SidedSlotInfo {
 	public static final int BLACK_COLOR		= 0x00000;
 	public static final int RED_COLOR		= 0xff0000;
@@ -50,7 +52,7 @@ public class SidedSlotInfo {
 	}
 
 	// override this for input slots
-	public boolean isItemValid(ItemStack itemstack){
+	public boolean isItemValid(TileEntityAU tileEntity, ItemStack itemstack){
 		return false;
 	}
 }
