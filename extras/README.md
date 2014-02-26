@@ -77,7 +77,9 @@ Recipes
 * CHROMA INFUSER [colored] cobblestone TO [colored] cobblestone (blank: 8 per dye)
 * SMELT [colored] cobblestone TO cobblestone
 * CRAFT 6 [colored] cobblestone TO 4 [colored] cobblestone stairs
+* CRAFT 2 [colored] cobblestone stairs TO 3 [colored] cobblestone
 * CRAFT 3 [colored] cobblestone TO 6 [colored] cobblestone slabs
+* CRAFT 2 [colored] cobblestone slabs TO 1 [colored] cobblestone
 * [colored] cobblestone: multipart and facade support
 * 
 * CHROMA INFUSER stone TO [colored] stone (blank: 8 per dye)
@@ -86,14 +88,18 @@ Recipes
 * CHROMA INFUSER [colored] smooth brick TO [colored] stone (blank: 8 per dye)
 * SMELT [colored] stone TO stone
 * CRAFT 6 [colored] stone TO 4 [colored] stone stairs
+* CRAFT 2 [colored] stone stairs TO 3 [colored] stone
 * CRAFT 3 [colored] stone TO 6 [colored] stone slabs
+* CRAFT 2 [colored] stone slabs TO 1 [colored] stone
 * [colored] stone: multipart and facade support
 * 
 * CHROMA INFUSER stone brick TO [colored] stone brick (blank: 8 per dye)
 * CHROMA INFUSER [colored] stone brick TO [colored] stone brick (blank: 8 per dye)
 * SMELT [colored] stone brick TO stone brick
 * CRAFT 6 [colored] stone brick TO 4 [colored] stone brick stairs
+* CRAFT 2 [colored] stone brick stairs TO 3 [colored] stone brick
 * CRAFT 3 [colored] stone brick TO 6 [colored] stone brick slabs
+* CRAFT 2 [colored] stone brick slabs TO 1 [colored] stone brick
 * [colored] stone brick: multipart and facade support
 * 
 * CHROMA INFUSER stone TO [colored] chiseled brick (square dot: 8 per dye)
@@ -104,6 +110,7 @@ Recipes
 * SMELT [colored] chiseled brick TO chiseled brick
 * no chiseled brick stairs
 * CRAFT 3 [colored] chiseled brick TO 6 [colored] chiseled brick slabs
+* CRAFT 2 [colored] chiseled brick slabs TO 1 [colored] chiseled brick
 * [colored] chiseled brick: multipart and facade support
 * 
 * CHROMA INFUSER stone TO [colored] smooth brick (square: 8 per dye)
@@ -112,7 +119,9 @@ Recipes
 * CHROMA INFUSER [colored] smooth brick TO [colored] smooth brick (square: 8 per dye)
 * SMELT [colored] smooth brick TO stone
 * CRAFT 6 [colored] smooth brick TO 4 [colored] smooth brick stairs
+* CRAFT 2 [colored] smooth brick stairs TO 3 [colored] smooth brick
 * CRAFT 3 [colored] smooth brick TO 6 [colored] smooth brick slabs
+* CRAFT 2 [colored] smooth brick slabs TO 1 [colored] smooth brick
 * [colored] smooth brick: multipart and facade support
 * 
 * CHROMA INFUSER gravel TO [colored] gravel (blank: 8 per dye - does not obey gravity and does not drop flint)
@@ -120,20 +129,25 @@ Recipes
 * SMELT [colored] gravel TO gravel
 * no gravel stairs
 * CRAFT 3 [colored] gravel TO 6 [colored] gravel slabs
+* CRAFT 2 [colored] gravel slabs TO 1 [colored] gravel
 * [colored] gravel: multipart and facade support
 * 
 * CHROMA INFUSER sand TO [colored] sand (blank: 8 per dye - does not obey gravity)
 * CHROMA INFUSER [colored] sand TO [colored] sand (blank: 8 per dye)
 * SMELT [colored] sand TO sand
 * CRAFT 6 [colored] sand TO 4 [colored] sand stairs
+* CRAFT 2 [colored] sand stairs TO 3 [colored] sand
 * CRAFT 3 [colored] sand TO 6 [colored] sand slabs
+* CRAFT 2 [colored] sand slabs TO 1 [colored] sand
 * [colored] sand: multipart and facade support
 * 
 * 
 * CHROMA INFUSER grass block TO [shaded] artificial grass (blank: 8 per dye)
 * CHROMA INFUSER [shaded] artificial grass TO [shaded] artificial grass (blank: 8 per dye)
 * CRAFT 6 [shaded] artificial grass TO 4 [shaded] artificial grass stairs
+* CRAFT 2 [shaded] artificial grass stairs TO 3 [shaded] artificial grass
 * CRAFT 3 [shaded] artificial grass TO 6 [shaded] artificial grass slabs
+* CRAFT 2 [shaded] artificial grass slabs TO 1 [shaded] artificial grass
 * 
 * CHROMA INFUSER vine TO [shaded] artificial vine (blank: 8 per dye)
 * CHROMA INFUSER [shaded] artificial vine TO [shaded] artificial vine (blank: 8 per dye)

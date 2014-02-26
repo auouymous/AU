@@ -35,6 +35,8 @@ CHROMA INFUSER
 
 	- display item and/or bubbles in chroma infuser's water and play a sound when processing items
 
+	- chroma infuser recipes for stairs and slabs
+
 - itemChromaSprayer
 	- CRAFT 1 piston + 1 chroma infuser + 1 wool
 	- right click on a block to change its color

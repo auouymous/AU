@@ -98,13 +98,17 @@ public class ModRecipes {
 
 			// stairs
 			if(Cfg.enableCobbleStairs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockCobbleStairs[c], 4), "b  ", "bb ", "bbb", 'b', new ItemStack(THIS_MOD.blockCobble, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockCobble, 3, c), "s", "s", 's', new ItemStack(THIS_MOD.blockCobbleStairs[c], 1));
+				}
 
 			// slabs
 			if(Cfg.enableCobbleSlabs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockCobbleSlab[0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockCobble, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockCobble, 1, c), "s", "s", 's', new ItemStack(THIS_MOD.blockCobbleSlab[0], 1, c));
+				}
 		}
 
 		//////////
@@ -120,13 +124,17 @@ public class ModRecipes {
 
 			// stairs
 			if(Cfg.enableStoneStairs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneStairs[c], 4), "b  ", "bb ", "bbb", 'b', new ItemStack(THIS_MOD.blockStone, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStone, 3, c), "s", "s", 's', new ItemStack(THIS_MOD.blockStoneStairs[c], 1));
+				}
 
 			// slabs
 			if(Cfg.enableStoneSlabs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneSlab[0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockStone, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStone, 1, c), "s", "s", 's', new ItemStack(THIS_MOD.blockStoneSlab[0], 1, c));
+				}
 		}
 
 		//////////
@@ -142,13 +150,17 @@ public class ModRecipes {
 
 			// stairs
 			if(Cfg.enableStoneBrickStairs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneBrickStairs[c], 4), "b  ", "bb ", "bbb", 'b', new ItemStack(THIS_MOD.blockStoneBrick, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneBrick, 3, c), "s", "s", 's', new ItemStack(THIS_MOD.blockStoneBrickStairs[c], 1));
+				}
 
 			// slabs
 			if(Cfg.enableStoneBrickSlabs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneBrickSlab[0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockStoneBrick, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockStoneBrick, 1, c), "s", "s", 's', new ItemStack(THIS_MOD.blockStoneBrickSlab[0], 1, c));
+				}
 		}
 
 		//////////
@@ -167,8 +179,10 @@ public class ModRecipes {
 
 			// slabs
 			if(Cfg.enableChiseledBrickSlabs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockChiseledBrickSlab[0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockChiseledBrick, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockChiseledBrick, 1, c), "s", "s", 's', new ItemStack(THIS_MOD.blockChiseledBrickSlab[0], 1, c));
+				}
 		}
 
 		//////////
@@ -184,13 +198,17 @@ public class ModRecipes {
 
 			// stairs
 			if(Cfg.enableSmoothBrickStairs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockSmoothBrickStairs[c], 4), "b  ", "bb ", "bbb", 'b', new ItemStack(THIS_MOD.blockSmoothBrick, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockSmoothBrick, 3, c), "s", "s", 's', new ItemStack(THIS_MOD.blockSmoothBrickStairs[c], 1));
+				}
 
 			// slabs
 			if(Cfg.enableSmoothBrickSlabs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockSmoothBrickSlab[0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockSmoothBrick, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockSmoothBrick, 1, c), "s", "s", 's', new ItemStack(THIS_MOD.blockSmoothBrickSlab[0], 1, c));
+				}
 		}
 
 		//////////
@@ -229,9 +247,10 @@ public class ModRecipes {
 			// no stairs -- texture doesn't align correctly
 			// slabs
 			if(Cfg.enableGravelSlabs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockGravelSlab[0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockGravel, 1, c));
-
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockGravel, 1, c), "s", "s", 's', new ItemStack(THIS_MOD.blockGravelSlab[0], 1, c));
+				}
 		}
 
 		//////////
@@ -247,13 +266,17 @@ public class ModRecipes {
 
 			// stairs
 			if(Cfg.enableSandStairs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockSandStairs[c], 4), "b  ", "bb ", "bbb", 'b', new ItemStack(THIS_MOD.blockSand, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockSand, 3, c), "s", "s", 's', new ItemStack(THIS_MOD.blockSandStairs[c], 1));
+				}
 
 			// slabs
 			if(Cfg.enableSandSlabs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockSandSlab[0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockSand, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockSand, 1, c), "s", "s", 's', new ItemStack(THIS_MOD.blockSandSlab[0], 1, c));
+				}
 		}
 
 		//////////
@@ -267,13 +290,17 @@ public class ModRecipes {
 
 			// stairs
 			if(Cfg.enableArtificialGrassStairs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockArtificialGrassStairs[c], 4), "b  ", "bb ", "bbb", 'b', new ItemStack(THIS_MOD.blockArtificialGrass, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockArtificialGrass, 3, c), "s", "s", 's', new ItemStack(THIS_MOD.blockArtificialGrassStairs[c], 1));
+				}
 
 			// slabs
 			if(Cfg.enableArtificialGrassSlabs)
-				for(int c = 0; c < 16; c++)
+				for(int c = 0; c < 16; c++){
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockArtificialGrassSlab[0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockArtificialGrass, 1, c));
+					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockArtificialGrass, 1, c), "s", "s", 's', new ItemStack(THIS_MOD.blockArtificialGrassSlab[0], 1, c));
+				}
 		}
 
 		//////////
