@@ -157,9 +157,9 @@ public class ModRecipes {
 			ItemStack coloredChiseledBrick = new ItemStack(THIS_MOD.blockChiseledBrick);
 
 			// CHROMA INFUSER recipes
-			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, chiseledBrick, coloredChiseledBrick);
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, stone, coloredChiseledBrick);
-			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredChiseledBrick, coloredChiseledBrick);
+			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, chiseledBrick, coloredChiseledBrick);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE_DOT, coloredChiseledBrick, coloredChiseledBrick);
 			// SMELT <colored> chiseledBrick -> chiseledBrick
 			GameRegistry.addSmelting(coloredChiseledBrick.itemID, chiseledBrick, 1.0f);
 
@@ -178,7 +178,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, stone, coloredSmoothBrick);
-			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredSmoothBrick, coloredSmoothBrick);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredSmoothBrick, coloredSmoothBrick);
 			// SMELT <colored> smoothBrick -> stone
 			GameRegistry.addSmelting(coloredSmoothBrick.itemID, stone, 1.0f);
 
@@ -191,6 +191,28 @@ public class ModRecipes {
 			if(Cfg.enableSmoothBrickSlabs)
 				for(int c = 0; c < 16; c++)
 					GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockSmoothBrickSlab[0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockSmoothBrick, 1, c));
+		}
+
+		//////////
+
+		// convert any colored stone-based to any other colored stone-based
+		if(Cfg.enableStone && Cfg.enableChiseledBrick){
+			ItemStack coloredStone = new ItemStack(THIS_MOD.blockStone);
+			ItemStack coloredChiseledBrick = new ItemStack(THIS_MOD.blockChiseledBrick);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredChiseledBrick, coloredStone);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE_DOT, coloredStone, coloredChiseledBrick);
+		}
+		if(Cfg.enableStone && Cfg.enableSmoothBrick){
+			ItemStack coloredStone = new ItemStack(THIS_MOD.blockStone);
+			ItemStack coloredSmoothBrick = new ItemStack(THIS_MOD.blockSmoothBrick);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredSmoothBrick, coloredStone);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredStone, coloredSmoothBrick);
+		}
+		if(Cfg.enableChiseledBrick && Cfg.enableSmoothBrick){
+			ItemStack coloredChiseledBrick = new ItemStack(THIS_MOD.blockChiseledBrick);
+			ItemStack coloredSmoothBrick = new ItemStack(THIS_MOD.blockSmoothBrick);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE_DOT, coloredSmoothBrick, coloredChiseledBrick);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredChiseledBrick, coloredSmoothBrick);
 		}
 
 		//////////

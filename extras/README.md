@@ -82,6 +82,8 @@ Recipes
 * 
 * CHROMA INFUSER stone TO [colored] stone (blank: 8 per dye)
 * CHROMA INFUSER [colored] stone TO [colored] stone (blank: 8 per dye)
+* CHROMA INFUSER [colored] chiseled brick TO [colored] stone (blank: 8 per dye)
+* CHROMA INFUSER [colored] smooth brick TO [colored] stone (blank: 8 per dye)
 * SMELT [colored] stone TO stone
 * CRAFT 6 [colored] stone TO 4 [colored] stone stairs
 * CRAFT 3 [colored] stone TO 6 [colored] stone slabs
@@ -94,16 +96,20 @@ Recipes
 * CRAFT 3 [colored] stone brick TO 6 [colored] stone brick slabs
 * [colored] stone brick: multipart and facade support
 * 
-* CHROMA INFUSER chiseled brick TO [colored] chiseled brick (blank: 8 per dye)
 * CHROMA INFUSER stone TO [colored] chiseled brick (square dot: 8 per dye)
-* CHROMA INFUSER [colored] chiseled brick TO [colored] chiseled brick (blank: 8 per dye)
+* CHROMA INFUSER chiseled brick TO [colored] chiseled brick (square dot: 8 per dye)
+* CHROMA INFUSER [colored] stone TO [colored] chiseled brick (square dot: 8 per dye)
+* CHROMA INFUSER [colored] chiseled brick TO [colored] chiseled brick (square dot: 8 per dye)
+* CHROMA INFUSER [colored] smooth brick TO [colored] chiseled brick (square dot: 8 per dye)
 * SMELT [colored] chiseled brick TO chiseled brick
 * no chiseled brick stairs
 * CRAFT 3 [colored] chiseled brick TO 6 [colored] chiseled brick slabs
 * [colored] chiseled brick: multipart and facade support
 * 
 * CHROMA INFUSER stone TO [colored] smooth brick (square: 8 per dye)
-* CHROMA INFUSER [colored] smooth brick TO [colored] smooth brick (blank: 8 per dye)
+* CHROMA INFUSER [colored] stone TO [colored] smooth brick (square: 8 per dye)
+* CHROMA INFUSER [colored] chiseled brick TO [colored] smooth brick (square: 8 per dye)
+* CHROMA INFUSER [colored] smooth brick TO [colored] smooth brick (square: 8 per dye)
 * SMELT [colored] smooth brick TO stone
 * CRAFT 6 [colored] smooth brick TO 4 [colored] smooth brick stairs
 * CRAFT 3 [colored] smooth brick TO 6 [colored] smooth brick slabs
