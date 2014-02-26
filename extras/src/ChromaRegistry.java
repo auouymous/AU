@@ -16,19 +16,19 @@ public class ChromaRegistry {
 	private ChromaRegistry(){}
 
 	#define RECIPE_ERROR(msg) Debug.error(msg+" (button: "+button.ordinal()\
-											+", colored_input: "+colored_input\
-											+", input: "+ItemUtils.getDisplayName(input)\
+											+", input: "+input.getUnlocalizedName()+":"+(colored_input ? "*" : input.getItemDamage())\
 											+", color: "+color\
-											+", colored_output: "+colored_output\
-											+", output: "+ItemUtils.getDisplayName(output)+")");
+											+", group: "+(group != null ? "\""+group+"\"" : "null")\
+											+", output: "+output.getUnlocalizedName()+":"+(colored_output ? "*" : output.getItemDamage())\
+											+")");
 
-	public static void addRecipe(ChromaButton button, boolean colored_input, ItemStack input, int color, boolean colored_output, ItemStack output, boolean reverse_colors){
+	public static void addRecipe(ChromaButton button, boolean colored_input, ItemStack input, int color, String group, boolean colored_output, ItemStack output, boolean reverse_colors){
 		// ignore duplicate recipes (same button and input/color)
 		if(ChromaRegistry.hasRecipe(button, input, color, true, colored_input)){
 			RECIPE_ERROR(">>> ignoring duplicate Chroma Infuser recipe")
 			return;
 		}
-		ChromaRecipe recipe = new ChromaRecipe(button, colored_input, input, color, colored_output, output, reverse_colors);
+		ChromaRecipe recipe = new ChromaRecipe(button, colored_input, input, color, group, colored_output, output, reverse_colors);
 		if(recipe.error != null){
 			Debug.error(recipe.error);
 			RECIPE_ERROR(">>> ignoring invalid Chroma Infuser recipe")
@@ -38,18 +38,22 @@ public class ChromaRegistry {
 		ChromaRegistry.registry.nr_recipes++;
 	}
 
+	public static void addRecipeUniColor(ChromaButton button, ItemStack input, int color, String group, ItemStack output){
+		ChromaRegistry.addRecipe(button, false, input, color, group, false, output, false); // input -> output (single color)
+	}
+
 	public static void addRecipeColored(ChromaButton button, ItemStack input, ItemStack output){
-		ChromaRegistry.addRecipe(button, true, input, -1, true, output, false); // colored input -> colored output
+		ChromaRegistry.addRecipe(button, true, input, -1, null, true, output, false); // colored input -> colored output
 	}
 	public static void addRecipe(ChromaButton button, ItemStack input, ItemStack output){
-		ChromaRegistry.addRecipe(button, false, input, -1, true, output, false); //input -> colored output
+		ChromaRegistry.addRecipe(button, false, input, -1, null, true, output, false); // input -> colored output
 	}
 
 	public static void addRecipeColoredReversed(ChromaButton button, ItemStack input, ItemStack output){
-		ChromaRegistry.addRecipe(button, true, input, -1, true, output, true); // colored input -> colored output (reverse output colors)
+		ChromaRegistry.addRecipe(button, true, input, -1, null, true, output, true); // colored input -> colored output (reverse output colors)
 	}
 	public static void addRecipeReversed(ChromaButton button, ItemStack input, ItemStack output){
-		ChromaRegistry.addRecipe(button, false, input, -1, true, output, true); // input -> colored output (reverse output colors)
+		ChromaRegistry.addRecipe(button, false, input, -1, null, true, output, true); // input -> colored output (reverse output colors)
 	}
 
 	//////////

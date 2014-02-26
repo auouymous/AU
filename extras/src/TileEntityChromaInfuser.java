@@ -204,6 +204,8 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 				this.markChunkModified();
 			}
 		}
+
+		this.updateInput(this.getInput());
 	}
 	public void setDyeColor(byte color){
 		// client
@@ -225,18 +227,17 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	private boolean canOutput(ItemStack output){
 		if(output == null) return true;
 		if(output.stackSize == output.getMaxStackSize()) return false;
-		return (this.processingRecipe.output.itemID == output.itemID && this.processingRecipe.getOutputColor(this.dyeColor) == output.getItemDamage());
+		return (this.processingRecipe.output.itemID == output.itemID && this.processingRecipe.getOutputMetadata(this.dyeColor) == output.getItemDamage());
 	}
 
 	private void updateOutput(ItemStack input, ItemStack output, ChromaRecipe recipe){
 		// server
-		int recipe_itemID = recipe.output.itemID;
 		if(output != null){
 			// output slot has an item in it, abort if not same item
 			output.stackSize += recipe.output.stackSize;
 		} else {
 			// output slot is empty, create new item
-			this.slotContents[TileEntityChromaInfuser.SLOT_ITEM_OUTPUT] = new ItemStack(recipe_itemID, recipe.output.stackSize, recipe.getOutputColor(this.dyeColor));
+			this.slotContents[TileEntityChromaInfuser.SLOT_ITEM_OUTPUT] = new ItemStack(recipe.output.itemID, recipe.output.stackSize, recipe.getOutputMetadata(this.dyeColor));
 		}
 
 		input.stackSize--;
@@ -251,10 +252,10 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	}
 	public void updateOutput(byte dyeVolume){
 		// client
-		this.outputTick = 0;
 		this.dyeVolume = dyeVolume;
+		this.updateInput(this.getInput());
 
-// TODO: display particle effect on block?
+// TODO: display input item and/or particle effect on top of block?
 
 	}
 
@@ -276,7 +277,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 				if(this.processingItem == null){
 					// new input, reset progress
 					this.updateInput(input);
-				} else if(input.itemID != this.processingItem.itemID || input.getItemDamage() != processingItem.getItemDamage()){
+				} else if(input.itemID != this.processingItem.itemID || input.getItemDamage() != this.processingItem.getItemDamage()){
 					// input item changed, reset progress
 					this.updateInput(input);
 				}

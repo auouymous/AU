@@ -105,6 +105,8 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 	}
 
 	public class CachedChromaRecipe extends CachedRecipe {
+		public String group;
+		public int color;
 		public ItemStack dye;
 		public ArrayList<ItemStack> oreDyes = null;
 		public ItemStack input;
@@ -115,21 +117,27 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 
 		private int dye_cycle = 0;
 		private int last_cycle_color = 0;
+		private int merge_counter;
 
-		public CachedChromaRecipe(ItemStack dye, String oreDye, ItemStack input, ChromaButton button, ItemStack output){
+		public CachedChromaRecipe(String group, int color, ItemStack dye, String oreDye, ItemStack input, ChromaButton button, ItemStack output){
+			this.group = group;
+			this.color = color;
 			this.dye = dye;
 			if(oreDye != null){
 				// add all dyes of oreDye color
 				this.oreDyes = OreDictionary.getOres(oreDye);
-			} else if(dye == null){
-				// add all dyes, but not ore dict dyes
-				this.oreDyes = new ArrayList<ItemStack>();
-				for(int c = 0; c < 16; c++)
-					this.oreDyes.add(new ItemStack(MC_ITEM.dyePowder, 1, c));
-			}
+			} else if(dye == null)
+				this.addAllDyes();
 			this.input = input;
 			this.button = button;
 			this.output = output;
+		}
+
+		public void addAllDyes(){
+			// add all dyes, but not ore dict dyes
+			this.oreDyes = new ArrayList<ItemStack>();
+			for(int c = 0; c < 16; c++)
+				this.oreDyes.add(new ItemStack(MC_ITEM.dyePowder, 1, c));
 		}
 
 		public void setChromaInputs(){
@@ -140,8 +148,29 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 		public void setChromaOutputs(ChromaRecipe recipe){
 			this.outputs = new ItemStack[16];
 			for(int c = 1; c < 16; c++)
-				this.outputs[c] = new ItemStack(recipe.output.getItem(), 1, recipe.getOutputColor(c));
+				this.outputs[c] = new ItemStack(recipe.output.getItem(), 1, recipe.getOutputMetadata(c));
 		}
+
+
+		public void mergeChromaInput(ItemStack input){
+			if(this.inputs == null){
+				this.merge_counter = 0;
+				this.inputs = new ItemStack[16];
+				this.inputs[this.merge_counter] = this.input;
+			}
+			this.merge_counter++;
+			this.inputs[this.merge_counter] = input;
+		}
+		public void mergeChromaOutput(ItemStack output, int color){
+			if(this.outputs == null){
+				this.outputs = new ItemStack[16];
+				this.outputs[this.color] = this.output;
+				this.dye = null;
+				this.addAllDyes();
+			}
+			this.outputs[color] = output;
+		}
+
 
 		public PositionedStack getResult(){
 			ItemStack output = this.output;
@@ -183,10 +212,64 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 		}
 	}
 
-	private CachedChromaRecipe addRecipe(ItemStack dye, String oreDye, ItemStack input, ChromaButton button, ItemStack output){
-		CachedChromaRecipe cachedRecipe = new CachedChromaRecipe(dye, oreDye, input, button, output);
+	private CachedChromaRecipe addRecipe(String group, int color, ItemStack dye, String oreDye, ItemStack input, ChromaButton button, ItemStack output){
+		CachedChromaRecipe cachedRecipe = new CachedChromaRecipe(group, color, dye, oreDye, input, button, output);
 		this.arecipes.add(cachedRecipe);
 		return cachedRecipe;
+	}
+
+	private boolean mergeInputs(ChromaRecipe recipe){
+		if(recipe.color == -1) return false;
+
+		// merge inputs with other recipes
+		int nr_recipes = this.arecipes.size();
+		for(int r = 0; r < nr_recipes; r++){
+			CachedChromaRecipe cachedRecipe = (CachedChromaRecipe)this.arecipes.get(r);
+			if(cachedRecipe != null){
+				if(cachedRecipe.color == -1) continue;
+
+				// different inputs but same output, button, color and group
+				if(cachedRecipe.outputs == null
+				&& cachedRecipe.output.itemID == recipe.output.itemID
+				&& cachedRecipe.output.getItemDamage() == recipe.output.getItemDamage()
+				&& cachedRecipe.button == recipe.button
+				&& cachedRecipe.color == recipe.color
+				&& cachedRecipe.group == recipe.group
+				){
+					cachedRecipe.mergeChromaInput(recipe.input);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	private boolean mergeOutputs(ChromaRecipe recipe){
+		if(recipe.color == -1) return false;
+
+		// merge outputs with other recipes
+		int nr_recipes = this.arecipes.size();
+		for(int r = 0; r < nr_recipes; r++){
+			CachedChromaRecipe cachedRecipe = (CachedChromaRecipe)this.arecipes.get(r);
+			if(cachedRecipe != null){
+				if(cachedRecipe.color == -1) continue;
+
+				// different outputs but same input, button and group
+				if(cachedRecipe.inputs == null
+				&& cachedRecipe.input.itemID == recipe.input.itemID
+				&& cachedRecipe.input.getItemDamage() == recipe.input.getItemDamage()
+				&& cachedRecipe.button == recipe.button
+				&& cachedRecipe.group == recipe.group
+				){
+					cachedRecipe.mergeChromaOutput(recipe.output, recipe.color);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	private String getOreDye(ChromaRecipe recipe, int outputColor){
+		return Color.oreDyes[recipe.getOutputColor(outputColor)];
 	}
 
 	@Override
@@ -200,8 +283,9 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 			for(int i = 0; i < ChromaRegistry.registry.nr_recipes; i++){
 				ChromaRecipe recipe = recipes.get(i);
 				if(resultItemID == recipe.output.itemID && (recipe.colored_output || resultDamage == recipe.output.getItemDamage())){
-					int dyeColor = (recipe.colored_output ? resultDamage : recipe.color);
-					CachedChromaRecipe r = this.addRecipe(null, Color.oreDyes[(recipe.getOutputColor(dyeColor))], recipe.input, recipe.button, result);
+					if(this.mergeInputs(recipe)) continue;
+					CachedChromaRecipe r = this.addRecipe(recipe.group, recipe.color, null, getOreDye(recipe, resultDamage), recipe.input, recipe.button,
+															new ItemStack(result.getItem(), 1, resultDamage));
 					if(recipe.colored_input) r.setChromaInputs();
 				}
 			}
@@ -219,8 +303,10 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 				int color = ingredient.getItemDamage();
 				for(int i = 0; i < ChromaRegistry.registry.nr_recipes; i++){
 					ChromaRecipe recipe = recipes.get(i);
-					if(recipe.colored_output || color == recipe.output.getItemDamage()){
-						CachedChromaRecipe r = this.addRecipe(ingredient, null, recipe.input, recipe.button, new ItemStack(recipe.output.getItem(), 1, recipe.getOutputColor(color)));
+					if(recipe.colored_output || color == recipe.color){
+						if(this.mergeInputs(recipe)) continue;
+						CachedChromaRecipe r = this.addRecipe(recipe.group, recipe.color, new ItemStack(ingredient.getItem(), 1, color), null, recipe.input, recipe.button,
+																new ItemStack(recipe.output.getItem(), 1, recipe.getOutputMetadata(color)));
 						if(recipe.colored_input) r.setChromaInputs();
 					}
 				}
@@ -231,9 +317,11 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 				for(int i = 0; i < ChromaRegistry.registry.nr_recipes; i++){
 					ChromaRecipe recipe = recipes.get(i);
 					ItemStack recipeInput = recipe.input;
-					if(ingredientItemID == recipeInput.itemID && (recipe.colored_output || ingredientDamage == recipeInput.getItemDamage())){
-						CachedChromaRecipe r = this.addRecipe(null, null, ingredient, recipe.button,
-																new ItemStack(recipe.output.getItem(), 1, recipe.getOutputColor(recipe.colored_output ? 0 : recipe.color)));
+					if(ingredientItemID == recipeInput.itemID && (recipe.colored_input || ingredientDamage == recipeInput.getItemDamage())){
+						if(this.mergeOutputs(recipe)) continue;
+						CachedChromaRecipe r = this.addRecipe(recipe.group, recipe.color, null, (recipe.color == -1 ? null : getOreDye(recipe, recipe.color)),
+																new ItemStack(ingredient.getItem(), 1, ingredientDamage), recipe.button,
+																new ItemStack(recipe.output.getItem(), 1, recipe.getOutputMetadata(0)));
 						if(recipe.colored_output) r.setChromaOutputs(recipe);
 					}
 				}

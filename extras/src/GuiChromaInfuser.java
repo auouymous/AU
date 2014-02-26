@@ -109,7 +109,7 @@ public class GuiChromaInfuser extends GuiContainerAU {
 			// lookup recipe
 			ChromaRecipe recipe = ChromaRegistry.getRecipe(recipeButton, input, te.getDyeColor());
 			ItemStack output = (recipe == null ? null
-												: new ItemStack(recipe.output.itemID, recipe.output.stackSize, recipe.getOutputColor(te.getDyeColor())));
+												: new ItemStack(recipe.output.itemID, recipe.output.stackSize, recipe.getOutputMetadata(te.getDyeColor())));
 			// draw itemstack
 			if(output != null){
 				// set tooltip coordinates

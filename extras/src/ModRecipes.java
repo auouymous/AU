@@ -257,18 +257,17 @@ public class ModRecipes {
 		//////////
 
 		if(Cfg.enableArtificialVine){
-			// CHROMA INFUSER recipes
-//			for(int c = 0; c < 16; c++)
-//				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, c, vine, new ItemStack(THIS_MOD.blockArtificialVine[c]));
-//			for(int c = 0; c < 16; c++)
-//				for(int s = 0; s < 16; s++)
-//					ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, c, new ItemStack(THIS_MOD.blockArtificialVine[s]), new ItemStack(THIS_MOD.blockArtificialVine[c]));
-// TODO: chroma infuser can't yet map colors to separate output IDs
+			final String group1 = "artificialVine1";
+			final String group2 = "artificialVine2";
 
-// TODO: remove this
-			// CRAFT 8 vines + dye -> artificial vine
-			for(int c = 0; c < 16; c++)
-				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(THIS_MOD.blockArtificialVine[c], 8), "vvv", "vcv", "vvv", 'v', vine, 'c', Color.oreDyes[c]));
+			// CHROMA INFUSER recipes
+			for(int c = 0; c < 16; c++){
+				ItemStack artificialVine = new ItemStack(THIS_MOD.blockArtificialVine[c]);
+				ChromaRegistry.addRecipeUniColor(ChromaButton.BUTTON_BLANK, vine, c, group1, artificialVine);
+				for(int s = 0; s < 16; s++)
+					if(c != s)
+						ChromaRegistry.addRecipeUniColor(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockArtificialVine[s]), c, group2, artificialVine);
+			}
 		}
 
 		//////////

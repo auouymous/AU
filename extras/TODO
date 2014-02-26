@@ -7,6 +7,14 @@
 
 - allow vines to be placed on sides of other vines, avoiding the need to place blocks to place the vines on
 
+- allow more than two vines to be placed in the same block space
+	- right clicking vine on the full hitbox can place vine on the opposite side
+- disable automatic ceiling vines
+	- allow vines to be placed on ceiling and floor
+	- change horizontal vine texture to something that would be symmetrical?
+
+- override vanilla plants and flowers to work on artificial grass
+
 - semi-transparent icons for tinted glass panes
 
 - remove all support for 1.5.2 or fix language file issue
@@ -19,19 +27,13 @@
 CHROMA INFUSER
 	- optimize TileEntityChromaInfuser.updateEntity()
 
-	- FIX: ChromaRegistry.addRecipe() can't get localized names for input/output itemstacks from AU Extras (error output only)
-
-	~ allow color specific recipes, to map each color to a separate ID:metadata, instead of only metadata
-		- add recipes for artificial vines
-
 	- chroma infuser shouldn't process a colored item with the same color, unless converting item IDs for it
-		- need to add a colored flag to ChromeRecipe and set in all conversion recipes
 		- the item input slot should reject the item if chroma infuser has dye, if no dye, processing should reject it
 		- NEI plugin merges conversion recipes and will need to handle the missing color
 
 	- display 4 chroma recipes per NEI page (2 might be max)
 
-	- display bubbles in chroma infuser's water and play a sound when processing items
+	- display item and/or bubbles in chroma infuser's water and play a sound when processing items
 
 - itemChromaSprayer
 	- CRAFT 1 piston + 1 chroma infuser + 1 wool
@@ -46,10 +48,17 @@ CHROMA INFUSER
 
 - lamp slabs?
 
-- uncolored vanilla slabs? dirt, stone, chiseled brick, gravel, sand, endstone, netherrack, soul sand
+- colored planks, stairs, slabs?
+	- birch wood makes brighter colors, oak makes medium colors, jungle makes darker medium colors and spruce makes dark colors
 
-- colored wood, stairs, slabs?
-	- birch wood makes brighter colors, oak makes medium colors and spruce makes dark colors
+- uncolored vanilla slabs? dirt, stone, chiseled brick, gravel, sand, endstone, netherrack, soul sand, birch log, oak log, jungle log, spruce log, glass
+	chiseled bricks
+	moss cobble
+	moss bricks
+	cracked bricks
+	obsidian
+- wool slabs and stairs?
+- stained clay slabs and stairs?
 
 ----------
 
