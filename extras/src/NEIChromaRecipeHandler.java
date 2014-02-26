@@ -132,19 +132,15 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 			this.output = output;
 		}
 
-		public void addChromaInput(ItemStack input){
-			if(this.inputs == null){
-				this.inputs = new ItemStack[16];
-				this.inputs[this.input.getItemDamage()] = this.input;
-			}
-			this.inputs[input.getItemDamage()] = input;
+		public void setChromaInputs(){
+			this.inputs = new ItemStack[16];
+			for(int c = 1; c < 16; c++)
+				this.inputs[c] = new ItemStack(this.input.getItem(), 1, c);
 		}
-		public void addChromaOutput(ItemStack output){
-			if(this.outputs == null){
-				this.outputs = new ItemStack[16];
-				this.outputs[this.output.getItemDamage()] = this.output;
-			}
-			this.outputs[output.getItemDamage()] = output;
+		public void setChromaOutputs(ChromaRecipe recipe){
+			this.outputs = new ItemStack[16];
+			for(int c = 1; c < 16; c++)
+				this.outputs[c] = new ItemStack(recipe.output.getItem(), 1, recipe.getOutputColor(c));
 		}
 
 		public PositionedStack getResult(){
@@ -193,24 +189,6 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 		return cachedRecipe;
 	}
 
-	private boolean mergeInputs(ChromaRecipe recipe){
-		// merge inputs with other recipes
-		int nr_recipes = this.arecipes.size();
-		for(int r = 0; r < nr_recipes; r++){
-			CachedChromaRecipe cachedRecipe = (CachedChromaRecipe)this.arecipes.get(r);
-			if(cachedRecipe != null){
-				if(cachedRecipe.input.itemID == recipe.input.itemID
-				&& cachedRecipe.output.itemID == recipe.output.itemID
-				&& cachedRecipe.button == recipe.button
-				){
-					cachedRecipe.addChromaInput(recipe.input);
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-
 	@Override
 	public void loadCraftingRecipes(String outputId, Object... results){
 		if(outputId.equals("item")){
@@ -218,13 +196,14 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 
 			List<ChromaRecipe> recipes = ChromaRegistry.registry.recipes;
 			int resultItemID = result.itemID;
-			int color = result.getItemDamage();
+			int resultDamage = result.getItemDamage();
 			for(int i = 0; i < ChromaRegistry.registry.nr_recipes; i++){
 				ChromaRecipe recipe = recipes.get(i);
-				ItemStack recipeOutput = recipe.output;
-				if(resultItemID == recipeOutput.itemID)
-					if(!this.mergeInputs(recipe))
-						this.addRecipe(null, Color.oreDyes[color], recipe.input, recipe.button, result);
+				if(resultItemID == recipe.output.itemID && (recipe.colored_output || resultDamage == recipe.output.getItemDamage())){
+					int dyeColor = (recipe.colored_output ? resultDamage : recipe.color);
+					CachedChromaRecipe r = this.addRecipe(null, Color.oreDyes[(recipe.getOutputColor(dyeColor))], recipe.input, recipe.button, result);
+					if(recipe.colored_input) r.setChromaInputs();
+				}
 			}
 		}
 	}
@@ -240,8 +219,10 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 				int color = ingredient.getItemDamage();
 				for(int i = 0; i < ChromaRegistry.registry.nr_recipes; i++){
 					ChromaRecipe recipe = recipes.get(i);
-					if(!this.mergeInputs(recipe))
-						this.addRecipe(ingredient, null, recipe.input, recipe.button, new ItemStack(recipe.output.getItem(), 1, recipe.getOutputColor(color)));
+					if(recipe.colored_output || color == recipe.output.getItemDamage()){
+						CachedChromaRecipe r = this.addRecipe(ingredient, null, recipe.input, recipe.button, new ItemStack(recipe.output.getItem(), 1, recipe.getOutputColor(color)));
+						if(recipe.colored_input) r.setChromaInputs();
+					}
 				}
 			} else {
 				// item inputs
@@ -250,10 +231,10 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 				for(int i = 0; i < ChromaRegistry.registry.nr_recipes; i++){
 					ChromaRecipe recipe = recipes.get(i);
 					ItemStack recipeInput = recipe.input;
-					if(ingredientItemID == recipeInput.itemID && ingredientDamage == recipeInput.getItemDamage()){
-						CachedChromaRecipe r = this.addRecipe(null, null, ingredient, recipe.button, new ItemStack(recipe.output.getItem(), 1, recipe.getOutputColor(0)));
-						for(int c = 1; c < 16; c++)
-							r.addChromaOutput(new ItemStack(recipe.output.getItem(), 1, recipe.getOutputColor(c)));
+					if(ingredientItemID == recipeInput.itemID && (recipe.colored_output || ingredientDamage == recipeInput.getItemDamage())){
+						CachedChromaRecipe r = this.addRecipe(null, null, ingredient, recipe.button,
+																new ItemStack(recipe.output.getItem(), 1, recipe.getOutputColor(recipe.colored_output ? 0 : recipe.color)));
+						if(recipe.colored_output) r.setChromaOutputs(recipe);
 					}
 				}
 			}

@@ -54,13 +54,14 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	private static final SidedSlotInfo[] sidedSlotInfo = {
 		(new SidedSlotInfo("Item Input",	SidedSlotInfo.BLUE_COLOR,	TileEntityChromaInfuser.SLOT_ITEM_INPUT,	1,	true, true){
 				@Override
-				public boolean isItemValid(ItemStack itemstack){
-					return ChromaRegistry.hasRecipe(itemstack);
+				public boolean isItemValid(TileEntityAU tileEntity, ItemStack itemstack){
+					TileEntityChromaInfuser te = (TileEntityChromaInfuser)tileEntity;
+					return ChromaRegistry.hasRecipe(itemstack, te.getDyeColor());
 				}
 			}),
 		(new SidedSlotInfo("Dye Input",		SidedSlotInfo.PURPLE_COLOR,	TileEntityChromaInfuser.SLOT_DYE_INPUT,		1,	true, true){
 				@Override
-				public boolean isItemValid(ItemStack itemstack){
+				public boolean isItemValid(TileEntityAU tileEntity, ItemStack itemstack){
 					return itemstack.getItem() instanceof ItemDye;
 				}
 			}),
@@ -85,7 +86,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		this.isLocked = (cfg & 0x800) != 0;						// 1000 0000 0000
 
 		this.processingItem = this.getInput();
-		this.processingRecipe = ChromaRegistry.getRecipe(this.recipeButton, this.getInput());
+		this.processingRecipe = ChromaRegistry.getRecipe(this.recipeButton, this.getInput(), this.getDyeColor());
 	}
 
 	@Override
@@ -180,7 +181,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	}
 
 	public int getDyeColor(){
-		return (int)this.dyeColor;
+		return this.dyeVolume > 0 ? (int)this.dyeColor : -1;
 	}
 	public int getDyeVolume(){
 		return (int)this.dyeVolume;
@@ -217,7 +218,7 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 
 	private void updateInput(ItemStack input){
 		this.processingItem = input;
-		this.processingRecipe = ChromaRegistry.getRecipe(this.recipeButton, input);
+		this.processingRecipe = ChromaRegistry.getRecipe(this.recipeButton, input, this.getDyeColor());
 		this.outputTick = 0;
 	}
 

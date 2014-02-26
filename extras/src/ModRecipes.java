@@ -62,13 +62,11 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, stoneDoubleSlab, coloredStoneHalfSlabsSmooth);
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, stoneDoubleSlab, coloredStoneHalfSlabs);
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, stoneSingleSlab, coloredStoneHalfSlab);
-			for(int c = 0; c < 16; c++){
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(THIS_MOD.blockStoneHalfSlabsSmooth, 1, c), coloredStoneHalfSlabsSmooth);
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockStoneHalfSlabsSmooth, 1, c), coloredStoneHalfSlabs);
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(THIS_MOD.blockStoneHalfSlabs, 1, c), coloredStoneHalfSlabsSmooth);
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockStoneHalfSlabs, 1, c), coloredStoneHalfSlabs);
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockStoneHalfSlab[0], 1, c), coloredStoneHalfSlab);
-			}
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredStoneHalfSlabsSmooth, coloredStoneHalfSlabsSmooth);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredStoneHalfSlabsSmooth, coloredStoneHalfSlabs);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredStoneHalfSlabs, coloredStoneHalfSlabsSmooth);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredStoneHalfSlabs, coloredStoneHalfSlabs);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredStoneHalfSlab, coloredStoneHalfSlab);
 			// SMELT <colored> stone slabs -> stone slabs
 			GameRegistry.addSmelting(coloredStoneHalfSlabsSmooth.itemID, stoneSmoothSlab, 1.0f);
 			GameRegistry.addSmelting(coloredStoneHalfSlabs.itemID, stoneDoubleSlab, 1.0f);
@@ -94,8 +92,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, cobblestone, coloredCobble);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockCobble, 1, c), coloredCobble);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredCobble, coloredCobble);
 			// SMELT <colored> cobble -> cobblestone
 			GameRegistry.addSmelting(coloredCobble.itemID, cobblestone, 1.0f);
 
@@ -117,8 +114,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, stone, coloredStone);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockStone, 1, c), coloredStone);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredStone, coloredStone);
 			// SMELT <colored> stone -> stone
 			GameRegistry.addSmelting(coloredStone.itemID, stone, 1.0f);
 
@@ -140,8 +136,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, stoneBrick, coloredStoneBrick);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockStoneBrick, 1, c), coloredStoneBrick);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredStoneBrick, coloredStoneBrick);
 			// SMELT <colored> stoneBrick -> stoneBrick
 			GameRegistry.addSmelting(coloredStoneBrick.itemID, stoneBrick, 1.0f);
 
@@ -164,8 +159,7 @@ public class ModRecipes {
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, chiseledBrick, coloredChiseledBrick);
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, stone, coloredChiseledBrick);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockChiseledBrick, 1, c), coloredChiseledBrick);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredChiseledBrick, coloredChiseledBrick);
 			// SMELT <colored> chiseledBrick -> chiseledBrick
 			GameRegistry.addSmelting(coloredChiseledBrick.itemID, chiseledBrick, 1.0f);
 
@@ -184,8 +178,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, stone, coloredSmoothBrick);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockSmoothBrick, 1, c), coloredSmoothBrick);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredSmoothBrick, coloredSmoothBrick);
 			// SMELT <colored> smoothBrick -> stone
 			GameRegistry.addSmelting(coloredSmoothBrick.itemID, stone, 1.0f);
 
@@ -207,8 +200,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, gravel, coloredGravel);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockGravel, 1, c), coloredGravel);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredGravel, coloredGravel);
 			// SMELT <colored> gravel -> gravel
 			GameRegistry.addSmelting(coloredGravel.itemID, gravel, 1.0f);
 
@@ -227,8 +219,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, sand, coloredSand);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockSand, 1, c), coloredSand);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredSand, coloredSand);
 			// SMELT <colored> sand -> sand
 			GameRegistry.addSmelting(coloredSand.itemID, sand, 1.0f);
 
@@ -250,8 +241,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, grassBlock, artificialGrass);
-			for(int s = 0; s < 16; s++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(THIS_MOD.blockArtificialGrass, 1, s), artificialGrass);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, artificialGrass, artificialGrass);
 
 			// stairs
 			if(Cfg.enableArtificialGrassStairs)
@@ -267,7 +257,7 @@ public class ModRecipes {
 		//////////
 
 		if(Cfg.enableArtificialVine){
-//			// CHROMA INFUSER recipes
+			// CHROMA INFUSER recipes
 //			for(int c = 0; c < 16; c++)
 //				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, c, vine, new ItemStack(THIS_MOD.blockArtificialVine[c]));
 //			for(int c = 0; c < 16; c++)
@@ -275,6 +265,7 @@ public class ModRecipes {
 //					ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, c, new ItemStack(THIS_MOD.blockArtificialVine[s]), new ItemStack(THIS_MOD.blockArtificialVine[c]));
 // TODO: chroma infuser can't yet map colors to separate output IDs
 
+// TODO: remove this
 			// CRAFT 8 vines + dye -> artificial vine
 			for(int c = 0; c < 16; c++)
 				GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(THIS_MOD.blockArtificialVine[c], 8), "vvv", "vcv", "vvv", 'v', vine, 'c', Color.oreDyes[c]));
@@ -287,8 +278,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, glass, coloredGlass);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(THIS_MOD.blockGlass, 1, c), coloredGlass);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredGlass, coloredGlass);
 			// SMELT <colored> glass -> glass
 			GameRegistry.addSmelting(coloredGlass.itemID, glass, 1.0f);
 		}
@@ -298,8 +288,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, glass, coloredGlassTinted);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(THIS_MOD.blockGlassTinted, 1, c), coloredGlassTinted);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE_DOT, coloredGlassTinted, coloredGlassTinted);
 			// SMELT <colored tinted> glass -> glass
 			GameRegistry.addSmelting(coloredGlassTinted.itemID, glass, 1.0f);
 		}
@@ -309,8 +298,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, glass, coloredGlassTintedNoFrame);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(THIS_MOD.blockGlassTintedNoFrame, 1, c), coloredGlassTintedNoFrame);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_DOT, coloredGlassTintedNoFrame, coloredGlassTintedNoFrame);
 			// SMELT <tinted frameless> glass -> glass
 			GameRegistry.addSmelting(coloredGlassTintedNoFrame.itemID, glass, 1.0f);
 		}
@@ -322,8 +310,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, glassPane, coloredGlassPane);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(THIS_MOD.blockGlassPane, 1, c), coloredGlassPane);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredGlassPane, coloredGlassPane);
 			// SMELT <colored> glass pane -> glass pane
 			GameRegistry.addSmelting(coloredGlassPane.itemID, glassPane, 1.0f);
 
@@ -337,8 +324,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, glassPane, coloredGlassPaneTinted);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(THIS_MOD.blockGlassPaneTinted, 1, c), coloredGlassPaneTinted);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE_DOT, coloredGlassPaneTinted, coloredGlassPaneTinted);
 			// SMELT <colored tinted> glass pane -> glass pane
 			GameRegistry.addSmelting(coloredGlassPaneTinted.itemID, glassPane, 1.0f);
 
@@ -352,8 +338,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, glassPane, coloredGlassPaneTintedNoFrame);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(THIS_MOD.blockGlassPaneTintedNoFrame, 1, c), coloredGlassPaneTintedNoFrame);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_DOT, coloredGlassPaneTintedNoFrame, coloredGlassPaneTintedNoFrame);
 			// SMELT <tinted frameless> glass pane -> glass pane
 			GameRegistry.addSmelting(coloredGlassPaneTintedNoFrame.itemID, glassPane, 1.0f);
 
@@ -368,52 +353,40 @@ public class ModRecipes {
 		if(Cfg.enableGlass && Cfg.enableGlassTinted){
 			ItemStack coloredGlass = new ItemStack(THIS_MOD.blockGlass);
 			ItemStack coloredGlassTinted = new ItemStack(THIS_MOD.blockGlassTinted);
-			for(int c = 0; c < 16; c++){
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(THIS_MOD.blockGlassTinted, 1, c), coloredGlass);
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(THIS_MOD.blockGlass, 1, c), coloredGlassTinted);
-			}
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredGlassTinted, coloredGlass);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE_DOT, coloredGlass, coloredGlassTinted);
 		}
 		if(Cfg.enableGlass && Cfg.enableGlassTintedNoFrame){
 			ItemStack coloredGlass = new ItemStack(THIS_MOD.blockGlass);
 			ItemStack coloredGlassTintedNoFrame = new ItemStack(THIS_MOD.blockGlassTintedNoFrame);
-			for(int c = 0; c < 16; c++){
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(THIS_MOD.blockGlassTintedNoFrame, 1, c), coloredGlass);
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(THIS_MOD.blockGlass, 1, c), coloredGlassTintedNoFrame);
-			}
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredGlassTintedNoFrame, coloredGlass);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_DOT, coloredGlass, coloredGlassTintedNoFrame);
 		}
 		if(Cfg.enableGlassTinted && Cfg.enableGlassTintedNoFrame){
 			ItemStack coloredGlassTinted = new ItemStack(THIS_MOD.blockGlassTinted);
 			ItemStack coloredGlassTintedNoFrame = new ItemStack(THIS_MOD.blockGlassTintedNoFrame);
-			for(int c = 0; c < 16; c++){
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(THIS_MOD.blockGlassTintedNoFrame, 1, c), coloredGlassTinted);
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(THIS_MOD.blockGlassTinted, 1, c), coloredGlassTintedNoFrame);
-			}
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE_DOT, coloredGlassTintedNoFrame, coloredGlassTinted);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_DOT, coloredGlassTinted, coloredGlassTintedNoFrame);
 		}
 
 		// convert any colored glass pane to any other colored glass pane
 		if(Cfg.enableGlassPane && Cfg.enableGlassPaneTinted){
 			ItemStack coloredGlassPane = new ItemStack(THIS_MOD.blockGlassPane);
 			ItemStack coloredGlassPaneTinted = new ItemStack(THIS_MOD.blockGlassPaneTinted);
-			for(int c = 0; c < 16; c++){
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(THIS_MOD.blockGlassPaneTinted, 1, c), coloredGlassPane);
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(THIS_MOD.blockGlassPane, 1, c), coloredGlassPaneTinted);
-			}
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredGlassPaneTinted, coloredGlassPane);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE_DOT, coloredGlassPane, coloredGlassPaneTinted);
 		}
 		if(Cfg.enableGlassPane && Cfg.enableGlassPaneTintedNoFrame){
 			ItemStack coloredGlassPane = new ItemStack(THIS_MOD.blockGlassPane);
 			ItemStack coloredGlassPaneTintedNoFrame = new ItemStack(THIS_MOD.blockGlassPaneTintedNoFrame);
-			for(int c = 0; c < 16; c++){
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(THIS_MOD.blockGlassPaneTintedNoFrame, 1, c), coloredGlassPane);
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(THIS_MOD.blockGlassPane, 1, c), coloredGlassPaneTintedNoFrame);
-			}
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredGlassPaneTintedNoFrame, coloredGlassPane);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_DOT, coloredGlassPane, coloredGlassPaneTintedNoFrame);
 		}
 		if(Cfg.enableGlassPaneTinted && Cfg.enableGlassPaneTintedNoFrame){
 			ItemStack coloredGlassPaneTinted = new ItemStack(THIS_MOD.blockGlassPaneTinted);
 			ItemStack coloredGlassPaneTintedNoFrame = new ItemStack(THIS_MOD.blockGlassPaneTintedNoFrame);
-			for(int c = 0; c < 16; c++){
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, new ItemStack(THIS_MOD.blockGlassPaneTintedNoFrame, 1, c), coloredGlassPaneTinted);
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, new ItemStack(THIS_MOD.blockGlassPaneTinted, 1, c), coloredGlassPaneTintedNoFrame);
-			}
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE_DOT, coloredGlassPaneTintedNoFrame, coloredGlassPaneTinted);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_DOT, coloredGlassPaneTinted, coloredGlassPaneTintedNoFrame);
 		}
 
 		//////////
@@ -423,8 +396,7 @@ public class ModRecipes {
 
 			// CHROMA INFUSER recipes
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, ironBars, coloredIronBars);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, new ItemStack(THIS_MOD.blockIronBars, 1, c), coloredIronBars);
+			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredIronBars, coloredIronBars);
 			// SMELT <colored> iron bars -> iron bars
 			GameRegistry.addSmelting(coloredIronBars.itemID, ironBars, 1.0f);
 		}
@@ -642,28 +614,28 @@ public class ModRecipes {
 		//////////
 
 		// vanilla wool
-		for(int c = 0; c < 16; c++)
-			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.cloth, 1, c), new ItemStack(MC_BLOCK.cloth), true);
+		ItemStack cloth = new ItemStack(MC_BLOCK.cloth);
+		ChromaRegistry.addRecipeColoredReversed(ChromaButton.BUTTON_BLANK, cloth, cloth);
 
 		#ifndef MC152
 			// vanilla hardened clay (1.6)
-			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.hardenedClay), new ItemStack(MC_BLOCK.stainedClay), true);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.stainedClay, 1, c), new ItemStack(MC_BLOCK.stainedClay), true);
+			ItemStack stainedClay = new ItemStack(MC_BLOCK.stainedClay);
+			ChromaRegistry.addRecipeReversed(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.hardenedClay), stainedClay);
+			ChromaRegistry.addRecipeColoredReversed(ChromaButton.BUTTON_BLANK, stainedClay, stainedClay);
 			// vanilla carpet (1.6)
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.carpet, 1, c), new ItemStack(MC_BLOCK.carpet), true);
+			ItemStack carpet = new ItemStack(MC_BLOCK.carpet);
+			ChromaRegistry.addRecipeColoredReversed(ChromaButton.BUTTON_BLANK, carpet, carpet);
 		#endif
 
 		#if !defined MC152 && !defined MC164
 			// vanilla stained glass (1.7)
-			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(glass), new ItemStack(MC_BLOCK.stained_glass), true);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.stained_glass, 1, c), new ItemStack(MC_BLOCK.stained_glass), true);
+			ItemStack stainedGlass = new ItemStack(MC_BLOCK.stained_glass);
+			ChromaRegistry.addRecipeReversed(ChromaButton.BUTTON_BLANK, glass, stainedGlass);
+			ChromaRegistry.addRecipeColoredReversed(ChromaButton.BUTTON_BLANK, stainedGlass, stainedGlass);
 			// vanilla stained glass panes (1.7)
-			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(glassPane), new ItemStack(MC_BLOCK.stained_glass_pane), true);
-			for(int c = 0; c < 16; c++)
-				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.stained_glass_pane, 1, c), new ItemStack(MC_BLOCK.stained_glass_pane), true);
+			ItemStack stainedGlassPane = new ItemStack(MC_BLOCK.stained_glass_pane);
+			ChromaRegistry.addRecipeReversed(ChromaButton.BUTTON_BLANK, glassPane, stainedGlassPane);
+			ChromaRegistry.addRecipeColoredReversed(ChromaButton.BUTTON_BLANK, stainedGlassPane, stainedGlassPane);
 		#endif
 	}
 }

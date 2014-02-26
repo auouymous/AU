@@ -31,7 +31,8 @@ public class ContainerChromaInfuser extends ContainerAU {
 		SlotInventory slotInput = (new SlotInventory(tileEntity, TileEntityChromaInfuser.SLOT_ITEM_INPUT, x_offset+1*18, y_offset+1*18){
 				@Override
 				public boolean isItemValid(ItemStack itemstack){
-					return ChromaRegistry.hasRecipe(itemstack);
+					TileEntityChromaInfuser te = (TileEntityChromaInfuser)this.inventory;
+					return ChromaRegistry.hasRecipe(itemstack, te.getDyeColor());
 				}
 			});
 		slotInput.setTooltip("item input");

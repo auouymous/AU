@@ -105,13 +105,11 @@ public class GuiChromaInfuser extends GuiContainerAU {
 	private void drawOutputPattern(TileEntityChromaInfuser te, ChromaButton recipeButton, Button button){
 		recipePatternItems[recipeButton.ordinal()] = null;
 		ItemStack input = te.getInput();
-		if(input != null){
+		if(input != null && te.getWater() && te.getDyeVolume() > 0){
 			// lookup recipe
-			ChromaRecipe recipe = ChromaRegistry.getRecipe(recipeButton, input);
-			ItemStack output
-				= (recipe == null || !te.getWater() || te.getDyeVolume() == 0
-				? null
-				: new ItemStack(recipe.output.itemID, recipe.output.stackSize, recipe.getOutputColor(te.getDyeColor())));
+			ChromaRecipe recipe = ChromaRegistry.getRecipe(recipeButton, input, te.getDyeColor());
+			ItemStack output = (recipe == null ? null
+												: new ItemStack(recipe.output.itemID, recipe.output.stackSize, recipe.getOutputColor(te.getDyeColor())));
 			// draw itemstack
 			if(output != null){
 				// set tooltip coordinates
