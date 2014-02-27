@@ -15,6 +15,11 @@
 
 - override vanilla plants and flowers to work on artificial grass
 
+- diamond shear issues:
+	- can't add silk touch (only unbreaking)
+	- can't pick up dead bushes
+	- can't break trip wires without triggering them
+
 - semi-transparent icons for tinted glass panes
 
 - remove all support for 1.5.2 or fix language file issue
