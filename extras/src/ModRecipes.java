@@ -640,7 +640,7 @@ public class ModRecipes {
 		}
 		if(Cfg.enableStoneSlabFullSmoothCrafting){
 			// CRAFT 4 stone slabs -> 2 stone slab (full smooth)
-			GameRegistry.addShapedRecipe(new ItemStack(MC_BLOCK.stoneDoubleSlab, 1, 8), "ss", "ss", 's', stoneSingleSlab);
+			GameRegistry.addShapedRecipe(new ItemStack(MC_BLOCK.stoneDoubleSlab, 2, 8), "ss", "ss", 's', stoneSingleSlab);
 			// UNCRAFT
 			GameRegistry.addShapelessRecipe(new ItemStack(MC_BLOCK.stoneSingleSlab, 2), stoneSmoothSlab);
 		}
