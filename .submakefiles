@@ -3,7 +3,7 @@ MOD_ASSETS = $(ASSETS)/au_$(MOD)
 WITH_APIS = $(shell cat ../.with-apis)
 CPP_DEFINES = $(WITH_APIS) -DMC$(VER) -DTHIS_MOD=$(AUMOD)
 CPP_FLAGS = -E -P $(CPP_DEFINES) -include ../../includes.h
-ifdef DEBUG
+ifeq ($(DEBUG),1)
 	CPP_DEFINES := $(CPP_DEFINES) -DDEBUG
 endif
 
