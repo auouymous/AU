@@ -131,16 +131,16 @@ public class AUExtras {
 
 		if(Cfg.enableLightingHack){
 			// stairs
-			MC_BLOCK.stairsWoodOak.setLightOpacity(0);
 			MC_BLOCK.stairsCobblestone.setLightOpacity(0);
 			MC_BLOCK.stairsBrick.setLightOpacity(0);
 			MC_BLOCK.stairsStoneBrick.setLightOpacity(0);
-			MC_BLOCK.stairsNetherBrick.setLightOpacity(0);
 			MC_BLOCK.stairsSandStone.setLightOpacity(0);
-			MC_BLOCK.stairsWoodSpruce.setLightOpacity(0);
-			MC_BLOCK.stairsWoodBirch.setLightOpacity(0);
-			MC_BLOCK.stairsWoodJungle.setLightOpacity(0);
+			MC_BLOCK.stairsNetherBrick.setLightOpacity(0);
 			MC_BLOCK.stairsNetherQuartz.setLightOpacity(0);
+			MC_BLOCK.stairsWoodBirch.setLightOpacity(0);
+			MC_BLOCK.stairsWoodOak.setLightOpacity(0);
+			MC_BLOCK.stairsWoodJungle.setLightOpacity(0);
+			MC_BLOCK.stairsWoodSpruce.setLightOpacity(0);
 			// slabs
 			MC_BLOCK.stoneSingleSlab.setLightOpacity(0);
 			MC_BLOCK.woodSingleSlab.setLightOpacity(0);
