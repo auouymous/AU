@@ -1,3 +1,4 @@
+28feb2014-r1
 	- config now uses an instance per mod, oops!
 	- changed modID
 	- pass tile entity to SidedSlotInfo.isItemValid()
