@@ -1,11 +1,13 @@
 AU Extras
 ==========
 
-Various colored blocks, artificial grass, glass, panes, lamps and flowers.
-Smelt rotten flesh to cooked flesh and eggs to fried eggs.
-Craft 4 cooked flesh to 1 leather.
-Teleporter and building tools.
-All recipes are configurable.
+Various colored versions of minecraft blocks, including stairs and slabs.
+Clear and tinted glass and glass panes, including horizontal glass panes.
+Artificial grass and vines for the perfect color no matter what biome you live in.
+Colored lamps and flowers.
+Chroma Infuser to dye blocks.
+Ender Cube to teleport players and entities.
+Recipes to craft hard to obtain or unobtainable vanilla blocks.
 
 [Minecraft Forum](http://www.minecraftforum.net/topic/1945197-)
 
