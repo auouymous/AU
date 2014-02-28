@@ -9,7 +9,7 @@ Chroma Infuser to dye blocks.
 Ender Cube to teleport players and entities.
 Recipes to craft hard to obtain or unobtainable vanilla blocks.
 
-[Minecraft Forum](http://www.minecraftforum.net/topic/1945197-)
+[Minecraft Forum](http://www.minecraftforum.net/topic/2440629-)
 
 Required: AU CORE
 
