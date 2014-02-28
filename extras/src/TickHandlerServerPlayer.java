@@ -34,6 +34,6 @@ public class TickHandlerServerPlayer implements ITickHandler {
 
 	@Override
 	public String getLabel(){
-		return "AUExtras: Server Player Tick";
+		return THIS_MOD.modID+": Server Player Tick";
 	}
 }

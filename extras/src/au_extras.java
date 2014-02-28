@@ -12,19 +12,20 @@ import net.minecraft.item.Item;
 
 import net.minecraftforge.common.MinecraftForge;
 
-@Mod(modid="AUExtras", name="Altered Unification EXTRAS", version=AUExtras.modVersion)
+@Mod(modid=THIS_MOD.modID, name="Altered Unification EXTRAS", version=THIS_MOD.modVersion)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true,
-	clientPacketHandlerSpec = @SidedPacketHandler(channels = { AUExtras.packetChannel }, packetHandler = PacketHandlerClient.class),
-	serverPacketHandlerSpec = @SidedPacketHandler(channels = { AUExtras.packetChannel }, packetHandler = PacketHandlerServer.class))
-public class AUExtras {
-	@Instance("AUExtras")
-	public static AUExtras instance;
+	clientPacketHandlerSpec = @SidedPacketHandler(channels = { THIS_MOD.packetChannel }, packetHandler = PacketHandlerClient.class),
+	serverPacketHandlerSpec = @SidedPacketHandler(channels = { THIS_MOD.packetChannel }, packetHandler = PacketHandlerServer.class))
+public class THIS_MOD {
+	@Instance(THIS_MOD.modID)
+	public static THIS_MOD instance;
 
 	@SidedProxy(clientSide="com.qzx.au.extras.ClientProxy", serverSide="com.qzx.au.extras.CommonProxy")
 	public static CommonProxy proxy;
 
+	public static final String modID = "au_extras";
 	public static final String modVersion = "0.0.0";
-	public static final String packetChannel = "AUExtras";
+	public static final String packetChannel = "au_extras";
 
 	#ifdef MC152
 	public static final String texturePath = "/mods/au_extras/textures";

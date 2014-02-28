@@ -6,7 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 
 public class CreativeTabAUExtras extends CreativeTabs {
 	public CreativeTabAUExtras(){
-		super("tabAUExtras");
+		super("tab_au_extras");
 	}
 
 	@SideOnly(Side.CLIENT)

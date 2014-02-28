@@ -13,7 +13,7 @@ public class NEICoreConfig implements IConfigureNEI {
 
 	@Override
 	public String getName(){
-		return "AUCore";
+		return THIS_MOD.modID;
 	}
 
 	@Override

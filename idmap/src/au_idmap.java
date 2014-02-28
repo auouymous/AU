@@ -13,13 +13,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-@Mod(modid="AUIdmap", name="Altered Unification ID Map", version=AUIdmap.modVersion)
+@Mod(modid=THIS_MOD.modID, name="Altered Unification ID Map", version=THIS_MOD.modVersion)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
-public class AUIdmap {
-	@Instance("AUIdmap")
-	public static AUIdmap instance;
+public class THIS_MOD {
+	@Instance(THIS_MOD.modID)
+	public static THIS_MOD instance;
 
+	public static final String modID = "au_idmap";
 	public static final String modVersion = "0.0.0";
+
+	private static final String filename = "au_ID_map.txt";
 
 	FML_PREINIT
 	public void preInit(FMLPreInitializationEvent event){}
@@ -30,19 +33,18 @@ public class AUIdmap {
 	FML_POSTINIT
 	public void postInit(FMLPostInitializationEvent event){
 		String dir;
-		String filename = "au_ID_map.txt";
 		try {
 			dir = Minecraft.getMinecraft().mcDataDir.getAbsolutePath();
 		} catch(NoClassDefFoundError e){
 			dir = MinecraftServer.getServer().getFile("").getAbsolutePath();
 		}
-		File file = new File(dir, "au_ID_map.txt");
+		File file = new File(dir, THIS_MOD.filename);
 		PrintWriter out;
 		try {
 			file.createNewFile();
 			out = new PrintWriter(new FileWriter(file));
 		} catch(Throwable e){
-			System.err.println("AU IDMAP: Unable to create file: "+dir+"/"+filename);
+			System.err.println(THIS_MOD.modID+": Unable to create file: "+dir+"/"+THIS_MOD.filename);
 			return;
 		}
 

@@ -88,6 +88,6 @@ public class TickHandlerHUD implements ITickHandler {
 
 	@Override
 	public String getLabel(){
-		return "AUHud: Client Render Tick";
+		return THIS_MOD.modID+": Client Render Tick";
 	}
 }

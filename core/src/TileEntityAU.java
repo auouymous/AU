@@ -217,7 +217,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		this.direction = direction;
 
 		if(server){
-			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUCore.packetChannel, Packets.CLIENT_DIRECTION,
+			PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, THIS_MOD.packetChannel, Packets.CLIENT_DIRECTION,
 										this.xCoord, this.yCoord, this.zCoord, direction.ordinal());
 			this.markChunkModified();
 		} else
@@ -254,7 +254,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		this.camoBlock = block;
 		this.camoMeta = metadata;
 
-		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUCore.packetChannel, Packets.CLIENT_BLOCK_CAMO,
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, THIS_MOD.packetChannel, Packets.CLIENT_BLOCK_CAMO,
 									this.xCoord, this.yCoord, this.zCoord, blockID, metadata);
 		this.markChunkModified();
 	}
@@ -424,7 +424,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		if(this.worldObj == null || this.worldObj.isRemote) return;
 		this.nrAccessPlayers++;
 
-		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUCore.packetChannel, Packets.CLIENT_ACCESS_PLAYERS,
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, THIS_MOD.packetChannel, Packets.CLIENT_ACCESS_PLAYERS,
 									this.xCoord, this.yCoord, this.zCoord, this.nrAccessPlayers);
 	}
 
@@ -432,7 +432,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		if(this.worldObj == null || this.worldObj.isRemote) return;
 		this.nrAccessPlayers--;
 
-		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUCore.packetChannel, Packets.CLIENT_ACCESS_PLAYERS,
+		PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, THIS_MOD.packetChannel, Packets.CLIENT_ACCESS_PLAYERS,
 									this.xCoord, this.yCoord, this.zCoord, this.nrAccessPlayers);
 	}
 
@@ -472,7 +472,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 				byte old_slot = info.getSlot(side);
 				byte new_slot = info.toggleSide(side);
 				if(old_slot != new_slot){
-					PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, AUCore.packetChannel, Packets.CLIENT_SIDED_IO,
+					PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, THIS_MOD.packetChannel, Packets.CLIENT_SIDED_IO,
 												this.xCoord, this.yCoord, this.zCoord, side, new_slot);
 					this.markChunkModified();
 				}

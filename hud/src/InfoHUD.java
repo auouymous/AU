@@ -678,7 +678,7 @@ public class InfoHUD {
 									boolean shearable = block instanceof IShearable;
 									boolean ic2_wrenchable = false;
 									#ifdef WITH_API_IC2
-									if(AUHud.supportIC2)
+									if(THIS_MOD.supportIC2)
 										if(tileEntity instanceof IWrenchable)
 											ic2_wrenchable = true;
 									#endif

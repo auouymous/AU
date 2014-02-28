@@ -11,19 +11,20 @@ import net.minecraft.item.Item;
 
 import net.minecraftforge.common.MinecraftForge;
 
-@Mod(modid="AUTts", name="Altered Unification TTS", version=AUTts.modVersion)
+@Mod(modid=THIS_MOD.modID, name="Altered Unification TTS", version=THIS_MOD.modVersion)
 @NetworkMod(clientSideRequired = true, serverSideRequired = true,
-	clientPacketHandlerSpec = @SidedPacketHandler(channels = { AUTts.packetChannel }, packetHandler = PacketHandlerClient.class),
-	serverPacketHandlerSpec = @SidedPacketHandler(channels = { AUTts.packetChannel }, packetHandler = PacketHandlerServer.class))
-public class AUTts {
-	@Instance("AUTts")
-	public static AUTts instance;
+	clientPacketHandlerSpec = @SidedPacketHandler(channels = { THIS_MOD.packetChannel }, packetHandler = PacketHandlerClient.class),
+	serverPacketHandlerSpec = @SidedPacketHandler(channels = { THIS_MOD.packetChannel }, packetHandler = PacketHandlerServer.class))
+public class au_tts {
+	@Instance(THIS_MOD.modID)
+	public static THIS_MOD instance;
 
 	@SidedProxy(clientSide="com.qzx.au.tts.ClientProxy", serverSide="com.qzx.au.tts.CommonProxy")
 	public static CommonProxy proxy;
 
+	public static final String modID = "au_tts";
 	public static final String modVersion = "0.0.0";
-	public static final String packetChannel = "AUTts";
+	public static final String packetChannel = "au_tts";
 
 	#ifdef MC152
 	public static final String texturePath = "/mods/au_tts/textures";

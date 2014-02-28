@@ -44,7 +44,7 @@ public class NEIExtrasConfig implements IConfigureNEI {
 
 	@Override
 	public String getName(){
-		return "AUExtras";
+		return THIS_MOD.modID;
 	}
 
 	@Override

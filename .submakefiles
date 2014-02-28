@@ -20,7 +20,7 @@ prepare:
 ifdef DEBUG
 	@(cp ../Debug.java $(SRC)/com/qzx/au/$(MOD)/)
 	@(sed -E -i "s:MOD_LOWER:$(MOD):" $(SRC)/com/qzx/au/$(MOD)/Debug.java)
-	@(sed -E -i "s:MOD_UPPER:$(MODUPPER):" $(SRC)/com/qzx/au/$(MOD)/Debug.java)
+	@(sed -E -i "s:AUMOD:$(AUMOD):" $(SRC)/com/qzx/au/$(MOD)/Debug.java)
 endif
 
 	@(cp _mcmod.info mcmod.info)

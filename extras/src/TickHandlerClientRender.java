@@ -93,6 +93,6 @@ public class TickHandlerClientRender implements ITickHandler {
 
 	@Override
 	public String getLabel(){
-		return "AUExtras: Client Render Tick";
+		return THIS_MOD.modID+": Client Render Tick";
 	}
 }

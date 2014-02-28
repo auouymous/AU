@@ -5,7 +5,7 @@ import cpw.mods.fml.common.FMLLog;
 import net.minecraft.tileentity.TileEntity;
 
 public class Debug {
-	private static final String mod = "AU MOD_UPPER: ";
+	private static final String mod = "AUMOD: ";
 
 	public static void error(String text){
 		FMLLog.severe(Debug.mod+text);

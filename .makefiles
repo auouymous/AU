@@ -43,5 +43,5 @@ else
 	NOW := $(shell /bin/date +%Y)$(shell /bin/date +%m)$(shell /bin/date +%d)-$(shell /bin/date +%H)$(shell /bin/date +%M)
 endif
 
-AUMOD := $(shell export m=$(MOD) ; echo AU$${m^})
-MODUPPER := $(shell export m=$(MOD) ; echo $${m^})
+AUMOD := au_$(MOD)
+#MODUPPER := $(shell export m=$(MOD) ; echo $${m^})

@@ -38,7 +38,7 @@ public class ArmorHUD {
 		try {
 			Item item = itemstack.getItem();
 			#ifdef WITH_API_IC2
-			if(AUHud.supportIC2)
+			if(THIS_MOD.supportIC2)
 				if(item instanceof IElectricItem)
 					#ifdef MC147
 					return (int)Math.round((float)max_durability * (float)(itemstack.getMaxDamage()-itemstack.getItemDamage())/26.0F);
@@ -56,7 +56,7 @@ public class ArmorHUD {
 		try {
 			Item item = itemstack.getItem();
 			#ifdef WITH_API_IC2
-			if(AUHud.supportIC2)
+			if(THIS_MOD.supportIC2)
 				if(item instanceof IElectricItem)
 					#ifdef MC147
 					return ((IElectricItem)item).getMaxCharge();

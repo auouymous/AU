@@ -2,7 +2,7 @@ language.name=English
 language.region=US
 language.code=en_US
 
-itemGroup.tabAUExtras=Altered Unification EXTRAS
+itemGroup.tab_au_extras=Altered Unification EXTRAS
 
 ##########
 # BLOCKS #
