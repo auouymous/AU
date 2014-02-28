@@ -153,12 +153,12 @@ public class Cfg extends Config {
 
 	public static int itemFlowerDye;
 
+	public static int itemDiamondShears;
+
 	public static int itemEnderStar;
 	public static int itemEnderWand;
 	public static int itemEnderMagnet;
 	public static int itemEnderXT;
-
-	public static int itemDiamondShears;
 
 	//////////
 
@@ -231,13 +231,13 @@ public class Cfg extends Config {
 		Cfg.enableCookedFleshToLeather = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.toLeather", true, "enable crafting cooked flesh to leather");
 		Cfg.nrCookedFleshToLeather = Cfg.instance.getInt(Cfg.CATEGORY_GENERAL, "item.cookedFlesh.toLeather.count", 4, "number of cooked flesh per leather (1-9)");
 
+		Cfg.enableDiamondShears = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "item.diamondShears.enable", true, "enable diamond shears (uses 1 item ID)");
+
 		Cfg.enableEnderStar = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enable", true, "enable ender star (uses 1 item ID)");
 		Cfg.enableEnderStarInDungeonChests = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.dungeonChests", true, "spawn burned out ender stars in dungeon chests");
 		Cfg.enableEnderWand = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderWand.enable", true, "enable ender wand (uses 1 item ID)");
 		Cfg.enableEnderMagnet = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderMagnet.enable", true, "enable ender magnet (uses 1 item ID)");
 		Cfg.enableEnderXT = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enderStar.enderMagnet.enderXT.enable", true, "enable ender XT (uses 1 item ID)");
-
-		Cfg.enableDiamondShears = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "item.diamondShears.enable", true, "enable diamond shears (uses 1 item ID)");
 
 		// ENABLE Vanilla Recipes
 		Cfg.enableChiseledBrickCrafting = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "vanilla.chiseledBrick.recipe", true, "enable chiseled brick crafting recipe");
@@ -263,83 +263,81 @@ public class Cfg extends Config {
 		int startItemID = Cfg.instance.getInt(Cfg.CATEGORY_IDMAP, "startItemID", 31000, "clear all item IDs and restart client to move all items, beginning here");
 
 		// BLOCK IDs
-		Cfg.blockCobble = Cfg.instance.getBlock("block.colored.cobble.id", startBlockID, null); startBlockID++;
-		Cfg.blockStone = Cfg.instance.getBlock("block.colored.stone.id", startBlockID, null); startBlockID++;
-		Cfg.blockStoneBrick = Cfg.instance.getBlock("block.colored.stoneBrick.id", startBlockID, null); startBlockID++;
-		Cfg.blockGlass = Cfg.instance.getBlock("block.colored.glass.id", startBlockID, null); startBlockID++;
-		Cfg.blockChiseledBrick = Cfg.instance.getBlock("block.colored.chiseledBrick.id", startBlockID, null); startBlockID++;
-		Cfg.blockSmoothBrick = Cfg.instance.getBlock("block.colored.smoothBrick.id", startBlockID, null); startBlockID++;
+		#define GET_BLOCK(cfg, name, ids, comment) cfg = Cfg.instance.getBlock(name, startBlockID, comment); startBlockID += ids;
 
-		Cfg.blockCobbleStairs = Cfg.instance.getBlock("block.colored.cobble.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
-		Cfg.blockStoneStairs = Cfg.instance.getBlock("block.colored.stone.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
-		Cfg.blockStoneBrickStairs = Cfg.instance.getBlock("block.colored.stoneBrick.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
-		Cfg.blockSmoothBrickStairs = Cfg.instance.getBlock("block.colored.smoothBrick.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
+		GET_BLOCK(Cfg.blockChromaInfuser, "block.chromaInfuser.id", 1, null)
 
-		Cfg.blockLamp = Cfg.instance.getBlock("block.colored.lamp.id", startBlockID, null); startBlockID++;
-		Cfg.blockInvertedLamp = Cfg.instance.getBlock("block.colored.lamp.inverted.id", startBlockID, null); startBlockID++;
-		Cfg.blockLampPowered = Cfg.instance.getBlock("block.colored.lamp.powered.id", startBlockID, null); startBlockID++;
-		Cfg.blockInvertedLampPowered = Cfg.instance.getBlock("block.colored.lamp.invertedPowered.id", startBlockID, null); startBlockID++;
+		GET_BLOCK(Cfg.blockStoneHalfSlabs, "block.colored.stoneHalfSlabs.double.id", 1, null)
+			GET_BLOCK(Cfg.blockStoneHalfSlabsSmooth, "block.colored.stoneHalfSlabs.smooth.id", 1, null)
+			GET_BLOCK(Cfg.blockStoneHalfSlab0, "block.colored.stoneHalfSlabs.slabs0.id", 1, null)
+			GET_BLOCK(Cfg.blockStoneHalfSlab1, "block.colored.stoneHalfSlabs.slabs1.id", 1, null)
+		GET_BLOCK(Cfg.blockCobble, "block.colored.cobble.id", 1, null)
+			GET_BLOCK(Cfg.blockCobbleStairs, "block.colored.cobble.stairs.id", 16, "First of 16 IDs for these stairs")
+			GET_BLOCK(Cfg.blockCobbleSlab0, "block.colored.cobble.slabs0.id", 1, null)
+			GET_BLOCK(Cfg.blockCobbleSlab1, "block.colored.cobble.slabs1.id", 1, null)
+		GET_BLOCK(Cfg.blockStone, "block.colored.stone.id", 1, null)
+			GET_BLOCK(Cfg.blockStoneStairs, "block.colored.stone.stairs.id", 16, "First of 16 IDs for these stairs")
+			GET_BLOCK(Cfg.blockStoneSlab0, "block.colored.stone.slabs0.id", 1, null)
+			GET_BLOCK(Cfg.blockStoneSlab1, "block.colored.stone.slabs1.id", 1, null)
+		GET_BLOCK(Cfg.blockStoneBrick, "block.colored.stoneBrick.id", 1, null)
+			GET_BLOCK(Cfg.blockStoneBrickStairs, "block.colored.stoneBrick.stairs.id", 16, "First of 16 IDs for these stairs")
+			GET_BLOCK(Cfg.blockStoneBrickSlab0, "block.colored.stoneBrick.slabs0.id", 1, null)
+			GET_BLOCK(Cfg.blockStoneBrickSlab1, "block.colored.stoneBrick.slabs1.id", 1, null)
+		GET_BLOCK(Cfg.blockChiseledBrick, "block.colored.chiseledBrick.id", 1, null)
+			// no chiseled brick stairs
+			GET_BLOCK(Cfg.blockChiseledBrickSlab0, "block.colored.chiseledBrick.slabs0.id", 1, null)
+			GET_BLOCK(Cfg.blockChiseledBrickSlab1, "block.colored.chiseledBrick.slabs1.id", 1, null)
+		GET_BLOCK(Cfg.blockSmoothBrick, "block.colored.smoothBrick.id", 1, null)
+			GET_BLOCK(Cfg.blockSmoothBrickStairs, "block.colored.smoothBrick.stairs.id", 16, "First of 16 IDs for these stairs")
+			GET_BLOCK(Cfg.blockSmoothBrickSlab0, "block.colored.smoothBrick.slabs0.id", 1, null)
+			GET_BLOCK(Cfg.blockSmoothBrickSlab1, "block.colored.smoothBrick.slabs1.id", 1, null)
+		GET_BLOCK(Cfg.blockGravel, "block.colored.gravel.id", 1, null)
+			// no gravel stairs
+			GET_BLOCK(Cfg.blockGravelSlab0, "block.colored.gravel.slabs0.id", 1, null)
+			GET_BLOCK(Cfg.blockGravelSlab1, "block.colored.gravel.slabs1.id", 1, null)
+		GET_BLOCK(Cfg.blockSand, "block.colored.sand.id", 1, null)
+			GET_BLOCK(Cfg.blockSandStairs, "block.colored.sand.stairs.id", 16, "First of 16 IDs for these stairs")
+			GET_BLOCK(Cfg.blockSandSlab0, "block.colored.sand.slabs0.id", 1, null)
+			GET_BLOCK(Cfg.blockSandSlab1, "block.colored.sand.slabs1.id", 1, null)
+		GET_BLOCK(Cfg.blockArtificialGrass, "block.artificialGrass.id", 1, null)
+			GET_BLOCK(Cfg.blockArtificialGrassStairs, "block.artificialGrass.stairs.id", 16, "First of 16 IDs for these stairs")
+			GET_BLOCK(Cfg.blockArtificialGrassSlab0, "block.artificialGrass.slabs0.id", 1, null)
+			GET_BLOCK(Cfg.blockArtificialGrassSlab1, "block.artificialGrass.slabs1.id", 1, null)
+		GET_BLOCK(Cfg.blockArtificialVine, "block.artificialVine.id", 16, "First of 16 IDs")
 
-		Cfg.blockGlassTinted = Cfg.instance.getBlock("block.colored.glassTinted.id", startBlockID, null); startBlockID++;
-		Cfg.blockGlassTintedNoFrame = Cfg.instance.getBlock("block.colored.glassTintedNoFrame.id", startBlockID, null); startBlockID++;
+		GET_BLOCK(Cfg.blockGlass, "block.colored.glass.id", 1, null)
+		GET_BLOCK(Cfg.blockGlassTinted, "block.colored.glassTinted.id", 1, null)
+		GET_BLOCK(Cfg.blockGlassTintedNoFrame, "block.colored.glassTintedNoFrame.id", 1, null)
+		GET_BLOCK(Cfg.blockGlassPane, "block.colored.glass.pane.id", 1, null)
+		GET_BLOCK(Cfg.blockGlassPaneTinted, "block.colored.glassTinted.pane.id", 1, null)
+		GET_BLOCK(Cfg.blockGlassPaneTintedNoFrame, "block.colored.glassTintedNoFrame.pane.id", 1, null)
+		GET_BLOCK(Cfg.blockIronBars, "block.colored.ironBars.id", 1, null)
 
-		Cfg.blockChromaInfuser = Cfg.instance.getBlock("block.chromaInfuser.id", startBlockID, null); startBlockID++;
+		GET_BLOCK(Cfg.blockLamp, "block.colored.lamp.id", 1, null)
+		GET_BLOCK(Cfg.blockInvertedLamp, "block.colored.lamp.inverted.id", 1, null)
+		GET_BLOCK(Cfg.blockLampPowered, "block.colored.lamp.powered.id", 1, null)
+		GET_BLOCK(Cfg.blockInvertedLampPowered, "block.colored.lamp.invertedPowered.id", 1, null)
 
-		Cfg.blockGravel = Cfg.instance.getBlock("block.colored.gravel.id", startBlockID, null); startBlockID++;
+		GET_BLOCK(Cfg.blockFlower, "block.colored.flower.id", 1, null)
+		GET_BLOCK(Cfg.blockFlowerSeed, "block.colored.flowerSeed.id", 1, null)
 
-		Cfg.blockFlower = Cfg.instance.getBlock("block.colored.flower.id", startBlockID, null); startBlockID++;
-		Cfg.blockFlowerSeed = Cfg.instance.getBlock("block.colored.flowerSeed.id", startBlockID, null); startBlockID++;
-
-		Cfg.blockEnderCube = Cfg.instance.getBlock("block.enderCube.id", startBlockID, null); startBlockID++;
-
-		Cfg.blockGlassPane = Cfg.instance.getBlock("block.colored.glass.pane.id", startBlockID, null); startBlockID++;
-		Cfg.blockGlassPaneTinted = Cfg.instance.getBlock("block.colored.glassTinted.pane.id", startBlockID, null); startBlockID++;
-		Cfg.blockGlassPaneTintedNoFrame = Cfg.instance.getBlock("block.colored.glassTintedNoFrame.pane.id", startBlockID, null); startBlockID++;
-		Cfg.blockIronBars = Cfg.instance.getBlock("block.colored.ironBars.id", startBlockID, null); startBlockID++;
-
-		Cfg.blockArtificialGrass = Cfg.instance.getBlock("block.artificialGrass.id", startBlockID, null); startBlockID++;
-		Cfg.blockArtificialGrassStairs = Cfg.instance.getBlock("block.artificialGrass.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
-
-		Cfg.blockCobbleSlab0 = Cfg.instance.getBlock("block.colored.cobble.slabs0.id", startBlockID, null); startBlockID++;
-		Cfg.blockCobbleSlab1 = Cfg.instance.getBlock("block.colored.cobble.slabs1.id", startBlockID, null); startBlockID++;
-		Cfg.blockStoneSlab0 = Cfg.instance.getBlock("block.colored.stone.slabs0.id", startBlockID, null); startBlockID++;
-		Cfg.blockStoneSlab1 = Cfg.instance.getBlock("block.colored.stone.slabs1.id", startBlockID, null); startBlockID++;
-		Cfg.blockStoneBrickSlab0 = Cfg.instance.getBlock("block.colored.stoneBrick.slabs0.id", startBlockID, null); startBlockID++;
-		Cfg.blockStoneBrickSlab1 = Cfg.instance.getBlock("block.colored.stoneBrick.slabs1.id", startBlockID, null); startBlockID++;
-		Cfg.blockChiseledBrickSlab0 = Cfg.instance.getBlock("block.colored.chiseledBrick.slabs0.id", startBlockID, null); startBlockID++;
-		Cfg.blockChiseledBrickSlab1 = Cfg.instance.getBlock("block.colored.chiseledBrick.slabs1.id", startBlockID, null); startBlockID++;
-		Cfg.blockSmoothBrickSlab0 = Cfg.instance.getBlock("block.colored.smoothBrick.slabs0.id", startBlockID, null); startBlockID++;
-		Cfg.blockSmoothBrickSlab1 = Cfg.instance.getBlock("block.colored.smoothBrick.slabs1.id", startBlockID, null); startBlockID++;
-		Cfg.blockGravelSlab0 = Cfg.instance.getBlock("block.colored.gravel.slabs0.id", startBlockID, null); startBlockID++;
-		Cfg.blockGravelSlab1 = Cfg.instance.getBlock("block.colored.gravel.slabs1.id", startBlockID, null); startBlockID++;
-		Cfg.blockArtificialGrassSlab0 = Cfg.instance.getBlock("block.artificialGrass.slabs0.id", startBlockID, null); startBlockID++;
-		Cfg.blockArtificialGrassSlab1 = Cfg.instance.getBlock("block.artificialGrass.slabs1.id", startBlockID, null); startBlockID++;
-
-		Cfg.blockSand = Cfg.instance.getBlock("block.colored.sand.id", startBlockID, null); startBlockID++;
-		Cfg.blockSandStairs = Cfg.instance.getBlock("block.colored.sand.stairs.id", startBlockID, "First of 16 IDs for these stairs"); startBlockID+=16;
-		Cfg.blockSandSlab0 = Cfg.instance.getBlock("block.colored.sand.slabs0.id", startBlockID, null); startBlockID++;
-		Cfg.blockSandSlab1 = Cfg.instance.getBlock("block.colored.sand.slabs1.id", startBlockID, null); startBlockID++;
-
-		Cfg.blockArtificialVine = Cfg.instance.getBlock("block.artificialVine.id", startBlockID, "First of 16 IDs"); startBlockID+=16;
-
-		Cfg.blockStoneHalfSlabs = Cfg.instance.getBlock("block.colored.stoneHalfSlabs.double.id", startBlockID, null); startBlockID++;
-		Cfg.blockStoneHalfSlabsSmooth = Cfg.instance.getBlock("block.colored.stoneHalfSlabs.smooth.id", startBlockID, null); startBlockID++;
-		Cfg.blockStoneHalfSlab0 = Cfg.instance.getBlock("block.colored.stoneHalfSlabs.slabs0.id", startBlockID, null); startBlockID++;
-		Cfg.blockStoneHalfSlab1 = Cfg.instance.getBlock("block.colored.stoneHalfSlabs.slabs1.id", startBlockID, null); startBlockID++;
+		GET_BLOCK(Cfg.blockEnderCube, "block.enderCube.id", 1, null)
 
 		// ITEM IDs
-		Cfg.itemFriedEgg = Cfg.instance.getItem("item.friedEgg.id", startItemID, null); startItemID++;
+		#define GET_ITEM(cfg, name, ids, comment) cfg = Cfg.instance.getItem(name, startItemID, comment); startItemID += ids;
 
-		Cfg.itemCookedFlesh = Cfg.instance.getItem("item.cookedFlesh.id", startItemID, null); startItemID++;
+		GET_ITEM(Cfg.itemFriedEgg, "item.friedEgg.id", 1, null)
 
-		Cfg.itemFlowerDye = Cfg.instance.getItem("item.flowerDye.id", startItemID, null); startItemID++;
+		GET_ITEM(Cfg.itemCookedFlesh, "item.cookedFlesh.id", 1, null)
 
-		Cfg.itemEnderStar = Cfg.instance.getItem("item.enderStar.id", startItemID, null); startItemID++;
-		Cfg.itemEnderWand = Cfg.instance.getItem("item.enderWand.id", startItemID, null); startItemID++;
-		Cfg.itemEnderMagnet = Cfg.instance.getItem("item.enderMagnet.id", startItemID, null); startItemID++;
-		Cfg.itemEnderXT = Cfg.instance.getItem("item.enderXT.id", startItemID, null); startItemID++;
+		GET_ITEM(Cfg.itemFlowerDye, "item.flowerDye.id", 1, null)
 
-		Cfg.itemDiamondShears = Cfg.instance.getItem("item.diamondShears.id", startItemID, null); startItemID++;
+		GET_ITEM(Cfg.itemDiamondShears, "item.diamondShears.id", 1, null)
+
+		GET_ITEM(Cfg.itemEnderStar, "item.enderStar.id", 1, null)
+		GET_ITEM(Cfg.itemEnderWand, "item.enderWand.id", 1, null)
+		GET_ITEM(Cfg.itemEnderMagnet, "item.enderMagnet.id", 1, null)
+		GET_ITEM(Cfg.itemEnderXT, "item.enderXT.id", 1, null)
 
 		//////////
 
