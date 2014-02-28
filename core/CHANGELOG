@@ -1,3 +1,4 @@
+	- config now uses an instance per mod, oops!
 	- changed modID
 	- pass tile entity to SidedSlotInfo.isItemValid()
 	- enable key repeat for text fields
