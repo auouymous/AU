@@ -45,7 +45,7 @@ clean:
 	@(cd hud ; make clean v=$(VER))
 	@(cd tts ; make clean v=$(VER) ; make cleanMod v=$(VER))
 	@(cd extras ; make clean v=$(VER))
-	@(cd world ; make clean v=$(VER))
+#	@(cd world ; make clean v=$(VER))
 
 	@# clean up MCP files
 	rm -rf .with-apis $(SRC)/com $(REOBF)/com $(REOBF)/net $(BASE)/logs/*.log $(BASE)/.gradle/gradle.log
