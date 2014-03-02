@@ -1,3 +1,6 @@
+2mar2014-r1
+	- fix crash when soil below flower seeds is broken
+
 28feb2014-r1
 	- sorted block and item IDs
 	- changed modID

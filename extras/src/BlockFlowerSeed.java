@@ -147,6 +147,7 @@ public class BlockFlowerSeed extends Block implements IPlantable {
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z){
 		Block soil = Block.blocksList[world.getBlockId(x, y - 1, z)];
+		if(soil == null) return false;
 		return (world.getFullBlockLightValue(x, y, z) >= 8 || world.canBlockSeeTheSky(x, y, z)) && soil.isFertile(world, x, y - 1, z);
 	}
 
