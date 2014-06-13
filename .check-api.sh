@@ -16,6 +16,7 @@ APISRC=$3
 
 WITH_APIS=.with-apis
 rm -f $WITH_APIS
+echo "" > $WITH_APIS
 
 # APIs
 if [ "$VER" = "147" ]; then
