@@ -17,7 +17,6 @@
     "Forge",
     "FML"
   ],
-  "dependencies": [ ],
-  "useDependencyInformation": "true"
+  "dependencies": [ ]
 }
 ]

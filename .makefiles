@@ -24,15 +24,17 @@ endif
 ifeq ($(GRADLE),no)
 	BASE := /home/mcdev/forge-$(DOTVER)/mcp
 	SRC := $(BASE)/src/minecraft
+#	AT := $(BASE)/???
 	APIJAR := $(BASE)/lib
 	APISRC := $(SRC)
 	REOBF := $(BASE)/reobf/minecraft
 else
 	BASE := /home/mcdev/forge-$(DOTVER)
-	SRC := $(BASE)/src/main/java/
+	SRC := $(BASE)/src/main/java
+	AT := $(BASE)/src/main/resources
 	APIJAR := $(BASE)/lib
 	APISRC := $(BASE)/src/api/java
-	REOBF := $(BASE)/build/classes/main
+	REOBF := $(BASE)/au_classes
 endif
 
 P := $(PWD)

@@ -24,6 +24,7 @@ ifeq ($(GRADLE),no)
 	(cd $(BASE) ; sh reobfuscate.sh)
 else
 	(cd $(BASE) ; ./gradlew build)
+	(cd $(BASE) ; rm -rf au_classes ; mkdir au_classes ; cd au_classes ; jar xvf ../build/libs/modid-1.0.jar)
 endif
 
 	@# package classes and files into jars

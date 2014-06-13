@@ -6,6 +6,10 @@ CPP_FLAGS = -E -P $(CPP_DEFINES) -include ../../includes.h
 ifeq ($(DEBUG),1)
 	CPP_DEFINES := $(CPP_DEFINES) -DDEBUG
 endif
+BASE_FILES = 
+ifeq ($(GRADLE),yes)
+	BASE_FILES := $(BASE_FILES) $(AUMOD)_at.cfg
+endif
 
 all:
 	@echo "Syntax: make <prepare|jar|clean>"
@@ -17,6 +21,10 @@ prepare:
 
 	@../.only_with.sh $(SRC)/com/qzx/au/$(MOD) $(VER)
 
+ifeq ($(GRADLE),yes)
+	@(if [ -f "at.cfg" ]; then cp at.cfg $(AT)/$(AUMOD)_at.cfg; cp at.cfg $(AUMOD)_at.cfg; fi)
+endif
+
 ifdef DEBUG
 	@(cp ../Debug.java $(SRC)/com/qzx/au/$(MOD)/)
 	@(sed -E -i "s:MOD_LOWER:$(MOD):" $(SRC)/com/qzx/au/$(MOD)/Debug.java)
@@ -27,10 +35,12 @@ endif
 	@(sed -E -i "s: modVersion = \"0.0.0\": modVersion = \"$(VER)-$(NOW)\":" $(SRC)/com/qzx/au/$(MOD)/$(AUMOD).java)
 	@(sed -E -i "s:\"version\"\: \"0.0.0\":\"version\"\: \"$(VER)-$(NOW)\":" mcmod.info)
 	@(sed -E -i "s:\"mcversion\"\: \"0.0.0\":\"mcversion\"\: \"$(DOTVER)\":" mcmod.info)
+ifeq ($(GRADLE),yes)
+	@(sed -E -i "s:\"authors\"\::\"authorList\"\::" mcmod.info)
+endif
 
 	@mkdir -p $(MOD_ASSETS)
 	@(if [ -d "lang" ]; then cp -R lang $(MOD_ASSETS)/; fi)
 
 clean:
-	rm -f au_$(MOD)-*.zip
-	rm -rf mcmod.info com mods assets
+	rm -rf au_$(MOD)-*.zip mcmod.info com mods assets $(AUMOD)_at.cfg
