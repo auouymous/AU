@@ -1,7 +1,12 @@
 package com.qzx.au.core;
 
+#if defined MC147 || defined MC152 || defined MC164
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
+#else
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
+#endif
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class Config {

@@ -4,7 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 
-import net.minecraftforge.common.ForgeDirection;
+IMPORT_FORGE_DIRECTION
 
 public class BlockCoord {
 	public static final float ADD_1_8  = 0.125F;
@@ -44,31 +44,49 @@ public class BlockCoord {
 		this.z = coord.z;
 	}
 
-	public int getBlockID(){
-		return this.access.getBlockId(this.x, this.y, this.z);
-	}
-
 	public int getBlockMetadata(){
 		return this.access.getBlockMetadata(this.x, this.y, this.z);
 	}
 
-	public TileEntity getBlockTileEntity(){
-		return this.access.getBlockTileEntity(this.x, this.y, this.z);
-	}
-
 	public Block getBlock(){
-		return Block.blocksList[this.getBlockID()];
+		#ifdef NO_IDS
+		return this.access.getBlock(this.x, this.y, this.z);
+		#else
+		return Block.blocksList[this.access.getBlockId(this.x, this.y, this.z)];
+		#endif
 	}
 
 	public static Block getBlock(IBlockAccess access, int x, int y, int z){
+		#ifdef NO_IDS
+		return access.getBlock(x, y, z);
+		#else
 		return Block.blocksList[access.getBlockId(x, y, z)];
+		#endif
 	}
 
-	public static int UP	= 0;
-	public static int DOWN	= 1;
-	public static int LEFT	= 2;
-	public static int RIGHT	= 3;
-	private static int[][] directionMap = {
+	public TileEntity getTileEntity(){
+		#ifdef NO_IDS
+		return this.access.getTileEntity(this.x, this.y, this.z);
+		#else
+		return this.access.getBlockTileEntity(this.x, this.y, this.z);
+		#endif
+	}
+
+	public static TileEntity getTileEntity(IBlockAccess access, int x, int y, int z){
+		#ifdef NO_IDS
+		return access.getTileEntity(x, y, z);
+		#else
+		return access.getBlockTileEntity(x, y, z);
+		#endif
+	}
+
+	//////////
+
+	public static final int UP		= 0;
+	public static final int DOWN	= 1;
+	public static final int LEFT	= 2;
+	public static final int RIGHT	= 3;
+	private static final int[][] directionMap = {
 		{2, 3, 4, 5},
 		{2, 3, 4, 5},
 		{1, 0, 5, 4},
@@ -76,8 +94,8 @@ public class BlockCoord {
 		{1, 0, 2, 3},
 		{1, 0, 3, 2}
 	};
-	public static int getSideAtDirection(int side, int direction){
-		return BlockCoord.directionMap[side][direction];
+	public static int getSideAtDirection(int side, int bc_direction){
+		return BlockCoord.directionMap[side][bc_direction];
 	}
 
 	public BlockCoord translateToSide(int side){
@@ -87,8 +105,8 @@ public class BlockCoord {
 		this.z += d.offsetZ;
 		return this;
 	}
-	public BlockCoord translateToSideAtDirection(int face, int direction){
-		return this.translateToSide(BlockCoord.getSideAtDirection(face, direction));
+	public BlockCoord translateToSideAtDirection(int face, int bc_direction){
+		return this.translateToSide(BlockCoord.getSideAtDirection(face, bc_direction));
 	}
 
 	public BlockCoord translateToDiagonal(int side1, int side2){
@@ -99,7 +117,7 @@ public class BlockCoord {
 		this.z += d1.offsetZ + d2.offsetZ;
 		return this;
 	}
-	public BlockCoord translateToDiagonalAtDirection(int face, int direction1, int direction2){
-		return this.translateToDiagonal(BlockCoord.getSideAtDirection(face, direction1), BlockCoord.getSideAtDirection(face, direction2));
+	public BlockCoord translateToDiagonalAtDirection(int face, int bc_direction1, int bc_direction2){
+		return this.translateToDiagonal(BlockCoord.getSideAtDirection(face, bc_direction1), BlockCoord.getSideAtDirection(face, bc_direction2));
 	}
 }

@@ -5,6 +5,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+#if !defined MC147 && !defined MC152 && !defined MC164
+import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.util.ResourceLocation;
+#endif
 
 @SideOnly(Side.CLIENT)
 public class Button extends GuiButton {
@@ -24,6 +28,14 @@ public class Button extends GuiButton {
 	private int imageYactive;
 
 	private String[] tooltip = null;
+
+	#if defined MC147 || defined MC152 || defined MC164
+	#define THIS_IS_VISIBLE this.drawButton
+	#define THIS_HOVER_STATE this.field_82253_i
+	#else
+	#define THIS_IS_VISIBLE this.visible
+	#define THIS_HOVER_STATE this.field_146123_n
+	#endif
 
 	public Button(int id, int x, int y, int width, int height, String s){
 		super(id, x, y, width, height, s);
@@ -50,22 +62,22 @@ public class Button extends GuiButton {
 	public void drawButton(Minecraft mc, int cursor_x, int cursor_y){
 		if(this.style == Button.DEFAULT_STYLE){
 			super.drawButton(mc, cursor_x, cursor_y);
-		} else if(this.drawButton){
+		} else if(THIS_IS_VISIBLE){
 			UI.setColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-			this.field_82253_i = cursor_x >= this.xPosition && cursor_y >= this.yPosition && cursor_x < this.xPosition + this.width && cursor_y < this.yPosition + this.height;
+			THIS_HOVER_STATE = cursor_x >= this.xPosition && cursor_y >= this.yPosition && cursor_x < this.xPosition + this.width && cursor_y < this.yPosition + this.height;
 
 			int text_color = 0xe0e0e0;
 
 //			if(this.style == Button.DEFAULT_STYLE){
-//				int h = this.getHoverState(this.field_82253_i); // 0:disabled, 1:normal, 2:hover
+//				int h = this.getHoverState(THIS_HOVER_STATE); // 0:disabled, 1:normal, 2:hover
 //				UI.bindTexture(mc, "/gui/gui.png");
 //				this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 46 + h * 20, this.width / 2, this.height);
 //				this.drawTexturedModalRect(this.xPosition + this.width / 2, this.yPosition, 200 - this.width / 2, 46 + h * 20, this.width / 2, this.height);
 
 //				if(!this.enabled)
 //					text_color = 0xa0a0a0;
-//				else if(this.field_82253_i)
+//				else if(THIS_HOVER_STATE)
 //					text_color = 0xffffa0;
 //			} else
 			if(this.style == Button.IMAGE_STYLE){
@@ -85,7 +97,7 @@ public class Button extends GuiButton {
 
 				if(!this.enabled)
 					text_color = 0xa0a0a0;
-				else if(this.field_82253_i)
+				else if(THIS_HOVER_STATE)
 					text_color = 0xffffa0;
 			}
 
@@ -105,6 +117,14 @@ public class Button extends GuiButton {
 	}
 
 	public boolean isMouseOver(){
-		return this.getHoverState(this.field_82253_i) == 2; // 0:disabled, 1:normal, 2:hover
+		return this.getHoverState(THIS_HOVER_STATE) == 2; // 0:disabled, 1:normal, 2:hover
+	}
+
+	public void playClickSound(Minecraft mc){
+		#if defined MC147 || defined MC152 || defined MC164
+		mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
+		#else
+		mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
+		#endif
 	}
 }
