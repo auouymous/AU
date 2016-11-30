@@ -17,8 +17,8 @@
 	// 1.7+ imports Block, Blocks, Item and Items
 	#define IMPORT_BLOCKS import net.minecraft.block.Block;
 	#define IMPORT_ITEMS import net.minecraft.item.Item;
-	#define MC_BLOCK Block
-	#define MC_ITEM Item
+	#define MC_BLOCK net.minecraft.block.Block
+	#define MC_ITEM net.minecraft.item.Item
 	#define MC_BLOCK_SILVERFISH MC_BLOCK.silverfish
 	#define MC_BLOCK_STONEBRICK MC_BLOCK.stoneBrick
 	#define MC_ITEM_ITEMFRAME MC_ITEM.itemFrame
@@ -31,7 +31,7 @@
 	#define GET_ITEM_ID(item) item.itemID
 	#define GET_ITEMSTACK_ID(itemstack) itemstack.itemID
 	#define SET_BLOCK_NAME setUnlocalizedName
-	#define GET_BLOCK_BY_ID(id) Block.blocksList[id]
+	#define GET_BLOCK_BY_ID(id) net.minecraft.block.Block.blocksList[id]
 
 	#define MC_ICON_REGISTER net.minecraft.client.renderer.texture.IconRegister
 	#define MC_ICON net.minecraft.util.Icon
@@ -71,8 +71,8 @@
 
 	#define IMPORT_BLOCKS import net.minecraft.block.Block; import net.minecraft.init.Blocks;
 	#define IMPORT_ITEMS import net.minecraft.item.Item; import net.minecraft.init.Items;
-	#define MC_BLOCK Blocks
-	#define MC_ITEM Items
+	#define MC_BLOCK net.minecraft.init.Blocks
+	#define MC_ITEM net.minecraft.init.Items
 	#define MC_BLOCK_SILVERFISH MC_BLOCK.monster_egg
 	#define MC_BLOCK_STONEBRICK MC_BLOCK.stonebrick
 	#define MC_ITEM_ITEMFRAME MC_ITEM.item_frame
@@ -81,11 +81,11 @@
 	#define MC_ITEM_LEATHERLEGS MC_ITEM.leather_leggings
 	#define MC_ITEM_LEATHERBOOTS MC_ITEM.leather_boots
 
-	#define GET_BLOCK_ID(block) Block.getIdFromBlock(block)
-	#define GET_ITEM_ID(item) Item.getIdFromItem(item)
-	#define GET_ITEMSTACK_ID(itemstack) Item.getIdFromItem(itemstack.getItem())
+	#define GET_BLOCK_ID(_block) net.minecraft.block.Block.getIdFromBlock(_block)
+	#define GET_ITEM_ID(_item) net.minecraft.item.Item.getIdFromItem(_item)
+	#define GET_ITEMSTACK_ID(itemstack) net.minecraft.item.Item.getIdFromItem(itemstack.getItem())
 	#define SET_BLOCK_NAME setBlockName
-	#define GET_BLOCK_BY_ID(id) Block.getBlockById(id)
+	#define GET_BLOCK_BY_ID(id) net.minecraft.block.Block.getBlockById(id)
 
 	#define MC_ICON_REGISTER net.minecraft.client.renderer.texture.IIconRegister
 	#define MC_ICON net.minecraft.util.IIcon
