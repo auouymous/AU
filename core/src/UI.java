@@ -1,19 +1,20 @@
 package com.qzx.au.core;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
-#ifndef MC147
-import net.minecraft.util.Icon;
-#endif
 #if !defined MC147 && !defined MC152
 import net.minecraft.util.ResourceLocation;
 #endif
 
 import org.lwjgl.opengl.GL11;
 
+@SideOnly(Side.CLIENT)
 public class UI {
 	private Minecraft mc = Minecraft.getMinecraft();
 	private float scale = 1.0F;
@@ -223,14 +224,14 @@ public class UI {
 	}
 
 	public static void drawTexturedRect(int x, int y, int textureX, int textureY, int width, int height, float zLevel){
-		float f = 0.00390625F;
-		float f1 = 0.00390625F;
+		final float u = 0.00390625F;
+		final float v = 0.00390625F;
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(x + 0,		y + height,	zLevel, f * (textureX + 0),		f1 * (textureY + height));
-		tessellator.addVertexWithUV(x + width,	y + height,	zLevel, f * (textureX + width), f1 * (textureY + height));
-		tessellator.addVertexWithUV(x + width,	y + 0,		zLevel, f * (textureX + width), f1 * (textureY + 0));
-		tessellator.addVertexWithUV(x + 0,		y + 0,		zLevel, f * (textureX + 0),		f1 * (textureY + 0));
+		tessellator.addVertexWithUV(x + 0,		y + height,	zLevel, u * (textureX + 0),		v * (textureY + height));
+		tessellator.addVertexWithUV(x + width,	y + height,	zLevel, u * (textureX + width), v * (textureY + height));
+		tessellator.addVertexWithUV(x + width,	y + 0,		zLevel, u * (textureX + width), v * (textureY + 0));
+		tessellator.addVertexWithUV(x + 0,		y + 0,		zLevel, u * (textureX + 0),		v * (textureY + 0));
 		tessellator.draw();
 	}
 
@@ -249,7 +250,7 @@ public class UI {
 
 	// no support for 147
 	#ifndef MC147
-	public static void drawTexturedRect(int x, int y, Icon icon, int width, int height, float zLevel){
+	public static void drawTexturedRect(int x, int y, MC_ICON icon, int width, int height, float zLevel){
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
 		tessellator.addVertexWithUV(x + 0,		y + height,	zLevel, icon.getMinU(), icon.getMaxV());
