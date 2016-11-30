@@ -11,7 +11,7 @@ fi
 if [ ! -z "$ONLY_WITH" ]; then
 	for f in `ls -1 $SRC`; do
 		name=${f%.java}
-		[ -z "`echo "$ONLY_WITH"|grep $name`" ] && rm $SRC/$f
+		[ -z "`echo "$ONLY_WITH"|grep -E "(^| )$name( |$)"`" ] && rm $SRC/$f
 	done
 fi
 
