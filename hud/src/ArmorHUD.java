@@ -37,6 +37,8 @@ public class ArmorHUD {
 	private int getDurability(ItemStack itemstack, int max_durability){
 		try {
 			Item item = itemstack.getItem();
+			String itemName = item.getClass().getName();
+			if(itemName.length() > 24 && itemName.substring(0, 23).equals("tconstruct.items.tools.")) return 100-itemstack.getItemDamage(); // Tinkers Construct
 			#ifdef WITH_API_IC2
 			if(THIS_MOD.supportIC2)
 				if(item instanceof IElectricItem)
@@ -55,6 +57,8 @@ public class ArmorHUD {
 	private int getMaxDurability(ItemStack itemstack){
 		try {
 			Item item = itemstack.getItem();
+			String itemName = item.getClass().getName();
+			if(itemName.length() > 24 && itemName.substring(0, 23).equals("tconstruct.items.tools.")) return 100; // Tinkers Construct
 			#ifdef WITH_API_IC2
 			if(THIS_MOD.supportIC2)
 				if(item instanceof IElectricItem)
@@ -143,13 +147,13 @@ public class ArmorHUD {
 			this.ui.drawString(this.text_align, String.format("%d", quantity), (quantity > 0 ? 0xffffff : 0xff6666), 0);
 	}
 
-	private int countItemsInInventory(EntityPlayer player, int itemID, int itemDamage){
+	private int countItemsInInventory(EntityPlayer player, Item item, int itemDamage){
 		int nr_items = 0;
 		for(int i = 0; i < 36; i++){
-			ItemStack item = player.inventory.mainInventory[i];
-			if(item != null)
-				if(item.itemID == itemID && item.getItemDamage() == itemDamage)
-					nr_items += item.stackSize;
+			ItemStack itemstack = player.inventory.mainInventory[i];
+			if(itemstack != null)
+				if(itemstack.getItem() == item && itemstack.getItemDamage() == itemDamage)
+					nr_items += itemstack.stackSize;
 		}
 		return nr_items;
 	}
@@ -164,17 +168,17 @@ public class ArmorHUD {
 			RenderItem itemRenderer = new RenderItem();
 			itemRenderer.zLevel = 200.0F;
 
-			ItemStack helmet = player.getCurrentItemOrArmor(4);
-			ItemStack chest = player.getCurrentItemOrArmor(3);
-			ItemStack pants = player.getCurrentItemOrArmor(2);
-			ItemStack boots = player.getCurrentItemOrArmor(1);
+			ItemStack helmet = player.GET_ARMOR_SLOT(4);
+			ItemStack chest = player.GET_ARMOR_SLOT(3);
+			ItemStack pants = player.GET_ARMOR_SLOT(2);
+			ItemStack boots = player.GET_ARMOR_SLOT(1);
 			ItemStack hand = player.getHeldItem();
 			if(TickHandlerHUD.force_hud == TickHandlerHUD.HUD_ARMOR){
 				// equip all slots when configuring HUD
-				if(helmet == null) helmet = new ItemStack(MC_ITEM.helmetLeather);
-				if(chest == null) chest = new ItemStack(MC_ITEM.plateLeather);
-				if(pants == null) pants = new ItemStack(MC_ITEM.legsLeather);
-				if(boots == null) boots = new ItemStack(MC_ITEM.bootsLeather);
+				if(helmet == null) helmet = new ItemStack(MC_ITEM_LEATHERHELMET);
+				if(chest == null) chest = new ItemStack(MC_ITEM_LEATHERCHEST);
+				if(pants == null) pants = new ItemStack(MC_ITEM_LEATHERLEGS);
+				if(boots == null) boots = new ItemStack(MC_ITEM_LEATHERBOOTS);
 				if(hand == null) hand = new ItemStack(MC_ITEM.leather); // quantity will show as zero unless some in inventory
 			}
 			if(helmet == null && chest == null && pants == null && boots == null && hand == null) return;
@@ -197,11 +201,11 @@ public class ArmorHUD {
 				int nr_hand = 0, nr_ammo = -1;
 				try {
 					if(hand != null){
-						nr_hand = (hand.getMaxStackSize() > 1 ? countItemsInInventory(player, hand.itemID, hand.getItemDamage()) : 1);
+						nr_hand = (hand.getMaxStackSize() > 1 ? countItemsInInventory(player, hand.getItem(), hand.getItemDamage()) : 1);
 
 						// bow ammo
 						if(hand.getItem() instanceof ItemBow){
-							nr_ammo = countItemsInInventory(player, MC_ITEM.arrow.itemID, 0);
+							nr_ammo = countItemsInInventory(player, MC_ITEM.arrow, 0);
 							ammo = new ItemStack(MC_ITEM.arrow);
 						}
 
