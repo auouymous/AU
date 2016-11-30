@@ -2,8 +2,6 @@ package com.qzx.au.tts;
 
 IMPORT_FML
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
@@ -12,9 +10,13 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 
 @Mod(modid=THIS_MOD.modID, name="Altered Unification TTS", version=THIS_MOD.modVersion)
+
+#if defined MC164
 @NetworkMod(clientSideRequired = true, serverSideRequired = true,
 	clientPacketHandlerSpec = @SidedPacketHandler(channels = { THIS_MOD.packetChannel }, packetHandler = PacketHandlerClient.class),
 	serverPacketHandlerSpec = @SidedPacketHandler(channels = { THIS_MOD.packetChannel }, packetHandler = PacketHandlerServer.class))
+#endif
+
 public class au_tts {
 	@Instance(THIS_MOD.modID)
 	public static THIS_MOD instance;

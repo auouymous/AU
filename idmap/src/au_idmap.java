@@ -2,7 +2,6 @@ package com.qzx.au.idmap;
 
 IMPORT_FML
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.network.NetworkMod;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -14,7 +13,11 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 
 @Mod(modid=THIS_MOD.modID, name="Altered Unification ID Map", version=THIS_MOD.modVersion)
+
+#if defined MC147 || defined MC152 || defined MC164
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
+#endif
+
 public class THIS_MOD {
 	@Instance(THIS_MOD.modID)
 	public static THIS_MOD instance;

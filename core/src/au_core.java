@@ -1,16 +1,16 @@
 package com.qzx.au.core;
 
 IMPORT_FML
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 
 @Mod(modid=THIS_MOD.modID, name="Altered Unification CORE", version=THIS_MOD.modVersion)
+
 #if defined MC147 || defined MC152
 @NetworkMod(clientSideRequired = true, serverSideRequired = true)
-#else
+#elif defined MC164
 @NetworkMod(clientSideRequired = true, serverSideRequired = true,
 	clientPacketHandlerSpec = @SidedPacketHandler(channels = { THIS_MOD.packetChannel }, packetHandler = PacketHandlerClient.class))
 #endif
+
 public class THIS_MOD {
 	@Instance(THIS_MOD.modID)
 	public static THIS_MOD instance;

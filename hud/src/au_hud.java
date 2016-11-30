@@ -3,10 +3,13 @@ package com.qzx.au.hud;
 IMPORT_FML
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod(modid=THIS_MOD.modID, name="Altered Unification HUD", version=THIS_MOD.modVersion)
+
+#if defined MC147 || defined MC152 || defined MC164
 @NetworkMod(clientSideRequired = true, serverSideRequired = false)
+#endif
+
 public class THIS_MOD {
 	@Instance(THIS_MOD.modID)
 	public static THIS_MOD instance;
