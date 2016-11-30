@@ -34,6 +34,9 @@ elif [ "$VER" = "164" ]; then
 elif [ "$VER" = "172" ]; then
 	JARS=""
 	SRCS=""
+elif [ "$VER" = "17A" ]; then
+	JARS=""
+	SRCS=""
 fi
 
 # check JAR APIs

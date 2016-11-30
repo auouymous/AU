@@ -17,8 +17,12 @@ else ifeq ($(VER),172)
 	DOTVER := 1.7.2
 	GRADLE := yes
 	ASSETS := assets
+else ifeq ($(VER),17A)
+	DOTVER := 1.7.A
+	GRADLE := yes
+	ASSETS := assets
 else
-$(error No version specified, call with v=147|152|164|172)
+$(error No version specified, call with v=147|152|164|172|17A)
 endif
 
 ifeq ($(GRADLE),no)
