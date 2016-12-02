@@ -31,10 +31,9 @@ Info HUD elements
 * name of targeted block or entity (displays item frame contents)
 
 Entity Inspector
-* entity ID (e:entityID, i:itemFrameID)
+* entity ID (e:entityID(currently not available for 1.7+), i:itemFrameID)
 * max health (pre-1.6), health/max_health (1.6+)
 * armor value
-* xp dropped when killed
 * is invulnerable
 * name of each armor piece on player or mob
 * name of item held by player or mob
@@ -77,6 +76,7 @@ Armor HUD
 * shows total quantity of held item in inventory
 * shows quantity of arrows if bow is held item
 * supports IC2 armors and tools (charge in 1.4.7 isn't precise)
+* supports Tinkers Construct tools
 
 Potion HUD
 * icons for all active potion effects

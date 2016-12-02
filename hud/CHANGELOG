@@ -1,3 +1,14 @@
+	- fixed Tinkers Construct itemName length issue with vajra in armor HUD
+	- fixed entity health bar when health exceeds max health
+	- added support for Tinkers Construct tool durability in armor HUD
+	- fixed creative tab failure when inspecting nether portal
+	- fixed light value when above or below build limits
+	- removed entity xp value inspector
+	- fixed player inspector in 1.6.4
+	- added a try/catch block around block/entity inspector
+	- use ESCAPE key constant instead of hard-coded value
+	- ported to 1.7.2 and 1.7.10
+
 28feb2014-r1
 	- changed modID
 	- lookup creative tab on picked block item if lookup on block fails
