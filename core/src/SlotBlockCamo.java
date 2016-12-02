@@ -21,8 +21,12 @@ public class SlotBlockCamo extends SlotPattern {
 
 	@Override
 	public boolean isItemValid(ItemStack itemstack){
+		#ifdef NO_IDS
+		if(!(itemstack.getItem() instanceof ItemBlock)) return false;
+		#else
 		if(!(itemstack.getItem() instanceof ItemBlock) || itemstack.itemID >= Block.blocksList.length) return false;
-		return (Block.blocksList[itemstack.itemID] != null);
+		#endif
+		return (GET_BLOCK_BY_ID(GET_ITEMSTACK_ID(itemstack)) != null);
 	}
 
 	@Override
@@ -32,7 +36,7 @@ public class SlotBlockCamo extends SlotPattern {
 	}
 
 	@Override
-    public void putStack(ItemStack itemstack){
+	public void putStack(ItemStack itemstack){
 		TileEntityAU te = (TileEntityAU)this.inventory;
 		if(!te.worldObj.isRemote && te.canCamo())
 			te.setCamoBlock(itemstack);

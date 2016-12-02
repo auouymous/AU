@@ -32,6 +32,10 @@ public class GuiContainerAU extends GuiContainer {
 
 	protected ArrayList<TextField> textFieldList;
 
+	#ifndef MC164
+	protected FontRenderer fontRenderer;
+	#endif
+
 	public GuiContainerAU(InventoryPlayer inventoryPlayer, TileEntityAU tileEntity){
 		super(tileEntity.getContainer(inventoryPlayer));
 		this.ui = new UI();
@@ -40,6 +44,10 @@ public class GuiContainerAU extends GuiContainer {
 		this.xSize = (ContainerAU.borderThickness<<1) + (this.containerAU.upperWidth > ContainerAU.lowerWidth ? this.containerAU.upperWidth : ContainerAU.lowerWidth);
 		this.ySize = this.containerAU.lowerOffsetY + ContainerAU.lowerHeight + ContainerAU.borderThickness;
 		this.textFieldList = new ArrayList();
+
+		#ifndef MC164
+		this.fontRenderer = this.fontRendererObj;
+		#endif
 	}
 
 	@Override
@@ -213,7 +221,7 @@ public class GuiContainerAU extends GuiContainer {
 			if(current == null && next != null){ next.setFocused(true); focused = true; }
 		}
 
-		if(par2 == this.mc.gameSettings.keyBindInventory.keyCode){
+		if(par2 == this.mc.gameSettings.keyBindInventory.GET_KEY_CODE){
 			if(!focused)
 				this.mc.thePlayer.closeScreen();
 		} else

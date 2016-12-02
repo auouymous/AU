@@ -1,16 +1,16 @@
 package com.qzx.au.core;
 
-import net.minecraft.util.Icon;
+import net.minecraft.block.Block;
 import net.minecraft.world.IBlockAccess;
 
 public interface IConnectedTexture {
 	// coordinates are the block at each side, not the block being rendered
 	public boolean shouldSideBeRendered(IBlockAccess access, int x, int y, int z, int side);
 
-	public boolean canConnectSideTextures(int id, int metadata, int side, BlockCoord neighbor);
-	public boolean canConnectCornerTextures(int id, int metadata, int side, BlockCoord diagonal);
+	public boolean canConnectSideTextures(Block block, int metadata, int side, BlockCoord neighbor);
+	public boolean canConnectCornerTextures(Block block, int metadata, int side, BlockCoord diagonal);
 
-	public Icon getBlockTexture(IBlockAccess access, int x, int y, int z, int side);
+	public MC_ICON getBlockTexture(IBlockAccess access, int x, int y, int z, int side);
 
 	public static int ctm[] = {
 		85, 69, 21, 84, 81, 0, 1, 5, 4, 20, 16, 80,

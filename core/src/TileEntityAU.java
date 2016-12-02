@@ -15,10 +15,9 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
-import net.minecraftforge.common.ForgeDirection;
+IMPORT_FORGE_DIRECTION
 
 public abstract class TileEntityAU extends TileEntity implements ISidedInventory, ISidedTileEntity {
 	// public World worldObj
@@ -56,6 +55,13 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 	//////////
 
+	public void markTileEntityModified(){
+		#ifdef MC164
+		this.onInventoryChanged();
+		#else
+		this.markDirty();
+		#endif
+	}
 	protected void markChunkModified(){
 		#ifdef MC152
 		this.worldObj.updateTileEntityChunkAndDoNothing(this.xCoord, this.yCoord, this.zCoord, this);
@@ -99,7 +105,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 		// block camo
 		if(this.canCamo()){
-			this.camoBlock = Block.blocksList[nbt.getInteger("camoID")];
+			this.camoBlock = GET_BLOCK_BY_ID(nbt.getInteger("camoID"));
 			this.camoMeta = nbt.getByte("camoMeta");
 		}
 
@@ -109,10 +115,10 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 		// upgrade contents
 		if(this.nrUpgrades > 0){
-			NBTTagList taglist = nbt.getTagList("upgrades");
+			NBTTagList taglist = nbt.GET_NBT_TAGLIST("upgrades", NBTTagCompound.getId());
 			this.upgradeContents = new ItemStack[this.getSizeInventory()];
 			for(int i = 0; i < taglist.tagCount(); i++){
-				NBTTagCompound nbt_slot = (NBTTagCompound)taglist.tagAt(i);
+				NBTTagCompound nbt_slot = (NBTTagCompound)taglist.GET_NBT_TAGCOMPOUND_AT(i);
 				int slot = nbt_slot.getByte("slot") & 0xff;
 				if(slot >= 0 && slot < this.upgradeContents.length)
 					this.upgradeContents[slot] = ItemStack.loadItemStackFromNBT(nbt_slot);
@@ -121,10 +127,10 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 		// slot contents (inventory, etc)
 		if(this.nrSlots > 0){
-			NBTTagList taglist = nbt.getTagList("contents");
+			NBTTagList taglist = nbt.GET_NBT_TAGLIST("contents", NBTTagCompound.getId());
 			this.slotContents = new ItemStack[this.getSizeInventory()];
 			for(int i = 0; i < taglist.tagCount(); i++){
-				NBTTagCompound nbt_slot = (NBTTagCompound)taglist.tagAt(i);
+				NBTTagCompound nbt_slot = (NBTTagCompound)taglist.GET_NBT_TAGCOMPOUND_AT(i);
 				int slot = nbt_slot.getByte("slot") & 0xff;
 				if(slot >= 0 && slot < this.slotContents.length)
 					this.slotContents[slot] = ItemStack.loadItemStackFromNBT(nbt_slot);
@@ -145,7 +151,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 		// block camo
 		if(this.canCamo() && this.camoBlock != null){
-			nbt.setInteger("camoID", this.camoBlock.blockID);
+			nbt.setInteger("camoID", GET_BLOCK_ID(this.camoBlock));
 			nbt.setByte("camoMeta", (byte)this.camoMeta);
 		}
 
@@ -244,10 +250,10 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		// server
 		if(!this.canCamo()) return;
 
-		int blockID = (itemstack == null ? 0 : itemstack.itemID);
-		Block block = (itemstack == null ? null : Block.blocksList[blockID]);
+		int blockID = (itemstack == null ? 0 : GET_ITEMSTACK_ID(itemstack));
+		Block block = (itemstack == null ? null : GET_BLOCK_BY_ID(blockID));
 		byte metadata = (byte)(itemstack == null || block == null ? 0 : itemstack.getItemDamage());
-		int currentID = (this.camoBlock == null ? 0 : this.camoBlock.blockID);
+		int currentID = (this.camoBlock == null ? 0 : GET_BLOCK_ID(this.camoBlock));
 		if(block == null) blockID = 0;
 
 		if(currentID == blockID && this.camoMeta == metadata) return;
@@ -260,28 +266,28 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	}
 	public void setCamoBlock(int blockID, byte metadata){
 		// client
-		this.camoBlock = Block.blocksList[blockID];
+		this.camoBlock = GET_BLOCK_BY_ID(blockID);
 		this.camoMeta = metadata;
 
 		this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}
 
-	public Icon getCamoIcon(int side){
+	public MC_ICON getCamoIcon(int side){
 		return (this.camoBlock != null ? this.camoBlock.getIcon(side, this.camoMeta) : null);
 	}
 
 	// hide from block inspector HUDs
 	public static int getCamoCloakID(Block block, World world, int x, int y, int z){
-		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = (TileEntity)BlockCoord.getTileEntity(world, x, y, z);
 		if(tileEntity instanceof TileEntityAU){
 			TileEntityAU te = (TileEntityAU)tileEntity;
 			if(te.canCamo() && te.camoBlock != null)
-				return te.camoBlock.blockID;
-			else return block.blockID;
-		} else return block.blockID;
+				return GET_BLOCK_ID(te.camoBlock);
+			else return GET_BLOCK_ID(block);
+		} else return GET_BLOCK_ID(block);
 	}
 	public static int getCamoCloakMeta(World world, int x, int y, int z){
-		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = (TileEntity)BlockCoord.getTileEntity(world, x, y, z);
 		if(tileEntity instanceof TileEntityAU){
 			TileEntityAU te = (TileEntityAU)tileEntity;
 			if(te.canCamo() && te.camoBlock != null)
@@ -333,8 +339,6 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		#endif
 	}
 
-	// @Override public void onInventoryChanged(){
-
 	// public void onChunkUnload();
 
 	////////////////
@@ -366,13 +370,13 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 		if(itemstack.stackSize <= amount){
 			this.slotContents[slotIndex] = null;
-			this.onInventoryChanged();
+			this.markTileEntityModified();
 			return itemstack;
 		}
 		ItemStack ret_itemstack = this.slotContents[slotIndex].splitStack(amount);
 		if(this.slotContents[slotIndex].stackSize == 0)
 			this.slotContents[slotIndex] = null;
-		this.onInventoryChanged();
+		this.markTileEntityModified();
 		return ret_itemstack;
 	}
 	public ItemStack getStackInSlotOnClosing(int slotIndex){
@@ -400,7 +404,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		this.slotContents[slotIndex] = itemstack;
 		if(itemstack != null && itemstack.stackSize > maxStackSize)
 			itemstack.stackSize = maxStackSize;
-		this.onInventoryChanged();
+		this.markTileEntityModified();
 	}
 
 	public int getInventoryStackLimit(){
@@ -409,7 +413,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 
 	public boolean isUseableByPlayer(EntityPlayer player){
 		if(this.worldObj == null) return true;
-		if(this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this) return false;
+		if(BlockCoord.getTileEntity(this.worldObj, this.xCoord, this.yCoord, this.zCoord) != this) return false;
 		return player.getDistanceSq((double)this.xCoord + 0.5D, (double)this.yCoord + 0.5D, (double)this.zCoord + 0.5D) <= 64.0D;
 	}
 
