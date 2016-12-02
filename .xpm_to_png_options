@@ -1,0 +1,1 @@
+XPM_TO_PNG_OPTIONS="-type TrueColorMatte -define colorspace:auto-grayscale=off -define png:format=png8 -colorspace sRGB -background transparent"

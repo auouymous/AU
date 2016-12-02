@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source ../.xpm_to_png_options
+
 cd xpms
 
 TEXTURES=../$1/textures
@@ -8,17 +10,17 @@ mkdir -p $TEXTURES/blocks $TEXTURES/items $TEXTURES/gui
 
 # gui
 for g in gui/*.xpm; do
-	convert -background transparent ${g} $TEXTURES/${g%.xpm}.png
+	convert $XPM_TO_PNG_OPTIONS ${g} $TEXTURES/${g%.xpm}.png
 done
 
 # items
 for i in items/*.xpm; do
-	convert -background transparent ${i} $TEXTURES/${i%.xpm}.png
+	convert $XPM_TO_PNG_OPTIONS ${i} $TEXTURES/${i%.xpm}.png
 done
 
 # blocks
 for b in blocks/*.xpm; do
-	convert -background transparent ${b} $TEXTURES/${b%.xpm}.png
+	convert $XPM_TO_PNG_OPTIONS ${b} $TEXTURES/${b%.xpm}.png
 done
 php make-glass.php $TEXTURES/blocks/
 php make-glass-tinted.php $TEXTURES/blocks/
