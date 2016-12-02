@@ -10,6 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import java.io.DataInputStream;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.PacketUtils;
 
 public class PacketHandlerServer implements IPacketHandler {
@@ -25,7 +26,7 @@ public class PacketHandlerServer implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
 			if(values == null){ Debug.error("SERVER: Invalid *** packet"); return; }		
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityTTS){
 				EnderButton button = TTSButton.values()[(Byte)values[3]];
 				switch(button){
@@ -59,7 +60,7 @@ public class PacketHandlerServer implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, String.class);
 			if(values == null){ Debug.error("SERVER: Invalid TTS text packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityTTS)
 				((TileEntityTTS)te).setText((String)values[3], true);
 		}

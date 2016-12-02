@@ -10,6 +10,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.TileEntityAU;
 
 public class CommonProxy implements IGuiHandler {
@@ -17,12 +18,11 @@ public class CommonProxy implements IGuiHandler {
 	public void registerRenderers(){}
 	public void registerHandlers(){
 		// Gui Handler
-		NetworkRegistry.instance().registerGuiHandler(THIS_MOD.instance, THIS_MOD.proxy);
+		NETWORK_REGISTRY_INSTANCE.registerGuiHandler(THIS_MOD.instance, THIS_MOD.proxy);
 	}
 	public void registerEntities(){
 		GameRegistry.registerTileEntity(TileEntityTTS.class, "AU-TTS");
 	}
-	public void postInit(){}
 
 	//////////
 
@@ -30,7 +30,7 @@ public class CommonProxy implements IGuiHandler {
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z){
 		if(id == Guis.TILE_GUI){
 			// all TileEntityAUs that have a gui
-			TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+			TileEntity tileEntity = BlockCoord.getTileEntity(world, x, y, z);
 			if(tileEntity instanceof TileEntityAU)
 				return ((TileEntityAU)tileEntity).getContainer(player.inventory);
 		}

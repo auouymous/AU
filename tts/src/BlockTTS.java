@@ -7,13 +7,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.TileEntityAU;
 
 public class BlockTTS extends Block implements ITileEntityProvider {
@@ -27,13 +26,13 @@ public class BlockTTS extends Block implements ITileEntityProvider {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
 		this.blockIcon = iconRegister.registerIcon("au_tts:"+this.getUnlocalizedName().replace("tile.au.", ""));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int color){
+	public MC_ICON getIcon(int side, int color){
 		return this.blockIcon;
 	}
 
@@ -49,9 +48,9 @@ public class BlockTTS extends Block implements ITileEntityProvider {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
-		Icon icon = null;
-		TileEntity tileEntity = (TileEntity)access.getBlockTileEntity(x, y, z);
+	public MC_ICON getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
+		MC_ICON icon = null;
+		TileEntity tileEntity = (TileEntity)BlockCoord.getTileEntity(access, x, y, z);
 		if(tileEntity instanceof TileEntityTTS)
 			icon = ((TileEntityAU)tileEntity).getCamoIcon(side); // block camo
 		return (icon == null ? this.blockIcon : icon);
@@ -82,7 +81,7 @@ public class BlockTTS extends Block implements ITileEntityProvider {
 	public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID){
 		if(world.isRemote) return;
 
-		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = (TileEntity)BlockCoord.getTileEntity(world, x, y, z);
 		if(tileEntity instanceof TileEntityTTS){
 			TileEntityTTS te = (TileEntityTTS)tileEntity;
 			boolean is_powered = world.isBlockIndirectlyGettingPowered(x, y, z);
@@ -101,7 +100,7 @@ public class BlockTTS extends Block implements ITileEntityProvider {
 		if(world.isRemote) return;
 
 		// set initial powered state
-		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = (TileEntity)BlockCoord.getTileEntity(world, x, y, z);
 		if(tileEntity instanceof TileEntityTTS)
 			if(world.isBlockIndirectlyGettingPowered(x, y, z))
 				((TileEntityTTS)tileEntity).setPowered(true);
@@ -120,7 +119,7 @@ public class BlockTTS extends Block implements ITileEntityProvider {
 
 // TODO: chat message "only you can hear this"
 
-			TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+			TileEntity tileEntity = (TileEntity)BlockCoord.getTileEntity(world, x, y, z);
 			if(tileEntity instanceof TileEntityTTS)
 				((TileEntityTTS)tileEntity).playSoundOnClient(player);
 		}

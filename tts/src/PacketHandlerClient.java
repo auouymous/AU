@@ -12,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import java.io.DataInputStream;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.PacketUtils;
 
 @SideOnly(Side.CLIENT)
@@ -28,7 +29,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class);
 			if(values == null){ Debug.error("CLIENT: Invalid TTS play sound packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityTTS)
 				((TileEntityTTS)te).playSoundOnClient((EntityPlayer)player);
 		} else if(id == Packets.CLIENT_TTS_SET_TEXT){
@@ -36,7 +37,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, String.class);
 			if(values == null){ Debug.error("CLIENT: Invalid TTS text packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityTTS)
 				((TileEntityTTS)te).setText((String)values[3], false);
 		}
