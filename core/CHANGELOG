@@ -1,3 +1,6 @@
+	- partially ported to 1.7.2 and 1.7.10 (classes needed for au_hud)
+	- try/catch block around ItemUtils.getItemBlock return value
+
 28feb2014-r1
 	- config now uses an instance per mod, oops!
 	- changed modID
