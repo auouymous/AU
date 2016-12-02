@@ -1,28 +1,36 @@
+# default to no support, each version must explicitly enable support
+SUPPORT_IDMAP := no
+SUPPORT_BLOCKS := no
+
 VER := $(v)
 ifeq ($(VER),147)
 	DOTVER := 1.4.7
 	GRADLE := no
 	ASSETS := mods
-	NO_BLOCKS := true
+	SUPPORT_IDMAP := yes
 else ifeq ($(VER),152)
 	DOTVER := 1.5.2
 	GRADLE := no
 	ASSETS := mods
-	NO_BLOCKS := true
+	SUPPORT_IDMAP := yes
 else ifeq ($(VER),164)
 	DOTVER := 1.6.4
 	GRADLE := no
 	ASSETS := assets
+	SUPPORT_IDMAP := yes
+	SUPPORT_BLOCKS := yes
 else ifeq ($(VER),172)
 	DOTVER := 1.7.2
 	GRADLE := yes
 	ASSETS := assets
+	SUPPORT_BLOCKS := $(shell [ "$(t)" != "" ] && echo "yes" || echo "no")
 else ifeq ($(VER),17A)
 	DOTVER := 1.7.A
 	GRADLE := yes
 	ASSETS := assets
+	SUPPORT_BLOCKS := $(shell [ "$(t)" != "" ] && echo "yes" || echo "no")
 else
-$(error No version specified, call with v=147|152|164|172|17A)
+$(error No version specified, call with v=147|152|164|172|17A, optionally call with t=1 to enable unsupported mods)
 endif
 
 ifeq ($(GRADLE),no)
