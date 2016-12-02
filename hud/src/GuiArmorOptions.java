@@ -9,6 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.List;
 
+import org.lwjgl.input.Keyboard;
+
 import com.qzx.au.core.Button;
 import com.qzx.au.core.UI;
 
@@ -162,7 +164,7 @@ public class GuiArmorOptions extends GuiScreen {
 			for(int i = 0; i < buttons.size(); i++){
 				Button button = (Button)buttons.get(i);
 				if(button.mousePressed(this.mc, cursor_x, cursor_y)){
-					this.mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
+					button.playClickSound(mc);
 					this.actionPerformed(button, mouse_button); // 1:right, 2:middle
 				}
 			}
@@ -225,7 +227,7 @@ public class GuiArmorOptions extends GuiScreen {
 	@Override
 	protected void keyTyped(char key, int keyCode){
 		// close when ESC, inventory or "AU HUD" key are pressed
-		if(keyCode == 1 || keyCode == this.mc.gameSettings.keyBindInventory.keyCode){
+		if(keyCode == Keyboard.KEY_ESCAPE || keyCode == this.mc.gameSettings.keyBindInventory.GET_KEY_CODE){
 			this.mc.displayGuiScreen(this.parentScreen);
 		} else if(keyCode == ClientProxy.keyHandler.keyCodeHUD){
 			ClientProxy.keyHandler.ignoreHudKey = true;

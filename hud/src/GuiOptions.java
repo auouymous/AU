@@ -7,6 +7,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 
+import org.lwjgl.input.Keyboard;
+
 import com.qzx.au.core.Button;
 import com.qzx.au.core.UI;
 
@@ -172,7 +174,7 @@ public class GuiOptions extends GuiScreen {
 	@Override
 	protected void keyTyped(char key, int keyCode){
 		// close when ESC, inventory or "AU HUD" key are pressed
-		if(keyCode == 1 || keyCode == this.mc.gameSettings.keyBindInventory.keyCode){
+		if(keyCode == Keyboard.KEY_ESCAPE || keyCode == this.mc.gameSettings.keyBindInventory.GET_KEY_CODE){
 			this.mc.thePlayer.closeScreen();
 		} else if(keyCode == ClientProxy.keyHandler.keyCodeHUD){
 			ClientProxy.keyHandler.ignoreHudKey = true;

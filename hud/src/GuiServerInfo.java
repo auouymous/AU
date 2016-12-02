@@ -9,10 +9,14 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.EnumGameType;
+#if !defined MC147 && !defined MC152 && !defined MC164
+import net.minecraft.world.EnumDifficulty;
+#endif
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldInfo;
+
+import org.lwjgl.input.Keyboard;
 
 import com.qzx.au.core.Button;
 import com.qzx.au.core.UI;
@@ -103,10 +107,18 @@ public class GuiServerInfo extends GuiScreen {
 
 				// difficulty
 				try {
+					#if defined MC147 || defined MC152 || defined MC164
+					final int difficulty = mc.gameSettings.difficulty;
+// TODO: unlocalized name = mc.gameSettings.DIFFICULTIES[difficulty]
+					#else
+					final int difficulty = mc.gameSettings.difficulty.getDifficultyId();
+// TODO: unlocalized name = mc.gameSettings.difficulty.getDifficultyResourceKey()
+					#endif
+
 					this.ui.drawString("Difficulty: ", 0xaaaaaa);
-					String[] difficulties = {"Peaceful", "Easy", "Normal", "Hard"};
-					if(mc.gameSettings.difficulty >= 0 || mc.gameSettings.difficulty <= 3)
-						this.ui.drawString(difficulties[mc.gameSettings.difficulty], 0xffffff);
+					final String[] difficulties = {"Peaceful", "Easy", "Normal", "Hard"};
+					if(difficulty >= 0 || difficulty <= 3)
+						this.ui.drawString(difficulties[difficulty], 0xffffff);
 					if(worldInfo.isHardcoreModeEnabled())
 						this.ui.drawString("  Hardcore", 0xff6666);
 					this.ui.lineBreak();
@@ -208,7 +220,7 @@ public class GuiServerInfo extends GuiScreen {
 	@Override
 	protected void keyTyped(char key, int keyCode){
 		// close when ESC, inventory or "AU HUD" key are pressed
-		if(keyCode == 1 || keyCode == this.mc.gameSettings.keyBindInventory.keyCode){
+		if(keyCode == Keyboard.KEY_ESCAPE || keyCode == this.mc.gameSettings.keyBindInventory.GET_KEY_CODE){
 			this.mc.displayGuiScreen(this.parentScreen);
 		} else if(keyCode == ClientProxy.keyHandler.keyCodeHUD){
 			ClientProxy.keyHandler.ignoreHudKey = true;
