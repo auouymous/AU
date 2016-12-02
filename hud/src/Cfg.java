@@ -196,7 +196,7 @@ public class Cfg extends Config {
 
 	private static void clipPositions(){
 		Minecraft mc = Minecraft.getMinecraft();
-		ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+		ScaledResolution screen = new SCALED_RESOLUTION(mc);
 		int width = screen.getScaledWidth();
 		int height = screen.getScaledHeight();
 
