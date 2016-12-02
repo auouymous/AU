@@ -19,7 +19,7 @@ prepare:
 	@(cd src; for j in *.java; do cpp $(CPP_FLAGS) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done)
 	@(cd src; for d in *; do if [ -d "$$d" ]; then mkdir $(SRC)/com/qzx/au/$(MOD)/$$d; for j in $$d/*.java; do cpp $(CPP_FLAGS) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done; fi; done)
 
-	@../.only_with.sh $(SRC)/com/qzx/au/$(MOD) $(VER)
+	@../.only_with.sh $(SRC)/com/qzx/au/$(MOD) $(VER) $(SUPPORT_BLOCKS)
 
 ifeq ($(GRADLE),yes)
 	@(if [ -f "at.cfg" ]; then cp at.cfg $(AT)/$(AUMOD)_at.cfg; cp at.cfg $(AUMOD)_at.cfg; fi)

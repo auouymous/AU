@@ -1,11 +1,11 @@
 #!/bin/sh
 
 SRC=$1
-shift
-VER=$1
+VER=$2
+SUPPORT_BLOCKS=$3
 
 if [ -f "./.only_with.sh" ]; then
-	ONLY_WITH=`./.only_with.sh $VER`
+	ONLY_WITH=`./.only_with.sh $VER $SUPPORT_BLOCKS`
 fi
 
 if [ ! -z "$ONLY_WITH" ]; then
