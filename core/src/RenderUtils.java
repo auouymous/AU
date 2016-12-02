@@ -7,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -19,7 +18,7 @@ import org.lwjgl.opengl.GL12;
 public class RenderUtils {
 /*
 	@SideOnly(Side.CLIENT)
-	public static void renderInventoryItem(Block block, RenderBlocks renderer, Icon icon){
+	public static void renderInventoryItem(Block block, RenderBlocks renderer, MC_ICON icon){
 		Tessellator tessellator = Tessellator.instance;
 
 // TODO: net/minecraft/client/renderer/ItemRenderer.java
@@ -34,7 +33,7 @@ public class RenderUtils {
 */
 
 	@SideOnly(Side.CLIENT)
-	public static void renderInventoryBlock(Block block, RenderBlocks renderer, Icon iconYNeg, Icon iconYPos, Icon iconZNeg, Icon iconZPos, Icon iconXNeg, Icon iconXPos){
+	public static void renderInventoryBlock(Block block, RenderBlocks renderer, MC_ICON iconYNeg, MC_ICON iconYPos, MC_ICON iconZNeg, MC_ICON iconZPos, MC_ICON iconXNeg, MC_ICON iconXPos){
 		Tessellator tessellator = Tessellator.instance;
 
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
@@ -65,12 +64,12 @@ public class RenderUtils {
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 	}
 	@SideOnly(Side.CLIENT)
-	public static void renderInventoryBlock(Block block, RenderBlocks renderer, Icon icon){
+	public static void renderInventoryBlock(Block block, RenderBlocks renderer, MC_ICON icon){
 		RenderUtils.renderInventoryBlock(block, renderer, icon, icon, icon, icon, icon, icon);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public static void renderWorldBlockSide(Block block, RenderBlocks renderer, int x, int y, int z, int side, float offset, Icon icon, int brightness, int colorMultiplier){
+	public static void renderWorldBlockSide(Block block, RenderBlocks renderer, int x, int y, int z, int side, float offset, MC_ICON icon, int brightness, int colorMultiplier){
 		Tessellator tessellator = Tessellator.instance;
 		if(brightness > -1) tessellator.setBrightness(brightness<<20 | brightness<<4);
 		Color color = (new Color(colorMultiplier)).anaglyph();
@@ -210,7 +209,7 @@ public class RenderUtils {
 	}
 
 	// texture origin is upper left corner, tx/ty uses a lower left origin
-	public static void renderSideFace(float x1, float y1, float z1, float x2, float y2, float z2, Icon icon, float tx1, float ty1, float tx2, float ty2){
+	public static void renderSideFace(float x1, float y1, float z1, float x2, float y2, float z2, MC_ICON icon, float tx1, float ty1, float tx2, float ty2){
 		// xyz1 is bottom left corner
 		// xyz2 is upper right corner
 		// N	1,0,z   0,1,z	z: E->W
@@ -246,7 +245,7 @@ public class RenderUtils {
 		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y1, z1, RenderUtils.colorSide, left);		tessellator.addVertexWithUV(x1, y1, z1,  l, b);
 		if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x2, y1, z2, RenderUtils.colorSide, right);		tessellator.addVertexWithUV(x2, y1, z2,  r, b);
 	}
-	public static void renderTopFace(float x1, float y1, float z1, float x2, float y2, float z2, Icon icon, float tx1, float ty1, float tx2, float ty2, boolean slope_NS){
+	public static void renderTopFace(float x1, float y1, float z1, float x2, float y2, float z2, MC_ICON icon, float tx1, float ty1, float tx2, float ty2, boolean slope_NS){
 		// xyz1 is SE corner
 		// xyz2 is NW corner
 		// U	0,y,0   1,y,1	y: N->S or W->E
@@ -268,7 +267,7 @@ public class RenderUtils {
 			if(RenderUtils.enableAO) RenderUtils.setVertexLighting(x1, y1, z2, RenderUtils.colorTop, 0);		tessellator.addVertexWithUV(x1, y1, z2,  l, b);
 		}
 	}
-	public static void renderBottomFace(float x1, float y1, float z1, float x2, float y2, float z2, Icon icon, float tx1, float ty1, float tx2, float ty2, boolean slope_NS){
+	public static void renderBottomFace(float x1, float y1, float z1, float x2, float y2, float z2, MC_ICON icon, float tx1, float ty1, float tx2, float ty2, boolean slope_NS){
 		// xyz1 is SW corner
 		// xyz2 is NE corner
 		// D	0,y,0   1,y,1	y: N->S or W->E
