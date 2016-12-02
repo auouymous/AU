@@ -1,7 +1,15 @@
 package com.qzx.au.hud;
 
+#if defined MC147 || defined MC152 || defined MC164
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
+#define IMPLEMENTS_ITICKHANDLER implements ITickHandler
+#define USE_TICK_REGISTRY
+#else
+import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
+#define IMPLEMENTS_ITICKHANDLER
+#endif
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -9,10 +17,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraft.client.gui.ScaledResolution;
 
+#ifdef USE_TICK_REGISTRY
 import java.util.EnumSet;
+#endif
 
 @SideOnly(Side.CLIENT)
-public class TickHandlerHUD implements ITickHandler {
+public class TickHandlerHUD IMPLEMENTS_ITICKHANDLER {
 	private InfoHUD infoHUD = new InfoHUD();
 	private ArmorHUD armorHUD = new ArmorHUD();
 	private PotionHUD potionHUD = new PotionHUD();
@@ -29,18 +39,25 @@ public class TickHandlerHUD implements ITickHandler {
 
 	//////////
 
+	#ifdef USE_TICK_REGISTRY
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData){}
+	#endif
 
+	#ifdef USE_TICK_REGISTRY
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData){
+	#else
+	FML_SUBSCRIBE
+	public void onTick(RenderTickEvent event){
+	#endif
 		Minecraft mc = Minecraft.getMinecraft();
 
 		if(TickHandlerHUD.force_hud == 0)
 			if(mc.gameSettings.showDebugInfo || !(mc.inGameHasFocus || mc.currentScreen == null || mc.currentScreen instanceof GuiChat) || mc.thePlayer == null)
 				return;
 
-		ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+		ScaledResolution screen = new SCALED_RESOLUTION(mc);
 
 		Failure.reset();
 
@@ -59,14 +76,14 @@ public class TickHandlerHUD implements ITickHandler {
 				if(Cfg.enable_shop_signs_hud && (!(mc.currentScreen instanceof GuiChat) || Cfg.always_show_shop_signs_hud)) this.shopSignsHUD.draw(mc, screen, mc.thePlayer);
 			}
 		} catch(Exception e){
-			Failure.log("tickEnd catch-all");
+			Failure.log("tickEnd/onTick catch-all");
 		}
 
 		Failure.show(screen);
 
 		if(!(mc.currentScreen instanceof GuiChat)){
 			// zoom player view
-			if(KeyHandlerHUD.keyZoom.pressed){
+			if(KeyHandlerHUD.keyZoom.IS_KEY_PRESSED){
 				if(!zooming){
 					this.mouseSensitivity = mc.gameSettings.mouseSensitivity;
 					mc.gameSettings.mouseSensitivity /= 10.0F;
@@ -81,13 +98,17 @@ public class TickHandlerHUD implements ITickHandler {
 		}
 	}
 
+	#ifdef USE_TICK_REGISTRY
 	@Override
 	public EnumSet<TickType> ticks(){
 		return EnumSet.of(TickType.RENDER);
 	}
+	#endif
 
+	#ifdef USE_TICK_REGISTRY
 	@Override
 	public String getLabel(){
 		return THIS_MOD.modID+": Client Render Tick";
 	}
+	#endif
 }
