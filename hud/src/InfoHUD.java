@@ -9,13 +9,16 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+#if defined MC147 || defined MC152
 import net.minecraft.entity.EntityLiving;
+#else
+import net.minecraft.entity.EntityLivingBase;
+#endif
 import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
 IMPORT_ITEMS
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumSkyBlock;
@@ -31,7 +34,6 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.util.StatCollector;
 #endif
 
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.IShearable;
 
 #if defined WITH_API_IC2 && defined MC147
@@ -45,6 +47,7 @@ import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.ItemUtils;
 import com.qzx.au.core.UI;
 
@@ -78,7 +81,7 @@ public class InfoHUD {
 
 		try {
 			this.ui.drawString("   " + name + ": ", 0xaaaaaa);
-			this.ui.drawString(item.getDisplayName(), 0xffffff);
+			this.ui.drawString(ItemUtils.getDisplayName(item), 0xffffff);
 			this.ui.lineBreak();
 		} catch(Exception e){
 			Failure.log("showItemName() entity inspector");
@@ -112,14 +115,14 @@ public class InfoHUD {
 
 	//////////
 
-	private int lastBlockID = 0;
-	private int lastBlockMetadata = 0;
+	private Item lastDropItem = null;
+	private int lastDropMetadata = 0;
 	private class LastDrop {
-		public int id;
+		public Item item;
 		public int metadata;
 		public String name;
-		public LastDrop(int droppedID, int droppedMetadata, String droppedName){
-			this.id = droppedID;
+		public LastDrop(Item droppedItem, int droppedMetadata, String droppedName){
+			this.item = droppedItem;
 			this.metadata = droppedMetadata;
 			this.name = droppedName;
 		}
@@ -127,7 +130,7 @@ public class InfoHUD {
 		public boolean equals(Object obj){
 			if(obj instanceof LastDrop){
 				LastDrop drop = (LastDrop)obj;
-				if(drop.id == this.id && drop.metadata == this.metadata) return true;
+				if(drop.item == this.item && drop.metadata == this.metadata) return true;
 			}
 			return false;
 		}
@@ -230,9 +233,14 @@ public class InfoHUD {
 		try {
 			if(Cfg.show_light || Cfg.show_time || Cfg.show_weather){
 				if(Cfg.show_light){
-					int light = chunk.getSavedLightValue(EnumSkyBlock.Block, pos_x & 15, feet_y, pos_z & 15);
-					this.ui.drawString("light ", 0xaaaaaa);
-					this.ui.drawString(String.format("%d ", light), (light < 7 ? 0xff6666 : (light < 9 ? 0xffff66 : 0x66ff66)));
+					try {
+						int light = chunk.getSavedLightValue(EnumSkyBlock.Block, pos_x & 15, feet_y, pos_z & 15);
+						this.ui.drawString("light ", 0xaaaaaa);
+						this.ui.drawString(String.format("%d ", light), (light < 7 ? 0xff6666 : (light < 9 ? 0xffff66 : 0x66ff66)));
+					} catch(Exception e){
+						// above or below build limits
+						this.ui.drawString("> build limit < ", 0xff6666);
+					}
 				}
 
 				if(Cfg.show_time){
@@ -315,9 +323,17 @@ public class InfoHUD {
 			if(Cfg.show_entities || Cfg.show_particles){
 				if(Cfg.show_entities){
 					String entities = mc.getEntityDebug();
-					this.ui.drawString(entities.substring(entities.indexOf(' ') + 1, entities.indexOf('/')), 0xffffff);
+					// 1.4.7+ "E: 6/43. B: 0, I: 37, OptiFine_1.6.4_HD_U_C7"
+					// 1.7.10+ "E: 0/293 0/0 (293). TE: 217/636 0/37 (745). B: 0"
+					final int start_1	= entities.indexOf(' ') + 1;
+					final int end_1		= entities.indexOf('/', start_1);
+					final int start_2	= end_1 + 1;
+					final int end_A		= entities.indexOf('.', start_2);
+					final int end_B		= entities.indexOf(' ', start_2);
+					final int end_2		= (end_A > end_B ? end_B : end_A); // use whichever comes first
+					this.ui.drawString(entities.substring(start_1, end_1), 0xffffff);
 					this.ui.drawString("/", 0xaaaaaa);
-					this.ui.drawString(entities.substring(entities.indexOf('/') + 1, entities.indexOf('.')), 0xffffff);
+					this.ui.drawString(entities.substring(start_2, end_2), 0xffffff);
 					this.ui.drawString(" entities ", 0xaaaaaa);
 				}
 				if(Cfg.show_particles){
@@ -439,164 +455,182 @@ public class InfoHUD {
 		}
 
 		// block at cursor
-		if(Cfg.show_block_name || Cfg.show_inspector){
-			if(mc.objectMouseOver != null){
-				if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY){														// ENTITY
-					// name and ID of entity
-					try {
-						if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
-							ItemStack stackItemFrame = new ItemStack(MC_ITEM.itemFrame);
-							this.ui.drawString(stackItemFrame.getDisplayName(), 0xffffff);
-						} else
-							this.ui.drawString(mc.objectMouseOver.entityHit.getEntityName(), 0xffffff);
-						if(Cfg.show_inspector){
-							this.ui.drawString(" (", 0xaaaaaa);
-							if(mc.objectMouseOver.entityHit instanceof EntityItemFrame)
-								this.ui.drawString("e:", 0xaaaaaa);
-							this.ui.drawString(String.format("%d", mc.objectMouseOver.entityHit.entityId), 0xffffff);
-							if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
-								this.ui.drawString(" i:", 0xaaaaaa);
-								this.ui.drawString(String.format("%d", MC_ITEM.itemFrame.itemID), 0xffffff);
-							}
-							this.ui.drawString(")", 0xaaaaaa);
-						}
-						this.ui.lineBreak();
-					} catch(Exception e){
-						Failure.log("entity name/ID info element");
-					}
-
-					// name and ID of item in item frame
-					try {
-						if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
-							ItemStack itemstack = ((EntityItemFrame)mc.objectMouseOver.entityHit).getDisplayedItem();
-							if(itemstack != null){
-								this.ui.drawString("   ", 0xaaaaaa);
-								this.ui.drawString(itemstack.getDisplayName(), 0xffffff);
-								if(Cfg.show_inspector){
-									this.ui.drawString(" (", 0xaaaaaa);
-									if(itemstack.isItemStackDamageable()){
-										int max_durability = itemstack.getMaxDamage();
-										int durability = max_durability - itemstack.getItemDamage();
-										this.ui.drawString(String.format("%d  %d/%d", itemstack.itemID, durability, max_durability), 0xffffff);
-									} else
-										this.ui.drawString(String.format("%d:%d", itemstack.itemID, itemstack.getItemDamage()), 0xffffff);
-									this.ui.drawString(")", 0xaaaaaa);
-								}
-								this.ui.lineBreak();
-							}
-						}
-					} catch(Exception e){
-						Failure.log("entity name/ID info element, item frame contents name/ID");
-					}
-
-					if(mc.objectMouseOver.entityHit instanceof EntityLiving){
-						EntityLiving entity = (EntityLiving)mc.objectMouseOver.entityHit;
-
-						// health, armor and xp
+		try {
+			if(Cfg.show_block_name || Cfg.show_inspector){
+				if(mc.objectMouseOver != null){
+					if(mc.objectMouseOver.typeOfHit == MOVINGOBJECTTYPE_ENTITY){
+						// name and ID of entity
 						try {
-							#if defined MC147 || defined MC152
+							if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
+								ItemStack stackItemFrame = new ItemStack(MC_ITEM_ITEMFRAME);
+								this.ui.drawString(ItemUtils.getDisplayName(stackItemFrame), 0xffffff);
+							} else
+								this.ui.drawString(mc.objectMouseOver.entityHit.GET_ENTITY_NAME(), 0xffffff);
 							if(Cfg.show_inspector){
-								this.ui.drawString("   max health: ", 0xaaaaaa);
-								this.ui.drawString(String.format("%d", (int)entity.getMaxHealth()), 0xffffff);
-							}
-							#else
-							this.ui.drawString("   health: ", 0xaaaaaa);
-							int health = (int)entity.getHealth();
-							int maxHealth = (int)entity.getMaxHealth();
-							int healthPct = 100 * health / maxHealth;
-							int healthColor = (healthPct >=50 ? 0x66ff66 : (healthPct < 25 ? 0xff6666 : 0xffff66));
-							this.ui.drawString(String.format("%d", health), healthColor);
-							this.ui.drawString(String.format("/%d  ", maxHealth), 0xffffff);
-							healthPct /= 10;
-							this.ui.drawString("||||||||||".substring(0, healthPct), healthColor);
-							if(healthPct < 10) this.ui.drawString("||||||||||".substring(healthPct, 10), 0xaaaaaa);
-							#endif
-							if(Cfg.show_inspector){
-								int armorValue = entity.getTotalArmorValue();
-								if(armorValue > 0){
-									this.ui.drawString(" armor: ", 0xaaaaaa);
-									this.ui.drawString(String.format("%d", armorValue), 0xffffff);
+								this.ui.drawString(" (", 0xaaaaaa);
+								if(mc.objectMouseOver.entityHit instanceof EntityItemFrame)
+									this.ui.drawString("e:", 0xaaaaaa);
+								#if defined MC147 || defined MC152 || defined MC164
+								this.ui.drawString(String.format("%d", mc.objectMouseOver.entityHit.entityId), 0xffffff);
+								#else
+// TODO: at.cfg isn't working, entityId throws IllegalAccessError
+								this.ui.drawString("?", 0xffffff);
+								#endif
+								if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
+									this.ui.drawString(" i:", 0xaaaaaa);
+									this.ui.drawString(String.format("%d", GET_ITEM_ID(MC_ITEM_ITEMFRAME)), 0xffffff);
 								}
-								if(entity.experienceValue > 0){
-									this.ui.drawString(" xp: ", 0xaaaaaa);
-									this.ui.drawString(String.format("%d", entity.experienceValue), 0xffffff);
-								}
+								this.ui.drawString(")", 0xaaaaaa);
 							}
-							#if defined MC147 || defined MC152
-							if(Cfg.show_inspector)
-							#endif
 							this.ui.lineBreak();
 						} catch(Exception e){
-							Failure.log("entity inspector, health/armor_value/xp");
+							Failure.log("entity name/ID info element");
 						}
 
-						// invulnerable
+						// name and ID of item in item frame
 						try {
-							if(entity.isEntityInvulnerable()){
-								this.ui.drawString("   is invulnerable", 0xb25bfd);
-								this.ui.lineBreak();
+							if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
+								ItemStack itemstack = ((EntityItemFrame)mc.objectMouseOver.entityHit).getDisplayedItem();
+								if(itemstack != null){
+									this.ui.drawString("   ", 0xaaaaaa);
+									this.ui.drawString(ItemUtils.getDisplayName(itemstack), 0xffffff);
+									if(Cfg.show_inspector){
+										this.ui.drawString(" (", 0xaaaaaa);
+										if(itemstack.isItemStackDamageable()){
+											int max_durability = itemstack.getMaxDamage();
+											int durability = max_durability - itemstack.getItemDamage();
+											this.ui.drawString(String.format("%d  %d/%d", GET_ITEMSTACK_ID(itemstack), durability, max_durability), 0xffffff);
+										} else
+											this.ui.drawString(String.format("%d:%d", GET_ITEMSTACK_ID(itemstack), itemstack.getItemDamage()), 0xffffff);
+										this.ui.drawString(")", 0xaaaaaa);
+									}
+									this.ui.lineBreak();
+								}
 							}
 						} catch(Exception e){
-							Failure.log("entity inspector, invulnerable");
+							Failure.log("entity name/ID info element, item frame contents name/ID");
 						}
 
-						if(Cfg.show_inspector){
-							// name of armor and item (5 lines)
+						#if defined MC147 || defined MC152
+						if(mc.objectMouseOver.entityHit instanceof EntityLiving){
+							EntityLiving entity = (EntityLiving)mc.objectMouseOver.entityHit;
+						#else
+						if(mc.objectMouseOver.entityHit instanceof EntityLivingBase){
+							EntityLivingBase entity = (EntityLivingBase)mc.objectMouseOver.entityHit;
+						#endif
+							// health, armor and xp
 							try {
-								showItemName("helmet", entity.getCurrentItemOrArmor(4));
-								showItemName("chest", entity.getCurrentItemOrArmor(3));
-								showItemName("pants", entity.getCurrentItemOrArmor(2));
-								showItemName("boots", entity.getCurrentItemOrArmor(1));
-								showItemName("hand", entity.getHeldItem());
+								#if defined MC147 || defined MC152
+								if(Cfg.show_inspector){
+									this.ui.drawString("   max health: ", 0xaaaaaa);
+									this.ui.drawString(String.format("%d", (int)entity.getMaxHealth()), 0xffffff);
+								}
+								#else
+								this.ui.drawString("   health: ", 0xaaaaaa);
+								int health = (int)entity.getHealth();
+								int maxHealth = (int)entity.getMaxHealth();
+								int healthPct = 100 * health / maxHealth;
+								int healthColor = (healthPct >= 50 ? 0x66ff66 : (healthPct < 25 ? 0xff6666 : 0xffff66));
+								this.ui.drawString(String.format("%d", health), healthColor);
+								this.ui.drawString(String.format("/%d  ", maxHealth), 0xffffff);
+								if(healthPct > 100) healthPct = 100;
+// TODO: the health bar should reflect health above 100%, add an additional | or + character for each 10% over
+								healthPct /= 10;
+								this.ui.drawString("||||||||||".substring(0, healthPct), healthColor);
+								if(healthPct < 10) this.ui.drawString("||||||||||".substring(healthPct, 10), 0xaaaaaa);
+								#endif
+								if(Cfg.show_inspector){
+									int armorValue = entity.getTotalArmorValue();
+									if(armorValue > 0){
+										this.ui.drawString("  armor: ", 0xaaaaaa);
+										this.ui.drawString(String.format("%d", armorValue), 0xffffff);
+									}
+//									if(entity.experienceValue > 0){
+//										this.ui.drawString(" xp: ", 0xaaaaaa);
+//										this.ui.drawString(String.format("%d", entity.experienceValue), 0xffffff);
+//									}
+								}
+								#if defined MC147 || defined MC152
+								if(Cfg.show_inspector)
+									this.ui.lineBreak();
+								#else
+								this.ui.lineBreak();
+								#endif
 							} catch(Exception e){
-								Failure.log("entity inspector, armor/hand");
+								Failure.log("entity inspector, health/armor_value");
+							}
+
+							// invulnerable
+							try {
+								if(entity.isEntityInvulnerable()){
+									this.ui.drawString("   is invulnerable", 0xb25bfd);
+									this.ui.lineBreak();
+								}
+							} catch(Exception e){
+								Failure.log("entity inspector, invulnerable");
+							}
+
+							if(Cfg.show_inspector){
+								// name of armor and item (5 lines)
+								try {
+									showItemName("helmet", entity.GET_ARMOR_SLOT(4));
+									showItemName("chest", entity.GET_ARMOR_SLOT(3));
+									showItemName("pants", entity.GET_ARMOR_SLOT(2));
+									showItemName("boots", entity.GET_ARMOR_SLOT(1));
+									showItemName("hand", entity.getHeldItem());
+								} catch(Exception e){
+									Failure.log("entity inspector, armor/hand");
+								}
 							}
 						}
-					}
-				} else if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.TILE){
-					int blockID = world.getBlockId(mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
-					if(blockID > 0){
-						Block block = Block.blocksList[blockID];
-						int inspectX = mc.objectMouseOver.blockX;
-						int inspectY = mc.objectMouseOver.blockY;
-						int inspectZ = mc.objectMouseOver.blockZ;
+					} else if(mc.objectMouseOver.typeOfHit == MOVINGOBJECTTYPE_BLOCK){
+						Block block = BlockCoord.getBlock(world, mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
 						if(block != null){
+							int inspectX = mc.objectMouseOver.blockX;
+							int inspectY = mc.objectMouseOver.blockY;
+							int inspectZ = mc.objectMouseOver.blockZ;
 							int blockMetadata = world.getBlockMetadata(inspectX, inspectY, inspectZ);
 
 							// hide silverfish blocks :)
-							if(Cfg.hide_silverfish_blocks && blockID == MC_BLOCK.silverfish.blockID){
+							Block silverfish_block = block;
+							Item silverfish_itemblock = ItemUtils.getItemBlock(MC_BLOCK_SILVERFISH);
+							if(Cfg.hide_silverfish_blocks && block == MC_BLOCK_SILVERFISH){
 								if(blockMetadata == 0){
-									blockID = 1; blockMetadata = 0; // stone
+									silverfish_block = MC_BLOCK.stone; blockMetadata = 0;
 								} else if(blockMetadata == 1){
-									blockID = 4; blockMetadata = 0; // cobblestone
+									silverfish_block = MC_BLOCK.cobblestone; blockMetadata = 0;
 								} else if(blockMetadata == 2){
-									blockID = 98; blockMetadata = 0; // stone bricks
+									silverfish_block = MC_BLOCK_STONEBRICK; blockMetadata = 0;
 								}
-								// block variable is reset after getting picked ID:META below
+								// block variable is reset after getting picked BLOCK:META below
 							}
 
-							if(blockID != this.lastBlockID || blockMetadata != this.lastBlockMetadata){
+							Item blockItem = ItemUtils.getItemBlock(block);
+							if(blockItem != this.lastDropItem || blockMetadata != this.lastDropMetadata){
 								// reset drops
-								this.lastBlockID = blockID;
-								this.lastBlockMetadata = blockMetadata;
+								this.lastDropItem = blockItem;
+								this.lastDropMetadata = blockMetadata;
 								this.lastDrops.clear();
 							}
 
 							// name and ID if block is picked
 							try {
 								ItemStack stackPicked = block.getPickBlock(mc.objectMouseOver, world, inspectX, inspectY, inspectZ);
-								int pickedID = (stackPicked != null ? stackPicked.itemID : 0);
-								if(pickedID > 0){
+								Item pickedItem = (stackPicked != null ? stackPicked.getItem() : null);
+								if(pickedItem != null){
 									int pickedMetadata = stackPicked.getItemDamage();
 
 									// hide silverfish blocks :)
-									if(Cfg.hide_silverfish_blocks && pickedID == MC_BLOCK.silverfish.blockID){
+									if(Cfg.hide_silverfish_blocks && pickedItem == silverfish_itemblock){
 										if(pickedMetadata == 0){
-											pickedID = 1; pickedMetadata = 0; stackPicked = new ItemStack(pickedID, 1, pickedMetadata); block = Block.blocksList[blockID]; // stone
+											pickedItem = ItemUtils.getItemBlock(MC_BLOCK.stone); pickedMetadata = 0; stackPicked = new ItemStack(pickedItem, 1, pickedMetadata);
+											block = silverfish_block;
 										} else if(pickedMetadata == 1){
-											pickedID = 4; pickedMetadata = 0; stackPicked = new ItemStack(pickedID, 1, pickedMetadata); block = Block.blocksList[blockID]; // cobblestone
+											pickedItem = ItemUtils.getItemBlock(MC_BLOCK.cobblestone); pickedMetadata = 0; stackPicked = new ItemStack(pickedItem, 1, pickedMetadata);
+											block = silverfish_block;
 										} else if(pickedMetadata == 2){
-											pickedID = 98; pickedMetadata = 0; stackPicked = new ItemStack(pickedID, 1, pickedMetadata); block = Block.blocksList[blockID]; // stone bricks
+											pickedItem = ItemUtils.getItemBlock(MC_BLOCK_STONEBRICK); pickedMetadata = 0; stackPicked = new ItemStack(pickedItem, 1, pickedMetadata);
+											block = silverfish_block;
 										}
 									}
 
@@ -604,31 +638,31 @@ public class InfoHUD {
 									this.ui.drawString(pickedName, "<Unknown Block>", 0xffffff);
 
 									if(Cfg.show_inspector){
-										if(blockID == pickedID && blockMetadata == pickedMetadata){
+										if(blockItem == pickedItem && blockMetadata == pickedMetadata){
 											// ID of placed block
 											this.ui.drawString(" (", 0xaaaaaa);
-											this.ui.drawString(String.format("%d:%d", blockID, blockMetadata), 0xffffff);
+											this.ui.drawString(String.format("%d:%d", GET_BLOCK_ID(block), blockMetadata), 0xffffff);
 											this.ui.drawString(")", 0xaaaaaa);
 										} else {
 											// ID of picked block
 											this.ui.drawString(" (i: ", 0xaaaaaa);
-											this.ui.drawString(String.format("%d:%d", pickedID, pickedMetadata), 0xffffff);
+											this.ui.drawString(String.format("%d:%d", GET_ITEM_ID(pickedItem), pickedMetadata), 0xffffff);
 											this.ui.drawString(")", 0xaaaaaa);
 											// ID of placed block
 											this.ui.drawString(" (b: ", 0xaaaaaa);
-											this.ui.drawString(String.format("%d:%d", blockID, blockMetadata), 0xffffff);
+											this.ui.drawString(String.format("%d:%d", GET_BLOCK_ID(block), blockMetadata), 0xffffff);
 											this.ui.drawString(")", 0xaaaaaa);
 										}
 									}
 								} else {
-									ItemStack stackBlock = new ItemStack(blockID, 1, blockMetadata);
+									ItemStack stackBlock = new ItemStack(block, 1, blockMetadata);
 									String blockName = ItemUtils.getDisplayName(stackBlock);
 									this.ui.drawString(blockName, "<Unknown Block>", 0xffffff);
 
 									if(Cfg.show_inspector){
 										// ID of placed block
 										this.ui.drawString(" (b: ", 0xaaaaaa);
-										this.ui.drawString(String.format("%d:%d", blockID, blockMetadata), 0xffffff);
+										this.ui.drawString(String.format("%d:%d", GET_BLOCK_ID(block), blockMetadata), 0xffffff);
 										this.ui.drawString(")", 0xaaaaaa);
 									}
 								}
@@ -640,20 +674,21 @@ public class InfoHUD {
 							if(Cfg.show_inspector){
 
 								boolean hasTileEntity = block.hasTileEntity(blockMetadata);
-								TileEntity tileEntity = (hasTileEntity ? world.getBlockTileEntity(inspectX, inspectY, inspectZ) : null);
+								TileEntity tileEntity = (hasTileEntity ? BlockCoord.getTileEntity(world, inspectX, inspectY, inspectZ) : null);
 
 								// creative tab name
 								try {
 									CreativeTabs tab = block.getCreativeTabToDisplayOn();
 									if(tab == null){
 										ItemStack stackPicked = block.getPickBlock(mc.objectMouseOver, world, inspectX, inspectY, inspectZ);
-										tab = stackPicked.getItem().getCreativeTab();
+										if(stackPicked != null)
+											tab = stackPicked.getItem().getCreativeTab();
 									}
 									if(tab != null){
-										#if defined MC147 || defined MC152
 										String tabName = tab.getTranslatedTabLabel();
-										#else
-										String tabName = StatCollector.translateToLocal(tab.getTranslatedTabLabel());
+										#if !defined MC147 && !defined MC152
+										if(tabName != null)
+											tabName = StatCollector.translateToLocal(tabName);
 										#endif
 										if(tabName.equals(""))
 											tabName = tab.getTabLabel();
@@ -669,12 +704,19 @@ public class InfoHUD {
 
 								// required tools and levels
 								try {
-									int swordLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "sword");
-									int axeLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "axe");
-									int pickaxeLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "pickaxe");
-									int shovelLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "shovel");
-									int scoopLevel = MinecraftForge.getBlockHarvestLevel(block, blockMetadata, "scoop"); // TC
-// TODO: thaumcraft grafter
+									#ifdef NO_IDS
+										#define GET_BLOCK_HARVEST_LEVEL(block, meta, tool) \
+											(block.getHarvestTool(meta) != null && block.getHarvestTool(meta).equals(tool) ? block.getHarvestLevel(meta) : -1);
+									#else
+										#define GET_BLOCK_HARVEST_LEVEL(block, meta, tool) \
+											net.minecraftforge.common.MinecraftForge.getBlockHarvestLevel(block, meta, tool);
+									#endif
+									int swordLevel		= GET_BLOCK_HARVEST_LEVEL(block, blockMetadata, "sword")
+									int axeLevel		= GET_BLOCK_HARVEST_LEVEL(block, blockMetadata, "axe")
+									int pickaxeLevel	= GET_BLOCK_HARVEST_LEVEL(block, blockMetadata, "pickaxe")
+									int shovelLevel		= GET_BLOCK_HARVEST_LEVEL(block, blockMetadata, "shovel")
+									int scoopLevel		= GET_BLOCK_HARVEST_LEVEL(block, blockMetadata, "scoop") // Thaumcraft
+// TODO: thaumcraft grafter?
 									boolean shearable = block instanceof IShearable;
 									boolean ic2_wrenchable = false;
 									#ifdef WITH_API_IC2
@@ -699,15 +741,22 @@ public class InfoHUD {
 
 								// item dropped when broken
 								try {
+									#ifdef NO_IDS
+									int droppedMetadata = block.damageDropped(blockMetadata);
+									Item droppedItem = block.getItemDropped(blockMetadata, this.random, 0);
+									ItemStack stackDropped = ItemUtils.getItemStack(droppedItem, 1, droppedMetadata);
+									#else
 									int droppedID = block.idDropped(blockMetadata, this.random, 0);
-									if(droppedID > 0){
-										int droppedMetadata = block.damageDropped(blockMetadata);
-										ItemStack stackDropped = new ItemStack(droppedID, 1, droppedMetadata);
+									int droppedMetadata = block.damageDropped(blockMetadata);
+									ItemStack stackDropped = ItemUtils.getItemStack(droppedID, 1, droppedMetadata);
+									Item droppedItem = (stackDropped == null ? null : stackDropped.getItem());
+									#endif
+									if(droppedItem != null){
 										String droppedName = ItemUtils.getDisplayName(stackDropped);
 
-										if(droppedID == 0 || droppedName != null){
+										if(droppedName != null){
 											// add to drops list, if not already
-											LastDrop thisDrop = new LastDrop(droppedID, droppedMetadata, droppedName);
+											LastDrop thisDrop = new LastDrop(droppedItem, droppedMetadata, droppedName);
 											if(!this.lastDrops.contains(thisDrop))
 												this.lastDrops.add(thisDrop);
 										}
@@ -715,11 +764,11 @@ public class InfoHUD {
 										boolean dropSelf = true;
 										for(int i = 0; i < nr_drops; i++){
 											LastDrop drop = this.lastDrops.get(i);
-											if(drop.id == 0){
+											if(drop.item == null){
 												this.ui.drawString("   no drop", 0xaaaaaa);
 												dropSelf = false;
 											} else {
-												if(drop.id == blockID && drop.metadata == blockMetadata){
+												if(drop.item == blockItem && drop.metadata == blockMetadata){
 													// drops itself
 													this.ui.drawString("   drops as is", 0xaaaaaa);
 												} else {
@@ -727,7 +776,7 @@ public class InfoHUD {
 													this.ui.drawString("   drops ", 0xaaaaaa);
 													this.ui.drawString((drop.name == null ? "<Unknown>" : drop.name), 0xffffff);
 													this.ui.drawString(" (", 0xaaaaaa);
-													this.ui.drawString(String.format("%d:%d", drop.id, drop.metadata), 0xffffff);
+													this.ui.drawString(String.format("%d:%d", GET_ITEM_ID(drop.item), drop.metadata), 0xffffff);
 													this.ui.drawString(")", 0xaaaaaa);
 													dropSelf = false;
 												}
@@ -816,7 +865,7 @@ public class InfoHUD {
 												nr_tileEntitiesTicking++;
 										}
 										if(nr_tileEntitiesAtPos == 0 && hasTileEntity)
-											nr_tileEntitiesAtPos = world.getBlockTileEntity(inspectX, inspectY, inspectZ) == null ? 0 : 1;
+											nr_tileEntitiesAtPos = BlockCoord.getTileEntity(world, inspectX, inspectY, inspectZ) == null ? 0 : 1;
 										this.ui.drawString(" b: ", 0xaaaaaa);
 										this.ui.drawString((nr_tileEntitiesAtPos > 0 ? String.format("%d", nr_tileEntitiesAtPos) : "_"), 0xffffff);
 										this.ui.drawString(" a: ", 0xaaaaaa);
@@ -833,7 +882,11 @@ public class InfoHUD {
 									try {
 										boolean solid = block.isBlockSolid(world, inspectX, inspectY, inspectZ, mc.objectMouseOver.sideHit);
 										this.ui.drawString("   n: ", 0xaaaaaa);
-										this.ui.drawString((block.isNormalCube(blockID) ? "x" : "_"), 0xffffff);
+										#ifdef NO_IDS
+										this.ui.drawString((block.isNormalCube() ? "x" : "_"), 0xffffff);
+										#else
+										this.ui.drawString((Block.isNormalCube(block.blockID) ? "x" : "_"), 0xffffff);
+										#endif
 										this.ui.drawString(" o: ", 0xaaaaaa);
 										this.ui.drawString((block.isOpaqueCube() ? "x" : "_"), 0xffffff);
 										this.ui.drawString(" s: ", 0xaaaaaa);
@@ -850,6 +903,8 @@ public class InfoHUD {
 					}
 				}
 			}
+		} catch(Exception e){
+			Failure.log("block/entity inspector");
 		}
 
 		// SELF: armor value inspector
@@ -875,16 +930,13 @@ public class InfoHUD {
 				float damageBlock = 1.0F;
 
 				ItemStack hand = player.getHeldItem();
-				Item item = (hand != null ? Item.itemsList[hand.itemID] : null);
+				Item item = (hand != null ? hand.getItem() : null);
 				if(item != null){
 					if(mc.objectMouseOver != null){
-						if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY){
+						if(mc.objectMouseOver.typeOfHit == MOVINGOBJECTTYPE_ENTITY){
 							entity = mc.objectMouseOver.entityHit;
-						} else if(mc.objectMouseOver.typeOfHit == EnumMovingObjectType.TILE){
-							int blockID = world.getBlockId(mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
-							if(blockID > 0)
-								block = Block.blocksList[blockID];
-						}
+						} else if(mc.objectMouseOver.typeOfHit == MOVINGOBJECTTYPE_BLOCK)
+							block = BlockCoord.getBlock(world, mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
 					}
 
 					try {
@@ -895,22 +947,32 @@ public class InfoHUD {
 						#else
 						if(item instanceof ItemTool){
 							entity = null;
+							#ifdef MC164
 							damageEntity = ((ItemTool)item).damageVsEntity;
+							#else
+							damageEntity = ((ItemTool)item).func_150913_i().getDamageVsEntity(); // public Item.ToolMaterial func_150913_i() return this.toolMaterial;
+							#endif
 						} else if(item instanceof ItemSword){
 							entity = null;
 //							damageEntity = (float)((AttributeModifier)item.getItemAttributeModifiers().get(SharedMonsterAttributes.attackDamage)).getAmount();
-						} else
-							damageEntity = item.getDamageVsEntity(entity, hand);
-// TODO: getDamageVsEntity is deprecated
+						#ifdef MC164
+						} else {
+							damageEntity = item.getDamageVsEntity(entity, hand); // DEPRECATED
+						#endif
+						}
 						#endif
 					} catch(Exception e){
-						// possible? item.getDamageVsEntity
+						// possible?
 					}
 					if(block != null)
 						try {
+							#if defined MC147 || defined MC152 || defined MC164
 							damageBlock = item.getStrVsBlock(hand, block);
+							#else
+							damageBlock = item.getDigSpeed(hand, block, world.getBlockMetadata(mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ));
+							#endif
 						} catch(Exception e){
-							// possible? item.getStrVsBlock
+							// possible?
 						}
 				}
 				this.ui.setCursor(screen.getScaledWidth()/2 + 10, screen.getScaledHeight() - Math.round(62 + this.ui.unscaleValue(8)));
