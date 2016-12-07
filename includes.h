@@ -114,3 +114,6 @@
 #else
 	#define SCALED_RESOLUTION(mc) ScaledResolution(mc, mc.displayWidth, mc.displayHeight)
 #endif
+
+#define _printf(...) java.lang.System.out.format(__VA_ARGS__)
+#define _echo(string) java.lang.System.out.println(string)
