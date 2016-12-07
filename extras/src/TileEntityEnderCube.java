@@ -11,11 +11,7 @@ import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockSign;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.BlockTripWire;
-#ifdef MC152
-import net.minecraft.entity.EntityLiving;
-#else
 import net.minecraft.entity.EntityLivingBase;
-#endif
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemDye;
@@ -324,11 +320,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 
 		if(found_match && !this.isObstructed(this.worldObj, x, y, z)){
 			// get all entities above source cube
-			#ifdef MC152
-			List<EntityLiving> entities = this.worldObj.getEntitiesWithinAABB(EntityLiving.class,
-			#else
 			List<EntityLivingBase> entities = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class,
-			#endif
 					(AxisAlignedBB)(new AABB((double)this.xCoord, (double)this.yCoord + 1.0D, (double)this.zCoord,
 									(double)this.xCoord + 1.0D, (double)this.yCoord + 3.0D, (double)this.zCoord + 1.0D)));
 
@@ -392,11 +384,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 		}
 	}
 
-	#ifdef MC152
-	private void _teleportEntity(World world, int x, int y, int z, EntityLiving entity, int direction_coord, boolean spawn_particles){
-	#else
 	private void _teleportEntity(World world, int x, int y, int z, EntityLivingBase entity, int direction_coord, boolean spawn_particles){
-	#endif
 		world.playSoundAtEntity(entity, "mob.endermen.portal", 1.0F, 1.0F);
 		entity.setPositionAndUpdate(x + 0.5F, y + 1.1F, z + 0.5F);
 		world.playSoundAtEntity(entity, "mob.endermen.portal", 1.0F, 1.0F);

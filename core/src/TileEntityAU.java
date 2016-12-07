@@ -63,11 +63,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 		#endif
 	}
 	protected void markChunkModified(){
-		#ifdef MC152
-		this.worldObj.updateTileEntityChunkAndDoNothing(this.xCoord, this.yCoord, this.zCoord, this);
-		#else
 		this.worldObj.markTileEntityChunkModified(this.xCoord, this.yCoord, this.zCoord, this);
-		#endif
 	}
 
 	//////////
@@ -332,11 +328,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	}
 	@Override
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData packet){
-		#ifdef MC152
-		this.readFromNBT(packet.customParam1);
-		#else
 		this.readFromNBT(packet.data);
-		#endif
 	}
 
 	// public void onChunkUnload();
@@ -382,11 +374,7 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 	public ItemStack getStackInSlotOnClosing(int slotIndex){
 		return null;
 	}
-	#ifdef MC152
-	public boolean isStackValidForSlot(int slotIndex, ItemStack itemstack){
-	#else
 	public boolean isItemValidForSlot(int slotIndex, ItemStack itemstack){
-	#endif
 		if(this.sidedBlockInfo == null) return false;
 		SidedSlotInfo info = this.sidedBlockInfo.getSlotInfoFromIndex((byte)slotIndex);
 		return (info == null ? false : info.isItemValid(this, itemstack)); // ignore itemstack size

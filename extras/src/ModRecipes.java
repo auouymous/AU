@@ -32,11 +32,7 @@ public class ModRecipes {
 		ItemStack redstoneDust = new ItemStack(MC_ITEM.redstone);
 		ItemStack glowstone = new ItemStack(MC_BLOCK.glowStone);
 		ItemStack diamond = new ItemStack(MC_ITEM.diamond);
-		#ifdef MC152
-		ItemStack glowstoneDust = new ItemStack(MC_ITEM.lightStoneDust);
-		#else
 		ItemStack glowstoneDust = new ItemStack(MC_ITEM.glowstone);
-		#endif
 		ItemStack[] dyes = new ItemStack[16];
 		for(int c = 0; c < 16; c++)
 			dyes[c] = new ItemStack(MC_ITEM.dyePowder, 1, c);
@@ -665,17 +661,15 @@ public class ModRecipes {
 		ItemStack cloth = new ItemStack(MC_BLOCK.cloth);
 		ChromaRegistry.addRecipeColoredReversed(ChromaButton.BUTTON_BLANK, cloth, cloth);
 
-		#ifndef MC152
-			// vanilla hardened clay (1.6)
-			ItemStack stainedClay = new ItemStack(MC_BLOCK.stainedClay);
-			ChromaRegistry.addRecipeReversed(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.hardenedClay), stainedClay);
-			ChromaRegistry.addRecipeColoredReversed(ChromaButton.BUTTON_BLANK, stainedClay, stainedClay);
-			// vanilla carpet (1.6)
-			ItemStack carpet = new ItemStack(MC_BLOCK.carpet);
-			ChromaRegistry.addRecipeColoredReversed(ChromaButton.BUTTON_BLANK, carpet, carpet);
-		#endif
+		// vanilla hardened clay (1.6)
+		ItemStack stainedClay = new ItemStack(MC_BLOCK.stainedClay);
+		ChromaRegistry.addRecipeReversed(ChromaButton.BUTTON_BLANK, new ItemStack(MC_BLOCK.hardenedClay), stainedClay);
+		ChromaRegistry.addRecipeColoredReversed(ChromaButton.BUTTON_BLANK, stainedClay, stainedClay);
+		// vanilla carpet (1.6)
+		ItemStack carpet = new ItemStack(MC_BLOCK.carpet);
+		ChromaRegistry.addRecipeColoredReversed(ChromaButton.BUTTON_BLANK, carpet, carpet);
 
-		#if !defined MC152 && !defined MC164
+		#ifndef MC164
 			// vanilla stained glass (1.7)
 			ItemStack stainedGlass = new ItemStack(MC_BLOCK.stained_glass);
 			ChromaRegistry.addRecipeReversed(ChromaButton.BUTTON_BLANK, glass, stainedGlass);

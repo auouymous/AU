@@ -28,11 +28,7 @@ public class au_tts {
 	public static final String modVersion = "0.0.0";
 	public static final String packetChannel = "au_tts";
 
-	#ifdef MC152
-	public static final String texturePath = "/mods/au_tts/textures";
-	#else
 	public static final String texturePath = "textures";
-	#endif
 
 	public static Block blockTTS;
 

@@ -47,11 +47,7 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 	private final int SLOT_X_OUTPUT	= 27 + 81;
 
 	@Override
-	#ifdef MC152
-	public void drawBackground(GuiContainerManager gui, int recipe){
-	#else
 	public void drawBackground(int recipe){
-	#endif
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		// dye
@@ -68,11 +64,7 @@ public class NEIChromaRecipeHandler extends TemplateRecipeHandler {
 	}
 
 	@Override
-	#ifdef MC152
-	public void drawForeground(GuiContainerManager gui, int recipe){
-	#else
 	public void drawForeground(int recipe){
-	#endif
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		GL11.glDisable(GL11.GL_LIGHTING);
 

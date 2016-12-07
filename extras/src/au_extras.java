@@ -29,11 +29,7 @@ public class THIS_MOD {
 	public static final String modVersion = "0.0.0";
 	public static final String packetChannel = "au_extras";
 
-	#ifdef MC152
-	public static final String texturePath = "/mods/au_extras/textures";
-	#else
 	public static final String texturePath = "textures";
-	#endif
 
 	public static CreativeTabs tabAU = new CreativeTabAUExtras();
 

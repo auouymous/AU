@@ -59,12 +59,7 @@ public class RendererChromaInfuser implements ISimpleBlockRenderingHandler {
 					} else
 						tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
 					tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
-					MC_ICON waterIcon = tileEntity.getDyeVolume() > 0 ? BlockChromaInfuser.getWaterIcon()
-						#ifdef MC152
-						: BlockFluid.func_94424_b("water");
-						#else
-						: BlockFluid.getFluidIcon("water_still");
-						#endif
+					MC_ICON waterIcon = tileEntity.getDyeVolume() > 0 ? BlockChromaInfuser.getWaterIcon() : BlockFluid.getFluidIcon("water_still");
 					renderer.setRenderBounds(BlockCoord.ADD_1_8, 0.0F, BlockCoord.ADD_1_8, BlockCoord.SUB_1_8, 1.0F, BlockCoord.SUB_1_8);
 					renderer.renderFaceYPos(block, (double)x, (double)((float)y - (tileEntity.getDyeVolume() > 0 ? BlockCoord.ADD_1_16 : 0.5F)), (double)z, waterIcon);
 				}

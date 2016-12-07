@@ -8,11 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-#ifdef MC152
-import net.minecraft.entity.EntityLiving;
-#else
 import net.minecraft.entity.EntityLivingBase;
-#endif
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -152,11 +148,7 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 	}
 
 	@Override
-	#ifdef MC152
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entity, ItemStack itemstack){
-	#else
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack){
-	#endif
 		if(world.isRemote)
 			RenderUtils.spawnParticles(world, (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F, new Random(), BlockEnderCube.nrPortalParticles, "portal", 2.0F, 2.0F, 2.0F);
 
