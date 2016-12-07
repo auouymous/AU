@@ -454,7 +454,7 @@ public class InfoHUD {
 			Failure.log("player speed inspector");
 		}
 
-		// block at cursor
+		// block or entity at cursor
 		try {
 			if(Cfg.show_block_name || Cfg.show_inspector){
 				if(mc.objectMouseOver != null){
