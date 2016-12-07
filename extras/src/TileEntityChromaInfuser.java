@@ -9,9 +9,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.qzx.au.core.PacketUtils;
+import com.qzx.au.core.RenderUtils;
 import com.qzx.au.core.SidedBlockInfo;
 import com.qzx.au.core.SidedSlotInfo;
 import com.qzx.au.core.TileEntityAU;
+
+import java.util.Random;
 
 public class TileEntityChromaInfuser extends TileEntityAU {
 	public static byte SLOT_ITEM_INPUT = 0;
@@ -264,8 +267,11 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 		}
 		this.updateInput(this.getInput());
 
-// TODO: display input item and/or particle effect on top of block?
+// TODO: display input or output item on top of block?
 
+		// display particles above chroma infuser
+		RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 0.9F, (float)this.zCoord + 0.5F,
+									new Random(), 0.625F, 0.0F, 0.625F, BlockChromaInfuser.nrBubbleParticles, "reddust", 0.0F, 0.1F, 0.0F);
 	}
 
 	//////////

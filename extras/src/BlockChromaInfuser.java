@@ -22,6 +22,8 @@ import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.TileEntityAU;
 
 public class BlockChromaInfuser extends Block implements ITileEntityProvider {
+	public static final int nrBubbleParticles = 4;
+
 	@SideOnly(Side.CLIENT)
 	private MC_ICON blockIcon_inner;
 	@SideOnly(Side.CLIENT)
