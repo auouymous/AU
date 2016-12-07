@@ -246,19 +246,19 @@ public class TileEntityEnderCube extends TileEntityAU {
 		// display particles above both ender cubes
 		Random random = new Random();
 		RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 2.0F, (float)this.zCoord + 0.5F,
-									random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
+									random, 1.0F, 2.0F, 1.0F, BlockEnderCube.nrPortalParticles, "portal", 0.0F, 0.0F, 0.0F);
 		if((this.playerControl && this.playerDirection == 0) || (this.redstoneControl && (this.teleportDirection == 0 || this.teleportDirection == 1)))
 			// up/down
 			RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)direction_coord + 2.0F, (float)this.zCoord + 0.5F,
-										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
+										random, 1.0F, 2.0F, 1.0F, BlockEnderCube.nrPortalParticles, "portal", 0.0F, 0.0F, 0.0F);
 		else if((this.playerControl && this.playerDirection == 1) || (this.redstoneControl && (this.teleportDirection == 2 || this.teleportDirection == 3)))
 			// north/south
 			RenderUtils.spawnParticles(this.worldObj, (float)this.xCoord + 0.5F, (float)this.yCoord + 2.0F, (float)direction_coord + 0.5F,
-										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
+										random, 1.0F, 2.0F, 1.0F, BlockEnderCube.nrPortalParticles, "portal", 0.0F, 0.0F, 0.0F);
 		else
 			// east/west
 			RenderUtils.spawnParticles(this.worldObj, (float)direction_coord + 0.5F, (float)this.yCoord + 2.0F, (float)this.zCoord + 0.5F,
-										random, BlockEnderCube.nrPortalParticles, "portal", 1.0F, 2.0F, 1.0F);
+										random, 1.0F, 2.0F, 1.0F, BlockEnderCube.nrPortalParticles, "portal", 0.0F, 0.0F, 0.0F);
 	}
 
 	@Override

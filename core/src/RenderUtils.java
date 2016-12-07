@@ -299,7 +299,7 @@ public class RenderUtils {
 
 	//////////
 
-	public static void spawnParticles(World world, float x, float y, float z, Random random, int nr_particles, String type, float dx, float dy, float dz){
+	public static void spawnParticles(World world, float x, float y, float z, Random random, float dx, float dy, float dz, int nr_particles, String type, float vx, float vy, float vz){
 		double dxx = (double)dx/2.0D;
 		double dyy = (double)dy/2.0D;
 		double dzz = (double)dz/2.0D;
@@ -307,7 +307,7 @@ public class RenderUtils {
 			double xx = x + (random.nextDouble()*dx - dxx);
 			double yy = y + (random.nextDouble()*dy - dyy);
 			double zz = z + (random.nextDouble()*dz - dzz);
-			world.spawnParticle(type, xx, yy, zz, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle(type, xx, yy, zz, vx, vy, vz);
 		}
 	}
 }

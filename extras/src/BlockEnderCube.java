@@ -150,7 +150,7 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 	@Override
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemstack){
 		if(world.isRemote)
-			RenderUtils.spawnParticles(world, (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F, new Random(), BlockEnderCube.nrPortalParticles, "portal", 2.0F, 2.0F, 2.0F);
+			RenderUtils.spawnParticles(world, (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F, new Random(), 2.0F, 2.0F, 2.0F, BlockEnderCube.nrPortalParticles, "portal", 0.0F, 0.0F, 0.0F);
 
 		else {
 			TileEntity tileEntity = (TileEntity)BlockCoord.getTileEntity(world, x, y, z);
@@ -161,7 +161,7 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 	@Override
 	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int par5){
 		if(world.isRemote)
-			RenderUtils.spawnParticles(world, (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F, new Random(), BlockEnderCube.nrPortalParticles, "portal", 2.0F, 2.0F, 2.0F);
+			RenderUtils.spawnParticles(world, (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F, new Random(), 2.0F, 2.0F, 2.0F, BlockEnderCube.nrPortalParticles, "portal", 0.0F, 0.0F, 0.0F);
 	}
 
 	@Override
