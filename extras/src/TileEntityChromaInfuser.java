@@ -311,6 +311,19 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	//////////
 
 	@Override
+	public void setInventorySlotContents(int slotIndex, ItemStack itemstack){
+		super.setInventorySlotContents(slotIndex, itemstack);
+
+		if(!this.worldObj.isRemote){
+			// server
+			if(slotIndex == TileEntityChromaInfuser.SLOT_DYE_INPUT)
+				this.consumeDye();
+		}
+	}
+
+	//////////
+
+	@Override
 	public String getInvName(){
 		return "au.tileentity.ChromaInfuser";
 	}

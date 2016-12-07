@@ -1,3 +1,4 @@
+	- consume dye that is piped into the chroma infuser
 	- fixed visual issue where dye quantity wasnt updating when consumed
 	- partially ported to 1.7
 
