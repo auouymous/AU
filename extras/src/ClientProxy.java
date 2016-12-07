@@ -1,13 +1,21 @@
 package com.qzx.au.extras;
 
-import cpw.mods.fml.client.registry.RenderingRegistry;
+#ifdef MC164
 import cpw.mods.fml.common.registry.TickRegistry;
+#define USE_TICK_REGISTRY
+#else
+import cpw.mods.fml.common.FMLCommonHandler;
+#endif
+
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
+import com.qzx.au.core.BlockCoord;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
@@ -57,11 +65,12 @@ public class ClientProxy extends CommonProxy {
 		super.registerHandlers();
 
 		// Tick Handler (client render)
+		#ifdef USE_TICK_REGISTRY
 		TickRegistry.registerTickHandler(this.tickHandlerClientRender, Side.CLIENT);
+		#else
+		FMLCommonHandler.instance().bus().register(this.tickHandlerClientRender);
+		#endif
 	}
-
-	@Override
-	public void postInit(){}
 
 	//////////
 
@@ -69,7 +78,7 @@ public class ClientProxy extends CommonProxy {
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z){
 		if(id == Guis.TILE_GUI){
 			// all TileEntityAUs that have a gui
-			TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+			TileEntity tileEntity = BlockCoord.getTileEntity(world, x, y, z);
 			if(tileEntity instanceof TileEntityChromaInfuser)
 				return new GuiChromaInfuser(player.inventory, (TileEntityChromaInfuser)tileEntity);
 			if(tileEntity instanceof TileEntityEnderCube)

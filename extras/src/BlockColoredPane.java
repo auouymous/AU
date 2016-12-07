@@ -5,16 +5,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import net.minecraftforge.common.ForgeDirection;
+IMPORT_FORGE_DIRECTION
 
 import java.util.List;
 
@@ -26,9 +24,9 @@ public class BlockColoredPane extends BlockColored {
 	public static final float SIDE_WIDTH_BOUNDS = BlockCoord.ADD_1_16; // two times this (easy to build from at this size)
 
 	@SideOnly(Side.CLIENT)
-	private Icon sidesIcon;
+	private MC_ICON sidesIcon;
 	@SideOnly(Side.CLIENT)
-	private Icon[][] blockIcons;
+	private MC_ICON[][] blockIcons;
 
 	private Block parentBlock;
 	private boolean hasConnectedTextures;
@@ -43,18 +41,18 @@ public class BlockColoredPane extends BlockColored {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
 		// block textures registered in BlockGlass
 
 		this.sidesIcon = iconRegister.registerIcon("au_extras:colorPaneSides");
 
 		// both tinted panes use special item icons for now
 		if(this.parentBlock == null){
-			this.blockIcons = new Icon[16][1];
+			this.blockIcons = new MC_ICON[16][1];
 			for(int c = 0; c < 16; c++)
 				this.blockIcons[c][0] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c);
 		} else if(this.parentBlock == THIS_MOD.blockGlassTinted || this.parentBlock == THIS_MOD.blockGlassTintedNoFrame){
-			this.blockIcons = new Icon[16][1];
+			this.blockIcons = new MC_ICON[16][1];
 			for(int c = 0; c < 16; c++)
 				this.blockIcons[c][0] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "").replace("Pane", "")+c+"-item");
 		} else
@@ -62,7 +60,7 @@ public class BlockColoredPane extends BlockColored {
 	}
 
 	@SideOnly(Side.CLIENT)
-	private Icon[] getBlockIcons(int color){
+	private MC_ICON[] getBlockIcons(int color){
 		// glass panes use their parnet icons
 		if(this.parentBlock instanceof BlockGlass) return ((BlockGlass)this.parentBlock).getBlockIcons(color);
 
@@ -71,7 +69,7 @@ public class BlockColoredPane extends BlockColored {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int color){
+	public MC_ICON getIcon(int side, int color){
 		// both tinted panes use special item icons for now
 		if(this.blockIcons != null) return this.blockIcons[color][0];
 
@@ -79,7 +77,7 @@ public class BlockColoredPane extends BlockColored {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public Icon getSidesIcon(){
+	public MC_ICON getSidesIcon(){
 		return this.sidesIcon;
 	}
 
@@ -122,7 +120,7 @@ public class BlockColoredPane extends BlockColored {
 	public boolean shouldSideBeRendered(IBlockAccess access, int x, int y, int z, int side){
 		// coordinates are the block at each side, not the block being rendered
 
-		if(!(Block.blocksList[access.getBlockId(x, y, z)] instanceof BlockColoredPane))
+		if(!(BlockCoord.getBlock(access, x, y, z) instanceof BlockColoredPane))
 			return super.shouldSideBeRendered(access, x, y, z, side);
 
 		boolean thisVertical = (this.minY == 0.0F);
@@ -132,14 +130,11 @@ public class BlockColoredPane extends BlockColored {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public boolean canConnectSideTexturesVertical(int id, int metadata, int side, BlockCoord neighbor){
+	public boolean canConnectSideTexturesVertical(Block block, int metadata, int side, BlockCoord neighbor){
 		if(!this.hasConnectedTextures) return false; // no connected textures
 
-		int neighbor_id = neighbor.getBlockID();
-		Block neighbor_block = neighbor.getBlock();
-
 		// connect to same color of glass pane on sides
-		if(neighbor_id != id || neighbor.getBlockMetadata() != metadata) return false;
+		if(neighbor.getBlock() != block || neighbor.getBlockMetadata() != metadata) return false;
 
 		// don't connect to horizontal panes
 		if(!this.canPaneConnectTo(neighbor.access, neighbor.x, neighbor.y, neighbor.z, ForgeDirection.UP)
@@ -150,14 +145,11 @@ public class BlockColoredPane extends BlockColored {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public boolean canConnectCornerTexturesVertical(int id, int metadata, int side, BlockCoord diagonal){
+	public boolean canConnectCornerTexturesVertical(Block block, int metadata, int side, BlockCoord diagonal){
 		if(!this.hasConnectedTextures) return false; // no connected textures
 
-		int diagonal_id = diagonal.getBlockID();
-		Block diagonal_block = diagonal.getBlock();
-
 		// connect to same color glass pane (corners)
-		if(diagonal_id != id || diagonal.getBlockMetadata() != metadata) return false;
+		if(diagonal.getBlock() != block || diagonal.getBlockMetadata() != metadata) return false;
 
 		// don't connect to horizontal panes
 		if(!this.canPaneConnectTo(diagonal.access, diagonal.x, diagonal.y, diagonal.z, ForgeDirection.UP)
@@ -208,12 +200,12 @@ public class BlockColoredPane extends BlockColored {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public Icon[] getBlockTextureVertical(IBlockAccess access, int x, int y, int z, int side){
+	public MC_ICON[] getBlockTextureVertical(IBlockAccess access, int x, int y, int z, int side){
 		BlockCoord coord = new BlockCoord(access, x, y, z);
-		int blockID = coord.getBlockID();
+		Block block = coord.getBlock();
 		int blockColor = coord.getBlockMetadata();
 
-		Icon[] halves = new Icon[2];
+		MC_ICON[] halves = new MC_ICON[2];
 
 		if(!this.hasConnectedTextures){
 			halves[0] = this.getBlockIcons(blockColor)[0];
@@ -228,14 +220,14 @@ public class BlockColoredPane extends BlockColored {
 		BlockCoord ur = (new BlockCoord(coord)).translateToDiagonalAtDirection(side, BlockCoord.UP, BlockCoord.RIGHT);
 		BlockCoord dl = (new BlockCoord(coord)).translateToDiagonalAtDirection(side, BlockCoord.DOWN, BlockCoord.LEFT);
 		BlockCoord dr = (new BlockCoord(coord)).translateToDiagonalAtDirection(side, BlockCoord.DOWN, BlockCoord.RIGHT);
-		boolean connect_t = this.canConnectSideTexturesVertical(blockID, blockColor, side, u);
-		boolean connect_r = this.canConnectSideTexturesVertical(blockID, blockColor, side, r);
-		boolean connect_b = this.canConnectSideTexturesVertical(blockID, blockColor, side, d);
-		boolean connect_l = this.canConnectSideTexturesVertical(blockID, blockColor, side, l);
-		boolean connect_tl = this.canConnectCornerTexturesVertical(blockID, blockColor, side, ul);
-		boolean connect_tr = this.canConnectCornerTexturesVertical(blockID, blockColor, side, ur);
-		boolean connect_bl = this.canConnectCornerTexturesVertical(blockID, blockColor, side, dl);
-		boolean connect_br = this.canConnectCornerTexturesVertical(blockID, blockColor, side, dr);
+		boolean connect_t = this.canConnectSideTexturesVertical(block, blockColor, side, u);
+		boolean connect_r = this.canConnectSideTexturesVertical(block, blockColor, side, r);
+		boolean connect_b = this.canConnectSideTexturesVertical(block, blockColor, side, d);
+		boolean connect_l = this.canConnectSideTexturesVertical(block, blockColor, side, l);
+		boolean connect_tl = this.canConnectCornerTexturesVertical(block, blockColor, side, ul);
+		boolean connect_tr = this.canConnectCornerTexturesVertical(block, blockColor, side, ur);
+		boolean connect_bl = this.canConnectCornerTexturesVertical(block, blockColor, side, dl);
+		boolean connect_br = this.canConnectCornerTexturesVertical(block, blockColor, side, dr);
 		int panes_t = connect_t ? this.getPaneWidthOnSide(access, u.x, u.y, u.z, side) : 0;
 		connect_r = connect_r ? this.getPaneWidthOnSide(access, r.x, r.y, r.z, side) != 0 : false;
 		int panes_b = connect_b ? this.getPaneWidthOnSide(access, d.x, d.y, d.z, side) : 0;
@@ -282,14 +274,11 @@ public class BlockColoredPane extends BlockColored {
 	//////////
 
 	@SideOnly(Side.CLIENT)
-	public boolean canConnectSideTexturesHorizontal(int id, int metadata, int side, BlockCoord neighbor){
+	public boolean canConnectSideTexturesHorizontal(Block block, int metadata, int side, BlockCoord neighbor){
 		if(!this.hasConnectedTextures) return false; // no connected textures
 
-		int neighbor_id = neighbor.getBlockID();
-		Block neighbor_block = neighbor.getBlock();
-
 		// connect to same color of glass pane on sides
-		if(neighbor_id != id || neighbor.getBlockMetadata() != metadata) return false;
+		if(neighbor.getBlock() != block || neighbor.getBlockMetadata() != metadata) return false;
 
 		// don't connect to vertical panes
 		if(this.canPaneConnectTo(neighbor.access, neighbor.x, neighbor.y, neighbor.z, ForgeDirection.UP)
@@ -300,14 +289,11 @@ public class BlockColoredPane extends BlockColored {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public boolean canConnectCornerTexturesHorizontal(int id, int metadata, int side, BlockCoord diagonal){
+	public boolean canConnectCornerTexturesHorizontal(Block block, int metadata, int side, BlockCoord diagonal){
 		if(!this.hasConnectedTextures) return false; // no connected textures
 
-		int diagonal_id = diagonal.getBlockID();
-		Block diagonal_block = diagonal.getBlock();
-
 		// connect to same color glass pane (corners)
-		if(diagonal_id != id || diagonal.getBlockMetadata() != metadata) return false;
+		if(diagonal.getBlock() != block || diagonal.getBlockMetadata() != metadata) return false;
 
 		// don't connect to vertical panes
 		if(this.canPaneConnectTo(diagonal.access, diagonal.x, diagonal.y, diagonal.z, ForgeDirection.UP)
@@ -318,9 +304,9 @@ public class BlockColoredPane extends BlockColored {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public Icon getBlockTextureHorizontal(IBlockAccess access, int x, int y, int z, int side){
+	public MC_ICON getBlockTextureHorizontal(IBlockAccess access, int x, int y, int z, int side){
 		BlockCoord coord = new BlockCoord(access, x, y, z);
-		int blockID = coord.getBlockID();
+		Block block = coord.getBlock();
 		int blockColor = coord.getBlockMetadata();
 
 		if(!this.hasConnectedTextures) return this.getBlockIcons(blockColor)[0]; // no connected textures
@@ -333,14 +319,14 @@ public class BlockColoredPane extends BlockColored {
 		BlockCoord ur = (new BlockCoord(coord)).translateToDiagonalAtDirection(side, BlockCoord.UP, BlockCoord.RIGHT);
 		BlockCoord dl = (new BlockCoord(coord)).translateToDiagonalAtDirection(side, BlockCoord.DOWN, BlockCoord.LEFT);
 		BlockCoord dr = (new BlockCoord(coord)).translateToDiagonalAtDirection(side, BlockCoord.DOWN, BlockCoord.RIGHT);
-		boolean connect_t = this.canConnectSideTexturesHorizontal(blockID, blockColor, side, u);
-		boolean connect_r = this.canConnectSideTexturesHorizontal(blockID, blockColor, side, r);
-		boolean connect_b = this.canConnectSideTexturesHorizontal(blockID, blockColor, side, d);
-		boolean connect_l = this.canConnectSideTexturesHorizontal(blockID, blockColor, side, l);
-		boolean connect_tl = this.canConnectCornerTexturesHorizontal(blockID, blockColor, side, ul);
-		boolean connect_tr = this.canConnectCornerTexturesHorizontal(blockID, blockColor, side, ur);
-		boolean connect_bl = this.canConnectCornerTexturesHorizontal(blockID, blockColor, side, dl);
-		boolean connect_br = this.canConnectCornerTexturesHorizontal(blockID, blockColor, side, dr);
+		boolean connect_t = this.canConnectSideTexturesHorizontal(block, blockColor, side, u);
+		boolean connect_r = this.canConnectSideTexturesHorizontal(block, blockColor, side, r);
+		boolean connect_b = this.canConnectSideTexturesHorizontal(block, blockColor, side, d);
+		boolean connect_l = this.canConnectSideTexturesHorizontal(block, blockColor, side, l);
+		boolean connect_tl = this.canConnectCornerTexturesHorizontal(block, blockColor, side, ul);
+		boolean connect_tr = this.canConnectCornerTexturesHorizontal(block, blockColor, side, ur);
+		boolean connect_bl = this.canConnectCornerTexturesHorizontal(block, blockColor, side, dl);
+		boolean connect_br = this.canConnectCornerTexturesHorizontal(block, blockColor, side, dr);
 
 		int texture = 0;
 		if(!connect_t) texture |= 1<<0;							// T
@@ -445,10 +431,12 @@ public class BlockColoredPane extends BlockColored {
 	}
 
 	private boolean canPaneConnectTo(IBlockAccess access, int x, int y, int z, ForgeDirection direction){
-		int neighbor_id = access.getBlockId(x+direction.offsetX, y+direction.offsetY, z+direction.offsetZ);
-		if(access.isBlockSolidOnSide(x+direction.offsetX, y+direction.offsetY, z+direction.offsetZ, direction.getOpposite(), false) || Block.opaqueCubeLookup[neighbor_id])
+		Block neighbor_block = BlockCoord.getBlock(access, x+direction.offsetX, y+direction.offsetY, z+direction.offsetZ);
+		if(neighbor_block == null) return false;
+
+		if(access.isBlockSolidOnSide(x+direction.offsetX, y+direction.offsetY, z+direction.offsetZ, direction.getOpposite(), false) || Block.opaqueCubeLookup[GET_BLOCK_ID(neighbor_block)])
 			return true;
-		if(!(Block.blocksList[neighbor_id] instanceof BlockColoredPane)) return false;
+		if(!(neighbor_block instanceof BlockColoredPane)) return false;
 
 		// vertical panes can't connect to horizontal panes
 		if(direction != ForgeDirection.DOWN && direction != ForgeDirection.UP)

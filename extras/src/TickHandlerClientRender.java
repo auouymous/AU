@@ -1,7 +1,15 @@
 package com.qzx.au.extras;
 
+#ifdef MC164
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
+#define IMPLEMENTS_ITICKHANDLER implements ITickHandler
+#define USE_TICK_REGISTRY
+#else
+import cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
+#define IMPLEMENTS_ITICKHANDLER
+#endif
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -12,22 +20,32 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 
+#ifdef USE_TICK_REGISTRY
 import java.util.EnumSet;
+#endif
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.PacketUtils;
 import com.qzx.au.core.UI;
 
 @SideOnly(Side.CLIENT)
-public class TickHandlerClientRender implements ITickHandler {
+public class TickHandlerClientRender IMPLEMENTS_ITICKHANDLER {
 	private UI ui = new UI();
 	private boolean playerJumping = false;
 	private boolean playerSneaking = false;
 
+	#ifdef USE_TICK_REGISTRY
 	@Override
 	public void tickStart(EnumSet<TickType> type, Object... tickData){}
+	#endif
 
+	#ifdef USE_TICK_REGISTRY
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData){
+	#else
+	FML_SUBSCRIBE
+	public void onTick(RenderTickEvent event){
+	#endif
 		Minecraft mc = Minecraft.getMinecraft();
 		EntityClientPlayerMP player = mc.thePlayer;
 
@@ -36,7 +54,7 @@ public class TickHandlerClientRender implements ITickHandler {
 			int pos_y = MathHelper.floor_double(player.boundingBox.minY) - 1;
 			int pos_z = MathHelper.floor_double(player.posZ);
 
-			TileEntity tileEntity = (TileEntity)mc.theWorld.getBlockTileEntity(pos_x, pos_y, pos_z);
+			TileEntity tileEntity = (TileEntity)BlockCoord.getTileEntity(mc.theWorld, pos_x, pos_y, pos_z);
 			if(tileEntity instanceof TileEntityEnderCube){
 				TileEntityEnderCube te = (TileEntityEnderCube)tileEntity;
 				if(te.getPlayerControl() && te.canPlayerControl(player.getEntityName())
@@ -62,7 +80,7 @@ public class TickHandlerClientRender implements ITickHandler {
 						action_jump = h[0];
 						action_sneak = h[1];
 					}
-					ScaledResolution screen = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+					ScaledResolution screen = new SCALED_RESOLUTION(mc);
 					this.ui.setCursor(screen.getScaledWidth()/2-10, screen.getScaledHeight()/2+10);
 					this.ui.drawString(UI.ALIGN_RIGHT, action_jump, 0xffffff, 0);
 					this.ui.drawString(UI.ALIGN_RIGHT, "JUMP to go ", 0xaaaaaa, 0);
@@ -86,13 +104,17 @@ public class TickHandlerClientRender implements ITickHandler {
 		}
 	}
 
+	#ifdef USE_TICK_REGISTRY
 	@Override
 	public EnumSet<TickType> ticks(){
 		return EnumSet.of(TickType.RENDER);
 	}
+	#endif
 
+	#ifdef USE_TICK_REGISTRY
 	@Override
 	public String getLabel(){
 		return THIS_MOD.modID+": Client Render Tick";
 	}
+	#endif
 }

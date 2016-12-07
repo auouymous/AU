@@ -11,27 +11,26 @@ import net.minecraft.block.BlockMycelium;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.ForgeDirection;
+IMPORT_FORGE_DIRECTION
 import net.minecraftforge.common.IPlantable;
 import static net.minecraftforge.common.EnumPlantType.*;
 
 import java.util.Random;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.ItemUtils;
 
 public class BlockFlower extends BlockColored implements IPlantable {
 	@SideOnly(Side.CLIENT)
-	private Icon[] flowerIcons;
+	private MC_ICON[] flowerIcons;
 
 	public BlockFlower(int id, String name){
 		super(id, name, ItemBlockFlower.class, Material.plants);
@@ -40,20 +39,20 @@ public class BlockFlower extends BlockColored implements IPlantable {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
-		this.flowerIcons = new Icon[16];
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
+		this.flowerIcons = new MC_ICON[16];
 		for(int c = 0; c < 16; c++)
 			this.flowerIcons[c] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int color){
+	public MC_ICON getIcon(int side, int color){
 		return this.flowerIcons[color];
 	}
 
 	@SideOnly(Side.CLIENT)
-	public Icon getItemIcon(int color){
+	public MC_ICON getItemIcon(int color){
 		return this.flowerIcons[color];
 	}
 
@@ -86,8 +85,8 @@ public class BlockFlower extends BlockColored implements IPlantable {
 
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess access, int x, int y, int z){
-		int below = access.getBlockId(x, y - 1, z);
-		float offset = (below == MC_BLOCK.tilledField.blockID ? BlockFlowerSeed.y_offset : 0.0F);
+		Block below = BlockCoord.getBlock(access, x, y - 1, z);
+		float offset = (below == MC_BLOCK.tilledField ? BlockFlowerSeed.y_offset : 0.0F);
 		this.setBlockBounds(0.3F, 0.0F-offset, 0.3F, 0.7F, 0.7F-offset, 0.7F);
 	}
 
@@ -95,19 +94,18 @@ public class BlockFlower extends BlockColored implements IPlantable {
 
 	@Override
 	public boolean canPlaceBlockAt(World world, int x, int y, int z){
-		return super.canPlaceBlockAt(world, x, y, z) && world.getBlockId(x, y - 1, z) != MC_BLOCK.tilledField.blockID && this.canBlockStay(world, x, y, z);
+		return super.canPlaceBlockAt(world, x, y, z) && BlockCoord.getBlock(world, x, y - 1, z) != MC_BLOCK.tilledField && this.canBlockStay(world, x, y, z);
 	}
 
-	private boolean canThisPlantGrowOnThisBlockID(int id){
-		Block block = Block.blocksList[id];
+	private boolean canThisPlantGrowOnThisBlock(Block block){
 		return block instanceof BlockDirt		// podzol is dirt:2
 			|| block instanceof BlockGrass
 			|| block instanceof BlockNetherrack
 			|| block instanceof BlockMycelium
 			|| block instanceof BlockSand		// red sand is sand:1
 			|| block instanceof BlockSoulSand
-			|| id == MC_BLOCK.whiteStone.blockID	// endstone
-			|| id == THIS_MOD.blockSand.blockID		// colored sand
+			|| block == MC_BLOCK.whiteStone		// endstone
+			|| block == THIS_MOD.blockSand		// colored sand
 			;
 	}
 
@@ -132,9 +130,9 @@ public class BlockFlower extends BlockColored implements IPlantable {
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z){
 		if(world.getFullBlockLightValue(x, y, z) < 8 || !world.canBlockSeeTheSky(x, y, z)) return false;
-		int below = world.getBlockId(x, y - 1, z);
-		if(below == MC_BLOCK.tilledField.blockID) return true; // can't plant on farmland but will stay when converted from seed
-		return this.canThisPlantGrowOnThisBlockID(below);
+		Block below = BlockCoord.getBlock(world, x, y - 1, z);
+		if(below == MC_BLOCK.tilledField) return true; // can't plant on farmland but will stay when converted from seed
+		return this.canThisPlantGrowOnThisBlock(below);
 	}
 
 	@Override
@@ -147,7 +145,7 @@ public class BlockFlower extends BlockColored implements IPlantable {
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ){
 		if(!world.isRemote && player.getHeldItem().getItem() instanceof ItemShears){
-			if(world.getBlockId(x, y - 1, z) == MC_BLOCK.tilledField.blockID){
+			if(BlockCoord.getBlock(world, x, y - 1, z) == MC_BLOCK.tilledField){
 				int color = world.getBlockMetadata(x, y, z);
 
 				// revert to stage 0
@@ -169,7 +167,7 @@ public class BlockFlower extends BlockColored implements IPlantable {
 
 	@Override
 	public int getPlantID(World world, int x, int y, int z){
-		return blockID;
+		return this.blockID;
 	}
 
 	@Override
