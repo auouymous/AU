@@ -33,6 +33,10 @@
 CHROMA INFUSER
 	- optimize TileEntityChromaInfuser.updateEntity()
 
+	- water bucket is consumed even if water isn't colored
+		- not consuming the water bucket would cause the next dye that gets consumed to be immediately reset
+		- wasting water is better than wasting dye
+
 	- chroma infuser shouldn't process a colored item with the same color, unless converting item IDs for it
 		- the item input slot should reject the item if chroma infuser has dye, if no dye, processing should reject it
 		- NEI plugin merges conversion recipes and will need to handle the missing color
