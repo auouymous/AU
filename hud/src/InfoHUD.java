@@ -525,7 +525,7 @@ public class InfoHUD {
 								int health = (int)entity.getHealth();
 								int maxHealth = (int)entity.getMaxHealth();
 								int healthPct = 100 * health / maxHealth;
-								int healthColor = (healthPct >= 50 ? 0x66ff66 : (healthPct < 25 ? 0xff6666 : 0xffff66));
+								int healthColor = (healthPct > 66 ? 0x66ff66 : (healthPct < 33 ? 0xff6666 : 0xffff66));
 								this.ui.drawString(String.format("%d", health), healthColor);
 								this.ui.drawString(String.format("/%d  ", maxHealth), 0xffffff);
 								if(healthPct > 100) healthPct = 100;
