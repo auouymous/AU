@@ -26,6 +26,7 @@
 
 - MC18x
 	- remove recipe to craft chiseled stone bricks
+	- remove recipe to craft cracked stone bricks, 1.8 smelts stone brick to cracked stone brick
 
 ----------
 
@@ -105,11 +106,22 @@ CHROMA INFUSER
 
 ----------
 
-- colored signs
-	- 16 colors but they also support block camo
+- camo item frames
+	- place frame, its transparent
+	- shift right click a block on the edge to camo border
+	- shift right click a block on the center to camo interior
+	- right click item in center like normal
+
+----------
+
+- camo/colored signs
+	- place sign, its transparent with black text
+		- can select text color when editing sign
+		- text is near back of sign if transparent (center if stick sign)
+	- shift right click a block on sign to camo it
+	- shift right click a block on sign stick to camo the stick?
 	- IRotatableBlock
 		- flat and stick positions
-	- support colored text on the signs
 
 - sign editor
 	- this could bypass protection, need to check if player can break the sign
@@ -117,6 +129,33 @@ CHROMA INFUSER
 	- right click item in air to open editor
 		- option to set text color and block camo (for colored signs)
 	- right click a sign to apply text
+
+----------
+
+- compact beacon
+	- resource blocks are consumed in the beacon's GUI instead of placing below
+	- can be picked up and moved without needing to disassemble and reassemble a pyramid
+	- more effects, including negative effects?
+		- 1-2 level I positive effects, or 1 level II positive effect
+		- 1 level I or II negative effect
+		- can't combine positive and negative effects
+		- negative effects have a black beam
+		- negative effects and some positive effects require a tier 5 beacon
+	- use potions to activate beacon, instead of selecting buttons and consuming resources in the GUI
+		- add recipes to craft potions for all effects
+		- speed I/II, haste I/II, resistance I/II, jump boost I/II, strength I/II, night vision I, regeneration I/II,
+		- fire resistance I, water breathing I, invisibility I (T5), health boost I/II (T5), saturation I (T5)
+		- slowness I/II, mining fatigue I/II, weakness I/II, blindness I, nausea I, poison I/II, hunger I/II
+
+----------
+
+- canvas
+	- block to edit or copy a canvas, 16x16 or maybe 32x32 pixels
+		- copies are linked to original
+		- copies can be locked by the original's owner
+			- locked copies can't be modified
+	- block that accepts 6 canvases
+		- has 6 sliders to change block bounds
 
 ----------
 
