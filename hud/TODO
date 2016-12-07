@@ -1,3 +1,5 @@
+- BUG: keys don't save in 1.7.2 but do save in 1.7.10
+
 - use scroll wheel to adjust zoom while key is pressed? 2x-10x, always default to 5x?
 
 ~ MC18x
