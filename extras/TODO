@@ -1,3 +1,8 @@
+~ BUG: top left side of stairs has incorrect UV coordinates (uses minecraft's stair renderer)
+	- does last release have this problem? YES
+		- N side of WE stairs
+		- E side of NS stairs
+
 ~ change iron bar texture to something that would be symmetrical in horizontal orientation?
 
 ~ render chiseled brick and smooth brick slabs with ambient occlusion
@@ -43,7 +48,7 @@ CHROMA INFUSER
 
 	- display 4 chroma recipes per NEI page (2 might be max)
 
-	- display item and/or bubbles in chroma infuser's water and play a sound when processing items
+	- display item in chroma infuser's water and play a sound when processing items
 
 	- chroma infuser recipes for stairs and slabs
 
