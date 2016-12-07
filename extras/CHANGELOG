@@ -1,3 +1,4 @@
+	- fixed visual issue where dye quantity wasnt updating when consumed
 	- partially ported to 1.7
 
 2mar2014-r1
