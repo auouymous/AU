@@ -3,7 +3,6 @@ package com.qzx.au.extras;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 
 public class ItemBlockFlowerSeed extends ItemBlock {
 	public ItemBlockFlowerSeed(int id){
@@ -11,7 +10,7 @@ public class ItemBlockFlowerSeed extends ItemBlock {
 	}
 
 	@Override
-	public Icon getIconFromDamage(int stage){
+	public MC_ICON getIconFromDamage(int stage){
 		return ((BlockFlowerSeed)THIS_MOD.blockFlowerSeed).getItemIcon(stage);
 	}
 }

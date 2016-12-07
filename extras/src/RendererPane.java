@@ -7,7 +7,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
@@ -62,7 +61,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 
 		RenderUtils.initLighting(world, block, x, y, z);
 
-		Icon icon_side = ((BlockColoredPane)block).getSidesIcon();
+		MC_ICON icon_side = ((BlockColoredPane)block).getSidesIcon();
 		float sx1 = (float)world.getBlockMetadata(x,y,z) * BlockCoord.ADD_1_16 + BlockCoord.ADD_1_64, sx2 = sx1 + BlockCoord.ADD_1_16 - BlockCoord.ADD_1_32;
 		final float sy1 = 0.0F, sy2 = BlockCoord.ADD_1_16;
 		final float side_inset = BlockCoord.ADD_1_64/4;
@@ -70,7 +69,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 		int panes_d_ns = 0, panes_d_we = 0, panes_u_ns = 0, panes_u_we = 0;
 
 		if(draw_y){
-			Icon icon_y = ((BlockColoredPane)block).getBlockTextureHorizontal(world, x, y, z, 0);
+			MC_ICON icon_y = ((BlockColoredPane)block).getBlockTextureHorizontal(world, x, y, z, 0);
 			RenderUtils.renderBottomFace(x, Y_CENTER_N, z, x+1.0F, Y_CENTER_N, z+1.0F, icon_y, 0.0F, 0.0F, 1.0F, 1.0F, false);
 			RenderUtils.renderTopFace(	 x, Y_CENTER_P, z, x+1.0F, Y_CENTER_P, z+1.0F, icon_y, 0.0F, 0.0F, 1.0F, 1.0F, false);
 			// render top and bottom since each are drawn with different color multipliers
@@ -111,7 +110,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 			}
 		}
 		if(draw_n || draw_s){
-			Icon[] icon_x = ((BlockColoredPane)block).getBlockTextureVertical(world, x, y, z, 4);
+			MC_ICON[] icon_x = ((BlockColoredPane)block).getBlockTextureVertical(world, x, y, z, 4);
 			if(draw_n && draw_s){
 				// FULL PANE
 				if(((BlockColoredPane)block).hasConnectedTextures()){
@@ -183,7 +182,7 @@ public class RendererPane implements ISimpleBlockRenderingHandler {
 			RenderUtils.unsetColorOverride();
 		}
 		if(draw_w || draw_e){
-			Icon[] icon_z = ((BlockColoredPane)block).getBlockTextureVertical(world, x, y, z, 2);
+			MC_ICON[] icon_z = ((BlockColoredPane)block).getBlockTextureVertical(world, x, y, z, 2);
 			if(draw_w && draw_e){
 				// FULL PANE
 				if(((BlockColoredPane)block).hasConnectedTextures()){

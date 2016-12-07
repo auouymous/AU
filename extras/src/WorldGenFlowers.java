@@ -35,7 +35,7 @@ public class WorldGenFlowers implements IWorldGenerator {
 				int xx = x + random.nextInt(8) - random.nextInt(8);
 				int yy = y + random.nextInt(4) - random.nextInt(4);
 				int zz = z + random.nextInt(8) - random.nextInt(8);
-				if(world.isAirBlock(xx, yy, zz) && (!world.provider.hasNoSky || yy < 127) && Block.blocksList[this.plantBlockId].canBlockStay(world, xx, yy, zz))
+				if(world.isAirBlock(xx, yy, zz) && (!world.provider.hasNoSky || yy < 127) && GET_BLOCK_BY_ID(this.plantBlockId).canBlockStay(world, xx, yy, zz))
 					world.setBlock(xx, yy, zz, this.plantBlockId, color, 2);
 			}
 		}

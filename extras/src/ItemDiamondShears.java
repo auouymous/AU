@@ -7,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.BlockWeb;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
@@ -25,7 +24,7 @@ public class ItemDiamondShears extends ItemShears {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
 		this.itemIcon = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("item.au.", ""));
 	}
 

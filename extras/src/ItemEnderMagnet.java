@@ -3,18 +3,16 @@ package com.qzx.au.extras;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 public class ItemEnderMagnet extends Item {
 	@SideOnly(Side.CLIENT)
-	private Icon enabledIcon;
+	private MC_ICON enabledIcon;
 
 	public ItemEnderMagnet(int id, String name){
 		super(id);
@@ -26,19 +24,19 @@ public class ItemEnderMagnet extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
 		this.itemIcon = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("item.au.", ""));
 		this.enabledIcon = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("item.au.", "")+"-enabled");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(ItemStack itemstack, int pass){
+	public MC_ICON getIcon(ItemStack itemstack, int pass){
 		return (itemstack != null && this.isMagnetEnabled(itemstack) ? this.enabledIcon : this.itemIcon);
 	}
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIconIndex(ItemStack itemstack){
+	public MC_ICON getIconIndex(ItemStack itemstack){
 		return this.getIcon(itemstack, 0);
 	}
 

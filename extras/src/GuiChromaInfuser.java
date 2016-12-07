@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 
 import java.util.ArrayList;
 
@@ -54,7 +53,7 @@ public class GuiChromaInfuser extends GuiContainerAU {
 			if(tileEntity.getDyeVolume() > 0){
 //				Color waterColor = (new Color(ItemDye.dyeColors[tileEntity.getDyeColor()])).anaglyph();
 //				UI.setColor(waterColor.r, waterColor.g, waterColor.b, 1.0F);
-//				Icon waterIcon = BlockChromaInfuser.getWaterIcon();
+//				MC_ICON waterIcon = BlockChromaInfuser.getWaterIcon();
 //				UI.bindTexture(this.mc, "au_extras", THIS_MOD.texturePath+"/blocks/chromaInfuser_water.png");
 
 				// colored water box

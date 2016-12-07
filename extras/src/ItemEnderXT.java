@@ -4,7 +4,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 public class ItemEnderXT extends Item {
@@ -21,7 +19,7 @@ public class ItemEnderXT extends Item {
 	private static float BLOCK_SPEED = 8.0F;
 
 	@SideOnly(Side.CLIENT)
-	private Icon enabledIcon;
+	private MC_ICON enabledIcon;
 
 	public ItemEnderXT(int id, String name){
 		super(id);
@@ -34,19 +32,19 @@ public class ItemEnderXT extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
 		this.itemIcon = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("item.au.", ""));
 		this.enabledIcon = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("item.au.", "")+"-enabled");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(ItemStack itemstack, int pass){
+	public MC_ICON getIcon(ItemStack itemstack, int pass){
 		return (itemstack != null && this.isXTEnabled(itemstack) ? this.enabledIcon : this.itemIcon);
 	}
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIconIndex(ItemStack itemstack){
+	public MC_ICON getIconIndex(ItemStack itemstack){
 		return this.getIcon(itemstack, 0);
 	}
 
@@ -139,9 +137,27 @@ public class ItemEnderXT extends Item {
 
 	@Override
 	public boolean onBlockDestroyed(ItemStack itemstack, World world, int id, int x, int y, int z, EntityLivingBase entity){
-		float hardness = Block.blocksList[id].getBlockHardness(world, x, y, z) / 3.0F; // ores and harder apply max damage
+		float hardness = GET_BLOCK_BY_ID(id).getBlockHardness(world, x, y, z) / 3.0F; // ores and harder apply max damage
 		ItemEnderStar.applyDamage(itemstack, Math.min(ItemEnderXT.CHARGE_PER_LEFT_CLICK, Math.round((float)ItemEnderXT.CHARGE_PER_LEFT_CLICK * hardness)));
 		return true;
+	}
+
+	//////////
+
+	public static void knockbackEntity(EntityPlayer player, EntityLivingBase entity, float velocity){
+
+// TODO: get player heading vector, negate vector, multiply vector by velocity
+
+/*
+// centerX/Z is just the player's posX/Z, but you could use a block position or whatever as well
+// target is the entity to knock back
+int offsetX = target.posX > centerX ? 1 : -1;
+int offsetZ = target.posZ > centerZ ? 1 : -1;
+target.setVelocity((double)(offsetX), target.motionY, (double)(offsetZ));
+getRotationYawHead
+http://www.minecraftforum.net/topic/1983688-solved-knocking-a-player-back/
+*/
+
 	}
 
 	//////////

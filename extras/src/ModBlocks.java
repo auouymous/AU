@@ -18,7 +18,7 @@ public class ModBlocks {
 				.setResistance(10.0F)
 				.setStepSound(Block.soundMetalFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockChromaInfuser, "pickaxe", 0); // wooden pickaxe
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockChromaInfuser, "pickaxe", 0); // wooden pickaxe
 		}
 
 		//////////
@@ -29,18 +29,18 @@ public class ModBlocks {
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneHalfSlabs, "pickaxe", 0); // wooden pickaxe
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockStoneHalfSlabs, "pickaxe", 0); // wooden pickaxe
 
 			THIS_MOD.blockStoneHalfSlabsSmooth = new BlockColoredHalfSlab(Cfg.blockStoneHalfSlabsSmooth, "au.colorStoneHalfSlabsSmooth", ItemBlockColored.class, THIS_MOD.blockStoneHalfSlabs)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneHalfSlabsSmooth, "pickaxe", 0); // wooden pickaxe
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockStoneHalfSlabsSmooth, "pickaxe", 0); // wooden pickaxe
 
 			THIS_MOD.blockStoneHalfSlab[0] = new BlockColoredHalfSlab(Cfg.blockStoneHalfSlab0, "au.colorStoneHalfSlab", ItemBlockColoredHalfSlab.class, THIS_MOD.blockStoneHalfSlabs, false)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneHalfSlab[0], "pickaxe", 0); // wooden pickaxe
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockStoneHalfSlab[0], "pickaxe", 0); // wooden pickaxe
 
 			THIS_MOD.blockStoneHalfSlab[1] = new BlockColoredHalfSlab(Cfg.blockStoneHalfSlab1, "au.colorStoneHalfSlabUpper", null, THIS_MOD.blockStoneHalfSlabs, false);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneHalfSlab[1], "pickaxe", 0); // wooden pickaxe
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockStoneHalfSlab[1], "pickaxe", 0); // wooden pickaxe
 
 			((BlockColoredHalfSlab)THIS_MOD.blockStoneHalfSlabsSmooth).setSmoothBlock(THIS_MOD.blockStoneHalfSlabs);
 			((BlockColoredHalfSlab)THIS_MOD.blockStoneHalfSlabs).setFullBlock(THIS_MOD.blockStoneHalfSlab[0]);
@@ -56,24 +56,24 @@ public class ModBlocks {
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockCobble, "pickaxe", 0); // wooden pickaxe
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockCobble, "pickaxe", 0); // wooden pickaxe
 
 			// stairs
 			if(Cfg.enableCobbleStairs)
 				for(int c = 0; c < 16; c++){
 					THIS_MOD.blockCobbleStairs[c] = new BlockStairsColored(Cfg.blockCobbleStairs+c, "au.colorCobbleStairs."+Color.colors[c], THIS_MOD.blockCobble, c)
 						.setCreativeTab(THIS_MOD.tabAU);
-					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockCobbleStairs[c], "pickaxe", 0); // wooden pickaxe
+					SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockCobbleStairs[c], "pickaxe", 0); // wooden pickaxe
 				}
 
 			// slabs
 			if(Cfg.enableCobbleSlabs){
 				THIS_MOD.blockCobbleSlab[0] = new BlockColoredSlab(Cfg.blockCobbleSlab0, "au.colorCobbleSlab", ItemBlockColoredSlab.class, THIS_MOD.blockCobble, false)
 					.setCreativeTab(THIS_MOD.tabAU);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockCobbleSlab[0], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockCobbleSlab[0], "pickaxe", 0); // wooden pickaxe
 
 				THIS_MOD.blockCobbleSlab[1] = new BlockColoredSlab(Cfg.blockCobbleSlab1, "au.colorCobbleSlabUpper", null, THIS_MOD.blockCobble, false);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockCobbleSlab[1], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockCobbleSlab[1], "pickaxe", 0); // wooden pickaxe
 
 				((BlockColoredSlab)THIS_MOD.blockCobbleSlab[0]).setUpperBlock(THIS_MOD.blockCobbleSlab[1]);
 				((BlockColoredSlab)THIS_MOD.blockCobbleSlab[1]).setLowerBlock(THIS_MOD.blockCobbleSlab[0]);
@@ -88,24 +88,24 @@ public class ModBlocks {
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStone, "pickaxe", 0); // wooden pickaxe
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockStone, "pickaxe", 0); // wooden pickaxe
 
 			// stairs
 			if(Cfg.enableStoneStairs)
 				for(int c = 0; c < 16; c++){
 					THIS_MOD.blockStoneStairs[c] = new BlockStairsColored(Cfg.blockStoneStairs+c, "au.colorStoneStairs."+Color.colors[c], THIS_MOD.blockStone, c)
 						.setCreativeTab(THIS_MOD.tabAU);
-					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneStairs[c], "pickaxe", 0); // wooden pickaxe
+					SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockStoneStairs[c], "pickaxe", 0); // wooden pickaxe
 				}
 
 			// slabs
 			if(Cfg.enableStoneSlabs){
 				THIS_MOD.blockStoneSlab[0] = new BlockColoredSlab(Cfg.blockStoneSlab0, "au.colorStoneSlab", ItemBlockColoredSlab.class, THIS_MOD.blockStone, false)
 					.setCreativeTab(THIS_MOD.tabAU);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneSlab[0], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockStoneSlab[0], "pickaxe", 0); // wooden pickaxe
 
 				THIS_MOD.blockStoneSlab[1] = new BlockColoredSlab(Cfg.blockStoneSlab1, "au.colorStoneSlabUpper", null, THIS_MOD.blockStone, false);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneSlab[1], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockStoneSlab[1], "pickaxe", 0); // wooden pickaxe
 
 				((BlockColoredSlab)THIS_MOD.blockStoneSlab[0]).setUpperBlock(THIS_MOD.blockStoneSlab[1]);
 				((BlockColoredSlab)THIS_MOD.blockStoneSlab[1]).setLowerBlock(THIS_MOD.blockStoneSlab[0]);
@@ -120,24 +120,24 @@ public class ModBlocks {
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneBrick, "pickaxe", 0); // wooden pickaxe
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockStoneBrick, "pickaxe", 0); // wooden pickaxe
 
 			// stairs
 			if(Cfg.enableStoneBrickStairs)
 				for(int c = 0; c < 16; c++){
 					THIS_MOD.blockStoneBrickStairs[c] = new BlockStairsColored(Cfg.blockStoneBrickStairs+c, "au.colorStoneBrickStairs."+Color.colors[c], THIS_MOD.blockStoneBrick, c)
 						.setCreativeTab(THIS_MOD.tabAU);
-					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneBrickStairs[c], "pickaxe", 0); // wooden pickaxe
+					SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockStoneBrickStairs[c], "pickaxe", 0); // wooden pickaxe
 				}
 
 			// slabs
 			if(Cfg.enableStoneBrickSlabs){
 				THIS_MOD.blockStoneBrickSlab[0] = new BlockColoredSlab(Cfg.blockStoneBrickSlab0, "au.colorStoneBrickSlab", ItemBlockColoredSlab.class, THIS_MOD.blockStoneBrick, false)
 					.setCreativeTab(THIS_MOD.tabAU);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneBrickSlab[0], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockStoneBrickSlab[0], "pickaxe", 0); // wooden pickaxe
 
 				THIS_MOD.blockStoneBrickSlab[1] = new BlockColoredSlab(Cfg.blockStoneBrickSlab1, "au.colorStoneBrickSlabUpper", null, THIS_MOD.blockStoneBrick, false);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockStoneBrickSlab[1], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockStoneBrickSlab[1], "pickaxe", 0); // wooden pickaxe
 
 				((BlockColoredSlab)THIS_MOD.blockStoneBrickSlab[0]).setUpperBlock(THIS_MOD.blockStoneBrickSlab[1]);
 				((BlockColoredSlab)THIS_MOD.blockStoneBrickSlab[1]).setLowerBlock(THIS_MOD.blockStoneBrickSlab[0]);
@@ -152,7 +152,7 @@ public class ModBlocks {
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockChiseledBrick, "pickaxe", 0); // wooden pickaxe
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockChiseledBrick, "pickaxe", 0); // wooden pickaxe
 
 			// no stairs -- texture doesn't align correctly
 
@@ -161,10 +161,10 @@ public class ModBlocks {
 				THIS_MOD.blockChiseledBrickSlab[0] = new BlockColoredSlab(Cfg.blockChiseledBrickSlab0, "au.colorChiseledBrickSlab", ItemBlockColoredSlab.class,
 					THIS_MOD.blockChiseledBrick, true)
 					.setCreativeTab(THIS_MOD.tabAU);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockChiseledBrickSlab[0], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockChiseledBrickSlab[0], "pickaxe", 0); // wooden pickaxe
 
 				THIS_MOD.blockChiseledBrickSlab[1] = new BlockColoredSlab(Cfg.blockChiseledBrickSlab1, "au.colorChiseledBrickSlabUpper", null, THIS_MOD.blockChiseledBrick, true);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockChiseledBrickSlab[1], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockChiseledBrickSlab[1], "pickaxe", 0); // wooden pickaxe
 
 				((BlockColoredSlab)THIS_MOD.blockChiseledBrickSlab[0]).setUpperBlock(THIS_MOD.blockChiseledBrickSlab[1]);
 				((BlockColoredSlab)THIS_MOD.blockChiseledBrickSlab[1]).setLowerBlock(THIS_MOD.blockChiseledBrickSlab[0]);
@@ -179,24 +179,24 @@ public class ModBlocks {
 				.setResistance(10.0F)
 				.setStepSound(Block.soundStoneFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSmoothBrick, "pickaxe", 0); // wooden pickaxe
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockSmoothBrick, "pickaxe", 0); // wooden pickaxe
 
 			// stairs
 			if(Cfg.enableSmoothBrickStairs)
 				for(int c = 0; c < 16; c++){
 					THIS_MOD.blockSmoothBrickStairs[c] = new BlockStairsColored(Cfg.blockSmoothBrickStairs+c, "au.colorSmoothBrickStairs."+Color.colors[c], THIS_MOD.blockSmoothBrick, c)
 						.setCreativeTab(THIS_MOD.tabAU);
-					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSmoothBrickStairs[c], "pickaxe", 0); // wooden pickaxe
+					SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockSmoothBrickStairs[c], "pickaxe", 0); // wooden pickaxe
 				}
 
 			// slabs
 			if(Cfg.enableSmoothBrickSlabs){
 				THIS_MOD.blockSmoothBrickSlab[0] = new BlockColoredSlab(Cfg.blockSmoothBrickSlab0, "au.colorSmoothBrickSlab", ItemBlockColoredSlab.class, THIS_MOD.blockSmoothBrick, true)
 					.setCreativeTab(THIS_MOD.tabAU);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSmoothBrickSlab[0], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockSmoothBrickSlab[0], "pickaxe", 0); // wooden pickaxe
 
 				THIS_MOD.blockSmoothBrickSlab[1] = new BlockColoredSlab(Cfg.blockSmoothBrickSlab1, "au.colorSmoothBrickSlabUpper", null, THIS_MOD.blockSmoothBrick, true);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSmoothBrickSlab[1], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockSmoothBrickSlab[1], "pickaxe", 0); // wooden pickaxe
 
 				((BlockColoredSlab)THIS_MOD.blockSmoothBrickSlab[0]).setUpperBlock(THIS_MOD.blockSmoothBrickSlab[1]);
 				((BlockColoredSlab)THIS_MOD.blockSmoothBrickSlab[1]).setLowerBlock(THIS_MOD.blockSmoothBrickSlab[0]);
@@ -211,7 +211,7 @@ public class ModBlocks {
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGravelFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockGravel, "shovel", 0); // wooden shovel
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockGravel, "shovel", 0); // wooden shovel
 
 			// no stairs -- texture doesn't align correctly
 
@@ -219,10 +219,10 @@ public class ModBlocks {
 			if(Cfg.enableGravelSlabs){
 				THIS_MOD.blockGravelSlab[0] = new BlockColoredSlab(Cfg.blockGravelSlab0, "au.colorGravelSlab", ItemBlockColoredSlab.class, THIS_MOD.blockGravel, false)
 					.setCreativeTab(THIS_MOD.tabAU);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockGravelSlab[0], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockGravelSlab[0], "pickaxe", 0); // wooden pickaxe
 
 				THIS_MOD.blockGravelSlab[1] = new BlockColoredSlab(Cfg.blockGravelSlab1, "au.colorGravelSlabUpper", null, THIS_MOD.blockGravel, false);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockGravelSlab[1], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockGravelSlab[1], "pickaxe", 0); // wooden pickaxe
 
 				((BlockColoredSlab)THIS_MOD.blockGravelSlab[0]).setUpperBlock(THIS_MOD.blockGravelSlab[1]);
 				((BlockColoredSlab)THIS_MOD.blockGravelSlab[1]).setLowerBlock(THIS_MOD.blockGravelSlab[0]);
@@ -237,24 +237,24 @@ public class ModBlocks {
 				.setResistance(2.5F)
 				.setStepSound(Block.soundSandFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSand, "shovel", 0); // wooden shovel
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockSand, "shovel", 0); // wooden shovel
 
 			// stairs
 			if(Cfg.enableSandStairs)
 				for(int c = 0; c < 16; c++){
 					THIS_MOD.blockSandStairs[c] = new BlockStairsColored(Cfg.blockSandStairs+c, "au.colorSandStairs."+Color.colors[c], THIS_MOD.blockSand, c)
 						.setCreativeTab(THIS_MOD.tabAU);
-					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSandStairs[c], "pickaxe", 0); // wooden pickaxe
+					SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockSandStairs[c], "pickaxe", 0); // wooden pickaxe
 				}
 
 			// slabs
 			if(Cfg.enableSandSlabs){
 				THIS_MOD.blockSandSlab[0] = new BlockColoredSlab(Cfg.blockSandSlab0, "au.colorSandSlab", ItemBlockColoredSlab.class, THIS_MOD.blockSand, true)
 					.setCreativeTab(THIS_MOD.tabAU);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSandSlab[0], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockSandSlab[0], "pickaxe", 0); // wooden pickaxe
 
 				THIS_MOD.blockSandSlab[1] = new BlockColoredSlab(Cfg.blockSandSlab1, "au.colorSandSlabUpper", null, THIS_MOD.blockSand, true);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockSandSlab[1], "pickaxe", 0); // wooden pickaxe
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockSandSlab[1], "pickaxe", 0); // wooden pickaxe
 
 				((BlockColoredSlab)THIS_MOD.blockSandSlab[0]).setUpperBlock(THIS_MOD.blockSandSlab[1]);
 				((BlockColoredSlab)THIS_MOD.blockSandSlab[1]).setLowerBlock(THIS_MOD.blockSandSlab[0]);
@@ -269,14 +269,14 @@ public class ModBlocks {
 				.setResistance(3.0F)
 				.setStepSound(Block.soundGrassFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockArtificialGrass, "shovel", 0); // wooden shovel
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockArtificialGrass, "shovel", 0); // wooden shovel
 
 			// stairs
 			if(Cfg.enableArtificialGrassStairs)
 				for(int c = 0; c < 16; c++){
 					THIS_MOD.blockArtificialGrassStairs[c] = new BlockStairsColored(Cfg.blockArtificialGrassStairs+c, "au.artificialGrassStairs."+c, THIS_MOD.blockArtificialGrass, c)
 						.setCreativeTab(THIS_MOD.tabAU);
-					MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockArtificialGrassStairs[c], "pickaxe", 0); // wooden pickaxe
+					SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockArtificialGrassStairs[c], "pickaxe", 0); // wooden pickaxe
 				}
 
 			// slabs
@@ -284,10 +284,10 @@ public class ModBlocks {
 				THIS_MOD.blockArtificialGrassSlab[0] = new BlockColoredSlab(Cfg.blockArtificialGrassSlab0, "au.artificialGrassSlab", ItemBlockArtificialGrassSlab.class,
 					THIS_MOD.blockArtificialGrass, false)
 					.setCreativeTab(THIS_MOD.tabAU);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockArtificialGrassSlab[0], "shovel", 0); // wooden shovel
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockArtificialGrassSlab[0], "shovel", 0); // wooden shovel
 
 				THIS_MOD.blockArtificialGrassSlab[1] = new BlockColoredSlab(Cfg.blockArtificialGrassSlab1, "au.artificialGrassSlabUpper", null, THIS_MOD.blockArtificialGrass, false);
-				MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockArtificialGrassSlab[1], "shovel", 0); // wooden shovel
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockArtificialGrassSlab[1], "shovel", 0); // wooden shovel
 
 				((BlockColoredSlab)THIS_MOD.blockArtificialGrassSlab[0]).setUpperBlock(THIS_MOD.blockArtificialGrassSlab[1]);
 				((BlockColoredSlab)THIS_MOD.blockArtificialGrassSlab[1]).setLowerBlock(THIS_MOD.blockArtificialGrassSlab[0]);
@@ -429,7 +429,7 @@ public class ModBlocks {
 				.setResistance(25.0F)
 				.setStepSound(Block.soundStoneFootstep)
 				.setCreativeTab(THIS_MOD.tabAU);
-			MinecraftForge.setBlockHarvestLevel(THIS_MOD.blockEnderCube, "pickaxe", 3); // diamond pickaxe
+			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockEnderCube, "pickaxe", 3); // diamond pickaxe
 		}
 	}
 }

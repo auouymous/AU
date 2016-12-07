@@ -5,6 +5,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import com.qzx.au.core.BlockCoord;
+
 public class ItemBlockColoredSlab extends ItemBlockColored {
 	public ItemBlockColoredSlab(int id){
 		super(id);
@@ -20,7 +22,7 @@ public class ItemBlockColoredSlab extends ItemBlockColored {
 		if(!world.setBlock(x, y, z, block.blockID, metadata, 3))
 			return false;
 
-		if(world.getBlockId(x, y, z) == block.blockID){
+		if(BlockCoord.getBlock(world, x, y, z) == block){
 			block.onBlockPlacedBy(world, x, y, z, player, itemstack);
 			block.onPostBlockPlaced(world, x, y, z, metadata);
 		}

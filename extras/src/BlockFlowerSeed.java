@@ -6,27 +6,27 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.ForgeDirection;
+IMPORT_FORGE_DIRECTION
 import net.minecraftforge.common.IPlantable;
 import static net.minecraftforge.common.EnumPlantType.*;
 
 import java.util.Random;
 
+import com.qzx.au.core.BlockCoord;
+
 public class BlockFlowerSeed extends Block implements IPlantable {
 	@SideOnly(Side.CLIENT)
-	private Icon stage1Icon;
+	private MC_ICON stage1Icon;
 	@SideOnly(Side.CLIENT)
-	private Icon stage0Icon;
+	private MC_ICON stage0Icon;
 	@SideOnly(Side.CLIENT)
-	private Icon seedsIcon;
+	private MC_ICON seedsIcon;
 
 	public static final float y_offset = 0.0625F;
 
@@ -40,7 +40,7 @@ public class BlockFlowerSeed extends Block implements IPlantable {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
 		this.stage1Icon = iconRegister.registerIcon("au_extras:flowerStage1");
 		this.stage0Icon = iconRegister.registerIcon("au_extras:flowerStage0");
 		this.seedsIcon = iconRegister.registerIcon("au_extras:flowerSeeds");
@@ -48,13 +48,13 @@ public class BlockFlowerSeed extends Block implements IPlantable {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int stage){
+	public MC_ICON getIcon(int side, int stage){
 		if(stage == 1) return this.stage1Icon;
 		return this.stage0Icon;
 	}
 
 	@SideOnly(Side.CLIENT)
-	public Icon getItemIcon(int stage){
+	public MC_ICON getItemIcon(int stage){
 		return this.seedsIcon;
 	}
 
@@ -146,7 +146,7 @@ public class BlockFlowerSeed extends Block implements IPlantable {
 
 	@Override
 	public boolean canBlockStay(World world, int x, int y, int z){
-		Block soil = Block.blocksList[world.getBlockId(x, y - 1, z)];
+		Block soil = BlockCoord.getBlock(world, x, y - 1, z);
 		if(soil == null) return false;
 		return (world.getFullBlockLightValue(x, y, z) >= 8 || world.canBlockSeeTheSky(x, y, z)) && soil.isFertile(world, x, y - 1, z);
 	}
@@ -165,7 +165,7 @@ public class BlockFlowerSeed extends Block implements IPlantable {
 
 	@Override
 	public int getPlantID(World world, int x, int y, int z){
-		return blockID;
+		return this.blockID;
 	}
 
 	@Override

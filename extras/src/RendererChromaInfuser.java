@@ -9,7 +9,6 @@ import net.minecraft.block.BlockFluid;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.ItemDye;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 
 import com.qzx.au.core.BlockCoord;
@@ -20,7 +19,7 @@ import com.qzx.au.core.RenderUtils;
 public class RendererChromaInfuser implements ISimpleBlockRenderingHandler {
 	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer){
 		renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-		Icon side = block.getIcon(2, metadata);
+		MC_ICON side = block.getIcon(2, metadata);
 		RenderUtils.renderInventoryBlock(block, renderer,
 			block.getIcon(0, metadata),
 			block.getIcon(1, metadata),
@@ -42,7 +41,7 @@ public class RendererChromaInfuser implements ISimpleBlockRenderingHandler {
 			tessellator.setColorOpaque_F(color.r, color.g, color.b);
 
 			// render interior of block
-			Icon icon = block.getBlockTexture(world, x, y, z, 2);
+			MC_ICON icon = block.getBlockTexture(world, x, y, z, 2);
 			renderer.renderFaceXPos(block, (double)((float)x - 1.0F + BlockCoord.ADD_1_8), (double)y, (double)z, icon);
 			renderer.renderFaceXNeg(block, (double)((float)x + 1.0F - BlockCoord.ADD_1_8), (double)y, (double)z, icon);
 			renderer.renderFaceZPos(block, (double)x, (double)y, (double)((float)z - 1.0F + BlockCoord.ADD_1_8), icon);
@@ -51,7 +50,7 @@ public class RendererChromaInfuser implements ISimpleBlockRenderingHandler {
 			renderer.renderFaceYPos(block, (double)x, (double)((float)y - 1.0F + 0.25F), (double)z, icon);
 			renderer.renderFaceYNeg(block, (double)x, (double)((float)y + 1.0F - 0.75F), (double)z, icon);
 		} else {
-			TileEntityChromaInfuser tileEntity = (TileEntityChromaInfuser)world.getBlockTileEntity(x, y, z);
+			TileEntityChromaInfuser tileEntity = (TileEntityChromaInfuser)BlockCoord.getTileEntity(world, x, y, z);
 			if(tileEntity != null){
 				if(tileEntity.getWater()){
 					if(tileEntity.getDyeVolume() > 0){
@@ -60,7 +59,7 @@ public class RendererChromaInfuser implements ISimpleBlockRenderingHandler {
 					} else
 						tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
 					tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
-					Icon waterIcon = tileEntity.getDyeVolume() > 0 ? BlockChromaInfuser.getWaterIcon()
+					MC_ICON waterIcon = tileEntity.getDyeVolume() > 0 ? BlockChromaInfuser.getWaterIcon()
 						#ifdef MC152
 						: BlockFluid.func_94424_b("water");
 						#else

@@ -3,19 +3,17 @@ package com.qzx.au.extras;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 public class ItemEnderWand extends Item {
 	@SideOnly(Side.CLIENT)
-	private Icon[] itemIcons;
-	private Icon[] ghostIcons;
+	private MC_ICON[] itemIcons;
+	private MC_ICON[] ghostIcons;
 
 	private static int MAX_MODE = 2;
 
@@ -30,9 +28,9 @@ public class ItemEnderWand extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
-		this.itemIcons = new Icon[ItemEnderWand.MAX_MODE+1];
-		this.ghostIcons = new Icon[ItemEnderWand.MAX_MODE];
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
+		this.itemIcons = new MC_ICON[ItemEnderWand.MAX_MODE+1];
+		this.ghostIcons = new MC_ICON[ItemEnderWand.MAX_MODE];
 		this.itemIcons[0] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("item.au.", "")+"0");
 		this.itemIcons[1] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("item.au.", "")+"1");
 		this.itemIcons[2] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("item.au.", "")+"2");
@@ -42,7 +40,7 @@ public class ItemEnderWand extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(ItemStack itemstack, int pass){
+	public MC_ICON getIcon(ItemStack itemstack, int pass){
 		if(itemstack != null){
 			int mode = this.getWandMode(itemstack);
 			int upgrades = this.getWandUpgrades(itemstack);
@@ -53,7 +51,7 @@ public class ItemEnderWand extends Item {
 	}
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIconIndex(ItemStack itemstack){
+	public MC_ICON getIconIndex(ItemStack itemstack){
 		return this.getIcon(itemstack, 0);
 	}
 

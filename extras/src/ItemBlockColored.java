@@ -11,7 +11,7 @@ public class ItemBlockColored extends ItemBlock {
 
 	public ItemBlockColored(int id){
 		super(id);
-		this.block = Block.blocksList[id + 256];
+		this.block = GET_BLOCK_BY_ID(id + 256);
 		this.setHasSubtypes(true);
 		// extend and set unlocalized name
 	}

@@ -7,7 +7,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 #ifdef MC152
 import net.minecraft.entity.EntityLiving;
@@ -18,14 +17,14 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import net.minecraftforge.common.ForgeDirection;
+IMPORT_FORGE_DIRECTION
 
 import java.util.Random;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.Light;
 import com.qzx.au.core.RenderUtils;
 import com.qzx.au.core.TileEntityAU;
@@ -45,13 +44,13 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
 		this.blockIcon = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", ""));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int color){
+	public MC_ICON getIcon(int side, int color){
 		return this.blockIcon;
 	}
 
@@ -78,9 +77,9 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
-		Icon icon = null;
-		TileEntity tileEntity = (TileEntity)access.getBlockTileEntity(x, y, z);
+	public MC_ICON getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
+		MC_ICON icon = null;
+		TileEntity tileEntity = (TileEntity)BlockCoord.getTileEntity(access, x, y, z);
 		if(tileEntity instanceof TileEntityEnderCube)
 			icon = ((TileEntityAU)tileEntity).getCamoIcon(side); // block camo
 		return (icon == null ? this.blockIcon : icon);
@@ -111,7 +110,7 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 	public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID){
 		if(world.isRemote) return;
 
-		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = (TileEntity)BlockCoord.getTileEntity(world, x, y, z);
 		if(tileEntity instanceof TileEntityEnderCube){
 			TileEntityEnderCube te = (TileEntityEnderCube)tileEntity;
 			boolean is_powered = world.isBlockIndirectlyGettingPowered(x, y, z);
@@ -130,7 +129,7 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 		if(world.isRemote) return;
 
 		// set initial powered state
-		TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+		TileEntity tileEntity = (TileEntity)BlockCoord.getTileEntity(world, x, y, z);
 		if(tileEntity instanceof TileEntityEnderCube)
 			if(world.isBlockIndirectlyGettingPowered(x, y, z))
 				((TileEntityEnderCube)tileEntity).setPowered(true);
@@ -162,7 +161,7 @@ public class BlockEnderCube extends Block implements ITileEntityProvider {
 			RenderUtils.spawnParticles(world, (float)x + 0.5F, (float)y + 0.5F, (float)z + 0.5F, new Random(), BlockEnderCube.nrPortalParticles, "portal", 2.0F, 2.0F, 2.0F);
 
 		else {
-			TileEntity tileEntity = (TileEntity)world.getBlockTileEntity(x, y, z);
+			TileEntity tileEntity = (TileEntity)BlockCoord.getTileEntity(world, x, y, z);
 			if(tileEntity instanceof TileEntityEnderCube)
 				((TileEntityEnderCube)tileEntity).setPlayerControlWhitelist(entity.getEntityName(), true);
 		}

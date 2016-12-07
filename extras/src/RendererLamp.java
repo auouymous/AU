@@ -7,10 +7,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 
-import net.minecraftforge.common.ForgeDirection;
+IMPORT_FORGE_DIRECTION
 
 import org.lwjgl.opengl.GL11;
 
@@ -51,7 +50,7 @@ public class RendererLamp implements ISimpleBlockRenderingHandler {
 			tessellator.setBrightness(0xf000f0);
 			tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
 
-			Icon icon = ((BlockLamp)block).getGlowIcon(color);
+			MC_ICON icon = ((BlockLamp)block).getGlowIcon(color);
 			BlockCoord coord = new BlockCoord(world, x, y, z);
 			boolean renderYNeg = this.shouldExteriorSideBeRendered(coord, 0);
 			boolean renderYPos = this.shouldExteriorSideBeRendered(coord, 1);
@@ -81,7 +80,7 @@ public class RendererLamp implements ISimpleBlockRenderingHandler {
 			tessellator.setBrightness(0xf000f0);
 			tessellator.setColorOpaque_F(1.0F, 1.0F, 1.0F);
 
-			Icon icon = block.getIcon(0, color);
+			MC_ICON icon = block.getIcon(0, color);
 			BlockCoord coord = new BlockCoord(world, x, y, z);
 
 			if(this.shouldInteriorSideBeRendered(block, coord, 0)) renderer.renderFaceYNeg(block, (double)x, (double)y, (double)z, icon);

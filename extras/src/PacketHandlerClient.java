@@ -12,6 +12,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import java.io.DataInputStream;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.PacketUtils;
 
 @SideOnly(Side.CLIENT)
@@ -27,7 +28,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
 			if(values == null){ Debug.error("CLIENT: Invalid chroma recipe button packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityChromaInfuser)
 				((TileEntityChromaInfuser)te).setRecipeButton(ChromaButton.values()[(Byte)values[3]], false);
 		} else if(id == Packets.CLIENT_CHROMA_SET_LOCK){
@@ -35,7 +36,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Boolean.class);
 			if(values == null){ Debug.error("CLIENT: Invalid chroma lock packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityChromaInfuser)
 				((TileEntityChromaInfuser)te).setLocked((Boolean)values[3], false);
 		} else if(id == Packets.CLIENT_CHROMA_RESET_WATER){
@@ -43,7 +44,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class);
 			if(values == null){ Debug.error("CLIENT: Invalid reset chroma water packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityChromaInfuser)
 				((TileEntityChromaInfuser)te).resetWater(false);
 		} else if(id == Packets.CLIENT_CHROMA_SET_COLOR){
@@ -51,7 +52,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
 			if(values == null){ Debug.error("CLIENT: Invalid chroma color packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityChromaInfuser)
 				((TileEntityChromaInfuser)te).setDyeColor((Byte)values[3]);
 		} else if(id == Packets.CLIENT_CHROMA_UPDATE_OUTPUT){
@@ -59,7 +60,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
 			if(values == null){ Debug.error("CLIENT: Invalid update chroma output packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityChromaInfuser)
 				((TileEntityChromaInfuser)te).updateOutput((Byte)values[3]);
 
@@ -70,7 +71,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Integer.class);
 			if(values == null){ Debug.error("CLIENT: Invalid spawn particles packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube)
 				((TileEntityEnderCube)te).spawnParticles((Integer)values[3]);
 		} else if(id == Packets.CLIENT_ENDER_SET_PLAYER_DIRECTION){
@@ -78,7 +79,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
 			if(values == null){ Debug.error("CLIENT: Invalid player direction packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube)
 				((TileEntityEnderCube)te).setPlayerDirection((Byte)values[3]);
 		} else if(id == Packets.CLIENT_ENDER_SET_TELEPORT_DIRECTION){
@@ -86,7 +87,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
 			if(values == null){ Debug.error("CLIENT: Invalid teleport direction packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube)
 				((TileEntityEnderCube)te).setTeleportDirection((Byte)values[3]);
 		} else if(id == Packets.CLIENT_ENDER_SET_PLAYER_CONTROL){
@@ -94,7 +95,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Boolean.class);
 			if(values == null){ Debug.error("CLIENT: Invalid player control packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube)
 				((TileEntityEnderCube)te).setPlayerControl((Boolean)values[3]);
 		} else if(id == Packets.CLIENT_ENDER_SET_PLAYER_RS_CONTROL){
@@ -102,7 +103,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Boolean.class);
 			if(values == null){ Debug.error("CLIENT: Invalid player redstone control packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube)
 				((TileEntityEnderCube)te).setPlayerRedstoneControl((Boolean)values[3]);
 		} else if(id == Packets.CLIENT_ENDER_SET_REDSTONE_CONTROL){
@@ -110,7 +111,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Boolean.class);
 			if(values == null){ Debug.error("CLIENT: Invalid redstone control packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube)
 				((TileEntityEnderCube)te).setRedstoneControl((Boolean)values[3]);
 		} else if(id == Packets.CLIENT_ENDER_SET_PCL){
@@ -118,7 +119,7 @@ public class PacketHandlerClient implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, String.class);
 			if(values == null){ Debug.error("CLIENT: Invalid player control whitelist packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube)
 				((TileEntityEnderCube)te).setPlayerControlWhitelist((String)values[3], false);
 		}

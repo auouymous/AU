@@ -6,13 +6,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 //import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import net.minecraftforge.common.ForgeDirection;
+IMPORT_FORGE_DIRECTION
 
 import java.util.Random;
 
@@ -22,9 +20,9 @@ import com.qzx.au.core.Light;
 
 public class BlockLamp extends BlockColored {
 	@SideOnly(Side.CLIENT)
-	private Icon[] blockIcons;
+	private MC_ICON[] blockIcons;
 	@SideOnly(Side.CLIENT)
-	private Icon[] blockIcons_glow;
+	private MC_ICON[] blockIcons_glow;
 
 	private boolean inverted = false;
 	private boolean powered = false;
@@ -41,9 +39,9 @@ public class BlockLamp extends BlockColored {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
-		this.blockIcons = new Icon[16];
-		if(this.inverted != this.powered) this.blockIcons_glow = new Icon[16];
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
+		this.blockIcons = new MC_ICON[16];
+		if(this.inverted != this.powered) this.blockIcons_glow = new MC_ICON[16];
 		for(int c = 0; c < 16; c++){
 			if(this.inverted != this.powered){
 				this.blockIcons[c] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "").replace("Inverted", "").replace("Powered", "")+c+"-lit");
@@ -55,12 +53,12 @@ public class BlockLamp extends BlockColored {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int color){
+	public MC_ICON getIcon(int side, int color){
 		return this.blockIcons[color];
 	}
 
 	@SideOnly(Side.CLIENT)
-	public Icon getGlowIcon(int color){
+	public MC_ICON getGlowIcon(int color){
 		return (this.inverted != this.powered ? this.blockIcons_glow[color] : null);
 	}
 
@@ -102,7 +100,7 @@ public class BlockLamp extends BlockColored {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
+	public MC_ICON getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
 		return this.blockIcons[access.getBlockMetadata(x, y, z)];
 	}
 

@@ -53,10 +53,11 @@ public class ContainerChromaInfuser extends ContainerAU {
 		SlotInventory slotDye = new SlotInventory(tileEntity, TileEntityChromaInfuser.SLOT_DYE_INPUT, x_offset+5*18, y_offset+0*18+9){
 				@Override
 				public void onSlotChanged(){
-					this.inventory.onInventoryChanged();
 					TileEntityChromaInfuser te = (TileEntityChromaInfuser)this.inventory;
 					if(!te.worldObj.isRemote)
 						te.consumeDye();
+
+					te.markTileEntityModified();
 				}
 				@Override
 				public boolean isItemValid(ItemStack itemstack){
@@ -71,10 +72,11 @@ public class ContainerChromaInfuser extends ContainerAU {
 		SlotAU slotBucket = new SlotAU(tileEntity, TileEntityChromaInfuser.SLOT_WATER_BUCKET, x_offset+5*18, y_offset+4*18-9 -1, 1){ // limit 1 per stack
 				@Override
 				public void onSlotChanged(){
+					TileEntityChromaInfuser te = (TileEntityChromaInfuser)this.inventory;
+
 					ItemStack itemstack = this.getStack();
 					if(itemstack != null){
 						if(itemstack.itemID == MC_ITEM.bucketWater.itemID){
-							TileEntityChromaInfuser te = (TileEntityChromaInfuser)this.inventory;
 							if(!te.worldObj.isRemote)
 								te.resetWater(true);
 							// replace water bucket with empty bucket
@@ -85,7 +87,8 @@ public class ContainerChromaInfuser extends ContainerAU {
 //							this.putStack(null);
 						}
 					}
-					this.inventory.onInventoryChanged();
+
+					te.markTileEntityModified();
 				}
 				@Override
 				public boolean isItemValid(ItemStack itemstack){

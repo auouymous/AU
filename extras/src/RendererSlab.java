@@ -7,7 +7,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 
 import org.lwjgl.opengl.GL11;
@@ -37,7 +36,7 @@ public class RendererSlab implements ISimpleBlockRenderingHandler {
 			color = (new Color(colorMultiplier)).multiplier(cm).anaglyph();\
 			tessellator.setColorOpaque_F(color.r, color.g, color.b);
 
-		Icon icon = block.getBlockTexture(world, x, y, z, 0);
+		MC_ICON icon = block.getBlockTexture(world, x, y, z, 0);
 
 		renderer.setRenderBoundsFromBlock(block);
 		COLOR_MULTIPLIER(RenderUtils.colorTop)

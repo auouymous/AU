@@ -9,12 +9,14 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import com.qzx.au.core.BlockCoord;
+
 public class ItemBlockArtificialVine extends ItemBlock {
 	protected Block block;
 
 	public ItemBlockArtificialVine(int id){
 		super(id);
-		this.block = Block.blocksList[id + 256];
+		this.block = GET_BLOCK_BY_ID(id + 256);
 	}
 
 	@Override
@@ -26,7 +28,7 @@ public class ItemBlockArtificialVine extends ItemBlock {
 	@Override
 	public boolean placeBlockAt(ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata){
 		Block block = this.block;
-		if(world.getBlockId(x, y, z) == block.blockID){
+		if(BlockCoord.getBlock(world, x, y, z) == block){
 			// put multiple vines in same block
 			int current_metadata = world.getBlockMetadata(x, y, z);
 			if(current_metadata != (current_metadata | metadata))
@@ -37,7 +39,7 @@ public class ItemBlockArtificialVine extends ItemBlock {
 		if(!world.setBlock(x, y, z, block.blockID, metadata, 3))
 			return false;
 
-		if(world.getBlockId(x, y, z) == block.blockID){
+		if(BlockCoord.getBlock(world, x, y, z) == block){
 			block.onBlockPlacedBy(world, x, y, z, player, itemstack);
 			block.onPostBlockPlaced(world, x, y, z, metadata);
 		}

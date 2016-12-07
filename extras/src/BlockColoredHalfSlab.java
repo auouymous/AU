@@ -6,27 +6,25 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import net.minecraftforge.common.ForgeDirection;
+IMPORT_FORGE_DIRECTION
 
 import java.util.List;
 import java.util.Random;
 
 public class BlockColoredHalfSlab extends Block {
 	@SideOnly(Side.CLIENT)
-	private Icon[] blockIconTop;
+	private MC_ICON[] blockIconTop;
 	@SideOnly(Side.CLIENT)
-	private Icon[] blockIconSide;
+	private MC_ICON[] blockIconSide;
 
 	private final boolean useQuarterTexture;
 	private boolean isSmoothSlab;
@@ -117,10 +115,10 @@ public class BlockColoredHalfSlab extends Block {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
 		if(this.isDoubleSlab && !this.isSmoothSlab){
-			this.blockIconTop = new Icon[16];
-			this.blockIconSide = new Icon[16];
+			this.blockIconTop = new MC_ICON[16];
+			this.blockIconSide = new MC_ICON[16];
 			for(int c = 0; c < 16; c++){
 				this.blockIconTop[c] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+"-top"+c);
 				this.blockIconSide[c] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+"-side"+c);
@@ -130,7 +128,7 @@ public class BlockColoredHalfSlab extends Block {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int color){
+	public MC_ICON getIcon(int side, int color){
 		if(!this.isDoubleSlab)
 			return this.fullBlock.getIcon(side, color);
 		if(this.isSmoothSlab)

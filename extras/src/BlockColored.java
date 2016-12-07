@@ -6,19 +6,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.util.Icon;
 
 import java.util.List;
 
-import com.qzx.au.core.Color;
-
 public class BlockColored extends Block {
 	@SideOnly(Side.CLIENT)
-	private Icon[] blockIcons;
+	private MC_ICON[] blockIcons;
 
 	public BlockColored(int id, String name, Class<? extends ItemBlock> itemblockclass, Material material){
 		super(id, material);
@@ -31,15 +27,15 @@ public class BlockColored extends Block {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
-		this.blockIcons = new Icon[16];
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
+		this.blockIcons = new MC_ICON[16];
 		for(int c = 0; c < 16; c++)
 			this.blockIcons[c] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("tile.au.", "")+c);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int color){
+	public MC_ICON getIcon(int side, int color){
 		return this.blockIcons[color];
 	}
 

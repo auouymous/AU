@@ -25,11 +25,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-import net.minecraftforge.common.ForgeDirection;
-
 import java.util.List;
 import java.util.Random;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.PacketUtils;
 import com.qzx.au.core.RenderUtils;
 import com.qzx.au.core.TileEntityAU;
@@ -293,7 +292,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 			int limit = y + (Cfg.enderCubeDistance * delta);
 			if(limit < 1) limit = 1; else if(limit > 255) limit = 255;
 			for(; y != limit; y += delta){
-				if(this.worldObj.getBlockId(x, y, z) == THIS_MOD.blockEnderCube.blockID){
+				if(BlockCoord.getBlock(this.worldObj, x, y, z) == THIS_MOD.blockEnderCube){
 					direction_coord = y;
 					found_match = true;
 					break;
@@ -304,7 +303,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 			z += delta;
 			int limit = z + (Cfg.enderCubeDistance * delta);
 			for(; z != limit; z += delta){
-				if(this.worldObj.getBlockId(x, y, z) == THIS_MOD.blockEnderCube.blockID){
+				if(BlockCoord.getBlock(this.worldObj, x, y, z) == THIS_MOD.blockEnderCube){
 					direction_coord = z;
 					found_match = true;
 					break;
@@ -315,7 +314,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 			x += delta;
 			int limit = x + (Cfg.enderCubeDistance * delta);
 			for(; x != limit; x += delta){
-				if(this.worldObj.getBlockId(x, y, z) == THIS_MOD.blockEnderCube.blockID){
+				if(BlockCoord.getBlock(this.worldObj, x, y, z) == THIS_MOD.blockEnderCube){
 					direction_coord = x;
 					found_match = true;
 					break;
@@ -362,7 +361,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 			int limit = y + (Cfg.enderCubeDistance * delta);
 			if(limit < 0) limit = 0; else if(limit > 255) limit = 255;
 			for(; y != limit; y += delta){
-				if(this.worldObj.getBlockId(this.xCoord, y, this.zCoord) == THIS_MOD.blockEnderCube.blockID){
+				if(BlockCoord.getBlock(this.worldObj, this.xCoord, y, this.zCoord) == THIS_MOD.blockEnderCube){
 					if(!this.isObstructed(this.worldObj, this.xCoord, y, this.zCoord))
 						this._teleportEntity(this.worldObj, this.xCoord, y, this.zCoord, player, y, true);
 					break;
@@ -373,7 +372,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 			int z = this.zCoord + delta;
 			int limit = z + (Cfg.enderCubeDistance * delta);
 			for(; z != limit; z += delta){
-				if(this.worldObj.getBlockId(this.xCoord, this.yCoord, z) == THIS_MOD.blockEnderCube.blockID){
+				if(BlockCoord.getBlock(this.worldObj, this.xCoord, this.yCoord, z) == THIS_MOD.blockEnderCube){
 					if(!this.isObstructed(this.worldObj, this.xCoord, this.yCoord, z))
 						this._teleportEntity(this.worldObj, this.xCoord, this.yCoord, z, player, z, true);
 					break;
@@ -384,7 +383,7 @@ public class TileEntityEnderCube extends TileEntityAU {
 			int x = this.xCoord + delta;
 			int limit = x + (Cfg.enderCubeDistance * delta);
 			for(; x != limit; x += delta){
-				if(this.worldObj.getBlockId(x, this.yCoord, this.zCoord) == THIS_MOD.blockEnderCube.blockID){
+				if(BlockCoord.getBlock(this.worldObj, x, this.yCoord, this.zCoord) == THIS_MOD.blockEnderCube){
 					if(!this.isObstructed(this.worldObj, x, this.yCoord, this.zCoord))
 						this._teleportEntity(this.worldObj, x, this.yCoord, this.zCoord, player, x, true);
 					break;
@@ -409,9 +408,9 @@ public class TileEntityEnderCube extends TileEntityAU {
 
 	public boolean isObstructed(World world, int x, int y, int z){
 		if(world.isAirBlock(x, y+1, z) && world.isAirBlock(x, y+2, z)) return false; // 2 air blocks
-		Block block = Block.blocksList[world.getBlockId(x, y+1, z)];
+		Block block = BlockCoord.getBlock(world, x, y+1, z);
 		if(!this.checkBlockForObstructions(block)){
-			block = Block.blocksList[world.getBlockId(x, y+2, z)];
+			block = BlockCoord.getBlock(world, x, y+2, z);
 			return this.checkBlockForObstructions(block);
 		}
 		return true;

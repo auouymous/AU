@@ -3,12 +3,10 @@ package com.qzx.au.extras;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -17,7 +15,7 @@ import com.qzx.au.core.Color;
 
 public class ItemFlowerDye extends ItemDye {
 	@SideOnly(Side.CLIENT)
-	private Icon[] itemIcons;
+	private MC_ICON[] itemIcons;
 
 	public ItemFlowerDye(int id, String name){
 		super(id);
@@ -26,8 +24,8 @@ public class ItemFlowerDye extends ItemDye {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
-		this.itemIcons = new Icon[16];
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
+		this.itemIcons = new MC_ICON[16];
 		this.itemIcons[0] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("item.au.", "")+"0");
 		this.itemIcons[2] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("item.au.", "")+"2");
 		this.itemIcons[3] = iconRegister.registerIcon("au_extras:"+this.getUnlocalizedName().replace("item.au.", "")+"3");
@@ -37,7 +35,7 @@ public class ItemFlowerDye extends ItemDye {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIconFromDamage(int color){
+	public MC_ICON getIconFromDamage(int color){
 		return this.itemIcons[color];
 	}
 

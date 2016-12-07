@@ -7,13 +7,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -25,15 +23,15 @@ import com.qzx.au.core.TileEntityAU;
 
 public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 	@SideOnly(Side.CLIENT)
-	private Icon blockIcon_inner;
+	private MC_ICON blockIcon_inner;
 	@SideOnly(Side.CLIENT)
-	private Icon blockIcon_top;
+	private MC_ICON blockIcon_top;
 	@SideOnly(Side.CLIENT)
-	private Icon blockIcon_top_item; // non-transparent top icon for item rendering
+	private MC_ICON blockIcon_top_item; // non-transparent top icon for item rendering
 	@SideOnly(Side.CLIENT)
-	private Icon blockIcon_bottom;
+	private MC_ICON blockIcon_bottom;
 	@SideOnly(Side.CLIENT)
-	private Icon blockIcon_water;
+	private MC_ICON blockIcon_water;
 
 	public BlockChromaInfuser(int id, String name){
 		super(id, Material.iron);
@@ -45,7 +43,7 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
 		this.blockIcon_inner = iconRegister.registerIcon("au_extras:chromaInfuser_inner");
 		this.blockIcon_top = iconRegister.registerIcon("au_extras:chromaInfuser_top");
 		this.blockIcon_top_item = iconRegister.registerIcon("au_extras:chromaInfuser_top_item");
@@ -56,25 +54,25 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 
 	// called be renderer
 	@SideOnly(Side.CLIENT)
-	public static Icon getIconByName(String s){
+	public static MC_ICON getIconByName(String s){
 		return s == "inner" ? ((BlockChromaInfuser)THIS_MOD.blockChromaInfuser).blockIcon_inner
 			: (s == "bottom" ? ((BlockChromaInfuser)THIS_MOD.blockChromaInfuser).blockIcon_bottom : null);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int metadata){
+	public MC_ICON getIcon(int side, int metadata){
 		return side == 1 ? this.blockIcon_top_item : (side == 0 ? this.blockIcon_bottom : this.blockIcon);
 	}
 
 	@SideOnly(Side.CLIENT)
-	public static Icon getWaterIcon(){
+	public static MC_ICON getWaterIcon(){
 		return ((BlockChromaInfuser)THIS_MOD.blockChromaInfuser).blockIcon_water;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
+	public MC_ICON getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
 		return side == 1 ? this.blockIcon_top : (side == 0 ? this.blockIcon_bottom : this.blockIcon);
 	}
 
@@ -145,7 +143,7 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 	@Override
 	public void fillWithRain(World world, int x, int y, int z){
 		if(!world.isRemote){
-			TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+			TileEntity tileEntity = BlockCoord.getTileEntity(world, x, y, z);
 			if(tileEntity instanceof TileEntityChromaInfuser)
 				if(Cfg.rainResetsChromaInfuser || !((TileEntityChromaInfuser)tileEntity).getWater())
 					((TileEntityChromaInfuser)tileEntity).resetWater(true);
@@ -164,7 +162,7 @@ public class BlockChromaInfuser extends Block implements ITileEntityProvider {
 	public void breakBlock(World world, int x, int y, int z, int side, int metadata){
 		// don't double break block, only drop contents on server
 		if(!world.isRemote){
-			TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+			TileEntity tileEntity = BlockCoord.getTileEntity(world, x, y, z);
 			if(tileEntity != null)
 				((TileEntityAU)tileEntity).dropContents(world, x, y, z);
 		}

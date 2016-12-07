@@ -19,8 +19,8 @@ public class ModRecipes {
 
 		ItemStack cobblestone = new ItemStack(MC_BLOCK.cobblestone);
 		ItemStack stone = new ItemStack(MC_BLOCK.stone);
-		ItemStack stoneBrick = new ItemStack(MC_BLOCK.stoneBrick);
-		ItemStack chiseledBrick = new ItemStack(MC_BLOCK.stoneBrick, 1, 3);
+		ItemStack stoneBrick = new ItemStack(MC_BLOCK_STONEBRICK);
+		ItemStack chiseledBrick = new ItemStack(MC_BLOCK_STONEBRICK, 1, 3);
 		ItemStack gravel = new ItemStack(MC_BLOCK.gravel);
 		ItemStack sand = new ItemStack(MC_BLOCK.sand);
 		ItemStack grassBlock = new ItemStack(MC_BLOCK.grass);

@@ -6,11 +6,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGrass;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -53,13 +51,13 @@ public class BlockArtificialGrass extends BlockGrass {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
 		this.blockIcon = iconRegister.registerIcon("grass_top");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int shade){
+	public MC_ICON getIcon(int side, int shade){
 		return this.blockIcon;
 	}
 
@@ -80,7 +78,7 @@ public class BlockArtificialGrass extends BlockGrass {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
+	public MC_ICON getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
 		return this.blockIcon;
 	}
 

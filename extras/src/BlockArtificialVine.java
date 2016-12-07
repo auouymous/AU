@@ -6,10 +6,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockVine;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -53,13 +51,13 @@ public class BlockArtificialVine extends BlockVine {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IconRegister iconRegister){
+	public void registerIcons(MC_ICON_REGISTER iconRegister){
 		this.blockIcon = iconRegister.registerIcon("vine");
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getIcon(int side, int metadata){
+	public MC_ICON getIcon(int side, int metadata){
 		return this.blockIcon;
 	}
 
@@ -79,7 +77,7 @@ public class BlockArtificialVine extends BlockVine {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Icon getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
+	public MC_ICON getBlockTexture(IBlockAccess access, int x, int y, int z, int side){
 		return this.blockIcon;
 	}
 

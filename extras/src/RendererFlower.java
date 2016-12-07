@@ -8,9 +8,9 @@ IMPORT_BLOCKS
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.src.FMLRenderAccessLibrary;
-import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.Color;
 import com.qzx.au.core.RenderUtils;
 
@@ -30,7 +30,7 @@ public class RendererFlower implements ISimpleBlockRenderingHandler {
 		Color color = (new Color(block.colorMultiplier(world, x, y, z))).anaglyph();
 		tessellator.setColorOpaque_F(color.r, color.g, color.b);
 
-		Icon icon = block.getIcon(0, world.getBlockMetadata(x, y, z));
+		MC_ICON icon = block.getIcon(0, world.getBlockMetadata(x, y, z));
 		double minU = icon.getMinU();
 		double minV = icon.getMinV();
 		double maxU = icon.getMaxU();
@@ -43,8 +43,8 @@ public class RendererFlower implements ISimpleBlockRenderingHandler {
 		double z1 = (double)z + 0.05F;
 		double z2 = (double)z + 0.95F;
 
-		int below = world.getBlockId(x, y - 1, z);
-		if(below == MC_BLOCK.tilledField.blockID){
+		Block below = BlockCoord.getBlock(world, x, y - 1, z);
+		if(below == MC_BLOCK.tilledField){
 			y1 -= BlockFlowerSeed.y_offset;
 			y2 -= BlockFlowerSeed.y_offset;
 		}

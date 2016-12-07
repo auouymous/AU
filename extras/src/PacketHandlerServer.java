@@ -10,6 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 
 import java.io.DataInputStream;
 
+import com.qzx.au.core.BlockCoord;
 import com.qzx.au.core.PacketUtils;
 
 public class PacketHandlerServer implements IPacketHandler {
@@ -24,7 +25,7 @@ public class PacketHandlerServer implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
 			if(values == null){ Debug.error("SERVER: Invalid recipe button packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityChromaInfuser)
 				((TileEntityChromaInfuser)te).setRecipeButton(ChromaButton.values()[(Byte)values[3]], true);
 		} else if(id == Packets.SERVER_CHROMA_SET_LOCK){
@@ -32,7 +33,7 @@ public class PacketHandlerServer implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Boolean.class);
 			if(values == null){ Debug.error("SERVER: Invalid locked button packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityChromaInfuser)
 				((TileEntityChromaInfuser)te).setLocked(!(Boolean)values[3], true);
 		} else if(id == Packets.SERVER_ENDER_PLAYER_MOVEMENT){
@@ -40,7 +41,7 @@ public class PacketHandlerServer implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
 			if(values == null){ Debug.error("SERVER: Invalid player movement packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube)
 				((TileEntityEnderCube)te).teleportPlayer((EntityPlayer)player, ((Byte)values[3] == 1));
 		} else if(id == Packets.SERVER_ENDER_SET_BUTTON){
@@ -48,7 +49,7 @@ public class PacketHandlerServer implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
 			if(values == null){ Debug.error("SERVER: Invalid ender cube button packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube){
 				EnderButton button = EnderButton.values()[(Byte)values[3]];
 				switch(button){
@@ -81,7 +82,7 @@ public class PacketHandlerServer implements IPacketHandler {
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, String.class);
 			if(values == null){ Debug.error("SERVER: Invalid player control whitelist packet"); return; }
 
-			TileEntity te = ((EntityPlayer)player).worldObj.getBlockTileEntity((Integer)values[0], (Integer)values[1], (Integer)values[2]);
+			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityEnderCube)
 				((TileEntityEnderCube)te).setPlayerControlWhitelist((String)values[3], true);
 		}
