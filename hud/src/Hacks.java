@@ -41,7 +41,7 @@ public class Hacks {
 						#elif defined MC172
 						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("T");
 						#elif defined MC17A
-						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("V");
+						Hacks.gamePausedFieldInstance = Minecraft.class.getDeclaredField("T");
 						#else
 						Failure.log("hacks, unsupported minecraft version in getGamePausedField");
 						return null;
