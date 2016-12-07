@@ -3,6 +3,7 @@ package com.qzx.au.hud;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.lang.reflect.Field;
@@ -153,4 +154,52 @@ public class Hacks {
 		}
 		return Hacks.cameraZoomFieldInstance;
 	}
+
+	//////////
+
+	public static int getEntityID(Entity entity){
+		#if defined MC147 || defined MC152 || defined MC164
+		return entity.entityId;
+		#else
+		Field entityID = Hacks.getEntityIDField();
+		try {
+			return (Integer)entityID.get(entity);
+		} catch(IllegalAccessException e){
+			Failure.log("hacks, getEntityID");
+			return 0;
+		}
+		#endif
+	}
+
+	#if !defined MC147 && !defined MC152 && !defined MC164
+	private static Field entityIDFieldInstance = null;
+	private static Field getEntityIDField(){
+		if(Hacks.entityIDFieldInstance == null){
+			try {
+				Hacks.entityIDFieldInstance = Entity.class.getDeclaredField("entityId");
+				Hacks.entityIDFieldInstance.setAccessible(true);
+			} catch(NoSuchFieldException e){
+				try {
+					Hacks.entityIDFieldInstance = Entity.class.getDeclaredField("field_145783_c");
+					Hacks.entityIDFieldInstance.setAccessible(true);
+				} catch(NoSuchFieldException e1){
+					try {
+						#ifdef MC172
+						Hacks.entityIDFieldInstance = Minecraft.class.getDeclaredField("c");
+						#elif defined MC17A
+						Hacks.entityIDFieldInstance = Minecraft.class.getDeclaredField("c");
+						#else
+						Failure.log("hacks, unsupported minecraft version in getEntityIDField");
+						return null;
+						#endif
+						Hacks.entityIDFieldInstance.setAccessible(true);
+					} catch(NoSuchFieldException e2){
+						Failure.log("hacks, getEntityIDField");
+					}
+				}
+			}
+		}
+		return Hacks.entityIDFieldInstance;
+	}
+	#endif
 }

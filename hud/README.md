@@ -31,7 +31,7 @@ Info HUD elements
 * name of targeted block or entity (displays item frame contents)
 
 Entity Inspector
-* entity ID (e:entityID(currently not available for 1.7+), i:itemFrameID)
+* entity ID (e:entityID, i:itemFrameID)
 * max health (pre-1.6), health/max_health (1.6+)
 * armor value
 * is invulnerable

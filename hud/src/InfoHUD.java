@@ -470,12 +470,7 @@ public class InfoHUD {
 								this.ui.drawString(" (", 0xaaaaaa);
 								if(mc.objectMouseOver.entityHit instanceof EntityItemFrame)
 									this.ui.drawString("e:", 0xaaaaaa);
-								#if defined MC147 || defined MC152 || defined MC164
-								this.ui.drawString(String.format("%d", mc.objectMouseOver.entityHit.entityId), 0xffffff);
-								#else
-// TODO: at.cfg isn't working, entityId throws IllegalAccessError
-								this.ui.drawString("?", 0xffffff);
-								#endif
+								this.ui.drawString(String.format("%d", Hacks.getEntityID(mc.objectMouseOver.entityHit)), 0xffffff);
 								if(mc.objectMouseOver.entityHit instanceof EntityItemFrame){
 									this.ui.drawString(" i:", 0xaaaaaa);
 									this.ui.drawString(String.format("%d", GET_ITEM_ID(MC_ITEM_ITEMFRAME)), 0xffffff);
