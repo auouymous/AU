@@ -200,18 +200,23 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 				if(itemstack.stackSize == 0) this.slotContents[TileEntityChromaInfuser.SLOT_DYE_INPUT] = null;
 
 				PacketUtils.sendToAllAround(this.worldObj, PacketUtils.MAX_RANGE, THIS_MOD.packetChannel, Packets.CLIENT_CHROMA_SET_COLOR,
-											this.xCoord, this.yCoord, this.zCoord, (byte)color);
+											this.xCoord, this.yCoord, this.zCoord, (byte)color, (byte)(itemstack != null ? itemstack.stackSize : 0));
 				this.markChunkModified();
 			}
 		}
 
 		this.updateInput(this.getInput());
 	}
-	public void setDyeColor(byte color){
+	public void setDyeColor(byte color, byte stackSize){
 		// client
 		this.dyeVolume = 8;
 		this.dyeColor = color;
 		this.outputTick = 0;
+
+		if(stackSize == 0)
+			this.slotContents[TileEntityChromaInfuser.SLOT_DYE_INPUT] = null;
+		else if(this.slotContents[TileEntityChromaInfuser.SLOT_DYE_INPUT] != null)
+			this.slotContents[TileEntityChromaInfuser.SLOT_DYE_INPUT].stackSize = stackSize;
 
 		this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
 	}

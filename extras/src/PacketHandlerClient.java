@@ -48,13 +48,13 @@ public class PacketHandlerClient implements IPacketHandler {
 			if(te instanceof TileEntityChromaInfuser)
 				((TileEntityChromaInfuser)te).resetWater(false);
 		} else if(id == Packets.CLIENT_CHROMA_SET_COLOR){
-			// set chroma color
-			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
+			// set chroma color and dye quantity
+			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class, Byte.class);
 			if(values == null){ Debug.error("CLIENT: Invalid chroma color packet"); return; }
 
 			TileEntity te = BlockCoord.getTileEntity(((EntityPlayer)player).worldObj, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 			if(te instanceof TileEntityChromaInfuser)
-				((TileEntityChromaInfuser)te).setDyeColor((Byte)values[3]);
+				((TileEntityChromaInfuser)te).setDyeColor((Byte)values[3], (Byte)values[4]);
 		} else if(id == Packets.CLIENT_CHROMA_UPDATE_OUTPUT){
 			// update chroma output
 			Object[] values = PacketUtils.getPacketData(data, Integer.class, Integer.class, Integer.class, Byte.class);
