@@ -258,6 +258,10 @@ public class TileEntityChromaInfuser extends TileEntityAU {
 	public void updateOutput(byte dyeVolume){
 		// client
 		this.dyeVolume = dyeVolume;
+		if(dyeVolume == 0){
+			// unset color
+			this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+		}
 		this.updateInput(this.getInput());
 
 // TODO: display input item and/or particle effect on top of block?
