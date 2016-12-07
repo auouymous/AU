@@ -389,9 +389,13 @@ public abstract class TileEntityAU extends TileEntity implements ISidedInventory
 // TODO: set maxStackSize per slot
 		int maxStackSize = 64;
 
+		if(itemstack != null){
+			if(itemstack.stackSize == 0)
+				itemstack = null;
+			else if(itemstack.stackSize > maxStackSize)
+				itemstack.stackSize = maxStackSize;
+		}
 		this.slotContents[slotIndex] = itemstack;
-		if(itemstack != null && itemstack.stackSize > maxStackSize)
-			itemstack.stackSize = maxStackSize;
 		this.markTileEntityModified();
 	}
 
