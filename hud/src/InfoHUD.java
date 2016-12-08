@@ -998,7 +998,7 @@ public class InfoHUD {
 		// SELF: experience inspector
 		try {
 			if(Cfg.show_inspector && !player.capabilities.isCreativeMode){
-				this.ui.setCursor(screen.getScaledWidth()/2, screen.getScaledHeight() - 27);
+				this.ui.setCursor(screen.getScaledWidth()/2, screen.getScaledHeight() - 30);
 				this.ui.drawString(UI.ALIGN_CENTER,
 									String.format("%d / %d", player.experienceTotal, player.experienceTotal + (int)((1.0F - player.experience) * player.xpBarCap())),
 									0xffffff, 0);
