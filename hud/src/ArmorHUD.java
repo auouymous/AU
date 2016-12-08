@@ -193,7 +193,7 @@ public class ArmorHUD {
 				int height = screen.getScaledHeight();
 				int icon_size = this.ui.unscaleValue(16);
 				int gap = this.ui.unscaleValue(2);
-				int x = ((Cfg.armor_hud_corner&1) == 0 ? Cfg.armor_hud_x + icon_size + gap :  width-Cfg.armor_hud_x - icon_size - gap); // left : right
+				int x = ((Cfg.armor_hud_corner&1) == 0 ? Cfg.armor_hud_x + icon_size + gap : width-Cfg.armor_hud_x - icon_size - gap); // left : right
 				int y = ((Cfg.armor_hud_corner&2) == 0 ? Cfg.armor_hud_y : height-Cfg.armor_hud_y - 5*icon_size); // top : bottom
 				this.text_align = ((Cfg.armor_hud_corner&1) == 0 ? UI.ALIGN_LEFT : UI.ALIGN_RIGHT);
 				this.icon_offset = ((Cfg.armor_hud_corner&1) == 0 ? -(16+2) : 2); // left : right (icon size and gap)
