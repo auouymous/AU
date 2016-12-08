@@ -1,3 +1,4 @@
+	- moved failure message up to the experience bar to prevent blocks in hotbar from obscuring it
 	- changed entity health bar green color from 50-100 to 66-100 and red color from 0-25 to 0-33
 	- fixed Tinkers Construct itemName length issue with vajra in armor HUD
 	- fixed entity health bar when health exceeds max health

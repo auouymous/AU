@@ -20,7 +20,7 @@ public class Failure {
 	public static void show(ScaledResolution screen){
 		if(Failure.count == 0) return;
 
-		Failure.ui.setCursor(screen.getScaledWidth()/2, screen.getScaledHeight()-10);
-		Failure.ui.drawString(UI.ALIGN_CENTER, String.format("%d HUD failure%s, check logs", Failure.count, (Failure.count > 1 ? "s" : "")), 0xff6666, 0);
+		Failure.ui.setCursor(screen.getScaledWidth()/2, screen.getScaledHeight()-30);
+		Failure.ui.drawString(UI.ALIGN_CENTER, String.format("%d HUD failure%s - check logs", Failure.count, (Failure.count > 1 ? "s" : "")), 0xff6666, 0);
 	}
 }
