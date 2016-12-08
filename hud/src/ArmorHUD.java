@@ -45,7 +45,7 @@ public class ArmorHUD {
 					#ifdef MC147
 					return (int)Math.round((float)max_durability * (float)(itemstack.getMaxDamage()-itemstack.getItemDamage())/26.0F);
 					#else
-					return ElectricItem.manager.getCharge(itemstack);
+					return (int)ElectricItem.manager.getCharge(itemstack);
 					#endif
 			#endif
 			return max_durability - itemstack.getItemDamage();
@@ -65,7 +65,7 @@ public class ArmorHUD {
 					#ifdef MC147
 					return ((IElectricItem)item).getMaxCharge();
 					#else
-					return ((IElectricItem)item).getMaxCharge(itemstack);
+					return (int)((IElectricItem)item).getMaxCharge(itemstack);
 					#endif
 			#endif
 			return itemstack.getMaxDamage();
