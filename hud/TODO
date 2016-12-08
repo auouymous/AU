@@ -1,4 +1,8 @@
-- BUG: keys don't save in 1.7.2 but do save in 1.7.10
+- BUG: keys don't save in 1.7.2 but do save in 1.7.10, might be an issue with forge-1024
+
+- hide inspector when options are open?
+
+- have Failure.log() take an Exception and call e.printStackTrace()
 
 - use scroll wheel to adjust zoom while key is pressed? 2x-10x, always default to 5x?
 
@@ -46,6 +50,7 @@ INFO HUD
 
 	- display list of recent items picked up (as small icons), remove items from list after 15(?) seconds
 		- option to prevent cobble, dirt or gravel from entering player's inventory
+		- EntityItemPickupEvent
 
 	- add server side support
 		- add API for other mods to publish info elements
