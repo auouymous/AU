@@ -68,9 +68,9 @@ public class ModRecipes {
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredStoneHalfSlabs, coloredStoneHalfSlabs);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredStoneHalfSlab, coloredStoneHalfSlab);
 			// SMELT <colored> stone slabs -> stone slabs
-			GameRegistry.addSmelting(coloredStoneHalfSlabsSmooth.itemID, stoneSmoothSlab, 1.0f);
-			GameRegistry.addSmelting(coloredStoneHalfSlabs.itemID, stoneDoubleSlab, 1.0f);
-			GameRegistry.addSmelting(coloredStoneHalfSlab.itemID, stoneSingleSlab, 1.0f);
+			GameRegistry.addSmelting(coloredStoneHalfSlabsSmooth.itemID, stoneSmoothSlab, 1.0F);
+			GameRegistry.addSmelting(coloredStoneHalfSlabs.itemID, stoneDoubleSlab, 1.0F);
+			GameRegistry.addSmelting(coloredStoneHalfSlab.itemID, stoneSingleSlab, 1.0F);
 
 			for(int c = 0; c < 16; c++){
 				// CRAFT 4 <colored> stone half slabs -> 2 <colored> stone smooth slabs
@@ -94,7 +94,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, cobblestone, coloredCobble);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredCobble, coloredCobble);
 			// SMELT <colored> cobble -> cobblestone
-			GameRegistry.addSmelting(coloredCobble.itemID, cobblestone, 1.0f);
+			GameRegistry.addSmelting(coloredCobble.itemID, cobblestone, 1.0F);
 
 			// stairs
 			if(Cfg.enableCobbleStairs)
@@ -120,7 +120,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, stone, coloredStone);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredStone, coloredStone);
 			// SMELT <colored> stone -> stone
-			GameRegistry.addSmelting(coloredStone.itemID, stone, 1.0f);
+			GameRegistry.addSmelting(coloredStone.itemID, stone, 1.0F);
 
 			// stairs
 			if(Cfg.enableStoneStairs)
@@ -146,7 +146,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, stoneBrick, coloredStoneBrick);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredStoneBrick, coloredStoneBrick);
 			// SMELT <colored> stoneBrick -> stoneBrick
-			GameRegistry.addSmelting(coloredStoneBrick.itemID, stoneBrick, 1.0f);
+			GameRegistry.addSmelting(coloredStoneBrick.itemID, stoneBrick, 1.0F);
 
 			// stairs
 			if(Cfg.enableStoneBrickStairs)
@@ -173,7 +173,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, chiseledBrick, coloredChiseledBrick);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE_DOT, coloredChiseledBrick, coloredChiseledBrick);
 			// SMELT <colored> chiseledBrick -> chiseledBrick
-			GameRegistry.addSmelting(coloredChiseledBrick.itemID, chiseledBrick, 1.0f);
+			GameRegistry.addSmelting(coloredChiseledBrick.itemID, chiseledBrick, 1.0F);
 
 			// no stairs -- texture doesn't align correctly
 
@@ -194,7 +194,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, stone, coloredSmoothBrick);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredSmoothBrick, coloredSmoothBrick);
 			// SMELT <colored> smoothBrick -> stone
-			GameRegistry.addSmelting(coloredSmoothBrick.itemID, stone, 1.0f);
+			GameRegistry.addSmelting(coloredSmoothBrick.itemID, stone, 1.0F);
 
 			// stairs
 			if(Cfg.enableSmoothBrickStairs)
@@ -242,7 +242,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, gravel, coloredGravel);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredGravel, coloredGravel);
 			// SMELT <colored> gravel -> gravel
-			GameRegistry.addSmelting(coloredGravel.itemID, gravel, 1.0f);
+			GameRegistry.addSmelting(coloredGravel.itemID, gravel, 1.0F);
 
 			// no stairs -- texture doesn't align correctly
 			// slabs
@@ -262,7 +262,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, sand, coloredSand);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredSand, coloredSand);
 			// SMELT <colored> sand -> sand
-			GameRegistry.addSmelting(coloredSand.itemID, sand, 1.0f);
+			GameRegistry.addSmelting(coloredSand.itemID, sand, 1.0F);
 
 			// stairs
 			if(Cfg.enableSandStairs)
@@ -328,7 +328,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, glass, coloredGlass);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredGlass, coloredGlass);
 			// SMELT <colored> glass -> glass
-			GameRegistry.addSmelting(coloredGlass.itemID, glass, 1.0f);
+			GameRegistry.addSmelting(coloredGlass.itemID, glass, 1.0F);
 		}
 
 		if(Cfg.enableGlassTinted){
@@ -338,7 +338,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, glass, coloredGlassTinted);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE_DOT, coloredGlassTinted, coloredGlassTinted);
 			// SMELT <colored tinted> glass -> glass
-			GameRegistry.addSmelting(coloredGlassTinted.itemID, glass, 1.0f);
+			GameRegistry.addSmelting(coloredGlassTinted.itemID, glass, 1.0F);
 		}
 
 		if(Cfg.enableGlassTintedNoFrame){
@@ -348,7 +348,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, glass, coloredGlassTintedNoFrame);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_DOT, coloredGlassTintedNoFrame, coloredGlassTintedNoFrame);
 			// SMELT <tinted frameless> glass -> glass
-			GameRegistry.addSmelting(coloredGlassTintedNoFrame.itemID, glass, 1.0f);
+			GameRegistry.addSmelting(coloredGlassTintedNoFrame.itemID, glass, 1.0F);
 		}
 
 		//////////
@@ -360,7 +360,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, glassPane, coloredGlassPane);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredGlassPane, coloredGlassPane);
 			// SMELT <colored> glass pane -> glass pane
-			GameRegistry.addSmelting(coloredGlassPane.itemID, glassPane, 1.0f);
+			GameRegistry.addSmelting(coloredGlassPane.itemID, glassPane, 1.0F);
 
 			// CRAFT 6 <colored> glass -> 16 <colored> glass panes
 			for(int c = 0; c < 16; c++)
@@ -374,7 +374,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE_DOT, glassPane, coloredGlassPaneTinted);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE_DOT, coloredGlassPaneTinted, coloredGlassPaneTinted);
 			// SMELT <colored tinted> glass pane -> glass pane
-			GameRegistry.addSmelting(coloredGlassPaneTinted.itemID, glassPane, 1.0f);
+			GameRegistry.addSmelting(coloredGlassPaneTinted.itemID, glassPane, 1.0F);
 
 			// CRAFT 6 <colored> glass -> 16 <colored> glass panes
 			for(int c = 0; c < 16; c++)
@@ -388,7 +388,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_DOT, glassPane, coloredGlassPaneTintedNoFrame);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_DOT, coloredGlassPaneTintedNoFrame, coloredGlassPaneTintedNoFrame);
 			// SMELT <tinted frameless> glass pane -> glass pane
-			GameRegistry.addSmelting(coloredGlassPaneTintedNoFrame.itemID, glassPane, 1.0f);
+			GameRegistry.addSmelting(coloredGlassPaneTintedNoFrame.itemID, glassPane, 1.0F);
 
 			// CRAFT 6 <colored> glass -> 16 <colored> glass panes
 			for(int c = 0; c < 16; c++)
@@ -446,7 +446,7 @@ public class ModRecipes {
 			ChromaRegistry.addRecipe(ChromaButton.BUTTON_SQUARE, ironBars, coloredIronBars);
 			ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_SQUARE, coloredIronBars, coloredIronBars);
 			// SMELT <colored> iron bars -> iron bars
-			GameRegistry.addSmelting(coloredIronBars.itemID, ironBars, 1.0f);
+			GameRegistry.addSmelting(coloredIronBars.itemID, ironBars, 1.0F);
 		}
 
 		//////////
@@ -612,7 +612,7 @@ public class ModRecipes {
 
 		// SMELT egg -> fried egg
 		if(Cfg.enableFriedEgg){
-			GameRegistry.addSmelting(MC_ITEM.egg.itemID, new ItemStack(THIS_MOD.itemFriedEgg), 1.0f);
+			GameRegistry.addSmelting(MC_ITEM.egg.itemID, new ItemStack(THIS_MOD.itemFriedEgg), 1.0F);
 		}
 
 		//////////
@@ -620,7 +620,7 @@ public class ModRecipes {
 		// SMELT rotten flesh -> cooked flesh
 		if(Cfg.enableCookedFlesh){
 			ItemStack cookedFlesh = new ItemStack(THIS_MOD.itemCookedFlesh);
-			GameRegistry.addSmelting(MC_ITEM.rottenFlesh.itemID, cookedFlesh, 1.0f);
+			GameRegistry.addSmelting(MC_ITEM.rottenFlesh.itemID, cookedFlesh, 1.0F);
 
 			// CRAFT cooked flesh -> leather
 			if(Cfg.enableCookedFleshToLeather){
