@@ -55,6 +55,10 @@ public class Cfg extends Config {
 	public static boolean enableEnderCube;
 	public static int enderCubeDistance;
 
+	public static boolean enablePlanks;
+		public static boolean enablePlankStairs;
+		public static boolean enablePlankSlabs;
+
 	// ENABLE ITEMS
 	public static boolean enableFriedEgg;
 
@@ -146,6 +150,11 @@ public class Cfg extends Config {
 
 	public static int blockEnderCube;
 
+	public static int[] blockPlank = new int[3];
+		public static int[] blockPlankStairs = new int[3]; // first of 16
+		public static int[] blockPlankSlab0 = new int[3];
+		public static int[] blockPlankSlab1 = new int[3];
+
 	// ITEMS
 	public static int itemFriedEgg;
 
@@ -222,6 +231,10 @@ public class Cfg extends Config {
 
 		Cfg.enableEnderCube = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "block.enderCube.enable", true, "enable ender cube (uses 1 block ID)");
 		Cfg.enderCubeDistance = Cfg.instance.getInt(Cfg.CATEGORY_GENERAL, "block.enderCube.distance", 16, "maximum distance between ender cubes");
+
+		Cfg.enablePlanks = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.plank.enable", true, "enable colored planks (uses 3 block IDs)");
+			Cfg.enablePlankStairs = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.plank.stairs.enable", true, "enable colored plank stairs (uses 48 block IDs)");
+			Cfg.enablePlankSlabs = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "block.colored.plank.slabs.enable", true, "enable colored plank slabs (uses 6 block IDs)");
 
 		// ENABLE ITEMS
 		Cfg.enableFriedEgg = Cfg.instance.getBoolean(Cfg.CATEGORY_GENERAL, "item.friedEgg.enable", true, "enable smelting eggs to edible food");
@@ -322,6 +335,19 @@ public class Cfg extends Config {
 		GET_BLOCK(Cfg.blockFlowerSeed, "block.colored.flowerSeed.id", 1, null)
 
 		GET_BLOCK(Cfg.blockEnderCube, "block.enderCube.id", 1, null)
+
+		GET_BLOCK(Cfg.blockPlank[0], "block.colored.plank0.id", 1, null)
+			GET_BLOCK(Cfg.blockPlankStairs[0], "block.colored.plank0.stairs.id", 16, "First of 16 IDs for these stairs")
+			GET_BLOCK(Cfg.blockPlankSlab0[0], "block.colored.plank0.slabs0.id", 1, null)
+			GET_BLOCK(Cfg.blockPlankSlab1[0], "block.colored.plank0.slabs1.id", 1, null)
+		GET_BLOCK(Cfg.blockPlank[1], "block.colored.plank1.id", 1, null)
+			GET_BLOCK(Cfg.blockPlankStairs[1], "block.colored.plank1.stairs.id", 16, "First of 16 IDs for these stairs")
+			GET_BLOCK(Cfg.blockPlankSlab0[1], "block.colored.plank1.slabs0.id", 1, null)
+			GET_BLOCK(Cfg.blockPlankSlab1[1], "block.colored.plank1.slabs1.id", 1, null)
+		GET_BLOCK(Cfg.blockPlank[2], "block.colored.plank2.id", 1, null)
+			GET_BLOCK(Cfg.blockPlankStairs[2], "block.colored.plank2.stairs.id", 16, "First of 16 IDs for these stairs")
+			GET_BLOCK(Cfg.blockPlankSlab0[2], "block.colored.plank2.slabs0.id", 1, null)
+			GET_BLOCK(Cfg.blockPlankSlab1[2], "block.colored.plank2.slabs1.id", 1, null)
 
 		// ITEM IDs
 		#define GET_ITEM(cfg, name, ids, comment) cfg = Cfg.instance.getItem(name, startItemID, comment); startItemID += ids;

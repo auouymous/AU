@@ -20,6 +20,11 @@ public class MicroblocksBuildcraft {
 //			if(Cfg.enableGlass) REGISTER_FACADE(THIS_MOD.blockGlass.blockID, c); // doesn't look good, no transparency
 //			if(Cfg.enableGlassTinted) REGISTER_FACADE(THIS_MOD.blockGlassTinted.blockID, c); // doesn't look good, no transparency
 //			if(Cfg.enableGlassTintedNoFrame) REGISTER_FACADE(THIS_MOD.blockGlassTintedNoFrame.blockID, c); // no transparency
+			if(Cfg.enablePlanks){
+				REGISTER_FACADE(THIS_MOD.blockPlank[0].blockID, c);
+				REGISTER_FACADE(THIS_MOD.blockPlank[1].blockID, c);
+				REGISTER_FACADE(THIS_MOD.blockPlank[2].blockID, c);
+			}
 		}
 
 		if(Cfg.enableEnderCube) REGISTER_FACADE(THIS_MOD.blockEnderCube.blockID, 0);

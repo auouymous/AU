@@ -36,6 +36,10 @@ public class ModRecipes {
 		ItemStack[] dyes = new ItemStack[16];
 		for(int c = 0; c < 16; c++)
 			dyes[c] = new ItemStack(MC_ITEM.dyePowder, 1, c);
+		ItemStack[] planks = new ItemStack[3];
+			planks[0] = new ItemStack(MC_BLOCK.planks, 1, 2);	// birch
+			planks[1] = new ItemStack(MC_BLOCK.planks);			// oak
+			planks[2] = new ItemStack(MC_BLOCK.planks, 1, 1);	// spruce
 
 		//////////
 
@@ -567,6 +571,38 @@ public class ModRecipes {
 
 						// CRAFT 4 ender stars + 3 ender magnet + 2 diamonds -> ender xt
 						GameRegistry.addRecipe(enderXT, "sds", "mdm", "sms", 's', enderStar, 'm', enderMagnet, 'd', diamond);
+					}
+				}
+			}
+		}
+
+		//////////
+
+		if(Cfg.enablePlanks){
+			for(int i = 0; i < 3; i++){
+				ItemStack coloredPlank = new ItemStack(THIS_MOD.blockPlank[i]);
+
+				// CHROMA INFUSER recipes
+				ChromaRegistry.addRecipe(ChromaButton.BUTTON_BLANK, planks[i], coloredPlank);
+				ChromaRegistry.addRecipeColored(ChromaButton.BUTTON_BLANK, coloredPlank, coloredPlank);
+				// SMELT <colored> plank* -> plank*
+				GameRegistry.addSmelting(coloredPlank.itemID, planks[i], 1.0F);
+
+				// stairs
+				if(Cfg.enablePlankStairs){
+					int ii = (i<<4);
+					for(int c = 0; c < 16; c++){
+						GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockPlankStairs[ii+c], 4), "b  ", "bb ", "bbb", 'b', new ItemStack(THIS_MOD.blockPlank[i], 1, c));
+						GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockPlank[i], 3, c), "s", "s", 's', new ItemStack(THIS_MOD.blockPlankStairs[ii+c], 1));
+					}
+				}
+
+				// slabs
+				if(Cfg.enablePlankSlabs){
+					int ii = (i<<1);
+					for(int c = 0; c < 16; c++){
+						GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockPlankSlab[ii+0], 6, c), "bbb", 'b', new ItemStack(THIS_MOD.blockPlank[i], 1, c));
+						GameRegistry.addRecipe(new ItemStack(THIS_MOD.blockPlank[i], 1, c), "s", "s", 's', new ItemStack(THIS_MOD.blockPlankSlab[ii+0], 1, c));
 					}
 				}
 			}

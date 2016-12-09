@@ -85,6 +85,10 @@ public class THIS_MOD {
 
 	public static Block blockEnderCube;
 
+	public static Block[] blockPlank = new BlockColored[3];
+		public static Block[] blockPlankStairs = new BlockStairsColored[48];
+		public static Block[] blockPlankSlab = new BlockColoredSlab[6];
+
 	// ITEMS
 	public static Item itemFriedEgg;
 

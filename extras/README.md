@@ -143,6 +143,15 @@ Recipes
 * CRAFT 2 [colored] sand slabs TO 1 [colored] sand
 * [colored] sand: multipart and facade support
 * 
+* CHROMA INFUSER birch/oak/spruce planks TO [colored] birch/oak/spruce planks (blank: 8 per dye)
+* CHROMA INFUSER [colored] birch/oak/spruce planks TO [colored] birch/oak/spruce planks (blank: 8 per dye)
+* SMELT [colored] birch/oak/spruce planks TO birch/oak/spruce planks
+* CRAFT 6 [colored] birch/oak/spruce planks TO 4 [colored] birch/oak/spruce stairs
+* CRAFT 2 [colored] birch/oak/spruce stairs TO 3 [colored] birch/oak/spruce planks
+* CRAFT 3 [colored] birch/oak/spruce planks TO 6 [colored] birch/oak/spruce slabs
+* CRAFT 2 [colored] birch/oak/spruce slabs TO 1 [colored] birch/oak/spruce planks
+* [colored] birch/oak/spruce planks: multipart and facade support
+* 
 * 
 * CHROMA INFUSER grass block TO [shaded] artificial grass (blank: 8 per dye)
 * CHROMA INFUSER [shaded] artificial grass TO [shaded] artificial grass (blank: 8 per dye)

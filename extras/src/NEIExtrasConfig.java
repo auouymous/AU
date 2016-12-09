@@ -27,6 +27,11 @@ public class NEIExtrasConfig implements IConfigureNEI {
 			if(Cfg.enableGravel && Cfg.enableGravelSlabs) API.hideItem(Cfg.blockGravelSlab1);
 			if(Cfg.enableSand && Cfg.enableSandSlabs) API.hideItem(Cfg.blockSandSlab1);
 			if(Cfg.enableArtificialGrass && Cfg.enableArtificialGrassSlabs) API.hideItem(Cfg.blockArtificialGrassSlab1);
+			if(Cfg.enablePlanks && Cfg.enablePlankSlabs){
+				API.hideItem(Cfg.blockPlankSlab1[0]);
+				API.hideItem(Cfg.blockPlankSlab1[1]);
+				API.hideItem(Cfg.blockPlankSlab1[2]);
+			}
 
 			// hide vanilla comparators
 			API.hideItem(MC_BLOCK.redstoneComparatorIdle.blockID);

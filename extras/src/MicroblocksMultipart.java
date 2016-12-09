@@ -20,6 +20,11 @@ public class MicroblocksMultipart {
 //			if(Cfg.enableGlass) BlockMicroMaterial.createAndRegister(THIS_MOD.blockGlass, c); // doesn't look good
 //			if(Cfg.enableGlassTinted) BlockMicroMaterial.createAndRegister(THIS_MOD.blockGlassTinted, c); // doesn't look good
 			if(Cfg.enableGlassTintedNoFrame) BlockMicroMaterial.createAndRegister(THIS_MOD.blockGlassTintedNoFrame, c);
+			if(Cfg.enablePlanks){
+				BlockMicroMaterial.createAndRegister(THIS_MOD.blockPlank[0], c);
+				BlockMicroMaterial.createAndRegister(THIS_MOD.blockPlank[1], c);
+				BlockMicroMaterial.createAndRegister(THIS_MOD.blockPlank[2], c);
+			}
 		}
 
 		if(Cfg.enableEnderCube) BlockMicroMaterial.createAndRegister(THIS_MOD.blockEnderCube);

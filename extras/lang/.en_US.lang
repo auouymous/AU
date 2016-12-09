@@ -84,6 +84,23 @@ tile.au.colorFlowerSeed.name=Flower Seed
 
 tile.au.enderCube.name=Ender Cube
 
+
+
+tile.au.colorPlankBirch.${color}.name=${Color} Birch Wood Planks
+tile.au.colorPlankBirchStairs.${color}.name=${Color} Birch Wood Stairs
+tile.au.colorPlankBirchSlab.${color}.name=${Color} Birch Wood Slab
+tile.au.colorPlankBirchSlabUpper.${color}.name=${Color} Birch Wood Slab
+
+tile.au.colorPlankOak.${color}.name=${Color} Oak Wood Planks
+tile.au.colorPlankOakStairs.${color}.name=${Color} Oak Wood Stairs
+tile.au.colorPlankOakSlab.${color}.name=${Color} Oak Wood Slab
+tile.au.colorPlankOakSlabUpper.${color}.name=${Color} Oak Wood Slab
+
+tile.au.colorPlankSpruce.${color}.name=${Color} Spruce Wood Planks
+tile.au.colorPlankSpruceStairs.${color}.name=${Color} Spruce Wood Stairs
+tile.au.colorPlankSpruceSlab.${color}.name=${Color} Spruce Wood Slab
+tile.au.colorPlankSpruceSlabUpper.${color}.name=${Color} Spruce Wood Slab
+
 #########
 # ITEMS #
 #########

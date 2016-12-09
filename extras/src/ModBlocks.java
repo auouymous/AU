@@ -431,5 +431,49 @@ public class ModBlocks {
 				.setCreativeTab(THIS_MOD.tabAU);
 			SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockEnderCube, "pickaxe", 3); // diamond pickaxe
 		}
+
+		//////////
+
+		if(Cfg.enablePlanks){
+			String[] names = new String[]{"Birch", "Oak", "Spruce"};
+			for(int i = 0; i < 3; i++){
+				String name = names[i];
+
+				THIS_MOD.blockPlank[i] = new BlockColored(Cfg.blockPlank[i], String.format("au.colorPlank%s", name), ItemBlockColored.class, Material.wood)
+					.setHardness(2.0F)
+					.setResistance(5.0F)
+					.setStepSound(Block.soundWoodFootstep)
+					.setCreativeTab(THIS_MOD.tabAU);
+				SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockPlank[i], "axe", 0); // wooden axe
+				Block.setBurnProperties(THIS_MOD.blockPlank[i].blockID, 5, 20); // flammable
+
+				// stairs
+				if(Cfg.enablePlankStairs)
+					for(int c = 0; c < 16; c++){
+						int ii = (i<<4);
+						THIS_MOD.blockPlankStairs[ii+c]
+							= new BlockStairsColored(Cfg.blockPlankStairs[i]+c, String.format("au.colorPlank%sStairs.%s", name, Color.colors[c]), THIS_MOD.blockPlank[i], c)
+							.setCreativeTab(THIS_MOD.tabAU);
+						SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockPlankStairs[ii+c], "pickaxe", 0); // wooden pickaxe
+						Block.setBurnProperties(THIS_MOD.blockPlankStairs[ii+c].blockID, 5, 20); // flammable
+					}
+
+				// slabs
+				if(Cfg.enablePlankSlabs){
+					int ii = (i<<1);
+					THIS_MOD.blockPlankSlab[ii+0] = new BlockColoredSlab(Cfg.blockPlankSlab0[i], String.format("au.colorPlank%sSlab", name), ItemBlockColoredSlab.class, THIS_MOD.blockPlank[i], true)
+						.setCreativeTab(THIS_MOD.tabAU);
+					SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockPlankSlab[ii+0], "pickaxe", 0); // wooden pickaxe
+					Block.setBurnProperties(THIS_MOD.blockPlankSlab[ii+0].blockID, 5, 20); // flammable
+
+					THIS_MOD.blockPlankSlab[ii+1] = new BlockColoredSlab(Cfg.blockPlankSlab1[i], String.format("au.colorPlank%sSlabUpper", name), null, THIS_MOD.blockPlank[i], true);
+					SET_BLOCK_HARVEST_TOOL(THIS_MOD.blockPlankSlab[ii+1], "pickaxe", 0); // wooden pickaxe
+					Block.setBurnProperties(THIS_MOD.blockPlankSlab[ii+1].blockID, 5, 20); // flammable
+
+					((BlockColoredSlab)THIS_MOD.blockPlankSlab[ii+0]).setUpperBlock(THIS_MOD.blockPlankSlab[ii+1]);
+					((BlockColoredSlab)THIS_MOD.blockPlankSlab[ii+1]).setLowerBlock(THIS_MOD.blockPlankSlab[ii+0]);
+				}
+			}
+		}
 	}
 }
