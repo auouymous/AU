@@ -2,14 +2,14 @@
 static char *colorFlower4[] = {
 /* columns rows colors chars-per-pixel */
 "16 16 9 1 ",
-"  c #101063630000",
-". c #5B5B45453636",
-"X c #161687870000",
-"o c #23232E2E8C8C",
-"O c #252531319595",
-"+ c #282834349D9D",
-"@ c #2A2A3737A6A6",
-"# c #2C2C3A3AAFAF",
+"  c #106300",
+". c #5B4536",
+"X c #168700",
+"o c #232E8C",
+"O c #253195",
+"+ c #28349D",
+"@ c #2A37A6",
+"# c #2C3AAF",
 "$ c None",
 /* pixels */
 "$$$$$$$$$$$$$$$$",
