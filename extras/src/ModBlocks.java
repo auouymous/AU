@@ -303,6 +303,7 @@ public class ModBlocks {
 					.setResistance(1.0F)
 					.setStepSound(Block.soundGrassFootstep)
 					.setCreativeTab(THIS_MOD.tabAU);
+				Block.setBurnProperties(THIS_MOD.blockArtificialVine[c].blockID, 15, 100); // flammable
 			}
 		}
 
