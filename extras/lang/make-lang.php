@@ -1,6 +1,8 @@
 #!/usr/bin/php -q
 <?php
 
+// this script is manually executed to generate language files
+
 $lang = $argv[1];
 if($lang == ""){
 	echo "Syntax: $argv[0] [lang]\n";
