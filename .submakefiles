@@ -40,7 +40,7 @@ ifeq ($(GRADLE),yes)
 endif
 
 	@mkdir -p $(MOD_ASSETS)
-	@(if [ -d "lang" ]; then cp -R lang $(MOD_ASSETS)/; fi)
+	@(if [ -d "lang" ]; then mkdir $(MOD_ASSETS)/lang ; cp lang/*.lang $(MOD_ASSETS)/lang; fi)
 
 clean:
 	rm -rf au_$(MOD)-*.zip mcmod.info com mods assets $(AUMOD)_at.cfg
