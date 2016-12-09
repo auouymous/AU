@@ -17,7 +17,7 @@ APISRC=$3
 # Forge Multipart
 # http://files.minecraftforge.net/ForgeMultipart/
 
-WITH_APIS=.with-apis
+WITH_APIS=.tmp_with-apis
 rm -f $WITH_APIS
 echo "" > $WITH_APIS
 

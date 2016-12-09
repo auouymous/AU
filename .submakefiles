@@ -1,20 +1,18 @@
 include ../.makefiles
-MOD_ASSETS = $(ASSETS)/au_$(MOD)
-WITH_APIS = $(shell cat ../.with-apis)
+MOD_ASSETS = tmp/$(ASSETS)/au_$(MOD)
+WITH_APIS = $(shell cat ../.tmp_with-apis)
 CPP_DEFINES = $(WITH_APIS) -DMC$(VER) -DTHIS_MOD=$(AUMOD)
 CPP_FLAGS = -E -P $(CPP_DEFINES) -include ../../includes.h
 ifeq ($(DEBUG),1)
 	CPP_DEFINES := $(CPP_DEFINES) -DDEBUG
-endif
-BASE_FILES = 
-ifeq ($(GRADLE),yes)
-	BASE_FILES := $(BASE_FILES) $(AUMOD)_at.cfg
 endif
 
 all:
 	@echo "Syntax: make <prepare|jar|clean>"
 
 prepare:
+	@mkdir -p tmp
+
 	@mkdir -p $(SRC)/com/qzx/au/$(MOD)
 	@(cd src; for j in *.java; do cpp $(CPP_FLAGS) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done)
 	@(cd src; for d in *; do if [ -d "$$d" ]; then mkdir $(SRC)/com/qzx/au/$(MOD)/$$d; for j in $$d/*.java; do cpp $(CPP_FLAGS) -o $(SRC)/com/qzx/au/$(MOD)/$$j $$j; done; fi; done)
@@ -22,7 +20,7 @@ prepare:
 	@../.only_with.sh $(SRC)/com/qzx/au/$(MOD) $(VER) $(SUPPORT_BLOCKS)
 
 ifeq ($(GRADLE),yes)
-	@(if [ -f "at.cfg" ]; then cp at.cfg $(AT)/$(AUMOD)_at.cfg; cp at.cfg $(AUMOD)_at.cfg; fi)
+	@(if [ -f "at.cfg" ]; then cp at.cfg $(AT)/$(AUMOD)_at.cfg; cp at.cfg tmp/$(AUMOD)_at.cfg; fi)
 endif
 
 ifdef DEBUG
@@ -31,16 +29,16 @@ ifdef DEBUG
 	@(sed -E -i "s:AUMOD:$(AUMOD):" $(SRC)/com/qzx/au/$(MOD)/Debug.java)
 endif
 
-	@(cp _mcmod.info mcmod.info)
+	@(cp mcmod.info tmp/mcmod.info)
 	@(sed -E -i "s: modVersion = \"0.0.0\": modVersion = \"$(VER)-$(NOW)\":" $(SRC)/com/qzx/au/$(MOD)/$(AUMOD).java)
-	@(sed -E -i "s:\"version\"\: \"0.0.0\":\"version\"\: \"$(VER)-$(NOW)\":" mcmod.info)
-	@(sed -E -i "s:\"mcversion\"\: \"0.0.0\":\"mcversion\"\: \"$(DOTVER)\":" mcmod.info)
+	@(sed -E -i "s:\"version\"\: \"0.0.0\":\"version\"\: \"$(VER)-$(NOW)\":" tmp/mcmod.info)
+	@(sed -E -i "s:\"mcversion\"\: \"0.0.0\":\"mcversion\"\: \"$(DOTVER)\":" tmp/mcmod.info)
 ifeq ($(GRADLE),yes)
-	@(sed -E -i "s:\"authors\"\::\"authorList\"\::" mcmod.info)
+	@(sed -E -i "s:\"authors\"\::\"authorList\"\::" tmp/mcmod.info)
 endif
 
 	@mkdir -p $(MOD_ASSETS)
 	@(if [ -d "lang" ]; then mkdir $(MOD_ASSETS)/lang ; cp lang/*.lang $(MOD_ASSETS)/lang; fi)
 
 clean:
-	rm -rf au_$(MOD)-*.zip mcmod.info com mods assets $(AUMOD)_at.cfg
+	rm -rf au_$(MOD)-*.zip tmp

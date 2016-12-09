@@ -9,6 +9,6 @@ jar:
 
 	sh build-textures.sh $(MOD_ASSETS)
 
-	mkdir -p com/qzx/au/$(MOD)
-	cp -R $(REOBF)/com/qzx/au/$(MOD)/* $(FILES) com/qzx/au/$(MOD)/
-	zip -r au_$(MOD)-$(VER).zip mcmod.info com $(ASSETS) $(BASE_FILES)
+	mkdir -p tmp/com/qzx/au/$(MOD)
+	cp -R $(REOBF)/com/qzx/au/$(MOD)/* $(FILES) tmp/com/qzx/au/$(MOD)/
+	(cd tmp ; zip -r ../au_$(MOD)-$(VER).zip *)

@@ -49,4 +49,4 @@ clean:
 #	@(cd world ; make clean v=$(VER))
 
 	@# clean up MCP files
-	rm -rf .with-apis $(SRC)/com $(REOBF)/com $(REOBF)/net $(BASE)/logs/*.log $(BASE)/.gradle/gradle.log
+	rm -rf .tmp_with-apis $(SRC)/com $(REOBF)/com $(REOBF)/net $(BASE)/logs/*.log $(BASE)/.gradle/gradle.log

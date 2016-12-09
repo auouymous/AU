@@ -5,23 +5,22 @@ DEBUG = 0
 include ../.submakefiles
 
 prepareMod:
-	rm -rf freetts/extracted com de
-	mkdir freetts/extracted com de
+	rm -rf freetts/extracted
+	mkdir freetts/extracted tmp/com tmp/de
 
 	sh .install-freetts.sh $(APIJAR)
 
-	cp -R freetts/extracted/com/* com
-	cp -R freetts/extracted/de/* de
+	cp -R freetts/extracted/com/* tmp/com
+	cp -R freetts/extracted/de/* tmp/de
 
 jar:
 	@echo ""
 
 	sh build-textures.sh $(MOD_ASSETS)
 
-	mkdir -p com/qzx/au/$(MOD)
-	cp -R $(REOBF)/com/qzx/au/$(MOD)/* $(FILES) com/qzx/au/$(MOD)/
-	zip -r au_$(MOD)-$(VER).zip mcmod.info com $(ASSETS) $(BASE_FILES) de
+	mkdir -p tmp/com/qzx/au/$(MOD)
+	cp -R $(REOBF)/com/qzx/au/$(MOD)/* $(FILES) tmp/com/qzx/au/$(MOD)/
+	(cd tmp ; zip -r ../au_$(MOD)-$(VER).zip *)
 
 cleanMod:
-	rm -rf freetts/extracted de
-
+	rm -rf freetts/extracted
