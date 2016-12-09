@@ -1,0 +1,9 @@
+/TODO
+/_*
+
+####################
+
+# temporary build files
+/.tmp_with-apis
+/*/tmp/
+/*/au_*.zip
