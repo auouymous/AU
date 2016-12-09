@@ -15,9 +15,8 @@ for j in $TTS_MODS; do
 	cp -f freetts/$j $APIJAR
 done
 
-# extract freetss jars
+# extract freetts jars
 cd freetts/extracted
 for j in $TTS_MODS; do
 	jar xvf ../$j
 done
-
