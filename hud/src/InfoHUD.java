@@ -18,6 +18,7 @@ import net.minecraft.entity.item.EntityItemFrame;
 import net.minecraft.entity.player.EntityPlayer;
 IMPORT_ITEMS
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.FoodStats;
 import net.minecraft.util.MathHelper;
@@ -43,6 +44,9 @@ import ic2.api.tile.IWrenchable;
 #endif
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import org.lwjgl.opengl.GL11;
@@ -577,6 +581,21 @@ public class InfoHUD {
 									Failure.log("entity inspector, armor/hand");
 								}
 							}
+
+							if(Cfg.show_inspector){
+								// NBT tags
+								try {
+									NBTTagCompound tags = new NBTTagCompound();
+									entity.writeToNBT(tags);
+									if(this.hasEntityTags(InfoHUD.ignore_entity_keys, tags)){
+										this.ui.drawString("   NBT Data:", 0xaaaaaa);
+										this.ui.lineBreak();
+										this.displayEntityTags(InfoHUD.ignore_entity_keys, tags, "     ");
+									}
+								} catch(Exception e){
+									Failure.log("entity inspector, NBT data");
+								}
+							}
 						}
 					} else if(mc.objectMouseOver.typeOfHit == MOVINGOBJECTTYPE_BLOCK){
 						Block block = BlockCoord.getBlock(world, mc.objectMouseOver.blockX, mc.objectMouseOver.blockY, mc.objectMouseOver.blockZ);
@@ -893,6 +912,21 @@ public class InfoHUD {
 
 								} // END Cfg.enable_advanced_inspector
 
+								if(Cfg.show_inspector && hasTileEntity && tileEntity != null){
+									// NBT tags
+									try {
+										NBTTagCompound tags = new NBTTagCompound();
+										tileEntity.writeToNBT(tags);
+										if(this.hasEntityTags(InfoHUD.ignore_tileentity_keys, tags)){
+											this.ui.drawString("   NBT Data:", 0xaaaaaa);
+											this.ui.lineBreak();
+											this.displayEntityTags(InfoHUD.ignore_tileentity_keys, tags, "     ");
+										}
+									} catch(Exception e){
+										Failure.log("block inspector, NBT data");
+									}
+								}
+
 							} // END Cfg.show_inspector
 						}
 					}
@@ -1008,5 +1042,112 @@ public class InfoHUD {
 		}
 
 		GL11.glPopMatrix();
+	}
+
+	private static final Map<String,Integer> ignore_entity_keys;
+	static {
+		HashMap<String,Integer> m = new HashMap<String,Integer>();
+		m.put("Health", 0); // max health is shown elsewhere
+		m.put("Pos", 0);
+		m.put("Motion", 0);
+		m.put("Rotation", 0);
+		m.put("FallDistance", 0);
+		m.put("Fire", 0);
+		m.put("Air", 0);
+		m.put("OnGround", 0);
+		m.put("Dimension", 0);
+		m.put("Invulnerable", 0);
+		m.put("PortalCooldown", 0);
+		m.put("PersistenceRequired", 0);
+		m.put("PersistentId", 0); // legacy 147
+		m.put("PersistentIDMSB", 0); // legacy 147
+		m.put("PersistentIDLSB", 0); // legacy 147
+		m.put("UUIDMost", 0); // 152+
+		m.put("UUIDLeast", 0); // 152+
+		m.put("Riding", 0); // 152+
+		m.put("CustomName", 0); // 152+
+		m.put("CustomNameVisible", 0); // 152+
+		ignore_entity_keys = Collections.unmodifiableMap(m);
+	}
+
+	private static final Map<String,Integer> ignore_tileentity_keys;
+	static {
+		HashMap<String,Integer> m = new HashMap<String,Integer>();
+		m.put("id", 0);
+		m.put("x", 0);
+		m.put("y", 0);
+		m.put("z", 0);
+		ignore_tileentity_keys = Collections.unmodifiableMap(m);
+	}
+
+	private boolean hasEntityTags(Map<String,Integer> ignore_keys, NBTTagCompound tags){
+		if(tags.hasNoTags()) return false;
+
+		for(final Object tag_object : Hacks.getTagMap(tags).entrySet()){
+			if(!(tag_object instanceof Map.Entry)) continue;
+			final Map.Entry tag = (Map.Entry)tag_object;
+			final String key = (String)tag.getKey();
+
+			final Object value = tag.getValue();
+			if(value instanceof NBTTagEnd) continue;
+
+			// don't display empty compound tags
+			if(value instanceof NBTTagCompound && !this.hasEntityTags(null, tags.getCompoundTag(key))) continue;
+
+			// these types aren't yet supported -- if added, remove from displayEntityTags()
+			if(value instanceof NBTTagByteArray
+			|| value instanceof NBTTagIntArray
+			|| value instanceof NBTTagList
+			) continue;
+
+			if(key != null){
+				if(ignore_keys == null) return true;
+				if(!ignore_keys.containsKey(key)) return true;
+			}
+		}
+		return false;
+	}
+
+	private void displayEntityTags(Map<String,Integer> ignore_keys, NBTTagCompound tags, String indent){
+		for(final Object tag_object : Hacks.getTagMap(tags).entrySet()){
+			if(!(tag_object instanceof Map.Entry)) continue;
+
+			final Map.Entry tag = (Map.Entry)tag_object;
+			final String key = (String)tag.getKey();
+
+			if(key != null && ignore_keys != null && ignore_keys.containsKey(key)) continue;
+
+			final Object value = tag.getValue();
+			if(value instanceof NBTTagEnd) continue;
+
+			// don't display empty compound tags
+			NBTTagCompound compound_value = null;
+			if(value instanceof NBTTagCompound){
+				compound_value = tags.getCompoundTag(key);
+				if(!this.hasEntityTags(null, compound_value)) continue;
+			}
+
+			// these types aren't yet supported -- if added, remove from hasEntityTags()
+			if(value instanceof NBTTagByteArray
+			|| value instanceof NBTTagIntArray
+			|| value instanceof NBTTagList
+			) continue;
+			// lists and arrays should never be supported as it would allow one to "see" into inventories on protected multiplayer servers
+
+			this.ui.drawString(String.format("%s%s: ", indent, key == null ? "NULL KEY" : key), 0xaaaaaa);
+			if(value instanceof NBTTagByte)				this.ui.drawString(String.format("%d", tags.getByte(key)), 0xffffff);
+			else if(value instanceof NBTTagShort)		this.ui.drawString(String.format("%d", tags.getShort(key)), 0xffffff);
+			else if(value instanceof NBTTagInt)			this.ui.drawString(String.format("%d", tags.getInteger(key)), 0xffffff);
+			else if(value instanceof NBTTagLong)		this.ui.drawString(String.format("%d", tags.getLong(key)), 0xffffff);
+			else if(value instanceof NBTTagFloat)		this.ui.drawString(String.format("%f", tags.getFloat(key)), 0xffffff);
+			else if(value instanceof NBTTagDouble)		this.ui.drawString(String.format("%f", tags.getDouble(key)), 0xffffff);
+			else if(value instanceof NBTTagString)		{ this.ui.drawString("\"", 0xaaaaaa); this.ui.drawString(tags.getString(key), 0xffffff); this.ui.drawString("\"", 0xaaaaaa); }
+//			else if(value instanceof NBTTagByteArray)	this.ui.drawString("byte[?]", 0xaaaaaa);
+//			else if(value instanceof NBTTagIntArray)	this.ui.drawString("int[?]", 0xaaaaaa);
+			else if(value instanceof NBTTagCompound){	this.ui.lineBreak(); this.displayEntityTags(null, compound_value, String.format("%s  ", indent)); }
+//			else if(value instanceof NBTTagList)		this.ui.drawString("(?)", 0xaaaaaa);
+			else										this.ui.drawString("?", 0xaaaaaa);
+			this.ui.lineBreak();
+		}
 	}
 }

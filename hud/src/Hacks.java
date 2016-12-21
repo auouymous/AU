@@ -5,8 +5,10 @@ import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 
 import java.lang.reflect.Field;
+import java.util.Map;
 
 public class Hacks {
 	public static boolean isGamePaused(Minecraft mc){
@@ -202,4 +204,52 @@ public class Hacks {
 		return Hacks.entityIDFieldInstance;
 	}
 	#endif
+
+	//////////
+
+	public static Map getTagMap(NBTTagCompound nbt){
+		Field tagMap = Hacks.getTagMapField();
+		try {
+			return (Map)tagMap.get(nbt);
+		} catch(IllegalAccessException e){
+			Failure.log("hacks, getNBTTagMap");
+			return null;
+		}
+	}
+
+	private static Field tagMapFieldInstance = null;
+	private static Field getTagMapField(){
+		if(Hacks.tagMapFieldInstance == null){
+			try {
+				Hacks.tagMapFieldInstance = NBTTagCompound.class.getDeclaredField("tagMap");
+				Hacks.tagMapFieldInstance.setAccessible(true);
+			} catch(NoSuchFieldException e){
+				try {
+					Hacks.tagMapFieldInstance = NBTTagCompound.class.getDeclaredField("field_74784_a");
+					Hacks.tagMapFieldInstance.setAccessible(true);
+				} catch(NoSuchFieldException e1){
+					try {
+						#ifdef MC147
+						Hacks.tagMapFieldInstance = NBTTagCompound.class.getDeclaredField("a");
+						#elif defined MC152
+						Hacks.tagMapFieldInstance = NBTTagCompound.class.getDeclaredField("a");
+						#elif defined MC164
+						Hacks.tagMapFieldInstance = NBTTagCompound.class.getDeclaredField("a");
+						#elif defined MC172
+						Hacks.tagMapFieldInstance = NBTTagCompound.class.getDeclaredField("c");
+						#elif defined MC17A
+						Hacks.tagMapFieldInstance = NBTTagCompound.class.getDeclaredField("c");
+						#else
+						Failure.log("hacks, unsupported minecraft version in getTagMapField");
+						return null;
+						#endif
+						Hacks.tagMapFieldInstance.setAccessible(true);
+					} catch(NoSuchFieldException e2){
+						Failure.log("hacks, getTagMapField");
+					}
+				}
+			}
+		}
+		return Hacks.tagMapFieldInstance;
+	}
 }

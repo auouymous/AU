@@ -37,6 +37,7 @@ Entity Inspector
 * is invulnerable
 * name of each armor piece on player or mob
 * name of item held by player or mob
+* NBT tags
 
 Block Inspector
 * block ID (c:picked and b:placed)
@@ -45,6 +46,7 @@ Block Inspector
 * name and ID of dropped item when block is broken
 * silkable
 * in:redstone input level, out:redstone output level weak/strong [1.4.7 only shows on or off]
+* NBT tags if block has a tile entity
 Advanced Block Inspector
 * b:brightness, h:hardness, r:explosion resistance, o:light opacity
 * n:normal, o:opaque, s:solid
