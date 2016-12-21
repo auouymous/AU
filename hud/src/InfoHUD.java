@@ -590,7 +590,7 @@ public class InfoHUD {
 									if(this.hasEntityTags(InfoHUD.ignore_entity_keys, tags)){
 										this.ui.drawString("   NBT Data:", 0xaaaaaa);
 										this.ui.lineBreak();
-										this.displayEntityTags(InfoHUD.ignore_entity_keys, tags, "     ");
+										this.displayEntityTags(InfoHUD.ignore_entity_keys, tags, "      ");
 									}
 								} catch(Exception e){
 									Failure.log("entity inspector, NBT data");
@@ -920,7 +920,7 @@ public class InfoHUD {
 										if(this.hasEntityTags(InfoHUD.ignore_tileentity_keys, tags)){
 											this.ui.drawString("   NBT Data:", 0xaaaaaa);
 											this.ui.lineBreak();
-											this.displayEntityTags(InfoHUD.ignore_tileentity_keys, tags, "     ");
+											this.displayEntityTags(InfoHUD.ignore_tileentity_keys, tags, "      ");
 										}
 									} catch(Exception e){
 										Failure.log("block inspector, NBT data");
@@ -1134,20 +1134,22 @@ public class InfoHUD {
 			) continue;
 			// lists and arrays should never be supported as it would allow one to "see" into inventories on protected multiplayer servers
 
-			this.ui.drawString(String.format("%s%s: ", indent, key == null ? "NULL KEY" : key), 0xaaaaaa);
-			if(value instanceof NBTTagByte)				this.ui.drawString(String.format("%d", tags.getByte(key)), 0xffffff);
-			else if(value instanceof NBTTagShort)		this.ui.drawString(String.format("%d", tags.getShort(key)), 0xffffff);
-			else if(value instanceof NBTTagInt)			this.ui.drawString(String.format("%d", tags.getInteger(key)), 0xffffff);
-			else if(value instanceof NBTTagLong)		this.ui.drawString(String.format("%d", tags.getLong(key)), 0xffffff);
-			else if(value instanceof NBTTagFloat)		this.ui.drawString(String.format("%f", tags.getFloat(key)), 0xffffff);
-			else if(value instanceof NBTTagDouble)		this.ui.drawString(String.format("%f", tags.getDouble(key)), 0xffffff);
-			else if(value instanceof NBTTagString)		{ this.ui.drawString("\"", 0xaaaaaa); this.ui.drawString(tags.getString(key), 0xffffff); this.ui.drawString("\"", 0xaaaaaa); }
-//			else if(value instanceof NBTTagByteArray)	this.ui.drawString("byte[?]", 0xaaaaaa);
-//			else if(value instanceof NBTTagIntArray)	this.ui.drawString("int[?]", 0xaaaaaa);
-			else if(value instanceof NBTTagCompound){	this.ui.lineBreak(); this.displayEntityTags(null, compound_value, String.format("%s  ", indent)); }
-//			else if(value instanceof NBTTagList)		this.ui.drawString("(?)", 0xaaaaaa);
-			else										this.ui.drawString("?", 0xaaaaaa);
-			this.ui.lineBreak();
+			this.ui.drawString(String.format("%s%s: ", indent, (key == null ? "<NULL KEY>" : key)), 0xaaaaaa);
+			#define DRAW_STRING(str, color) this.ui.drawString(str, color)
+			#define DRAW_STRING_FORMAT(fmt, value, color) this.ui.drawString(String.format(fmt, value), color)
+			#define LINE_BREAK() this.ui.lineBreak()
+			if(value instanceof NBTTagByte)				{ DRAW_STRING_FORMAT("%d", tags.getByte(key),		0xffffff); LINE_BREAK(); }
+			else if(value instanceof NBTTagShort)		{ DRAW_STRING_FORMAT("%d", tags.getShort(key),	0xffffff); LINE_BREAK(); }
+			else if(value instanceof NBTTagInt)			{ DRAW_STRING_FORMAT("%d", tags.getInteger(key),	0xffffff); LINE_BREAK(); }
+			else if(value instanceof NBTTagLong)		{ DRAW_STRING_FORMAT("%d", tags.getLong(key),		0xffffff); LINE_BREAK(); }
+			else if(value instanceof NBTTagFloat)		{ DRAW_STRING_FORMAT("%f", tags.getFloat(key),	0xffffff); LINE_BREAK(); }
+			else if(value instanceof NBTTagDouble)		{ DRAW_STRING_FORMAT("%f", tags.getDouble(key),	0xffffff); LINE_BREAK(); }
+			else if(value instanceof NBTTagString)		{ DRAW_STRING("\"", 0xaaaaaa); DRAW_STRING(tags.getString(key), 0xffffff); DRAW_STRING("\"", 0xaaaaaa); LINE_BREAK(); }
+//			else if(value instanceof NBTTagByteArray)	{ DRAW_STRING("byte[?]", 0xaaaaaa); LINE_BREAK(); }
+//			else if(value instanceof NBTTagIntArray)	{ DRAW_STRING("int[?]", 0xaaaaaa); LINE_BREAK(); }
+			else if(value instanceof NBTTagCompound)	{ LINE_BREAK(); this.displayEntityTags(null, compound_value, String.format("%s   ", indent)); }
+//			else if(value instanceof NBTTagList)		{ DRAW_STRING("(?)", 0xaaaaaa); LINE_BREAK(); }
+			else										{ DRAW_STRING("?", 0xaaaaaa); LINE_BREAK(); }
 		}
 	}
 }
