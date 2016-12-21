@@ -187,9 +187,9 @@ public class Hacks {
 				} catch(NoSuchFieldException e1){
 					try {
 						#ifdef MC172
-						Hacks.entityIDFieldInstance = Minecraft.class.getDeclaredField("c");
+						Hacks.entityIDFieldInstance = Entity.class.getDeclaredField("c");
 						#elif defined MC17A
-						Hacks.entityIDFieldInstance = Minecraft.class.getDeclaredField("c");
+						Hacks.entityIDFieldInstance = Entity.class.getDeclaredField("c");
 						#else
 						Failure.log("hacks, unsupported minecraft version in getEntityIDField");
 						return null;
